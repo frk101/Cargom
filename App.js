@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import Navigator from "./navigation/Navigator";
+import FileUploadScreen from "./screens/FileUploadScreen";
 
 export default function App() {
   return <Navigator />;
@@ -11,7 +12,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff2",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

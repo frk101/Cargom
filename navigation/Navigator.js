@@ -22,8 +22,8 @@ export default function Navigator() {
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Stack.Screen name="FileUpload" component={FileUploadScreen} />
-        <Stack.Screen name="CorpHome" component={CorpHomeScreen} />
+        <Stack.Screen name="FileUploadScreen" component={FileUploadScreen} />
+        <Stack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
