@@ -23,6 +23,8 @@ export default function Navigator() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
+        <Stack.Screen name="DrawerScreen" component={DrawerScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -35,7 +37,7 @@ const DrawerScreen = () => {
       drawerContent={(props) => <DrawerContent {...props} />}
       drawerStyle={{ width: "75%" }}
     >
-      <Drawer.Screen name="FileUploadScreen" component={FileUploadScreen} />
+      <Drawer.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
     </Drawer.Navigator>
   );
 };

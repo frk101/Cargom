@@ -17,14 +17,14 @@ const SplashhScreen = () => {
         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
           <TouchableOpacity
             style={styles.btnKayit}
-            onPress={() => navigation.navigate("LoginScreen")}
+            onPress={() => navigation.navigate("RegisterScreen")}
           >
             <Text style={styles.txt}>Kayıt Ol</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.btnGiris}
-            onPress={() => navigation.navigate("RegisterScreen")}
+            onPress={() => navigation.navigate("LoginScreen")}
           >
             <Text style={styles.txt}>Giriş Yap</Text>
           </TouchableOpacity>

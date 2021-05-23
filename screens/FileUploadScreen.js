@@ -79,7 +79,7 @@ const FileUploadScreen = () => {
             <Feather name="upload" size={25} color={COLORS.gray} />
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CorpHomeScreen")}
+            onPress={() => navigation.navigate("DrawerScreen")}
             style={styles.btnGonder}
           >
             <Text style={styles.btnText}>Gönder</Text>
