@@ -11,8 +11,10 @@ import COLORS from "../constans/colors";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 const { height, width } = Dimensions.get("screen");
 export function DrawerContent(props) {
+  const navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -48,6 +50,7 @@ export function DrawerContent(props) {
               //   )}
               label="Sürücüler"
               labelStyle={styles.labels}
+              onPress={() => navigation.navigate("DriverScreen")}
             />
             <DrawerItem
               //   icon={({ color, size }) => (
@@ -76,6 +79,7 @@ export function DrawerContent(props) {
               //   )}
               label="Tüm Kargolar"
               labelStyle={styles.labels}
+              onPress={() => navigation.navigate("AllCargoScreen")}
             />
             <DrawerItem
               //   icon={({ color, size }) => (
@@ -92,11 +96,9 @@ export function DrawerContent(props) {
               labelStyle={styles.labels}
             />
             <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="exit-to-app" color={color} size={size} />
-              )}
               label="Çıkış Yap"
-              labelStyle={{ fontSize: 15 }}
+              labelStyle={{ fontSize: 15, fontWeight: "bold" }}
+              onPress={() => navigation.navigate("SplashScreen")}
             />
           </Drawer.Section>
         </View>
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     marginRight: 3,
   },
   drawerSection: {
-    marginTop: 15,
+    marginTop: 30,
     marginLeft: 15,
   },
   bottomDrawerSection: {
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
   labels: {
     color: COLORS.text,
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: "bold",
   },
   opacitys: {
     backgroundColor: "#ffffff",

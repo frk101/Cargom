@@ -10,6 +10,9 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import CorpHomeScreen from "../screens/CorpHomeScreen";
+import DriverScreen from "../screens/DrawerDetail/DriverScreen";
+import AllCargoScreen from "../screens/DrawerDetail/AllCargo/AllCargoScreen";
+import AllCargoDetail from "../screens/DrawerDetail/AllCargo/AllCargoDetail";
 import { DrawerContent } from "../screens/DrawerContent";
 
 const Stack = createStackNavigator();
@@ -24,7 +27,9 @@ export default function Navigator() {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
         <Stack.Screen name="DrawerScreen" component={DrawerScreen} />
-
+        <Stack.Screen name="DriverScreen" component={DriverScreen} />
+        <Stack.Screen name="AllCargoScreen" component={AllCargoScreen} />
+        <Stack.Screen name="AllCargoDetail" component={AllCargoDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

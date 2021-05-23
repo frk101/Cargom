@@ -17,10 +17,7 @@ import {
 } from "react-native-vector-icons";
 import COLORS from "../constans/colors";
 import { FlatGrid } from "react-native-super-grid";
-import { useNavigation } from "@react-navigation/native";
-
-
-import { DrawerActions } from "@react-navigation/native";
+import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 const CorpHomeScreen = () => {
   const navigation = useNavigation();
@@ -60,7 +57,10 @@ const CorpHomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={styles.menu}>
-        <TouchableOpacity style={styles.opacitys} onPress={()=>navigation.dispatch(DrawerActions.openDrawer())}>
+        <TouchableOpacity
+          style={styles.opacitys}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        >
           <Image
             source={require("../assets/menu.png")}
             style={{ width: 30, height: 30 }}
