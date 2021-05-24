@@ -59,6 +59,7 @@ const RegisterScreen = () => {
             <TextInput
               placeholder="Email Adresinizi Giriniz"
               placeholderTextColor="#666666"
+              keyboardType="email-address"
               style={[
                 styles.textInput,
                 {
@@ -83,6 +84,7 @@ const RegisterScreen = () => {
               placeholder="Şifrenizi Giriniz"
               placeholderTextColor="#666666"
               style={[styles.textInput]}
+              secureTextEntry={true}
             />
 
             <Feather name="eye" color="grey" size={20} />
@@ -102,6 +104,7 @@ const RegisterScreen = () => {
               placeholder="Şifrenizi Tekrar Giriniz"
               placeholderTextColor="#666666"
               style={[styles.textInput]}
+              secureTextEntry={true}
             />
 
             <Feather name="eye" color="grey" size={20} />

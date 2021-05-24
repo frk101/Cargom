@@ -99,43 +99,6 @@ const AllCargoDetail = ({ route }) => {
           {item.name}
         </Text>
       </View>
-
-      <View
-        style={[
-          styles.opacitys,
-          { flexDirection: "row", justifyContent: "space-around" },
-        ]}
-      >
-        <Text style={styles.baslik}>Alıcı Adı :</Text>
-        <Text style={styles.title}>{item.aliciAdi}</Text>
-      </View>
-      <View
-        style={[
-          styles.opacitys,
-          { flexDirection: "row", justifyContent: "space-around" },
-        ]}
-      >
-        <Text style={styles.baslik}>Alınacak Adres :</Text>
-        <Text style={styles.title}>{item.alinacakAdres}</Text>
-      </View>
-      <View
-        style={[
-          styles.opacitys,
-          { flexDirection: "row", justifyContent: "space-around" },
-        ]}
-      >
-        <Text style={styles.baslik}>Ücret :</Text>
-        <Text style={styles.title}>{item.ücret}</Text>
-      </View>
-      <View
-        style={[
-          styles.opacitys,
-          { flexDirection: "row", justifyContent: "space-around" },
-        ]}
-      >
-        <Text style={styles.baslik}>Sürücü Adı :</Text>
-        <Text style={styles.title}>{item.surucuAdi}</Text>
-      </View>
     </View>
   );
 };
@@ -184,13 +147,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
     borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
   },
   baslik: {
     fontSize: 15,
     color: COLORS.primary,
     fontWeight: "bold",
+    textAlign: "center",
   },
   title: {
     fontSize: 15,
