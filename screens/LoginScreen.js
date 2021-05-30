@@ -134,7 +134,8 @@ const LoginScreen = () => {
             <TextInput
               placeholder="Telefon Numaranızı Giriniz"
               placeholderTextColor="#666666"
-              keyboardType="number-pad"
+              keyboardType="numeric"
+              returnKeyType="done"
               onChangeText={(val) => textInputChange(val)}
               onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
               style={[
