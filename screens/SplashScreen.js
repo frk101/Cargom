@@ -34,18 +34,21 @@ const SplashhScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <Modalize ref={modalizeRef} snapPoint={300} modalHeight={300}>
+      <Modalize ref={modalizeRef} snapPoint={350} modalHeight={350}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTxt}>
             KAYIT OLMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("FileUploadScreen")}
+            onPress={() => navigation.navigate("Bireysel")}
             style={styles.btnGonder}
           >
             <Text style={styles.btnText}>BİREYSEL OLARAK KAYIT OL</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnGonder1}>
+          <TouchableOpacity
+            style={styles.btnGonder1}
+            onPress={() => navigation.navigate("Kurumsal")}
+          >
             <Text style={styles.btnText}>KURUMSAL OLARAK KAYIT OL</Text>
           </TouchableOpacity>
         </View>
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
   btnText: { color: "#ffffff", fontSize: 18, fontWeight: "bold" },
   modalContainer: {
     flex: 1,
-    height: 300,
+    height: 350,
     alignItems: "center",
     justifyContent: "center",
   },

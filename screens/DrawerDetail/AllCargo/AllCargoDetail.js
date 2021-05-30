@@ -147,6 +147,9 @@ const AllCargoDetail = ({ route }) => {
           <Text style={styles.baslik1}>Sürücü Adı :</Text>
           <Text style={styles.title}>{item.surucuAdi}</Text>
         </View>
+        <TouchableOpacity style={styles.btnGonder}>
+          <Text style={styles.btnText}>Görevi Al</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -215,4 +218,14 @@ const styles = StyleSheet.create({
     color: COLORS.gray,
     fontWeight: "bold",
   },
+  btnGonder: {
+    backgroundColor: COLORS.primary,
+    marginHorizontal: 20,
+    padding: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 20,
+    borderRadius: 10,
+  },
+  btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
 });

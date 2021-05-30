@@ -1,36 +1,101 @@
-import React,{useState} from "react";
-import { StyleSheet, Text, View, FlatList, Image,TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Modal,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import AllCargoScreen from "../../screens/DrawerDetail/AllCargo/AllCargoScreen";
 import COLORS from "../../constans/colors";
 import { Appbar } from "react-native-paper";
 import { ListItem } from "react-native-elements";
-
-
+import { Container, Content } from "native-base";
 import myData from "../../data/FakeData";
 
-
 const OffersScreeen = () => {
-  const [aktif,setAktif]=useState();
+  const _goBack = () => navigation.goBack();
+  const [openModal, setOpenModal] = useState(false);
+  const [aktifKey, setAktifKey] = useState(null);
+  const PressData = (val) => {
+    setAktifKey(val);
+  };
+  const navigation = useNavigation();
   return (
-    <View style={{ backgroundColor: "#FFFFFF", flex: 1, }}>
-      <Headers />
-        <View style={styles.tabsWrapper}>
-        <View style={styles.aktifTabStyle}>
-          <Text style={styles.aktifTabText}>Aktif Tab</Text>
-        </View>
-        <View style={styles.pasifTabStyle}>
-        <Text style={styles.pasifTabText}>Pasif Tab</Text>
-
-        </View>
-
+    <Container>
+      <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
+        <Appbar.BackAction onPress={_goBack} />
+        <Appbar.Content
+          title="Teklifler"
+          titleStyle={{ color: COLORS.text, fontWeight: "500" }}
+        />
+        <Appbar.Action
+          icon="filter"
+          color={COLORS.primary}
+          onPress={() => setOpenModal(true)}
+        />
+      </Appbar.Header>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            aktifKey
+              ? { backgroundColor: COLORS.primary }
+              : { backgroundColor: "#ffffff" },
+            styles.leftButton,
+          ]}
+          onPress={() => PressData(true)}
+        >
+          <View style={{ alignSelf: "center" }}>
+            <Text
+              style={[
+                aktifKey ? { color: "#ffffff" } : { color: COLORS.primary },
+                styles.leftText,
+              ]}
+            >
+              Grup
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            aktifKey
+              ? { backgroundColor: "#ffffff" }
+              : { backgroundColor: COLORS.primary },
+            styles.rightButton,
+          ]}
+          onPress={() => PressData(false)}
+        >
+          <Text
+            style={[
+              aktifKey ? { color: COLORS.primary } : { color: "#ffffff" },
+              styles.textColor,
+            ]}
+          >
+            Tüm
+          </Text>
+        </TouchableOpacity>
       </View>
-      <FlatList
-        data={myData}
-        renderItem={({ item }) => <RenderList item={item} />}
-      />
-      
-    </View>
+      <Content>
+        {aktifKey == true ? (
+          <Text>Grup</Text>
+        ) : (
+          <FlatList
+            style={{ marginTop: 20 }}
+            data={myData}
+            renderItem={({ item }) => <RenderList item={item} />}
+          />
+        )}
+      </Content>
+      <Modal visible={openModal} animationType="slide">
+        <View style={{ backgroundColor: "#fff", flex: 1 }}>
+          <HeadersModal setOpenModal={setOpenModal} />
+        </View>
+      </Modal>
+    </Container>
   );
 };
 
@@ -59,14 +124,14 @@ const RenderList = ({ item }) => {
   );
 };
 
-const Headers = () => {
+const HeadersModal = ({ setOpenModal }) => {
   const navigation = useNavigation();
   const _goBack = () => navigation.goBack();
   return (
     <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-      <Appbar.BackAction onPress={_goBack} />
+      <Appbar.Action icon="close" onPress={() => setOpenModal(false)} />
       <Appbar.Content
-        title="Teklifler"
+        title="Filtrele"
         titleStyle={{ color: COLORS.text, fontWeight: "500" }}
       />
     </Appbar.Header>
@@ -76,37 +141,93 @@ const Headers = () => {
 export default OffersScreeen;
 
 const styles = StyleSheet.create({
-  tabsWrapper:{
-    flex:1,
-    flexDirection:'row',
-    marginTop:20,
-    maxHeight:48,
-    marginHorizontal:20
+  tabsWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    marginTop: 20,
+    maxHeight: 48,
+    marginHorizontal: 20,
   },
-  aktifTabStyle:{
-    flex:1,
-    backgroundColor:COLORS.primary,
-    marginRight:8,
-    borderRadius:80,
-    justifyContent:'center',
-    alignItems:'center'
+  aktifTabStyle: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+    marginRight: 8,
+    borderRadius: 80,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  aktifTabText:{
-    color: "#ffffff", 
-    fontSize: 20, 
-    fontWeight: "bold"
+  aktifTabText: {
+    color: "#ffffff",
+    fontSize: 20,
+    fontWeight: "bold",
   },
-  pasifTabStyle:{
-    flex:1,
-    backgroundColor:COLORS.lightGray,
-    marginLeft:8,
-    borderRadius:80,
-    justifyContent:'center',
-    alignItems:'center'
+  pasifTabStyle: {
+    flex: 1,
+    backgroundColor: COLORS.lightGray,
+    marginLeft: 8,
+    borderRadius: 80,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  pasifTabText:{
-    color: COLORS.gray, 
-    fontSize: 20, 
-    fontWeight: "bold"
-  }
+  pasifTabText: {
+    color: COLORS.gray,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+    marginHorizontal: 20,
+    borderRadius: 20,
+  },
+  leftButton: {
+    width: "50%",
+    borderBottomLeftRadius: 5,
+    borderTopLeftRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+  },
+  leftText: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  textContainer: { alignItems: "center" },
+  textColor: { fontSize: 15, fontWeight: "bold" },
+  rightButton: {
+    width: "50%",
+    alignItems: "center",
+    paddingVertical: 10,
+    borderBottomRightRadius: 5,
+    borderTopRightRadius: 5,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    padding: 10,
+  },
+  listContainer: {
+    marginVertical: 10,
+
+    marginHorizontal: 10,
+    backgroundColor: "#ffffff",
+    // paddingBottom: 10,
+    shadowColor: "#000",
+
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
 });
