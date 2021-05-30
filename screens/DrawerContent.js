@@ -24,6 +24,9 @@ export function DrawerContent(props) {
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
+
+          <TouchableOpacity onPress={()=> navigation.navigate("ProfileScreen")}>
+
             <View
               style={{
                 flexDirection: "row",
@@ -44,12 +47,12 @@ export function DrawerContent(props) {
                   titleStyle={{ color: COLORS.gray }}
                 /> */}
               </View>
-
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
                 <Title style={styles.title}>Albayraklar Lojistik</Title>
                 <Caption style={styles.caption}>Profili Düzenle</Caption>
               </View>
             </View>
+</TouchableOpacity>
           </View>
 
           <Drawer.Section style={styles.drawerSection}>

@@ -91,7 +91,7 @@ const CorpHomeScreen = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate("ProfileScreen")}>
             <MaterialCommunityIcons
               name="account-circle"
               size={40}

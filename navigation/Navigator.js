@@ -15,6 +15,8 @@ import OtpScreens from "../screens/OtpScreens";
 import AllCargoScreen from "../screens/DrawerDetail/AllCargo/AllCargoScreen";
 import AllCargoDetail from "../screens/DrawerDetail/AllCargo/AllCargoDetail";
 import { DrawerContent } from "../screens/DrawerContent";
+import ProfileScreen from '../screens/ProfileScreen'
+import ProfileEditScreen from '../screens/ProfileEditScreen'
 
 const Stack = createStackNavigator();
 
@@ -22,6 +24,7 @@ export default function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
+
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="FileUploadScreen" component={FileUploadScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
@@ -32,6 +35,8 @@ export default function Navigator() {
         <Stack.Screen name="AllCargoScreen" component={AllCargoScreen} />
         <Stack.Screen name="AllCargoDetail" component={AllCargoDetail} />
         <Stack.Screen name="OtpScreens" component={OtpScreens} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
