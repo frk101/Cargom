@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import COLORS from "../constans/colors";
+import COLORS from "../../constans/colors";
 import { Container, Content } from "native-base";
 import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
 
@@ -26,7 +26,7 @@ const ProfileScreen = () => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.backBtn}>
               <Image
-                source={require("../assets/backicon.png")}
+                source={require("../../assets/backicon.png")}
                 style={{ width: 30, height: 30 }}
                 resizeMode="contain"
               />

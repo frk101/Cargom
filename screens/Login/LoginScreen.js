@@ -12,8 +12,8 @@ import {
 } from "react-native";
 import { Feather, AntDesign } from "react-native-vector-icons/";
 import { useNavigation } from "@react-navigation/native";
-import { AuthContext } from "../components/context";
-import COLORS from "../constans/colors";
+import { AuthContext } from "../../components/context";
+import COLORS from "../../constans/colors";
 import { Container } from "native-base";
 
 const LoginScreen = () => {
@@ -91,7 +91,7 @@ const LoginScreen = () => {
         >
           <View style={styles.backBtn}>
             <Image
-              source={require("../assets/backicon.png")}
+              source={require("../../assets/backicon.png")}
               style={{ width: 30, height: 30 }}
               resizeMode="contain"
             />

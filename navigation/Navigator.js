@@ -6,7 +6,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 ///Screens
 import SplashScreen from "../screens/SplashScreen";
-import LoginScreen from "../screens/LoginScreen";
+import LoginScreen from "../screens/Login/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import CorpHomeScreen from "../screens/CorpHomeScreen";
@@ -14,9 +14,9 @@ import DriverScreen from "../screens/DrawerDetail/DriverScreen";
 import OtpScreens from "../screens/OtpScreens";
 import AllCargoScreen from "../screens/DrawerDetail/AllCargo/AllCargoScreen";
 import AllCargoDetail from "../screens/DrawerDetail/AllCargo/AllCargoDetail";
-import { DrawerContent } from "../screens/DrawerContent";
-import ProfileScreen from "../screens/ProfileScreen";
-import ProfileEditScreen from "../screens/ProfileEditScreen";
+import { DrawerContent } from "../screens/Drawer/DrawerContent";
+import ProfileScreen from "../screens/Profile/ProfileScreen";
+import ProfileEditScreen from "../screens/Profile/ProfileEditScreen";
 import OffersScreeen from "../screens/DrawerDetail/OffersScreeen";
 const Stack = createStackNavigator();
 

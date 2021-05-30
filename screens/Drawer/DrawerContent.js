@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Title, Caption, Drawer } from "react-native-paper";
-import COLORS from "../constans/colors";
+import COLORS from "../../constans/colors";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar } from "react-native-elements";
 import {
