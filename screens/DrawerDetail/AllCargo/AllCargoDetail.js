@@ -84,6 +84,7 @@ const AllCargoDetail = ({ route }) => {
           <Feather name="arrow-left" size={24} />
         </TouchableOpacity>
       </View>
+
       <View style={styles.opacitys}>
         <Text
           style={[
@@ -98,6 +99,54 @@ const AllCargoDetail = ({ route }) => {
         >
           {item.name}
         </Text>
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingVertical: 10,
+            },
+          ]}
+        >
+          <Text style={styles.baslik1}>Alıcı Adı :</Text>
+          <Text style={styles.title}>{item.aliciAdi}</Text>
+        </View>
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingVertical: 10,
+            },
+          ]}
+        >
+          <Text style={styles.baslik1}>Alınacak Adres :</Text>
+          <Text style={styles.title}>{item.alinacakAdres}</Text>
+        </View>
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingVertical: 10,
+            },
+          ]}
+        >
+          <Text style={styles.baslik1}>Ücret :</Text>
+          <Text style={styles.title}>{item.ücret}</Text>
+        </View>
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingVertical: 10,
+            },
+          ]}
+        >
+          <Text style={styles.baslik1}>Sürücü Adı :</Text>
+          <Text style={styles.title}>{item.surucuAdi}</Text>
+        </View>
       </View>
     </View>
   );
@@ -132,7 +181,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   opacitys: {
-    marginHorizontal: 20,
+    marginHorizontal: 10,
+
     backgroundColor: "#ffffff",
     padding: 10,
     marginTop: 10,
@@ -154,9 +204,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  title: {
+  baslik1: {
     fontSize: 15,
     color: COLORS.text,
+    fontWeight: "bold",
+    textAlign: "left",
+  },
+  title: {
+    fontSize: 15,
+    color: COLORS.gray,
     fontWeight: "bold",
   },
 });

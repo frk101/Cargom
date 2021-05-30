@@ -10,7 +10,11 @@ import { Title, Caption, Drawer } from "react-native-paper";
 import COLORS from "../constans/colors";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar } from "react-native-elements";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {
+  Feather,
+  AntDesign,
+  MaterialCommunityIcons,
+} from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 const { height, width } = Dimensions.get("screen");
 export function DrawerContent(props) {
@@ -29,11 +33,16 @@ export function DrawerContent(props) {
               }}
             >
               <View style={styles.opacitys}>
-                <Avatar
+                <MaterialCommunityIcons
+                  name="account-circle"
+                  size={30}
+                  color={COLORS.gray}
+                />
+                {/* <Avatar
                   rounded
                   title="A.L"
                   titleStyle={{ color: COLORS.gray }}
-                />
+                /> */}
               </View>
 
               <View style={{ marginLeft: 15, flexDirection: "column" }}>

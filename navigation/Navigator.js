@@ -11,6 +11,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import FileUploadScreen from "../screens/FileUploadScreen";
 import CorpHomeScreen from "../screens/CorpHomeScreen";
 import DriverScreen from "../screens/DrawerDetail/DriverScreen";
+import OtpScreens from "../screens/OtpScreens";
 import AllCargoScreen from "../screens/DrawerDetail/AllCargo/AllCargoScreen";
 import AllCargoDetail from "../screens/DrawerDetail/AllCargo/AllCargoDetail";
 import { DrawerContent } from "../screens/DrawerContent";
@@ -30,6 +31,7 @@ export default function Navigator() {
         <Stack.Screen name="DriverScreen" component={DriverScreen} />
         <Stack.Screen name="AllCargoScreen" component={AllCargoScreen} />
         <Stack.Screen name="AllCargoDetail" component={AllCargoDetail} />
+        <Stack.Screen name="OtpScreens" component={OtpScreens} />
       </Stack.Navigator>
     </NavigationContainer>
   );

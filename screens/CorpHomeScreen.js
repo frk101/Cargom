@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 // import { Avatar } from "react-native-paper";
 import { Avatar } from "react-native-elements";
@@ -18,8 +20,21 @@ import {
 import COLORS from "../constans/colors";
 import { FlatGrid } from "react-native-super-grid";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
+import Constants from "expo-constants";
 
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
 const CorpHomeScreen = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   const navigation = useNavigation();
 
   const [items, setItems] = useState([
@@ -56,38 +71,55 @@ const CorpHomeScreen = () => {
   ]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-      <View style={styles.menu}>
-        <TouchableOpacity
-          style={styles.opacitys}
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-        >
-          <Image
-            source={require("../assets/menu.png")}
-            style={{ width: 30, height: 30 }}
-            resizeMode="contain"
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[COLORS.primary]}
           />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.opacitys}>
-          <Avatar rounded title="F.A" titleStyle={{ color: COLORS.gray }} />
-        </TouchableOpacity>
-      </View>
-      <FlatGrid
-        itemDimension={130}
-        data={items}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({ item }) => (
-          <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
+        }
+      >
+        <View style={styles.menu}>
+          <TouchableOpacity
+            style={styles.opacitys}
+            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+          >
             <Image
-              source={item.img}
-              style={{ width: 50, height: 50 }}
+              source={require("../assets/menu.png")}
+              style={{ width: 30, height: 30 }}
               resizeMode="contain"
             />
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemCode}>{item.subName}</Text>
-          </View>
-        )}
-      />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="account-circle"
+              size={40}
+              color={COLORS.gray}
+              style={{ marginTop: 10 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <FlatGrid
+          itemDimension={130}
+          data={items}
+          style={styles.gridView}
+          spacing={10}
+          renderItem={({ item }) => (
+            <View
+              style={[styles.itemContainer, { backgroundColor: item.code }]}
+            >
+              <Image
+                source={item.img}
+                style={{ width: 50, height: 50 }}
+                resizeMode="contain"
+              />
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemCode}>{item.subName}</Text>
+            </View>
+          )}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

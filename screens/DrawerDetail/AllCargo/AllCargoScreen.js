@@ -31,6 +31,7 @@ const RenderList = ({ item }) => {
         <Image source={item.icon} style={{ width: 40, height: 40 }} />
         <ListItem.Content>
           <ListItem.Title>{item.name}</ListItem.Title>
+          <ListItem.Title>{item.ücret}</ListItem.Title>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>

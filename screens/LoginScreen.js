@@ -12,11 +12,74 @@ import {
 } from "react-native";
 import { Feather, AntDesign } from "react-native-vector-icons/";
 import { useNavigation } from "@react-navigation/native";
-
+import { AuthContext } from "../components/context";
 import COLORS from "../constans/colors";
 import { Container } from "native-base";
 
 const LoginScreen = () => {
+  const [data, setData] = React.useState({
+    username: "",
+    password: "",
+    check_textInputChange: false,
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
+  });
+
+  const textInputChange = (val) => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        username: val,
+        check_textInputChange: true,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        username: val,
+        check_textInputChange: false,
+        isValidUser: false,
+      });
+    }
+  };
+
+  const handlePasswordChange = (val) => {
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false,
+      });
+    }
+  };
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,
+    });
+  };
+
+  const handleValidUser = (val) => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false,
+      });
+    }
+  };
   const navigation = useNavigation();
 
   return (
@@ -60,13 +123,20 @@ const LoginScreen = () => {
               },
             ]}
           >
-            E-Mail*
+            Telefon Numarası
           </Text>
           <View style={styles.action}>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>
+                +90
+              </Text>
+            </View>
             <TextInput
-              placeholder="Email Adresinizi Giriniz"
+              placeholder="Telefon Numaranızı Giriniz"
               placeholderTextColor="#666666"
-              keyboardType="email-address"
+              keyboardType="number-pad"
+              onChangeText={(val) => textInputChange(val)}
+              onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
               style={[
                 styles.textInput,
                 {
@@ -75,35 +145,9 @@ const LoginScreen = () => {
               ]}
             />
           </View>
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                color: COLORS.text,
-                marginTop: 35,
-              },
-            ]}
-          >
-            Şifre*
-          </Text>
-          <View style={styles.action}>
-            <TextInput
-              placeholder="Şifrenizi Giriniz"
-              placeholderTextColor="#666666"
-              style={[styles.textInput]}
-              secureTextEntry={true}
-            />
 
-            <Feather name="eye" color="grey" size={20} />
-          </View>
-
-          <View style={styles.forgetPassWrapper}>
-            <TouchableOpacity style={styles.forgetButton}>
-              <Text style={styles.forgetPass}>Şifremi Unuttum</Text>
-            </TouchableOpacity>
-          </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate("DrawerScreen")}
+            onPress={() => navigation.navigate("OtpScreens")}
             style={styles.btnGonder}
           >
             <Text style={styles.btnText}>Giriş Yap</Text>
@@ -129,15 +173,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   back: { marginTop: 40, marginLeft: 20 },
-  btnGonder: {
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    padding: 18,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 20,
-    borderRadius: 20,
-  },
+
   btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
   action: {
     flexDirection: "row",
@@ -185,7 +221,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 20,
-    borderRadius: 20,
+    borderRadius: 10,
   },
   btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
   forgetButton: { height: 48, justifyContent: "center", alignItems: "center" },
