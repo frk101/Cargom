@@ -5,7 +5,7 @@ import myData from "../../../data/FakeData";
 import COLORS from "../../../constans/colors";
 import { Appbar } from "react-native-paper";
 
-import { ListItem, Avatar } from "react-native-elements";
+import { ListItem, Avatar, Badge } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 
 const AllCargoScreen = () => {
@@ -30,10 +30,16 @@ const RenderList = ({ item }) => {
       <ListItem bottomDivider>
         <Image source={item.icon} style={{ width: 40, height: 40 }} />
         <ListItem.Content>
-          <ListItem.Title>{item.name}</ListItem.Title>
-          <ListItem.Title>{item.ücret}</ListItem.Title>
+          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
+            {item.name}
+          </ListItem.Title>
+          <ListItem.Title style={{ color: COLORS.text }}>
+            {item.km}
+          </ListItem.Title>
         </ListItem.Content>
-        <ListItem.Chevron />
+        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
+          {item.ücret}
+        </ListItem.Title>
       </ListItem>
     </TouchableOpacity>
   );

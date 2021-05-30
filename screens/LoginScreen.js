@@ -161,11 +161,6 @@ const LoginScreen = () => {
 
 export default LoginScreen;
 const styles = StyleSheet.create({
-  headerSubTitle: {
-    fontSize: 12,
-    color: COLORS.gray,
-    marginTop: 10,
-  },
   headerWrapper: { marginHorizontal: 20, marginTop: 20 },
   headerTitle: { fontSize: 30, fontWeight: "bold", color: COLORS.text },
   headerSubTitle: {

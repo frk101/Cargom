@@ -8,6 +8,7 @@ export default [
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
     ücret: "125 ₺",
     surucuAdi: "Ahmet Deneme",
+    km: "5.5 Km",
   },
   {
     key: "2",
@@ -18,6 +19,7 @@ export default [
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
     ücret: "325 ₺",
     surucuAdi: "Veli Kavlak",
+    km: "5.5 Km",
   },
   {
     key: "3",
@@ -28,6 +30,7 @@ export default [
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
     ücret: "75,5 ₺",
     surucuAdi: "Emre Belezoğlu",
+    km: "5.5 Km",
   },
   {
     key: "4",
@@ -38,6 +41,7 @@ export default [
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
     ücret: "25 ₺",
     surucuAdi: "Sergen Yalçın",
+    km: "5.5 Km",
   },
   {
     key: "5",
@@ -48,5 +52,6 @@ export default [
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
     ücret: "150 ₺",
     surucuAdi: "Fatih Terim",
+    km: "5.5 Km",
   },
 ];

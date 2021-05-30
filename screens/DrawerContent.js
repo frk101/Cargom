@@ -24,9 +24,6 @@ export function DrawerContent(props) {
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
-
-          <TouchableOpacity onPress={()=> navigation.navigate("ProfileScreen")}>
-
             <View
               style={{
                 flexDirection: "row",
@@ -49,10 +46,13 @@ export function DrawerContent(props) {
               </View>
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
                 <Title style={styles.title}>Albayraklar Lojistik</Title>
-                <Caption style={styles.caption}>Profili Düzenle</Caption>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("ProfileScreen")}
+                >
+                  <Caption style={styles.caption}>Profili Düzenle</Caption>
+                </TouchableOpacity>
               </View>
             </View>
-</TouchableOpacity>
           </View>
 
           <Drawer.Section style={styles.drawerSection}>
@@ -75,14 +75,15 @@ export function DrawerContent(props) {
               //   icon={({ color, size }) => (
               //     <Icon name="bookmark-outline" color={color} size={size} />
               //   )}
-              label="Bekleyen Kargolar"
+              label="Teklifler"
               labelStyle={styles.labels}
+              onPress={() => navigation.navigate("OffersScreeen")}
             />
             <DrawerItem
               //   icon={({ color, size }) => (
               //     <Icon name="settings-outline" color={color} size={size} />
               //   )}
-              label="Aktif Kargolar"
+              label="Görevlerim"
               labelStyle={styles.labels}
             />
             <DrawerItem
