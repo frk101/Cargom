@@ -20,7 +20,7 @@ const ProfileScreen = () => {
   return (
     <Container>
       <SafeAreaView
-        style={{ flex: 1, backgroundColor: "#fff", marginHorizontal: 20}}
+        style={{ flex: 1, backgroundColor: "#fff", marginHorizontal: 20 }}
       >
         <View style={styles.topNavBar}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -60,7 +60,7 @@ const ProfileScreen = () => {
             <Text style={styles.phone}>(555) 555 55 55</Text>
           </View>
         </View>
-        <Content >
+        <Content>
           <View style={styles.docsWrapper}>
             <Text style={styles.title}>Dosyalar</Text>
 
@@ -134,7 +134,7 @@ const ProfileScreen = () => {
               <Text style={styles.docText}>Sürücü Belgesi</Text>
               {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
             </View>
-            <View style={[styles.docItems, {marginBottom:20} ]}>
+            <View style={[styles.docItems, { marginBottom: 20 }]}>
               <Feather name="check-circle" size={24} color={COLORS.primary} />
               <Text style={styles.docText}>Sürücü Belgesi</Text>
               {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}

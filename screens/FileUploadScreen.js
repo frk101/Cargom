@@ -153,7 +153,7 @@ const GonderBtn = () => {
           <View style={{ alignItems: "center" }}></View>
           <View style={{ alignItems: "center" }}>
             <Image
-              source={require("../assets/okey.png")}
+              source={require("../assets/correct.png")}
               style={{ height: 50, width: 50, marginVertical: 10 }}
             />
           </View>

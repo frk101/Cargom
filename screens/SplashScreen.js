@@ -16,7 +16,7 @@ const SplashhScreen = () => {
 
   return (
     <ImageBackground
-      source={require("../assets/splashh.png")}
+      source={require("../assets/background.png")}
       resizeMode="cover"
       style={styles.img}
     >

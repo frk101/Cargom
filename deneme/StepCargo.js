@@ -15,16 +15,16 @@ import { Footer, FooterTab, Button } from "native-base";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Feather, Fontisto, Ionicons } from "react-native-vector-icons";
-import COLORS from "../../../constans/colors";
-import mapStyle from "../../../MapStyle/style";
+import COLORS from "../constans/colors";
+import mapStyle from "../MapStyle/style";
 import MapViewDirections from "react-native-maps-directions";
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-const AllCargoDetail = ({ route }) => {
-  const item = route.params;
+const StepCargo = () => {
   const navigation = useNavigation();
+
   return (
     <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={{ width: width, height: height / 2 }}>
@@ -101,7 +101,7 @@ const AllCargoDetail = ({ route }) => {
             },
           ]}
         >
-          {item.name}
+          Kütahya Adana
         </Text>
         <View
           style={[
@@ -113,7 +113,7 @@ const AllCargoDetail = ({ route }) => {
           ]}
         >
           <Text style={styles.baslik1}>Alıcı Adı :</Text>
-          <Text style={styles.title}>{item.aliciAdi}</Text>
+          <Text style={styles.title}>Faruk Albayrak</Text>
         </View>
         <View
           style={[
@@ -125,7 +125,7 @@ const AllCargoDetail = ({ route }) => {
           ]}
         >
           <Text style={styles.baslik1}>Alınacak Adres :</Text>
-          <Text style={styles.title}>{item.alinacakAdres}</Text>
+          <Text style={styles.title}>30</Text>
         </View>
         <View
           style={[
@@ -137,7 +137,7 @@ const AllCargoDetail = ({ route }) => {
           ]}
         >
           <Text style={styles.baslik1}>Ücret :</Text>
-          <Text style={styles.title}>{item.ücret}</Text>
+          <Text style={styles.title}>271 ₺</Text>
         </View>
         <View
           style={[
@@ -149,106 +149,17 @@ const AllCargoDetail = ({ route }) => {
           ]}
         >
           <Text style={styles.baslik1}>Sürücü Adı :</Text>
-          <Text style={styles.title}>{item.surucuAdi}</Text>
+          <Text style={styles.title}>Kadir Güloğlu</Text>
         </View>
-        <GoreviAl />
+        <TouchableOpacity style={styles.btnGonder}>
+          <Text style={styles.btnText}>Teslim Et</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
-const ModalPoup = ({ visible, children }) => {
-  const [showModal, setShowModal] = React.useState(visible);
-  const scaleValue = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-  return (
-    <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
-        <Animated.View
-          style={[
-            styles.modalContainer,
-            { transform: [{ scale: scaleValue }] },
-          ]}
-        >
-          {children}
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
-const GoreviAl = () => {
-  const navigation = useNavigation();
-  const [visible, setVisible] = useState(false);
-  return (
-    <View>
-      <TouchableOpacity
-        style={styles.btnGonder}
-        onPress={() => setVisible(true)}
-      >
-        <Text style={styles.btnText}>Görevi Al</Text>
-      </TouchableOpacity>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ModalPoup visible={visible}>
-          <View style={{ alignItems: "center" }}></View>
-          <View style={{ alignItems: "center" }}>
-            <Image
-              source={require("../../../assets/correct.png")}
-              style={{ height: 50, width: 50, marginVertical: 10 }}
-            />
-          </View>
 
-          <Text
-            style={{
-              marginVertical: 10,
-              fontSize: 20,
-              textAlign: "center",
-              fontWeight: "bold",
-            }}
-          >
-            Görev Alma Başarılı{"\n"}
-            <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
-          </Text>
-
-          <Footer>
-            <FooterTab style={{ backgroundColor: COLORS.primary }}>
-              <Button
-                full
-                onPress={() => {
-                  setVisible(false);
-                }}
-              >
-                <Text
-                  style={{ color: "white", fontSize: 16, fontWeight: "700" }}
-                >
-                  TAMAM
-                </Text>
-              </Button>
-            </FooterTab>
-          </Footer>
-        </ModalPoup>
-      </View>
-    </View>
-  );
-};
-export default AllCargoDetail;
+export default StepCargo;
 
 const styles = StyleSheet.create({
   pim: {

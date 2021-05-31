@@ -85,6 +85,7 @@ export function DrawerContent(props) {
               //   )}
               label="Görevlerim"
               labelStyle={styles.labels}
+              onPress={() => navigation.navigate("MyTaskScreen")}
             />
             <DrawerItem
               //   icon={({ color, size }) => (

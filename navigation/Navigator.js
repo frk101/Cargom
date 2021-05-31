@@ -20,6 +20,8 @@ import ProfileEditScreen from "../screens/Profile/ProfileEditScreen";
 import OffersScreeen from "../screens/DrawerDetail/OffersScreeen";
 import Kurumsal from "../screens/Registrer/Kurumsal";
 import Bireysel from "../screens/Registrer/Bireysel";
+import MyTaskScreen from "../screens/DrawerDetail/MyTaskScreen";
+import StepCargo from "../deneme/StepCargo";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +44,8 @@ export default function Navigator() {
         <Stack.Screen name="OffersScreeen" component={OffersScreeen} />
         <Stack.Screen name="Kurumsal" component={Kurumsal} />
         <Stack.Screen name="Bireysel" component={Bireysel} />
+        <Stack.Screen name="MyTaskScreen" component={MyTaskScreen} />
+        <Stack.Screen name="StepCargo" component={StepCargo} />
       </Stack.Navigator>
     </NavigationContainer>
   );

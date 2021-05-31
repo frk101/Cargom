@@ -1,7 +1,7 @@
 export default [
   {
     key: "1",
-    icon: require("../assets/box.png"),
+    icon: "box-open",
     img: require("../assets/Oval.png"),
     name: "Zeyinburnu - Kadıköy",
     aliciAdi: "Faruk Albayrak",
@@ -14,7 +14,7 @@ export default [
     key: "2",
     name: "İst.Avcılar - Bursa ( İnegöl )",
     img: require("../assets/Oval.png"),
-    icon: require("../assets/box.png"),
+    icon: "box-open",
     aliciAdi: "Furkan Albayrak",
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
     ücret: "325 ₺",
@@ -24,7 +24,7 @@ export default [
   {
     key: "3",
     name: "Adana - İstanbul",
-    icon: require("../assets/box.png"),
+    icon: "box-open",
     img: require("../assets/Oval.png"),
     aliciAdi: "Barış Cengiz",
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
@@ -35,7 +35,7 @@ export default [
   {
     key: "4",
     name: "Trabzon - Antalya",
-    icon: require("../assets/box.png"),
+    icon: "layer-group",
     img: require("../assets/Oval.png"),
     aliciAdi: "İsmail Çakır",
     alinacakAdres: "Kadıköy mah. 457 sok no/25",
@@ -46,7 +46,7 @@ export default [
   {
     key: "5",
     name: "Tekirdağ - Şırnak",
-    icon: require("../assets/box.png"),
+    icon: "layer-group",
     img: require("../assets/Oval.png"),
     aliciAdi: "Ali Aydoğdu",
     alinacakAdres: "Kadıköy mah. 457 sok no/25",

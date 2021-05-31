@@ -7,7 +7,7 @@ import { Appbar } from "react-native-paper";
 
 import { ListItem, Avatar, Badge } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
-
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 const AllCargoScreen = () => {
   return (
     <View style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
@@ -28,7 +28,7 @@ const RenderList = ({ item }) => {
       onPress={() => navigation.navigate("AllCargoDetail", item)}
     >
       <ListItem bottomDivider>
-        <Image source={item.icon} style={{ width: 40, height: 40 }} />
+        <FontAwesome5 name={item.icon} size={24} color={COLORS.gray} />
         <ListItem.Content>
           <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
             {item.name}

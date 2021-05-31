@@ -1,6 +1,7 @@
 export default {
-  primary: "#41D5FB",
-  text: "#222B45",
+  // primary: "#41D5FB",
+  primary: "#fad02c",
+  text: "#333652",
   gray: "#8F9BB3",
   lightGray: "#EDF1F7",
   acikMavi: "#F1FCFF",
