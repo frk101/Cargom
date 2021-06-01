@@ -13,11 +13,10 @@ import {
 } from "react-native";
 import { Footer, FooterTab, Button } from "native-base";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { Feather, Fontisto, Ionicons } from "react-native-vector-icons";
 import COLORS from "../../../constans/colors";
 import mapStyle from "../../../MapStyle/style";
-import MapViewDirections from "react-native-maps-directions";
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -66,6 +65,16 @@ const AllCargoDetail = ({ route }) => {
               <Ionicons name="navigate" size={20} style={{ color: "#fff" }} />
             </View>
           </Marker>
+          <Polyline
+            coordinates={[
+              { latitude: 37.0038013, longitude: 35.3340379 },
+              { latitude: 37.0026353, longitude: 35.3279566 },
+            ]}
+            strokeColor={COLORS.primary}
+            lineJoin="miter"
+            strokeWidth={5}
+            lineDashPattern={[13, 13]}
+          />
         </MapView>
 
         <TouchableOpacity
