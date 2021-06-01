@@ -115,11 +115,35 @@ const Bireysel = () => {
               },
             ]}
           >
-            Ad Soyad
+            Ad
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="Adınızı Ve Soyadınızı Giriniz"
+              placeholder="Adınızı giriniz"
+              placeholderTextColor="#666666"
+              keyboardType="email-address"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              styles.text_footer,
+              {
+                color: COLORS.text,
+                marginTop: 35,
+              },
+            ]}
+          >
+            Soyad
+          </Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Soyadınızı giriniz"
               placeholderTextColor="#666666"
               keyboardType="email-address"
               style={[
@@ -147,6 +171,7 @@ const Bireysel = () => {
                 +90
               </Text>
             </View>
+
             <TextInput
               placeholder="Telefon Numaranızı Giriniz"
               placeholderTextColor="#666666"

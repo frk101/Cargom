@@ -115,11 +115,11 @@ const Kurumsal = () => {
               },
             ]}
           >
-            Ad Soyad
+            Ad
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="Adınızı Ve Soyadınızı Giriniz"
+              placeholder="Adınızı giriniz"
               placeholderTextColor="#666666"
               keyboardType="email-address"
               style={[
@@ -139,11 +139,35 @@ const Kurumsal = () => {
               },
             ]}
           >
-            Şirket Adı
+            Soyad
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="Şirket Adınızı Giriniz"
+              placeholder="Soyadınızı giriniz"
+              placeholderTextColor="#666666"
+              keyboardType="email-address"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              styles.text_footer,
+              {
+                color: COLORS.text,
+                marginTop: 35,
+              },
+            ]}
+          >
+            Şirket Unvanı
+          </Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Şirket Unvanınızı Giriniz"
               placeholderTextColor="#666666"
               keyboardType="email-address"
               style={[

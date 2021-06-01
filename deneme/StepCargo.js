@@ -175,6 +175,7 @@ const StepCargo = () => {
           </TouchableOpacity>
         ))}
       </ScrollView> */}
+      <View></View>
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
@@ -338,6 +339,8 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     overflow: "hidden",
     justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   cardImage: {
     flex: 3,

@@ -9,6 +9,7 @@ export default [
     ücret: "125 ₺",
     surucuAdi: "Ahmet Deneme",
     km: "5.5 Km",
+    color: "red",
   },
   {
     key: "2",
@@ -20,6 +21,8 @@ export default [
     ücret: "325 ₺",
     surucuAdi: "Veli Kavlak",
     km: "5.5 Km",
+    color: "#8F9BB3",
+    sColor: "#000",
   },
   {
     key: "3",
@@ -31,6 +34,7 @@ export default [
     ücret: "75,5 ₺",
     surucuAdi: "Emre Belezoğlu",
     km: "5.5 Km",
+    color: "#8F9BB3",
   },
   {
     key: "4",
@@ -42,6 +46,7 @@ export default [
     ücret: "25 ₺",
     surucuAdi: "Sergen Yalçın",
     km: "5.5 Km",
+    color: "#8F9BB3",
   },
   {
     key: "5",
@@ -53,5 +58,6 @@ export default [
     ücret: "150 ₺",
     surucuAdi: "Fatih Terim",
     km: "5.5 Km",
+    color: "#8F9BB3",
   },
 ];

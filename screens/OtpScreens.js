@@ -8,22 +8,98 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  Animated,
+  Modal,
+  BackHandler,
 } from "react-native";
-import { Container } from "native-base";
+import {
+  Container,
+  Tab,
+  Content,
+  ScrollableTab,
+  Footer,
+  FooterTab,
+  Button,
+} from "native-base";
 import COLORS from "../constans/colors";
 import { useNavigation } from "@react-navigation/native";
 const OtpScreens = () => {
   const navigation = useNavigation();
-  let textInput = useRef(null);
-  const [internalVal, setInternalval] = useState("");
-  const lengthInput = 4;
+  const [visible, setVisible] = useState(false);
+  const onKeyPressInput1 = (e) => {};
 
-  const onChangeText = (val) => {
-    setInternalval(val);
+  const onKeyPressInput2 = (e) => {
+    if (e.nativeEvent.key === "Backspace" && input2TextRef.current.length === 0)
+      input1Ref.current.focus();
   };
-  useEffect(() => {
-    textInput.focus();
-  }, []);
+
+  const onKeyPressInput3 = (e) => {
+    if (e.nativeEvent.key === "Backspace" && input3TextRef.current.length === 0)
+      input2Ref.current.focus();
+  };
+
+  const onKeyPressInput4 = (e) => {
+    if (e.nativeEvent.key === "Backspace" && input4TextRef.current.length === 0)
+      input3Ref.current.focus();
+  };
+
+  const onKeyPressInput5 = (e) => {
+    if (
+      e.nativeEvent.key === "Backspace" &&
+      input5TextRef.current.length === 0
+    ) {
+      input4Ref.current.focus();
+    }
+  };
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
+  const input3Ref = useRef(null);
+  const input4Ref = useRef(null);
+  const input5Ref = useRef(null);
+  const input1TextRef = useRef("");
+  const input2TextRef = useRef("");
+  const input3TextRef = useRef("");
+  const input4TextRef = useRef("");
+  const input5TextRef = useRef("");
+  const modalTextRef = useRef("");
+  const onChangeInput1 = (e) => {
+    input1TextRef.current = e.nativeEvent.text;
+    if (e.nativeEvent.text.length > 0) input2Ref.current.focus();
+  };
+
+  const onChangeInput2 = (e) => {
+    input2TextRef.current = e.nativeEvent.text;
+    if (e.nativeEvent.text.length > 0) input3Ref.current.focus();
+  };
+
+  const onChangeInput3 = (e) => {
+    input3TextRef.current = e.nativeEvent.text;
+    if (e.nativeEvent.text.length > 0) input4Ref.current.focus();
+  };
+
+  const onChangeInput4 = (e) => {
+    input4TextRef.current = e.nativeEvent.text;
+    if (
+      input1TextRef.current.length === "1" &&
+      input2TextRef.current.length === "1" &&
+      input3TextRef.current.length === "1" &&
+      input4TextRef.current.length === "1"
+    ) {
+    }
+  };
+
+  // const onChangeInput5 = (e) => {
+  //   input5TextRef.current = e.nativeEvent.text;
+  //   if (
+  //     input1TextRef.current.length === "1" &&
+  //     input2TextRef.current.length === "1" &&
+  //     input3TextRef.current.length === "1" &&
+  //     input4TextRef.current.length === "1" &&
+  //     input5TextRef.current.length === "1"
+  //   ) {
+  //   }
+  // };
+
   return (
     <Container>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -53,68 +129,146 @@ const OtpScreens = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <KeyboardAvoidingView
-          behavior="padding"
-          keyboardVerticalOffset={50}
-          style={styles.containerAvoiddingView}
-        >
-          <View>
-            <TextInput
-              ref={(input) => (textInput = input)}
-              onChangeText={onChangeText}
-              style={{ width: 0, height: 0 }}
-              value={internalVal}
-              maxLength={lengthInput}
-              returnKeyType="done"
-              keyboardType="numeric"
-            />
-            <View style={styles.containerInput}>
-              {Array(lengthInput)
-                .fill()
-                .map((data, index) => (
-                  <View
-                    style={[
-                      styles.cellView,
-                      {
-                        borderColor:
-                          index === internalVal.length
-                            ? COLORS.gray
-                            : COLORS.primary,
-                      },
-                    ]}
-                    key={index}
-                  >
-                    <Text
-                      style={styles.cellText}
-                      onPress={() => textInput.focus()}
-                    >
-                      {internalVal && internalVal.length > 0
-                        ? internalVal[index]
-                        : ""}
-                    </Text>
-                  </View>
-                ))}
-            </View>
-          </View>
-          <TouchableOpacity>
-            <Text style={{ marginTop: 30 }}>
-              SMS almadınız mı?{" "}
-              <Text style={{ color: COLORS.primary }}>Yeniden Gönder</Text>
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.btnGonder}
-            onPress={() => navigation.navigate("DrawerScreen")}
-          >
-            <Text style={styles.btnText}>Doğrulayın</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+        <View style={styles.viewPhoneCodes}>
+          <PhoneCodeInput
+            reference={input1Ref}
+            onChange={onChangeInput1}
+            onKeyPress={onKeyPressInput1}
+          />
+          <PhoneCodeInput
+            reference={input2Ref}
+            onChange={onChangeInput2}
+            onKeyPress={onKeyPressInput2}
+          />
+          <PhoneCodeInput
+            reference={input3Ref}
+            onChange={onChangeInput3}
+            onKeyPress={onKeyPressInput3}
+          />
+          <PhoneCodeInput
+            reference={input4Ref}
+            onChange={onChangeInput4}
+            onKeyPress={onKeyPressInput4}
+          />
+          {/* <PhoneCodeInput
+            reference={input5Ref}
+            onChange={onChangeInput5}
+            onKeyPress={onKeyPressInput5}
+          /> */}
+        </View>
+        <KayitOl />
       </SafeAreaView>
     </Container>
   );
 };
+const PhoneCodeInput = ({ onChange, reference, onKeyPress }) => {
+  return (
+    <TextInput
+      style={styles.inputPhoneCode}
+      placeholder=""
+      keyboardType="numeric"
+      maxLength={1}
+      onChange={onChange}
+      ref={reference}
+      onKeyPress={onKeyPress}
+    />
+  );
+};
+const ModalPoup = ({ visible, children }) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  const scaleValue = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+  return (
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <Animated.View
+          style={[
+            styles.modalContainer,
+            { transform: [{ scale: scaleValue }] },
+          ]}
+        >
+          {children}
+        </Animated.View>
+      </View>
+    </Modal>
+  );
+};
+const KayitOl = () => {
+  const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
+  return (
+    <View style={{ width: "100%", marginTop: 30 }}>
+      <TouchableOpacity
+        style={styles.btnGonder}
+        onPress={() => setVisible(true)}
+      >
+        <Text style={styles.btnText}>Doğrulayın</Text>
+      </TouchableOpacity>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ModalPoup visible={visible}>
+          <View style={{ alignItems: "center" }}></View>
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={require("../assets/correct.png")}
+              style={{ height: 50, width: 50, marginVertical: 10 }}
+            />
+          </View>
 
+          <Text
+            style={{
+              marginVertical: 10,
+              fontSize: 20,
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            Kaydınız Başarıyla{"\n"}Tamamlandı
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
+          </Text>
+
+          <Footer>
+            <FooterTab style={{ backgroundColor: COLORS.primary }}>
+              <Button
+                full
+                onPress={() => {
+                  setVisible(false);
+                }}
+                onPressIn={() => {
+                  navigation.navigate("DrawerScreen");
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 16, fontWeight: "700" }}
+                >
+                  TAMAM
+                </Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </ModalPoup>
+      </View>
+    </View>
+  );
+};
 export default OtpScreens;
 
 const styles = StyleSheet.create({
@@ -171,5 +325,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 20,
     borderRadius: 10,
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "80%",
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  viewPhoneCodes: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 40,
+  },
+  inputPhoneCode: {
+    borderColor: COLORS.primary,
+    borderWidth: 2,
+    marginHorizontal: 6,
+    textAlign: "center",
+    color: COLORS.text,
+    fontWeight: "bold",
+    fontSize: 18,
+    marginTop: 50,
+    padding: 20,
+    borderRadius: 40,
   },
 });

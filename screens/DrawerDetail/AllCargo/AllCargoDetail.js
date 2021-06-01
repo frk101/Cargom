@@ -90,53 +90,37 @@ const AllCargoDetail = ({ route }) => {
         >
           {item.name}
         </Text>
-        <View
-          style={[
-            {
-              flexDirection: "row",
-              justifyContent: "space-around",
-              paddingVertical: 10,
-            },
-          ]}
-        >
-          <Text style={styles.baslik1}>Alıcı Adı :</Text>
-          <Text style={styles.title}>{item.aliciAdi}</Text>
+        <View style={styles.card}>
+          <View style={styles.txtContainer1}>
+            <Text style={styles.baslik1}>Alıcı Adı :</Text>
+          </View>
+          <View style={styles.txtContainer2}>
+            <Text style={styles.title}> {item.aliciAdi}</Text>
+          </View>
         </View>
-        <View
-          style={[
-            {
-              flexDirection: "row",
-              justifyContent: "space-around",
-              paddingVertical: 10,
-            },
-          ]}
-        >
-          <Text style={styles.baslik1}>Alınacak Adres :</Text>
-          <Text style={styles.title}>{item.alinacakAdres}</Text>
+        <View style={styles.card}>
+          <View style={styles.txtContainer1}>
+            <Text style={styles.baslik1}>Alınacak Adres :</Text>
+          </View>
+          <View style={styles.txtContainer2}>
+            <Text style={styles.title}> {item.alinacakAdres}</Text>
+          </View>
         </View>
-        <View
-          style={[
-            {
-              flexDirection: "row",
-              justifyContent: "space-around",
-              paddingVertical: 10,
-            },
-          ]}
-        >
-          <Text style={styles.baslik1}>Ücret :</Text>
-          <Text style={styles.title}>{item.ücret}</Text>
+        <View style={styles.card}>
+          <View style={styles.txtContainer1}>
+            <Text style={styles.baslik1}>Ücret :</Text>
+          </View>
+          <View style={styles.txtContainer2}>
+            <Text style={styles.title}> {item.ücret}</Text>
+          </View>
         </View>
-        <View
-          style={[
-            {
-              flexDirection: "row",
-              justifyContent: "space-around",
-              paddingVertical: 10,
-            },
-          ]}
-        >
-          <Text style={styles.baslik1}>Sürücü Adı :</Text>
-          <Text style={styles.title}>{item.surucuAdi}</Text>
+        <View style={styles.card}>
+          <View style={styles.txtContainer1}>
+            <Text style={styles.baslik1}>Sürücü Adı :</Text>
+          </View>
+          <View style={styles.txtContainer2}>
+            <Text style={styles.title}> {item.surucuAdi}</Text>
+          </View>
         </View>
         <GoreviAl />
       </View>
@@ -291,7 +275,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: COLORS.text,
     fontWeight: "bold",
-    textAlign: "left",
+    textAlign: "right",
   },
   title: {
     fontSize: 15,
@@ -322,4 +306,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     elevation: 20,
   },
+  card: {
+    flexDirection: "row",
+    paddingVertical: 10,
+  },
+  txtContainer1: {
+    flex: 1,
+  },
+  txtContainer2: { flex: 1.5 },
 });

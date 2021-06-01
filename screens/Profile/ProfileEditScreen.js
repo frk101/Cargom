@@ -79,11 +79,35 @@ const ProfileEditScreen = () => {
               },
             ]}
           >
-            İsim Soyisim
+            Ad
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="Faruk Albayrak"
+              placeholder="Faruk"
+              placeholderTextColor="#666666"
+              keyboardType="email-address"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              styles.text_footer,
+              {
+                color: COLORS.text,
+                marginTop: 20,
+              },
+            ]}
+          >
+            Soyad
+          </Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Albayrak"
               placeholderTextColor="#666666"
               keyboardType="email-address"
               style={[
@@ -104,7 +128,7 @@ const ProfileEditScreen = () => {
               },
             ]}
           >
-            Telefon
+            Telefon Numarası
           </Text>
           <View style={styles.action}>
             <TextInput

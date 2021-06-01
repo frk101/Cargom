@@ -12,7 +12,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import COLORS from "../../constans/colors";
 import { Container, Content } from "native-base";
-import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
+import {
+  Feather,
+  MaterialCommunityIcons,
+  Fontisto,
+} from "react-native-vector-icons";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -62,7 +66,7 @@ const ProfileScreen = () => {
         </View>
         <Content>
           <View style={styles.docsWrapper}>
-            <Text style={styles.title}>Dosyalar</Text>
+            <Text style={styles.title}>Dokümanlar</Text>
 
             {/* <ScrollView
             showsVerticalScrollIndicator={false}
@@ -76,7 +80,7 @@ const ProfileScreen = () => {
 
             <View style={styles.docItemsUpload}>
               <View style={styles.notUploaded}>
-                <Feather name="x-circle" size={24} color={COLORS.gray} />
+                <Fontisto name="stopwatch" size={24} color={COLORS.gray} />
                 <Text style={styles.docText}>Sürücü Belgesi</Text>
               </View>
               <Feather name="upload" size={24} color={COLORS.gray} />

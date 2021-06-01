@@ -115,7 +115,7 @@ const OffersScreeen = () => {
             </Text>
             <View style={styles.action}>
               <TextInput
-                placeholder="Başlangıç Adresinizi Giriniz"
+                placeholder="İlçe Seçiniz"
                 placeholderTextColor="#666666"
                 keyboardType="email-address"
                 returnKeyType="done"
@@ -140,7 +140,7 @@ const OffersScreeen = () => {
             </Text>
             <View style={styles.action}>
               <TextInput
-                placeholder="Bitiş Adresinizi Giriniz"
+                placeholder="İlçe Seçiniz"
                 placeholderTextColor="#666666"
                 keyboardType="email-address"
                 returnKeyType="done"
@@ -161,20 +161,29 @@ const OffersScreeen = () => {
                 },
               ]}
             >
-              Fiyat Aralığı Seçiniz
+              Fiyat aralığı seçiniz
             </Text>
-            <RangeSlider
-              min={0}
-              max={1000}
-              fromValueOnChange={(value) => setFromValue(value)}
-              toValueOnChange={(value) => setToValue(value)}
-              initialFromValue={11}
-              knobColor={COLORS.primary}
-              valueLabelsBackgroundColor="black"
-              inRangeBarColor={COLORS.primary}
-              outOfRangeBarColor="gray"
-            />
             <View
+              style={{
+                marginHorizontal: 18,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <RangeSlider
+                min={0}
+                max={100}
+                fromValueOnChange={(value) => setFromValue(value)}
+                toValueOnChange={(value) => setToValue(value)}
+                initialFromValue={11}
+                knobColor={COLORS.primary}
+                valueLabelsBackgroundColor="black"
+                inRangeBarColor={COLORS.primary}
+                outOfRangeBarColor="gray"
+              />
+            </View>
+
+            {/* <View
               style={{ flexDirection: "row", justifyContent: "space-evenly" }}
             >
               <Text style={{ fontSize: 15, fontWeight: "bold" }}>
@@ -185,7 +194,7 @@ const OffersScreeen = () => {
                 Min Fiyat:{" "}
                 <Text style={{ fontWeight: "400" }}>{toValue} ₺ </Text>
               </Text>
-            </View>
+            </View> */}
           </Content>
           <Footer>
             <FooterTab style={{ backgroundColor: COLORS.primary }}>
@@ -212,7 +221,7 @@ const GrupCargo = ({ item }) => {
       onPress={() => navigation.navigate("AllCargoDetail", item)}
     >
       <ListItem bottomDivider>
-        <FontAwesome5 name={item.icon} size={24} color={COLORS.gray} />
+        <FontAwesome5 name={item.icon} size={24} color={item.color} />
         <ListItem.Content>
           <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
             {item.name}
@@ -236,7 +245,7 @@ const AllCargo = ({ item }) => {
       onPress={() => navigation.navigate("AllCargoDetail", item)}
     >
       <ListItem bottomDivider>
-        <FontAwesome5 name={item.icon} size={24} color={COLORS.gray} />
+        <FontAwesome5 name={item.icon} size={24} color={item.color} />
         <ListItem.Content>
           <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
             {item.name}
