@@ -66,19 +66,6 @@ const AllCargoDetail = ({ route }) => {
               <Ionicons name="navigate" size={20} style={{ color: "#fff" }} />
             </View>
           </Marker>
-          {/* <MapViewDirections
-            mode="WALKING"
-            strokeWidth={4}
-            strokeColor="#2186B3"
-            origin={{
-              latitude: 37.0038013,
-              longitude: 35.3340379,
-            }}
-            destination={{
-              latitude: 37.0026353,
-              longitude: 35.3279566,
-            }}
-          /> */}
         </MapView>
 
         <TouchableOpacity
