@@ -91,6 +91,8 @@ const CorpHomeScreen = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
+          
+          <Image source={require("../assets/shipgeldiLogo-v03-1.png")} style={{width:140,resizeMode:'contain'}}/>
           <TouchableOpacity onPress={()=>navigation.navigate("ProfileScreen")}>
             <MaterialCommunityIcons
               name="account-circle"
@@ -130,6 +132,7 @@ const styles = StyleSheet.create({
   menu: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems:'center',
     marginTop: 40,
     marginHorizontal: 15,
   },

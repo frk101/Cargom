@@ -176,9 +176,11 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   backBtn: {
+    flex:1,
+    
     width: 48,
     height: 48,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
 });

@@ -172,7 +172,7 @@ const OffersScreeen = () => {
             >
               <RangeSlider
                 min={0}
-                max={100}
+                max={1000}
                 fromValueOnChange={(value) => setFromValue(value)}
                 toValueOnChange={(value) => setToValue(value)}
                 initialFromValue={11}

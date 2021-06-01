@@ -16,6 +16,7 @@ import {
   Feather,
   MaterialCommunityIcons,
   Fontisto,
+  AntDesign
 } from "react-native-vector-icons";
 
 const ProfileScreen = () => {
@@ -71,78 +72,38 @@ const ProfileScreen = () => {
             {/* <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ height: "100%" }}
-          > */}
+          > 
             <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
+              <AntDesign name="clouduploado" size={24} color={COLORS.primary} />
               <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
+              <Feather name="x-circle" size={24} color={COLORS.gray} />
             </View>
-
+*/}
             <View style={styles.docItemsUpload}>
               <View style={styles.notUploaded}>
-                <Fontisto name="stopwatch" size={24} color={COLORS.gray} />
-                <Text style={styles.docText}>Sürücü Belgesi</Text>
+                <AntDesign name="clouduploado" size={24} color={COLORS.gray} />
+                <Text style={styles.docText}>Sürücü Belgesi </Text>
               </View>
-              <Feather name="upload" size={24} color={COLORS.gray} />
+              {/* <Feather name="upload" size={24} color={COLORS.gray} /> */}
             </View>
             <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
+              <AntDesign name="file1" size={24} color={COLORS.primary} />
               <Text style={styles.docText}>Sürücü Belgesi</Text>
               {/*  */}
             </View>
             <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
+              <AntDesign name="hourglass" size={24} color={COLORS.primary} />
               <Text style={styles.docText}>Sürücü Belgesi</Text>
               {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
             </View>
 
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
+            <View style={[styles.docItems,{borderColor:'red'}]}>
+              <AntDesign name="closecircleo" size={24} color='red' />
               <Text style={styles.docText}>Sürücü Belgesi</Text>
               {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
             </View>
+            <Text style={styles.error}>Döküman resmi kurumlarca doğrulanamadı.</Text>
 
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={styles.docItems}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={[styles.docItems, { marginBottom: 20 }]}>
-              <Feather name="check-circle" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
             {/* </ScrollView> */}
           </View>
         </Content>
@@ -222,4 +183,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  error:{
+  color:'red',
+  fontSize:12
+}
 });
