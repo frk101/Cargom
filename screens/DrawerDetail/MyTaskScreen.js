@@ -6,13 +6,12 @@ import { Appbar } from "react-native-paper";
 import { ListItem } from "react-native-elements";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import myData from "../../data/FakeData";
-
+import Layout from "../../components/Layout";
 import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
 const MyTaskScreen = () => {
   const navigation = useNavigation();
   return (
-    <View style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
-      <Headers />
+    <Layout isBackIcon title="Görevlerim">
       <TouchableOpacity
         style={styles.listContainer}
         onPress={() => navigation.navigate("StepCargo")}
@@ -53,23 +52,10 @@ const MyTaskScreen = () => {
           </ListItem.Title>
         </ListItem>
       </TouchableOpacity>
-    </View>
+    </Layout>
   );
 };
 
-const Headers = () => {
-  const navigation = useNavigation();
-  const _goBack = () => navigation.goBack();
-  return (
-    <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-      <Appbar.BackAction onPress={_goBack} />
-      <Appbar.Content
-        title="Görevlerim"
-        titleStyle={{ color: COLORS.text, fontWeight: "500" }}
-      />
-    </Appbar.Header>
-  );
-};
 export default MyTaskScreen;
 
 const styles = StyleSheet.create({

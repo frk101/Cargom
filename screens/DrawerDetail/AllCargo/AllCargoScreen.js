@@ -8,15 +8,16 @@ import { Appbar } from "react-native-paper";
 import { ListItem, Avatar, Badge } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import Layout from "../../../components/Layout";
 const AllCargoScreen = () => {
   return (
-    <View style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
-      <Headers />
+    <Layout isBackIcon title="Tüm Kargolar">
+      {/* <Headers /> */}
       <FlatList
         data={myData}
         renderItem={({ item }) => <RenderList item={item} />}
       />
-    </View>
+    </Layout>
   );
 };
 

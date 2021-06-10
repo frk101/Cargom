@@ -6,6 +6,7 @@ import { Appbar } from "react-native-paper";
 import { FlatList } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import myData from "../../data/FakeData";
+import Layout from "../../components/Layout";
 // export const datas = [
 //   {
 //     key: "1",
@@ -52,15 +53,15 @@ import myData from "../../data/FakeData";
 // ];
 const DriverScreen = () => {
   return (
-    <View style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
-      <Headers />
+    <Layout isBackIcon title="Sürücüler">
+      {/* <Headers /> */}
       <View style={{ flex: 1 }}>
         <FlatList
           data={myData}
           renderItem={({ item }) => <RenderList item={item} />}
         />
       </View>
-    </View>
+    </Layout>
   );
 };
 
@@ -78,19 +79,6 @@ const RenderList = ({ item }) => {
   );
 };
 
-const Headers = () => {
-  const navigation = useNavigation();
-  const _goBack = () => navigation.goBack();
-  return (
-    <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-      <Appbar.BackAction onPress={_goBack} />
-      <Appbar.Content
-        title="Sürücüler"
-        titleStyle={{ color: COLORS.text, fontWeight: "500" }}
-      />
-    </Appbar.Header>
-  );
-};
 export default DriverScreen;
 
 const styles = StyleSheet.create({

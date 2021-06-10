@@ -19,6 +19,7 @@ import { Container, Content, Footer, FooterTab, Button } from "native-base";
 import myData from "../../data/FakeData";
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import Layout from "../../components/Layout";
 const OffersScreeen = () => {
   const _goBack = () => navigation.goBack();
   const [openModal, setOpenModal] = useState(false);
