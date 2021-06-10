@@ -18,7 +18,7 @@ import { ListItem } from "react-native-elements";
 import { Container, Content, Footer, FooterTab, Button } from "native-base";
 import myData from "../../data/FakeData";
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { FontAwesome5, FontAwesome } from "react-native-vector-icons";
 import Layout from "../../components/Layout";
 const OffersScreeen = () => {
   const _goBack = () => navigation.goBack();
@@ -31,19 +31,11 @@ const OffersScreeen = () => {
   };
   const navigation = useNavigation();
   return (
-    <Container>
-      <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-        <Appbar.BackAction onPress={_goBack} />
-        <Appbar.Content
-          title="Teklifler"
-          titleStyle={{ color: COLORS.text, fontWeight: "500" }}
-        />
-        <Appbar.Action
-          icon="filter"
-          color={COLORS.primary}
-          onPress={() => setOpenModal(true)}
-        />
-      </Appbar.Header>
+    <Layout
+      title="Teklifler"
+      isBackIcon
+      right={<LayoutLeft1 setOpenModal={setOpenModal} />}
+    >
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
@@ -210,7 +202,7 @@ const OffersScreeen = () => {
           </Footer>
         </View>
       </Modal>
-    </Container>
+    </Layout>
   );
 };
 
@@ -267,12 +259,27 @@ const HeadersModal = ({ setOpenModal }) => {
   const _goBack = () => navigation.goBack();
   return (
     <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-      <Appbar.Action icon="close" onPress={() => setOpenModal(false)} />
+      <Appbar.Action
+        icon="close"
+        onPress={() => setOpenModal(false)}
+        style={{ flex: 1 }}
+      />
       <Appbar.Content
+        style={{ flex: 4 }}
         title="Filtrele"
         titleStyle={{ color: COLORS.text, fontWeight: "500" }}
       />
+      <Appbar.Action style={{ flex: 1 }} />
     </Appbar.Header>
+  );
+};
+const LayoutLeft1 = ({ setOpenModal }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity onPress={() => setOpenModal(true)}>
+      <FontAwesome name="filter" size={20} />
+    </TouchableOpacity>
   );
 };
 

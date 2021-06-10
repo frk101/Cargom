@@ -25,6 +25,7 @@ const Layout = ({
   isBackIcon,
   containerStyle,
   filter,
+  right,
 }) => {
   const navigation = useNavigation();
 
@@ -33,47 +34,27 @@ const Layout = ({
       <Container style={containerStyle}>
         <SafeAreaView style={[styles.headerStyle]}>
           <View style={{ flex: 1, alignItems: "center" }}>
-            {
-              React.isValidElement(left) ? (
-                left
-              ) : isBackIcon ? (
-                <TouchableOpacity
-                  onPress={() => navigation.goBack()}
-                  hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
-                >
-                  <Ionicons
-                    name="ios-arrow-back"
-                    style={{ paddingHorizontal: 10, color: "black" }}
-                    size={24}
-                    color={Colors.themeColor}
-                  />
-                </TouchableOpacity>
-              ) : null
-              // <TouchableOpacity
-              //     onPress={() => {
-              //       if (leftOnPress) leftOnPress();
-              //       else navigation.dispatch(DrawerActions.toggleDrawer());
-              //     }}
-              //     hitSlop={{
-              //       bottom: 10,
-              //       left: 10,
-              //       right: 10,
-              //       top: 10,
-              //     }}
-              //   >
-              //     <Image
-              //       source={require("../assets/logo_mavi.png")}
-              //       style={{ width: 30, height: 15 }}
-              //       resizeMode="contain"
-              //     />
-              //   </TouchableOpacity>
-            }
+            {React.isValidElement(left) ? (
+              left
+            ) : isBackIcon ? (
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
+              >
+                <Ionicons
+                  name="ios-arrow-back"
+                  style={{ paddingHorizontal: 10, color: "black" }}
+                  size={24}
+                  color={Colors.themeColor}
+                />
+              </TouchableOpacity>
+            ) : null}
           </View>
           <View style={{ flex: 4, alignItems: "center" }}>
             {body && React.isValidElement(body) ? body : <Text>{title}</Text>}
           </View>
           <View style={{ flex: 1, alignItems: "center" }}>
-            {React.isValidElement(left)}
+            {React.isValidElement(right) ? right : isBackIcon ? <View /> : null}
           </View>
         </SafeAreaView>
         {children}

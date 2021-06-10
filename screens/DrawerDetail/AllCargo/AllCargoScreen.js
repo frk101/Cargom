@@ -12,7 +12,6 @@ import Layout from "../../../components/Layout";
 const AllCargoScreen = () => {
   return (
     <Layout isBackIcon title="Tüm Kargolar">
-      {/* <Headers /> */}
       <FlatList
         data={myData}
         renderItem={({ item }) => <RenderList item={item} />}

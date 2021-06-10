@@ -24,6 +24,7 @@ import {
   Button,
 } from "native-base";
 import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
+import PopupButton from "../../components/Button/PopupButton";
 const ProfileEditScreen = () => {
   const navigation = useNavigation();
 
@@ -169,108 +170,10 @@ const ProfileEditScreen = () => {
               ]}
             />
           </View>
-          <GuncelleBtn />
+          <PopupButton />
         </Content>
       </SafeAreaView>
     </Container>
-  );
-};
-
-const ModalPoup = ({ visible, children }) => {
-  const [showModal, setShowModal] = React.useState(visible);
-  const scaleValue = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-  return (
-    <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
-        <Animated.View
-          style={[
-            styles.modalContainer,
-            { transform: [{ scale: scaleValue }] },
-          ]}
-        >
-          {children}
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
-
-const GuncelleBtn = () => {
-  const navigation = useNavigation();
-  const [visible, setVisible] = useState(false);
-
-  return (
-    <View>
-      <TouchableOpacity
-        onPress={() => setVisible(true)}
-        style={styles.btnGonder}
-      >
-        <Text style={styles.btnText}>Bilgilerimi Güncelle</Text>
-      </TouchableOpacity>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ModalPoup visible={visible}>
-          <View style={{ alignItems: "center" }}></View>
-          <View style={{ alignItems: "center" }}>
-            <Image
-              source={require("../../assets/correct.png")}
-              style={{ height: 50, width: 50, marginVertical: 10 }}
-            />
-          </View>
-
-          <Text
-            style={{
-              marginVertical: 10,
-              fontSize: 20,
-              textAlign: "center",
-              fontWeight: "bold",
-            }}
-          >
-            Güncelleme Başarılı{"\n"}
-            <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
-          </Text>
-
-          <Footer>
-            <FooterTab style={{ backgroundColor: COLORS.primary }}>
-              <Button
-                full
-                onPress={() => {
-                  setVisible(false);
-                }}
-                onPressIn={() => {
-                  navigation.navigate("DrawerScreen");
-                }}
-              >
-                <Text
-                  style={{ color: "white", fontSize: 16, fontWeight: "700" }}
-                >
-                  TAMAM
-                </Text>
-              </Button>
-            </FooterTab>
-          </Footer>
-        </ModalPoup>
-      </View>
-    </View>
   );
 };
 
