@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { TouchableOpacity } from "react-native";
 
-import { StyleSheet, Text, View, ImageBackground ,Image} from "react-native";
+import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../constans/colors";
 
@@ -13,6 +13,9 @@ const SplashhScreen = () => {
 
   const onOpen = () => {
     modalizeRef.current?.open();
+  };
+  const onClose = () => {
+    modalizeRef.current?.close();
   };
 
   return (
@@ -37,19 +40,28 @@ const SplashhScreen = () => {
       </View>
       <Modalize ref={modalizeRef} snapPoint={350} modalHeight={350}>
         <View style={styles.modalContainer}>
-          <Image source={require('../assets/shipgeldiLogo-v03-1.png')} style={{width:200, resizeMode:'cover',marginBottom:20}}/>
+          <Image
+            source={require("../assets/shipgeldiLogo-v03-1.png")}
+            style={{ width: 200, resizeMode: "cover", marginBottom: 20 }}
+          />
           <Text style={styles.modalTxt}>
             KAYIT OLMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Bireysel")}
+            onPress={onClose}
+            onPressIn={() => {
+              navigation.navigate("Bireysel");
+            }}
             style={styles.btnGonder}
           >
             <Text style={styles.btnText}>BİREYSEL OLARAK KAYIT OL</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btnGonder1}
-            onPress={() => navigation.navigate("Kurumsal")}
+            onPress={onClose}
+            onPressIn={() => {
+              navigation.navigate("Kurumsal");
+            }}
           >
             <Text style={styles.btnText}>KURUMSAL OLARAK KAYIT OL</Text>
           </TouchableOpacity>

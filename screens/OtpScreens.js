@@ -24,6 +24,7 @@ import {
 import COLORS from "../constans/colors";
 import { useNavigation } from "@react-navigation/native";
 import PopupButton from "../components/Button/PopupButton";
+import colors from "../constans/colors";
 const OtpScreens = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
@@ -130,34 +131,49 @@ const OtpScreens = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.viewPhoneCodes}>
-          <PhoneCodeInput
-            reference={input1Ref}
-            onChange={onChangeInput1}
-            onKeyPress={onKeyPressInput1}
-          />
-          <PhoneCodeInput
-            reference={input2Ref}
-            onChange={onChangeInput2}
-            onKeyPress={onKeyPressInput2}
-          />
-          <PhoneCodeInput
-            reference={input3Ref}
-            onChange={onChangeInput3}
-            onKeyPress={onKeyPressInput3}
-          />
-          <PhoneCodeInput
-            reference={input4Ref}
-            onChange={onChangeInput4}
-            onKeyPress={onKeyPressInput4}
-          />
-          {/* <PhoneCodeInput
+        <Content>
+          <View style={styles.viewPhoneCodes}>
+            <PhoneCodeInput
+              reference={input1Ref}
+              onChange={onChangeInput1}
+              onKeyPress={onKeyPressInput1}
+            />
+            <PhoneCodeInput
+              reference={input2Ref}
+              onChange={onChangeInput2}
+              onKeyPress={onKeyPressInput2}
+            />
+            <PhoneCodeInput
+              reference={input3Ref}
+              onChange={onChangeInput3}
+              onKeyPress={onKeyPressInput3}
+            />
+            <PhoneCodeInput
+              reference={input4Ref}
+              onChange={onChangeInput4}
+              onKeyPress={onKeyPressInput4}
+            />
+            {/* <PhoneCodeInput
             reference={input5Ref}
             onChange={onChangeInput5}
             onKeyPress={onKeyPressInput5}
           /> */}
-        </View>
-        <PopupButton register />
+          </View>
+
+          <PopupButton register />
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginVertical: 10,
+            }}
+          >
+            <Text>
+              SMS almadınız mı?{" "}
+              <Text style={{ color: COLORS.primary }}>Yeniden Gönder</Text>
+            </Text>
+          </TouchableOpacity>
+        </Content>
       </SafeAreaView>
     </Container>
   );
@@ -263,5 +279,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     padding: 20,
     borderRadius: 40,
+    width: 70,
+    height: 70,
   },
 });

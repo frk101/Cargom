@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   StyleSheet,
@@ -12,75 +12,14 @@ import {
 } from "react-native";
 import { Feather, AntDesign } from "react-native-vector-icons/";
 import { useNavigation } from "@react-navigation/native";
-
+import { TextInputMask } from "react-native-masked-text";
 import COLORS from "../../constans/colors";
 import { Container } from "native-base";
 
 const Bireysel = () => {
+  const [cell, setCell] = useState("");
   const navigation = useNavigation();
-  const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    check_textInputChange: false,
-    secureTextEntry: true,
-    isValidUser: true,
-    isValidPassword: true,
-  });
 
-  const textInputChange = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: true,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: false,
-        isValidUser: false,
-      });
-    }
-  };
-
-  const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: true,
-      });
-    } else {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: false,
-      });
-    }
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const handleValidUser = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidUser: false,
-      });
-    }
-  };
   return (
     <Container>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -172,19 +111,17 @@ const Bireysel = () => {
               </Text>
             </View>
 
-            <TextInput
+            <TextInputMask
               placeholder="Telefon Numaranızı Giriniz"
-              placeholderTextColor="#666666"
-              keyboardType="numeric"
-              returnKeyType="done"
-              onChangeText={(val) => textInputChange(val)}
-              onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-              style={[
-                styles.textInput,
-                {
-                  color: COLORS.text,
-                },
-              ]}
+              style={styles.textInput}
+              type={"cel-phone"}
+              options={{
+                maskType: "BRL",
+                withDDD: true,
+                dddMask: "(999) 999 99-99 ",
+              }}
+              value={cell}
+              onChangeText={(text) => setCell(text)}
             />
           </View>
 

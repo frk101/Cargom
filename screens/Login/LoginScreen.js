@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   StyleSheet,
@@ -15,8 +15,10 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../components/context";
 import COLORS from "../../constans/colors";
 import { Container } from "native-base";
+import { TextInputMask } from "react-native-masked-text";
 
 const LoginScreen = () => {
+  const [cell, setCell] = useState("");
   const [data, setData] = React.useState({
     username: "",
     password: "",
@@ -131,19 +133,17 @@ const LoginScreen = () => {
                 +90
               </Text>
             </View>
-            <TextInput
+            <TextInputMask
               placeholder="Telefon Numaranızı Giriniz"
-              placeholderTextColor="#666666"
-              keyboardType="numeric"
-              returnKeyType="done"
-              onChangeText={(val) => textInputChange(val)}
-              onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-              style={[
-                styles.textInput,
-                {
-                  color: COLORS.text,
-                },
-              ]}
+              style={styles.textInput}
+              type={"cel-phone"}
+              options={{
+                maskType: "BRL",
+                withDDD: true,
+                dddMask: "(999) 999 99-99 ",
+              }}
+              value={cell}
+              onChangeText={(text) => setCell(text)}
             />
           </View>
 
