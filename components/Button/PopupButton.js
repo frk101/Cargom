@@ -1,26 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
-  TextInput,
   TouchableOpacity,
-  SafeAreaView,
   Image,
   Animated,
   Modal,
-  BackHandler,
 } from "react-native";
-import {
-  Container,
-  Tab,
-  Content,
-  ScrollableTab,
-  Footer,
-  FooterTab,
-  Button,
-} from "native-base";
+import { Footer, FooterTab, Button } from "native-base";
 import PropTypes from "prop-types";
 import COLORS from "../../constans/colors";
 import { useNavigation } from "@react-navigation/native";
@@ -32,64 +20,7 @@ const PopupButton = ({ register, gorev }) => {
   return (
     <View>
       {register ? (
-        <View style={{ width: "100%", marginTop: 30 }}>
-          <TouchableOpacity
-            style={styles.btnGonder}
-            onPress={() => setVisible(true)}
-          >
-            <Text style={styles.btnText}>Doğrulayın</Text>
-          </TouchableOpacity>
-
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <ModalPoup visible={visible}>
-              <View style={{ alignItems: "center" }}></View>
-              <View style={{ alignItems: "center" }}>
-                <Image
-                  source={require("../../assets/correct.png")}
-                  style={{ height: 50, width: 50, marginVertical: 10 }}
-                />
-              </View>
-
-              <Text
-                style={{
-                  marginVertical: 10,
-                  fontSize: 20,
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
-              >
-                Kaydınız Başarıyla{"\n"}Tamamlandı
-                <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
-              </Text>
-
-              <Footer>
-                <FooterTab style={{ backgroundColor: COLORS.primary }}>
-                  <Button
-                    full
-                    onPress={() => {
-                      setVisible(false);
-                    }}
-                    onPressIn={() => {
-                      navigation.navigate("DrawerScreen");
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 16,
-                        fontWeight: "700",
-                      }}
-                    >
-                      TAMAM
-                    </Text>
-                  </Button>
-                </FooterTab>
-              </Footer>
-            </ModalPoup>
-          </View>
-        </View>
+        <></>
       ) : gorev ? (
         <View>
           <TouchableOpacity
@@ -266,7 +197,6 @@ const styles = StyleSheet.create({
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 20,
     borderRadius: 10,
   },
   btnGonders: {

@@ -3,31 +3,49 @@ import {
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
   Image,
   Animated,
   Modal,
-  BackHandler,
+  Dimensions,
 } from "react-native";
-import {
-  Container,
-  Tab,
-  Content,
-  ScrollableTab,
-  Footer,
-  FooterTab,
-  Button,
-} from "native-base";
+import { Container, Content, Footer, FooterTab, Button } from "native-base";
 import COLORS from "../constans/colors";
-import { useNavigation } from "@react-navigation/native";
-import PopupButton from "../components/Button/PopupButton";
-import colors from "../constans/colors";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { shipperRegisterComplate } from "../business/actions/shipper";
+import { Notifier, NotifierComponents } from "react-native-notifier";
+
+const { width } = Dimensions.get("screen");
+
 const OtpScreens = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const route = useRoute();
   const [visible, setVisible] = useState(false);
+
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
+  const input3Ref = useRef(null);
+  const input4Ref = useRef(null);
+  const input5Ref = useRef(null);
+  const input6Ref = useRef(null);
+  const input1TextRef = useRef("");
+  const input2TextRef = useRef("");
+  const input3TextRef = useRef("");
+  const input4TextRef = useRef("");
+  const input5TextRef = useRef("");
+  const input6TextRef = useRef("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      input1Ref.current.focus();
+    }, 500);
+    return () => {};
+  }, []);
+
   const onKeyPressInput1 = (e) => {};
 
   const onKeyPressInput2 = (e) => {
@@ -46,24 +64,15 @@ const OtpScreens = () => {
   };
 
   const onKeyPressInput5 = (e) => {
-    if (
-      e.nativeEvent.key === "Backspace" &&
-      input5TextRef.current.length === 0
-    ) {
+    if (e.nativeEvent.key === "Backspace" && input5TextRef.current.length === 0)
       input4Ref.current.focus();
-    }
   };
-  const input1Ref = useRef(null);
-  const input2Ref = useRef(null);
-  const input3Ref = useRef(null);
-  const input4Ref = useRef(null);
-  const input5Ref = useRef(null);
-  const input1TextRef = useRef("");
-  const input2TextRef = useRef("");
-  const input3TextRef = useRef("");
-  const input4TextRef = useRef("");
-  const input5TextRef = useRef("");
-  const modalTextRef = useRef("");
+
+  const onKeyPressInput6 = (e) => {
+    if (e.nativeEvent.key === "Backspace" && input6TextRef.current.length === 0)
+      input5Ref.current.focus();
+  };
+
   const onChangeInput1 = (e) => {
     input1TextRef.current = e.nativeEvent.text;
     if (e.nativeEvent.text.length > 0) input2Ref.current.focus();
@@ -81,26 +90,62 @@ const OtpScreens = () => {
 
   const onChangeInput4 = (e) => {
     input4TextRef.current = e.nativeEvent.text;
+    if (e.nativeEvent.text.length > 0) input5Ref.current.focus();
+  };
+
+  const onChangeInput5 = (e) => {
+    input5TextRef.current = e.nativeEvent.text;
+    if (e.nativeEvent.text.length > 0) input6Ref.current.focus();
+  };
+
+  const onChangeInput6 = (e) => {
+    input6TextRef.current = e.nativeEvent.text;
     if (
       input1TextRef.current.length === "1" &&
       input2TextRef.current.length === "1" &&
       input3TextRef.current.length === "1" &&
-      input4TextRef.current.length === "1"
+      input4TextRef.current.length === "1" &&
+      input5TextRef.current.length === "1" &&
+      input6TextRef.current.length === "1"
     ) {
+      _handleSubmitCode();
     }
   };
 
-  // const onChangeInput5 = (e) => {
-  //   input5TextRef.current = e.nativeEvent.text;
-  //   if (
-  //     input1TextRef.current.length === "1" &&
-  //     input2TextRef.current.length === "1" &&
-  //     input3TextRef.current.length === "1" &&
-  //     input4TextRef.current.length === "1" &&
-  //     input5TextRef.current.length === "1"
-  //   ) {
-  //   }
-  // };
+  const _handleSubmitCode = () => {
+    let model = route.params;
+    model.code = parseInt(
+      input1TextRef.current +
+        input2TextRef.current +
+        input3TextRef.current +
+        input4TextRef.current +
+        input5TextRef.current +
+        input6TextRef.current
+    );
+    dispatch(shipperRegisterComplate(model)).then(({ payload: { data } }) => {
+      if (data.status) {
+        setVisible(true);
+      } else {
+        let message = "İşlem sırasında bir hata oluştu.";
+        if (data.message) {
+          message += data.message;
+        }
+        Notifier.showNotification({
+          title: "UYARI",
+          description: message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: "error",
+          },
+        });
+      }
+    });
+  };
+
+  const _handleSuccessModalButton = () => {
+    setVisible(false);
+    navigation.navigate("LoginScreen", route.params);
+  };
 
   return (
     <Container>
@@ -153,6 +198,16 @@ const OtpScreens = () => {
               onChange={onChangeInput4}
               onKeyPress={onKeyPressInput4}
             />
+            <PhoneCodeInput
+              reference={input5Ref}
+              onChange={onChangeInput5}
+              onKeyPress={onKeyPressInput5}
+            />
+            <PhoneCodeInput
+              reference={input6Ref}
+              onChange={onChangeInput6}
+              onKeyPress={onKeyPressInput6}
+            />
             {/* <PhoneCodeInput
             reference={input5Ref}
             onChange={onChangeInput5}
@@ -160,7 +215,62 @@ const OtpScreens = () => {
           /> */}
           </View>
 
-          <PopupButton register />
+          <View style={{ width: "100%" }}>
+            <TouchableOpacity
+              style={styles.btnGonder}
+              onPress={_handleSubmitCode}
+            >
+              <Text style={styles.btnText}>Doğrulayın</Text>
+            </TouchableOpacity>
+
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ModalPoup visible={visible}>
+                <View style={{ alignItems: "center" }}></View>
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../assets/correct.png")}
+                    style={{ height: 50, width: 50, marginVertical: 10 }}
+                  />
+                </View>
+
+                <Text
+                  style={{
+                    marginVertical: 10,
+                    fontSize: 20,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Kaydınız Başarıyla{"\n"}Tamamlandı
+                  <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                    {"\n"}
+                  </Text>
+                </Text>
+
+                <Footer>
+                  <FooterTab style={{ backgroundColor: COLORS.primary }}>
+                    <Button full onPress={_handleSuccessModalButton}>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontSize: 16,
+                          fontWeight: "700",
+                        }}
+                      >
+                        TAMAM
+                      </Text>
+                    </Button>
+                  </FooterTab>
+                </Footer>
+              </ModalPoup>
+            </View>
+          </View>
           <TouchableOpacity
             style={{
               alignItems: "center",
@@ -189,6 +299,44 @@ const PhoneCodeInput = ({ onChange, reference, onKeyPress }) => {
       ref={reference}
       onKeyPress={onKeyPress}
     />
+  );
+};
+const ModalPoup = ({ visible, children }) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  const scaleValue = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+  return (
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <Animated.View
+          style={[
+            styles.modalContainer,
+            { transform: [{ scale: scaleValue }] },
+          ]}
+        >
+          {children}
+        </Animated.View>
+      </View>
+    </Modal>
   );
 };
 
@@ -246,7 +394,6 @@ const styles = StyleSheet.create({
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 20,
     borderRadius: 10,
   },
   modalBackGround: {
@@ -265,21 +412,22 @@ const styles = StyleSheet.create({
   },
   viewPhoneCodes: {
     flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 40,
+    justifyContent: "space-between",
+    marginVertical: 20,
+    marginHorizontal: 20,
   },
   inputPhoneCode: {
     borderColor: COLORS.primary,
     borderWidth: 2,
-    marginHorizontal: 6,
+    // marginHorizontal: 3,
     textAlign: "center",
     color: COLORS.text,
     fontWeight: "bold",
-    fontSize: 18,
-    marginTop: 50,
-    padding: 20,
-    borderRadius: 40,
-    width: 70,
-    height: 70,
+    // fontSize: 18,
+    // marginTop: 50,
+    // padding: 20,
+    borderRadius: width / 8,
+    width: width / 8,
+    height: width / 8,
   },
 });
