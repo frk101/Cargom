@@ -1,4 +1,0 @@
-export const VEHICLE_TYPE = "VHC/VEHICLE_TYPE/LOAD";
-export const VEHICLE_TYPE_SUCCESS = "VHC/VEHICLE_TYPE/LOAD_SUCCESS";
-export const VEHICLE_TYPE_FAIL = "VHC/VEHICLE_TYPE/LOAD_FAIL";
-export const VEHICLE_TYPE_URL = "/General/VehicleTypes/GetAll";

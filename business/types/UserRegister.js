@@ -1,4 +1,0 @@
-export const REGISTER_USER = "RGS/REGISTER_USER/LOAD";
-export const REGISTER_USER_SUCCESS = "RGS/REGISTER_USER/LOAD_SUCCESS";
-export const REGISTER_USER_FAIL = "RGS/REGISTER_USER/LOAD_FAIL";
-export const REGISTER_USER_URL = "/Shipper/Shippers/RegisterBeginRequest";

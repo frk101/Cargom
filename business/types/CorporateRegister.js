@@ -1,4 +1,0 @@
-export const CORPORATE_USER = "CRP/CORPORATE_USER/LOAD";
-export const CORPORATE_USER_SUCCESS = "CRP/CORPORATE_USER/LOAD_SUCCESS";
-export const CORPORATE_USER_FAIL = "CRP/CORPORATE_USER/LOAD_FAIL";
-export const CORPORATE_USER_URL = "/Shipper/Shippers/RegisterBeginRequest";

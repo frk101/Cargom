@@ -1,4 +1,0 @@
-export const GET_DISTRICT = "GDS/ GET_DISTRICT/LOAD";
-export const GET_DISTRICT_SUCCESS = "GDS/GET_DISTRICTI/LOAD_SUCCESS";
-export const GET_DISTRICT_FAIL = "GDS/GET_DISTRICT/LOAD_FAIL";
-export const GET_DISTRICT_URL = "/General/Districts/GetByCityID";
