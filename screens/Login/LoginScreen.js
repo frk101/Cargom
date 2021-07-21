@@ -11,7 +11,7 @@ import {
   TextInput,
 } from "react-native";
 import { Feather, AntDesign } from "react-native-vector-icons/";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { AuthContext } from "../../components/context";
 import COLORS from "../../constans/colors";
 import { Container } from "native-base";
@@ -125,7 +125,7 @@ const LoginScreen = () => {
               },
             ]}
           >
-            Telefon Numarası
+            Telefon Numarası veya E-mail
           </Text>
           <View style={styles.action}>
             <View style={{ flexDirection: "row" }}>
