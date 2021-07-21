@@ -1,0 +1,4 @@
+export const DRIVER_LIST = "LST/DRIVER_LIST/LOAD";
+export const DRIVER_LIST_SUCCESS = "LST/DRIVER_LIST/LOAD_SUCCESS";
+export const DRIVER_LIST_FAIL = "LST/DRIVER_LIST/LOAD_FAIL";
+export const DRIVER_LIST_URL = "/Shipper/Drivers/GetByShipperID";

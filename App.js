@@ -2,8 +2,16 @@ import React, { useState, useEffect, useMemo } from "react";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 
 import Navigator from "./navigation/Navigator";
-import FileUploadScreen from "./screens/FileUploadScreen";
+
 import { AuthContext } from "./components/context";
+
+import promise from "redux-promise-middleware";
+import { NotifierWrapper } from "react-native-notifier";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import axios from "axios";
+import { multiClientMiddleware } from "redux-axios-middleware";
 
 const App = () => {
   const [isLoading, setIslaoding] = useState(true);

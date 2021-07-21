@@ -14,7 +14,7 @@ import { Feather, AntDesign } from "react-native-vector-icons/";
 import { useNavigation } from "@react-navigation/native";
 import { TextInputMask } from "react-native-masked-text";
 import COLORS from "../../constans/colors";
-import { Container } from "native-base";
+import { Container, Content } from "native-base";
 
 const Bireysel = () => {
   const [cell, setCell] = useState("");
@@ -44,7 +44,7 @@ const Bireysel = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>
+        <Content>
           <Text
             style={[
               styles.text_footer,
@@ -131,7 +131,7 @@ const Bireysel = () => {
           >
             <Text style={styles.btnText}>Kayıt Ol</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </Content>
       </SafeAreaView>
     </Container>
   );

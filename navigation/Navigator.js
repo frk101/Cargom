@@ -7,8 +7,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 ///Screens
 import SplashScreen from "../screens/SplashScreen";
 import LoginScreen from "../screens/Login/LoginScreen";
-import RegisterScreen from "../screens/RegisterScreen";
-import FileUploadScreen from "../screens/FileUploadScreen";
 import CorpHomeScreen from "../screens/CorpHomeScreen";
 import DriverScreen from "../screens/DrawerDetail/DriverScreen";
 import OtpScreens from "../screens/OtpScreens";
@@ -30,9 +28,7 @@ export default function Navigator() {
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="FileUploadScreen" component={FileUploadScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
         <Stack.Screen name="DrawerScreen" component={DrawerScreen} />
         <Stack.Screen name="DriverScreen" component={DriverScreen} />

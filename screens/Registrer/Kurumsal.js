@@ -14,7 +14,7 @@ import { Feather, AntDesign } from "react-native-vector-icons/";
 import { useNavigation } from "@react-navigation/native";
 
 import COLORS from "../../constans/colors";
-import { Container } from "native-base";
+import { Container, Content } from "native-base";
 import { TextInputMask } from "react-native-masked-text";
 
 const Kurumsal = () => {
@@ -107,7 +107,7 @@ const Kurumsal = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>
+        <Content>
           <Text
             style={[
               styles.text_footer,
@@ -217,7 +217,7 @@ const Kurumsal = () => {
           >
             <Text style={styles.btnText}>Kayıt Ol</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </Content>
       </SafeAreaView>
     </Container>
   );
