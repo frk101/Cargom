@@ -17,105 +17,88 @@ import {
   ADDRESS_SEARCH_BY_KEYWORD_URL,
 } from "../types/general";
 
-export function vehicleBrandsGetAll(userModel) {
+export function vehicleBrandsGetAll() {
   return {
     type: VEHICLE_BRANDS_GET_ALL,
     payload: {
       request: {
-        method: "POST",
         url: VEHICLE_BRANDS_GET_ALL_URL,
-        data: userModel,
       },
     },
   };
 }
 
-export function vehicleModelsgetByBrand(userModel) {
+export function vehicleModelsgetByBrand(brandId) {
   return {
     type: VEHICLE_MODELS_GET_BY_BRAND_ID,
     payload: {
       request: {
-        method: "POST",
-        url: VEHICLE_MODELS_GET_BY_BRAND_ID_URL,
-        data: userModel,
+        url: `${VEHICLE_MODELS_GET_BY_BRAND_ID_URL}/${brandId}`,
       },
     },
   };
 }
 
-export function vehicleModelsDesiRate(userModel) {
+export function vehicleModelsDesiRate(brandId) {
   return {
     type: VEHICLE_MODELS_DESI_RATE,
     payload: {
       request: {
-        method: "POST",
-        url: VEHICLE_MODELS_DESI_RATE_URL,
-        data: userModel,
+        url: `${VEHICLE_MODELS_DESI_RATE_URL}/${brandId}`,
       },
     },
   };
 }
 
-export function vehicleTypesGetAll(userModel) {
+export function vehicleTypesGetAll() {
   return {
     type: VEHICLE_TYPES_GET_ALL,
     payload: {
       request: {
-        method: "POST",
         url: VEHICLE_TYPES_GET_ALL_URL,
-        data: userModel,
       },
     },
   };
 }
 
-export function citiesGetAll(userModel) {
+export function citiesGetAll() {
   return {
     type: CITIES_GET_ALL,
     payload: {
       request: {
-        method: "POST",
         url: CITIES_GET_ALL_URL,
-        data: userModel,
       },
     },
   };
 }
 
-/////////////////
-export function citiesGetAllWithDistrict(userModel) {
+export function citiesGetAllWithDistrict() {
   return {
     type: CITIES_GET_ALL_WITH_DISTRICTS,
     payload: {
       request: {
-        method: "POST",
         url: CITIES_GET_ALL_WITH_DISTRICTS_URL,
-        data: userModel,
       },
     },
   };
 }
-export function districtGetByCity(userModel) {
+export function districtGetByCity(cityId) {
   return {
     type: DISTRICTS_GET_BY_CITY_ID,
     payload: {
       request: {
-        method: "POST",
-        url: DISTRICTS_GET_BY_CITY_ID_URL,
-        data: userModel,
+        url: `${DISTRICTS_GET_BY_CITY_ID_URL}/${cityId}`,
       },
     },
   };
 }
 
-export function addressSearchByKeword(userModel) {
+export function addressSearchByKeword(kelime) {
   return {
     type: ADDRESS_SEARCH_BY_KEYWORD,
     payload: {
       request: {
-        method: "POST",
-        url: ADDRESS_SEARCH_BY_KEYWORD_URL,
-        data: userModel,
+        url: `${ADDRESS_SEARCH_BY_KEYWORD_URL}/${kelime}`,
       },
     },
   };

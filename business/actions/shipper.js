@@ -24,14 +24,20 @@ export function driverCraete(userModel) {
   };
 }
 
-export function driverGetByShipper(userModel) {
+export function driverGetByShipper(isApproved) {
+  let url = DRIVERS_GET_BY_SHIPPER_ID_URL;
+  if (isApproved != null || isApproved != undefined) {
+    if (isApproved) {
+      url += `?isApproved=true`;
+    } else {
+      url += `?isApproved=false`;
+    }
+  }
   return {
     type: DRIVERS_GET_BY_SHIPPER_ID,
     payload: {
       request: {
-        method: "POST",
-        url: DRIVERS_GET_BY_SHIPPER_ID_URL,
-        data: userModel,
+        url: url,
       },
     },
   };
