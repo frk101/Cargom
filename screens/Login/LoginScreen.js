@@ -14,74 +14,10 @@ import { Feather, AntDesign } from "react-native-vector-icons/";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AuthContext } from "../../components/context";
 import COLORS from "../../constans/colors";
-import { Container } from "native-base";
+import { Container, Content } from "native-base";
 import { TextInputMask } from "react-native-masked-text";
 
 const LoginScreen = () => {
-  const [cell, setCell] = useState("");
-  const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    check_textInputChange: false,
-    secureTextEntry: true,
-    isValidUser: true,
-    isValidPassword: true,
-  });
-
-  const textInputChange = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: true,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: false,
-        isValidUser: false,
-      });
-    }
-  };
-
-  const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: true,
-      });
-    } else {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: false,
-      });
-    }
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const handleValidUser = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidUser: false,
-      });
-    }
-  };
   const navigation = useNavigation();
 
   return (
@@ -115,7 +51,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
+        <Content>
           <Text
             style={[
               styles.text_footer,
@@ -133,7 +69,13 @@ const LoginScreen = () => {
                 +90
               </Text>
             </View>
-            <TextInputMask
+            <TextInput
+              placeholder="Telefon Numaranızı Giriniz"
+              style={styles.textInput}
+              keyboardType="email-address"
+            />
+
+            {/* <TextInputMask
               placeholder="Telefon Numaranızı Giriniz"
               style={styles.textInput}
               type={"cel-phone"}
@@ -144,16 +86,39 @@ const LoginScreen = () => {
               }}
               value={cell}
               onChangeText={(text) => setCell(text)}
+            /> */}
+          </View>
+          <Text
+            style={[
+              styles.text_footer,
+              {
+                color: COLORS.text,
+                marginTop: 35,
+              },
+            ]}
+          >
+            Parola
+          </Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Parolanızı giriniz"
+              placeholderTextColor="#666666"
+              keyboardType="email-address"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
             />
           </View>
-
           <TouchableOpacity
             onPress={() => navigation.navigate("OtpScreens")}
             style={styles.btnGonder}
           >
             <Text style={styles.btnText}>Giriş Yap</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </Content>
       </SafeAreaView>
     </Container>
   );

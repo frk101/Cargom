@@ -9,6 +9,8 @@ import {
   SHIPPERS_REGISTER_BEGIN_REQUEST_URL,
   SHIPPERS_REGISTER_COMPLATE,
   SHIPPERS_REGISTER_COMPLATE_URL,
+  SHIPPERS_LOGIN_URL,
+  SHIPPERS_LOGIN,
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -76,6 +78,19 @@ export function shipperRegisterComplate(userModel) {
       request: {
         method: "POST",
         url: SHIPPERS_REGISTER_COMPLATE_URL,
+        data: userModel,
+      },
+    },
+  };
+}
+
+export function shipperLogin(userModel) {
+  return {
+    type: SHIPPERS_LOGIN,
+    payload: {
+      request: {
+        method: "POST",
+        url: SHIPPERS_LOGIN_URL,
         data: userModel,
       },
     },

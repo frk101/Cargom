@@ -14,6 +14,9 @@ import {
   SHIPPERS_REGISTER_COMPLATE,
   SHIPPERS_REGISTER_COMPLATE_FAIL,
   SHIPPERS_REGISTER_COMPLATE_SUCCESS,
+  SHIPPERS_LOGIN,
+  SHIPPERS_LOGIN_SUCCESS,
+  SHIIPERS_LOGIN_FAIL,
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -32,6 +35,9 @@ const INITIAL_STATE = {
   shipperRegisterComplateLoading: false,
   shipperRegisterComplateResult: {},
   shipperRegisterComplateFail: false,
+  shipperLoginLoading: false,
+  shipperLoginResult: {},
+  shipperLoginFail: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -146,6 +152,29 @@ export default (state = INITIAL_STATE, action) => {
         shipperRegisterComplateResult: {},
         shipperRegisterComplateFail: true,
       };
+    ////////////////////////////////
+    case SHIPPERS_LOGIN:
+      return {
+        ...state,
+        shipperLoginLoading: true,
+        shipperLoginResult: {},
+        shipperLoginFail: false,
+      };
+    case SHIPPERS_LOGIN_SUCCESS:
+      return {
+        ...state,
+        shipperLoginLoading: false,
+        shipperLoginResult: action.payload.data,
+        shipperLoginFail: false,
+      };
+    case SHIIPERS_LOGIN_FAIL:
+      return {
+        ...state,
+        shipperLoginLoading: false,
+        shipperLoginResult: {},
+        shipperLoginFail: true,
+      };
+
     default:
       return { ...state };
   }
