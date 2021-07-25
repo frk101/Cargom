@@ -123,6 +123,7 @@ const OtpScreens = () => {
         input6TextRef.current
     );
     dispatch(shipperRegisterComplate(model)).then(({ payload: { data } }) => {
+      console.log(data);
       if (data.status) {
         setVisible(true);
       } else {

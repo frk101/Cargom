@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,6 +21,8 @@ import COLORS from "../constans/colors";
 import { FlatGrid } from "react-native-super-grid";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import Constants from "expo-constants";
+import { useDispatch } from "react-redux";
+import { vehicleBrandsGetAll } from "../business/actions/general";
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -28,7 +30,15 @@ const wait = (timeout) => {
   });
 };
 const CorpHomeScreen = () => {
+  const dispatch = useDispatch();
   const [refreshing, setRefreshing] = React.useState(false);
+
+  // useEffect(() => {
+  //   dispatch(vehicleBrandsGetAll()).then((x) => {
+  //     console.log(x);
+  //   });
+  //   return () => {};
+  // }, []);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -91,9 +101,14 @@ const CorpHomeScreen = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          
-          <Image source={require("../assets/shipgeldiLogo-v03-1.png")} style={{width:140,resizeMode:'contain'}}/>
-          <TouchableOpacity onPress={()=>navigation.navigate("ProfileScreen")}>
+
+          <Image
+            source={require("../assets/shipgeldiLogo-v03-1.png")}
+            style={{ width: 140, resizeMode: "contain" }}
+          />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ProfileScreen")}
+          >
             <MaterialCommunityIcons
               name="account-circle"
               size={40}
@@ -132,7 +147,7 @@ const styles = StyleSheet.create({
   menu: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems:'center',
+    alignItems: "center",
     marginTop: 40,
     marginHorizontal: 15,
   },

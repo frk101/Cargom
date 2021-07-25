@@ -15,25 +15,10 @@ import { TextInputMask } from "react-native-masked-text";
 import COLORS from "../../constans/colors";
 import { Container, Content } from "native-base";
 import { useDispatch } from "react-redux";
-import * as Yup from "yup";
 import FormErrorText from "../../components/FormErrorText";
 import { shipperRegisterBeginRequest } from "../../business/actions/shipper";
 import { Notifier, NotifierComponents } from "react-native-notifier";
-
-const RegisterScheme = Yup.object().shape({
-  firstName: Yup.string()
-    .min(1, "Boş geçilemez!")
-    .max(50, "Hatalı giriş yaptınız!")
-    .required("Boş geçilemez"),
-  lastName: Yup.string()
-    .min(1, "Boş geçilemez!")
-    .max(50, "Hatalı giriş yaptınız!")
-    .required("Boş geçilemez"),
-  phone: Yup.string()
-    .min(15, "Boş geçilemez!")
-    .max(50, "Hatalı giriş yaptınız!")
-    .required("Boş geçilemez"),
-});
+import RegisterScheme from "../../ValidationScheme/RegisterScheme";
 
 const Bireysel = () => {
   const dispatch = useDispatch();

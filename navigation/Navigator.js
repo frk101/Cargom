@@ -21,40 +21,68 @@ import Bireysel from "../screens/Registrer/Bireysel";
 import MyTaskScreen from "../screens/DrawerDetail/MyTaskScreen";
 import StepCargo from "../deneme/StepCargo";
 
+const LoginStack = createStackNavigator();
+
+const LoginNavigator = () => {
+  return (
+    <LoginStack.Navigator headerMode="none">
+      <LoginStack.Screen name="SplashScreen" component={SplashScreen} />
+      <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
+      <LoginStack.Screen name="Kurumsal" component={Kurumsal} />
+      <LoginStack.Screen name="Bireysel" component={Bireysel} />
+      <HomeStack.Screen name="OtpScreens" component={OtpScreens} />
+    </LoginStack.Navigator>
+  );
+};
+
+const HomeStack = createDrawerNavigator();
+
+const HomeNavigator = () => {
+  return (
+    <HomeStack.Navigator
+      headerMode="none"
+      drawerContent={(props) => <DrawerContent {...props} />}
+      drawerStyle={{ width: "75%" }}
+    >
+      <HomeStack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
+      {/* <HomeNavigator.Screen name="DrawerScreen" component={DrawerScreen} /> */}
+      <HomeStack.Screen name="DriverScreen" component={DriverScreen} />
+      <HomeStack.Screen name="AllCargoScreen" component={AllCargoScreen} />
+      <HomeStack.Screen name="AllCargoDetail" component={AllCargoDetail} />
+
+      <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <HomeStack.Screen
+        name="ProfileEditScreen"
+        component={ProfileEditScreen}
+      />
+      <HomeStack.Screen name="OffersScreeen" component={OffersScreeen} />
+      <HomeStack.Screen name="MyTaskScreen" component={MyTaskScreen} />
+      <HomeStack.Screen name="StepCargo" component={StepCargo} />
+    </HomeStack.Navigator>
+  );
+};
+
 const Stack = createStackNavigator();
 
 export default function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
-        <Stack.Screen name="DrawerScreen" component={DrawerScreen} />
-        <Stack.Screen name="DriverScreen" component={DriverScreen} />
-        <Stack.Screen name="AllCargoScreen" component={AllCargoScreen} />
-        <Stack.Screen name="AllCargoDetail" component={AllCargoDetail} />
-        <Stack.Screen name="OtpScreens" component={OtpScreens} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-        <Stack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
-        <Stack.Screen name="OffersScreeen" component={OffersScreeen} />
-        <Stack.Screen name="Kurumsal" component={Kurumsal} />
-        <Stack.Screen name="Bireysel" component={Bireysel} />
-        <Stack.Screen name="MyTaskScreen" component={MyTaskScreen} />
-        <Stack.Screen name="StepCargo" component={StepCargo} />
+        <Stack.Screen name="LoginScreen" component={LoginNavigator} />
+        <Stack.Screen name="MainScreen" component={HomeNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
-const DrawerScreen = () => {
-  return (
-    <Drawer.Navigator
-      drawerContent={(props) => <DrawerContent {...props} />}
-      drawerStyle={{ width: "75%" }}
-    >
-      <Drawer.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
-    </Drawer.Navigator>
-  );
-};
+// const DrawerScreen = () => {
+//   return (
+//     <Drawer.Navigator
+//       drawerContent={(props) => <DrawerContent {...props} />}
+//       drawerStyle={{ width: "75%" }}
+//     >
+//       <Drawer.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
+//     </Drawer.Navigator>
+//   );
+// };

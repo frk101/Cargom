@@ -35,7 +35,7 @@ const RegisterScheme = Yup.object().shape({
     .required("Boş geçilemez"),
   companyName: Yup.string()
     .min(1, "Boş geçilemez!")
-    .max(50, "Hatalı giriş yaptınız!")
+    .max(250, "Hatalı giriş yaptınız!")
     .required("Boş geçilemez"),
 });
 const Kurumsal = () => {
