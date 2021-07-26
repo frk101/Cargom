@@ -121,10 +121,10 @@ const Bireysel = () => {
                     onBlur={handleBlur("firstName")}
                     value={values.firstName}
                   />
-                  {errors.firstName && touched.firstName ? (
-                    <FormErrorText>{errors.firstName}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.firstName && touched.firstName ? (
+                  <FormErrorText>* {errors.firstName}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -151,10 +151,10 @@ const Bireysel = () => {
                     onBlur={handleBlur("lastName")}
                     value={values.lastName}
                   />
-                  {errors.lastName && touched.lastName ? (
-                    <FormErrorText>{errors.lastName}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.lastName && touched.lastName ? (
+                  <FormErrorText>* {errors.lastName}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -187,10 +187,10 @@ const Bireysel = () => {
                     onBlur={handleBlur("phone")}
                     value={values.phone}
                   />
-                  {errors.phone && touched.phone ? (
-                    <FormErrorText>{errors.phone}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.phone && touched.phone ? (
+                  <FormErrorText>* {errors.phone}</FormErrorText>
+                ) : null}
 
                 <TouchableOpacity
                   onPress={handleSubmit}

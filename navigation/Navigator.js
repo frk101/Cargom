@@ -20,6 +20,7 @@ import Kurumsal from "../screens/RegisterKurumsal/Kurumsal";
 import Bireysel from "../screens/RegisterBireysel/Bireysel";
 import MyTaskScreen from "../screens/MyTaskScreen/MyTaskScreen";
 import StepCargo from "../deneme/StepCargo";
+import VehiclesScreen from "../screens/VehiclesScreen";
 
 const LoginStack = createStackNavigator();
 
@@ -57,6 +58,7 @@ const HomeNavigator = () => {
       />
       <HomeStack.Screen name="OffersScreeen" component={OffersScreeen} />
       <HomeStack.Screen name="MyTaskScreen" component={MyTaskScreen} />
+      <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="StepCargo" component={StepCargo} />
     </HomeStack.Navigator>
   );
@@ -71,8 +73,8 @@ export default function Navigator() {
         headerMode="none"
         screenOptions={{ gestureEnabled: false }}
       >
-        <Stack.Screen name="MainScreen" component={HomeNavigator} />
         <Stack.Screen name="LoginScreen" component={LoginNavigator} />
+        <Stack.Screen name="MainScreen" component={HomeNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

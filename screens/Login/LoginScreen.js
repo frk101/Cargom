@@ -25,8 +25,10 @@ import { Notifier, NotifierComponents } from "react-native-notifier";
 import FormErrorText from "../../components/FormErrorText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles";
+import { Ionicons } from "react-native-vector-icons";
 
 const LoginScreen = () => {
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -126,9 +128,6 @@ const LoginScreen = () => {
                     onBlur={handleBlur("email")}
                     value={values.email}
                   />
-                  {errors.email && touched.email ? (
-                    <FormErrorText>{errors.email}</FormErrorText>
-                  ) : null}
 
                   {/* <TextInputMask
               placeholder="Telefon Numaranızı Giriniz"
@@ -143,6 +142,9 @@ const LoginScreen = () => {
               onChangeText={(text) => setCell(text)}
             /> */}
                 </View>
+                {errors.email && touched.email ? (
+                  <FormErrorText>* {errors.email}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -158,7 +160,7 @@ const LoginScreen = () => {
                   <TextInput
                     placeholder="Parolanızı giriniz"
                     placeholderTextColor="#666666"
-                    secureTextEntry
+                    secureTextEntry={secureTextEntry}
                     style={[
                       styles.textInput,
                       {
@@ -169,10 +171,27 @@ const LoginScreen = () => {
                     onBlur={handleBlur("password")}
                     value={values.password}
                   />
-                  {errors.password && touched.password ? (
-                    <FormErrorText>{errors.password}</FormErrorText>
-                  ) : null}
+                  {secureTextEntry == true ? (
+                    <Ionicons
+                      name="eye"
+                      size={25}
+                      color="#666666"
+                      style={{ color: "#666666" }}
+                      onPress={() => setSecureTextEntry(!secureTextEntry)}
+                    />
+                  ) : (
+                    <Ionicons
+                      size={25}
+                      name="eye-off"
+                      color="#666666"
+                      style={{ color: "#666666" }}
+                      onPress={() => setSecureTextEntry(!secureTextEntry)}
+                    />
+                  )}
                 </View>
+                {errors.password && touched.password ? (
+                  <FormErrorText>* {errors.password}</FormErrorText>
+                ) : null}
                 <TouchableOpacity
                   onPress={handleSubmit}
                   style={styles.btnGonder}

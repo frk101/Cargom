@@ -50,123 +50,71 @@ export function DrawerContent(props) {
               </View>
             </View>
           </View>
-          {shipperLoginResult &&
-          shipperLoginResult.data &&
-          shipperLoginResult.data.shipper &&
-          shipperLoginResult.data.shipper.shipperType == 2 ? (
-            <Drawer.Section style={styles.drawerSection}>
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="home-outline" color={color} size={size} />
-                //   )}
-                label="Anasayfa"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("CorpHomeScreen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="home-outline" color={color} size={size} />
-                //   )}
-                label="Sürücüler"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("DriverScreen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="account-outline" color={color} size={size} />
-                //   )}
-                label="Araçlar"
-                labelStyle={styles.labels}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="bookmark-outline" color={color} size={size} />
-                //   )}
-                label="Teklifler"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("OffersScreeen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="settings-outline" color={color} size={size} />
-                //   )}
-                label="Görevlerim"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("MyTaskScreen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="account-check-outline" color={color} size={size} />
-                //   )}
-                label="Tüm Kargolar"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("AllCargoScreen")}
-              />
 
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="account-check-outline" color={color} size={size} />
-                //   )}
-                label="Ödemeler"
-                labelStyle={styles.labels}
-              />
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="home-outline" color={color} size={size} />
+              //   )}
+              label="Anasayfa"
+              labelStyle={styles.labels}
+              onPress={() => navigation.navigate("CorpHomeScreen")}
+            />
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="home-outline" color={color} size={size} />
+              //   )}
+              label="Sürücüler"
+              labelStyle={styles.labels}
+              onPress={() => navigation.navigate("DriverScreen")}
+            />
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="account-outline" color={color} size={size} />
+              //   )}
+              label="Araçlar"
+              labelStyle={styles.labels}
+              onPress={() => navigation.navigate("VehiclesScreen")}
+            />
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="bookmark-outline" color={color} size={size} />
+              //   )}
+              label="Teklifler"
+              labelStyle={styles.labels}
+              onPress={() => navigation.navigate("OffersScreeen")}
+            />
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="settings-outline" color={color} size={size} />
+              //   )}
+              label="Görevlerim"
+              labelStyle={styles.labels}
+              onPress={() => navigation.navigate("MyTaskScreen")}
+            />
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="account-check-outline" color={color} size={size} />
+              //   )}
+              label="Tüm Kargolar"
+              labelStyle={styles.labels}
+              onPress={() => navigation.navigate("AllCargoScreen")}
+            />
 
-              <DrawerItem
-                label="Çıkış Yap"
-                labelStyle={{ fontSize: 15, fontWeight: "bold" }}
-                onPress={() => navigation.navigate("SplashScreen")}
-              />
-            </Drawer.Section>
-          ) : (
-            <Drawer.Section style={styles.drawerSection}>
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="home-outline" color={color} size={size} />
-                //   )}
-                label="Anasayfa"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("CorpHomeScreen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="bookmark-outline" color={color} size={size} />
-                //   )}
-                label="Teklifler"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("OffersScreeen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="settings-outline" color={color} size={size} />
-                //   )}
-                label="Görevlerim"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("MyTaskScreen")}
-              />
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="account-check-outline" color={color} size={size} />
-                //   )}
-                label="Tüm Kargolar"
-                labelStyle={styles.labels}
-                onPress={() => navigation.navigate("AllCargoScreen")}
-              />
+            <DrawerItem
+              //   icon={({ color, size }) => (
+              //     <Icon name="account-check-outline" color={color} size={size} />
+              //   )}
+              label="Ödemeler"
+              labelStyle={styles.labels}
+            />
 
-              <DrawerItem
-                //   icon={({ color, size }) => (
-                //     <Icon name="account-check-outline" color={color} size={size} />
-                //   )}
-                label="Ödemeler"
-                labelStyle={styles.labels}
-              />
-
-              <DrawerItem
-                label="Çıkış Yap"
-                labelStyle={{ fontSize: 15, fontWeight: "bold" }}
-                onPress={() => navigation.navigate("SplashScreen")}
-              />
-            </Drawer.Section>
-          )}
+            <DrawerItem
+              label="Çıkış Yap"
+              labelStyle={{ fontSize: 15, fontWeight: "bold" }}
+              onPress={() => navigation.navigate("SplashScreen")}
+            />
+          </Drawer.Section>
         </View>
       </DrawerContentScrollView>
     </View>

@@ -22,7 +22,7 @@ import { FlatGrid } from "react-native-super-grid";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { useDispatch, useSelector } from "react-redux";
-import { vehicleBrandsGetAll } from "../../business/actions/general";
+import { driverCraete } from "../../business/actions/general";
 import styles from "./styles";
 
 export const dummyData = [
@@ -107,6 +107,13 @@ const CorpHomeScreen = () => {
     wait(2000).then(() => setRefreshing(false));
   }, []);
   const navigation = useNavigation();
+
+  // useEffect(() => {
+  //   dispatch(driverCraete()).then((x) => {
+  //     console.log(x);
+  //   });
+  //   return () => {};
+  // }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>

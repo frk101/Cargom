@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Container, Header, Left, Right, Body, Title } from "native-base";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
@@ -24,6 +24,7 @@ const Layout = ({
   containerStyle,
   filter,
   right,
+  closeModal,
 }) => {
   const navigation = useNavigation();
 
@@ -78,6 +79,7 @@ Layout.propTypes = {
   searchText: PropTypes.string,
   body: PropTypes.element,
   isBackIcon: PropTypes.bool,
+  closeModal: PropTypes.bool,
   filter: PropTypes.bool,
 };
 
@@ -93,6 +95,7 @@ Layout.defaultProps = {
   searchText: "Ara",
   body: null,
   isBackIcon: false,
+  closeModal: false,
   filter: false,
   containerStyle: {},
 };

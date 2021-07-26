@@ -72,10 +72,11 @@ const ProfileEditScreen = () => {
               },
             ]}
           >
-            Ad
+            Adınız Soyadınız
           </Text>
           <View style={styles.action}>
             <TextInput
+              placeholder="Adınızı Ve Soyadınızı Giriniz"
               placeholderTextColor="#666666"
               keyboardType="email-address"
               value={
@@ -142,7 +143,7 @@ const ProfileEditScreen = () => {
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="faruk@gmail.com"
+              placeholder="E-mail Adresiniz Giriniz"
               placeholderTextColor="#666666"
               keyboardType="email-address"
               value={

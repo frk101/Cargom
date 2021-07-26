@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import COLORS from "../../constans/colors";
 import { useNavigation } from "@react-navigation/native";
 
-const PopupButton = ({ register, gorev }) => {
+const PopupButton = ({ register, gorev, driverList }) => {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
 
@@ -85,7 +85,11 @@ const PopupButton = ({ register, gorev }) => {
             <Text style={styles.btnText}>Bilgilerimi Güncelle</Text>
           </TouchableOpacity>
           <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <ModalPoup visible={visible}>
               <View style={{ alignItems: "center" }}></View>

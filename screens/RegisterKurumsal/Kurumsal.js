@@ -141,10 +141,10 @@ const Kurumsal = () => {
                     onBlur={handleBlur("firstName")}
                     value={values.firstName}
                   />
-                  {errors.firstName && touched.firstName ? (
-                    <FormErrorText>{errors.firstName}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.firstName && touched.firstName ? (
+                  <FormErrorText>* {errors.firstName}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -171,10 +171,10 @@ const Kurumsal = () => {
                     onBlur={handleBlur("lastName")}
                     value={values.lastName}
                   />
-                  {errors.lastName && touched.lastName ? (
-                    <FormErrorText>{errors.lastName}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.lastName && touched.lastName ? (
+                  <FormErrorText>* {errors.lastName}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -201,10 +201,10 @@ const Kurumsal = () => {
                     onBlur={handleBlur("companyName")}
                     value={values.companyName}
                   />
-                  {errors.companyName && touched.companyName ? (
-                    <FormErrorText>{errors.companyName}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.companyName && touched.companyName ? (
+                  <FormErrorText>* {errors.companyName}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -236,10 +236,10 @@ const Kurumsal = () => {
                     onBlur={handleBlur("phone")}
                     value={values.phone}
                   />
-                  {errors.phone && touched.phone ? (
-                    <FormErrorText>{errors.phone}</FormErrorText>
-                  ) : null}
                 </View>
+                {errors.phone && touched.phone ? (
+                  <FormErrorText>* {errors.phone}</FormErrorText>
+                ) : null}
 
                 <TouchableOpacity
                   onPress={handleSubmit}
