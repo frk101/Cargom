@@ -6,9 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Image,
   View,
-  Platform,
   SafeAreaView,
 } from "react-native";
 
@@ -38,11 +36,11 @@ const Layout = ({
               left
             ) : isBackIcon ? (
               <TouchableOpacity
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
                 hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
               >
-                <Ionicons
-                  name="ios-arrow-back"
+                <AntDesign
+                  name="left"
                   style={{ paddingHorizontal: 10, color: "black" }}
                   size={24}
                   color={Colors.themeColor}
@@ -51,7 +49,11 @@ const Layout = ({
             ) : null}
           </View>
           <View style={{ flex: 4, alignItems: "center" }}>
-            {body && React.isValidElement(body) ? body : <Text>{title}</Text>}
+            {body && React.isValidElement(body) ? (
+              body
+            ) : (
+              <Text style={styles.baslik}>{title}</Text>
+            )}
           </View>
           <View style={{ flex: 1, alignItems: "center" }}>
             {React.isValidElement(right) ? right : isBackIcon ? <View /> : null}
@@ -154,5 +156,10 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
     lineHeight: 12,
+  },
+  baslik: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: Colors.text,
   },
 });

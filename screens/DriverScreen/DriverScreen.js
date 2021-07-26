@@ -7,6 +7,7 @@ import { FlatList } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import myData from "../../data/FakeData";
 import Layout from "../../components/Layout";
+import styles from "./styles";
 // export const datas = [
 //   {
 //     key: "1",
@@ -80,37 +81,3 @@ const RenderList = ({ item }) => {
 };
 
 export default DriverScreen;
-
-const styles = StyleSheet.create({
-  viewHeaderContainer: {
-    backgroundColor: "#ffffff",
-    // paddingBottom: 10,
-    shadowColor: "#000",
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  listContainer: {
-    marginVertical: 10,
-
-    marginHorizontal: 10,
-    backgroundColor: "#ffffff",
-    // paddingBottom: 10,
-    shadowColor: "#000",
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-});

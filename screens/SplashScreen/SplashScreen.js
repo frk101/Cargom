@@ -1,11 +1,17 @@
 import React, { useRef } from "react";
-import { TouchableOpacity } from "react-native";
 
-import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import COLORS from "../constans/colors";
-
+import COLORS from "../../constans/colors";
 import { Modalize } from "react-native-modalize";
+import styles from "./styles";
 
 const SplashhScreen = () => {
   const navigation = useNavigation();
@@ -20,7 +26,7 @@ const SplashhScreen = () => {
 
   return (
     <ImageBackground
-      source={require("../assets/SplashLogo.png")}
+      source={require("../../assets/SplashLogo.png")}
       resizeMode="cover"
       style={styles.img}
     >
@@ -41,7 +47,7 @@ const SplashhScreen = () => {
       <Modalize ref={modalizeRef} snapPoint={350} modalHeight={350}>
         <View style={styles.modalContainer}>
           <Image
-            source={require("../assets/shipgeldiLogo-v03-1.png")}
+            source={require("../../assets/shipgeldiLogo-v03-1.png")}
             style={{ width: 200, resizeMode: "cover", marginBottom: 20 }}
           />
           <Text style={styles.modalTxt}>
@@ -72,65 +78,3 @@ const SplashhScreen = () => {
 };
 
 export default SplashhScreen;
-
-const styles = StyleSheet.create({
-  btnKayit: {
-    backgroundColor: COLORS.primary,
-    width: "35%",
-    borderRadius: 10,
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnGiris: {
-    padding: 10,
-    width: "35%",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "#FFFFFF",
-    borderWidth: 1,
-  },
-  txt: {
-    color: "#ffffff",
-    fontSize: 15,
-    fontWeight: "700",
-  },
-  btnContainer: {
-    bottom: 70,
-    position: "absolute",
-    width: "100%",
-  },
-  img: { width: "100%", height: "100%" },
-  btnGonder: {
-    backgroundColor: COLORS.primary,
-    width: "90%",
-    padding: 15,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 20,
-    borderRadius: 10,
-  },
-  btnGonder1: {
-    backgroundColor: COLORS.primary,
-    width: "90%",
-    padding: 15,
-    justifyContent: "center",
-    alignItems: "center",
-
-    borderRadius: 10,
-  },
-  btnText: { color: "#ffffff", fontSize: 18, fontWeight: "bold" },
-  modalContainer: {
-    flex: 1,
-    height: 350,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalTxt: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 18,
-    color: COLORS.text,
-  },
-});

@@ -8,6 +8,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import myData from "../../data/FakeData";
 import Layout from "../../components/Layout";
 import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
+import styles from "./styles";
 const MyTaskScreen = () => {
   const navigation = useNavigation();
   return (
@@ -57,40 +58,3 @@ const MyTaskScreen = () => {
 };
 
 export default MyTaskScreen;
-
-const styles = StyleSheet.create({
-  listContainer: {
-    marginVertical: 10,
-
-    marginHorizontal: 10,
-    backgroundColor: "#ffffff",
-    // paddingBottom: 10,
-    shadowColor: "#000",
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  listContainer1: {
-    marginVertical: 10,
-
-    marginHorizontal: 10,
-    backgroundColor: "#ffffff",
-    // paddingBottom: 10,
-    shadowColor: "#000",
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-});

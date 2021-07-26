@@ -5,20 +5,20 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 ///Screens
-import SplashScreen from "../screens/SplashScreen";
+import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import LoginScreen from "../screens/Login/LoginScreen";
-import CorpHomeScreen from "../screens/CorpHomeScreen";
-import DriverScreen from "../screens/DrawerDetail/DriverScreen";
-import OtpScreens from "../screens/OtpScreens";
-import AllCargoScreen from "../screens/DrawerDetail/AllCargo/AllCargoScreen";
-import AllCargoDetail from "../screens/DrawerDetail/AllCargo/AllCargoDetail";
+import CorpHomeScreen from "../screens/HomeScreen/CorpHomeScreen";
+import DriverScreen from "../screens/DriverScreen/DriverScreen";
+import OtpScreens from "../screens/OtpScreen/OtpScreens";
+import AllCargoScreen from "../screens/AllCargoScreen/AllCargoScreen";
+import AllCargoDetail from "../screens/AllCargoScreen/AllCargoDetail";
 import { DrawerContent } from "../screens/Drawer/DrawerContent";
-import ProfileScreen from "../screens/Profile/ProfileScreen";
-import ProfileEditScreen from "../screens/Profile/ProfileEditScreen";
-import OffersScreeen from "../screens/DrawerDetail/OffersScreeen";
-import Kurumsal from "../screens/Registrer/Kurumsal";
-import Bireysel from "../screens/Registrer/Bireysel";
-import MyTaskScreen from "../screens/DrawerDetail/MyTaskScreen";
+import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
+import ProfileEditScreen from "../screens/ProfileEditScreen/ProfileEditScreen";
+import OffersScreeen from "../screens/OffersScreen/OffersScreeen";
+import Kurumsal from "../screens/RegisterKurumsal/Kurumsal";
+import Bireysel from "../screens/RegisterBireysel/Bireysel";
+import MyTaskScreen from "../screens/MyTaskScreen/MyTaskScreen";
 import StepCargo from "../deneme/StepCargo";
 
 const LoginStack = createStackNavigator();
@@ -67,9 +67,12 @@ const Stack = createStackNavigator();
 export default function Navigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="LoginScreen" component={LoginNavigator} />
+      <Stack.Navigator
+        headerMode="none"
+        screenOptions={{ gestureEnabled: false }}
+      >
         <Stack.Screen name="MainScreen" component={HomeNavigator} />
+        <Stack.Screen name="LoginScreen" component={LoginNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

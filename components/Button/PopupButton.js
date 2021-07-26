@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   },
   btnGonders: {
     backgroundColor: COLORS.primary,
-    padding: 20,
+    padding: 15,
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 20,

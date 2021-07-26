@@ -7,27 +7,19 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  ScrollView,
-  Animated,
-  Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import { useSelector } from "react-redux";
 import COLORS from "../../constans/colors";
-import {
-  Container,
-  Tab,
-  Content,
-  ScrollableTab,
-  Footer,
-  FooterTab,
-  Button,
-} from "native-base";
+import { TextInputMask } from "react-native-masked-text";
+import { Container, Content } from "native-base";
 import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
 import PopupButton from "../../components/Button/PopupButton";
+import styles from "./styles";
+
 const ProfileEditScreen = () => {
   const navigation = useNavigation();
-
+  const { shipperLoginResult } = useSelector((x) => x.shipper);
   return (
     <Container>
       <SafeAreaView
@@ -84,33 +76,14 @@ const ProfileEditScreen = () => {
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="Faruk"
               placeholderTextColor="#666666"
               keyboardType="email-address"
-              style={[
-                styles.textInput,
-                {
-                  color: COLORS.text,
-                },
-              ]}
-            />
-          </View>
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                color: COLORS.text,
-                marginTop: 20,
-              },
-            ]}
-          >
-            Soyad
-          </Text>
-          <View style={styles.action}>
-            <TextInput
-              placeholder="Albayrak"
-              placeholderTextColor="#666666"
-              keyboardType="email-address"
+              value={
+                shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.companyName
+              }
               style={[
                 styles.textInput,
                 {
@@ -132,17 +105,27 @@ const ProfileEditScreen = () => {
             Telefon Numarası
           </Text>
           <View style={styles.action}>
-            <TextInput
-              placeholder="(555) 555 55 55"
-              onChange="(555) 555 55 55"
+            <TextInputMask
+              placeholder="Telefon Numaranızı Giriniz"
               placeholderTextColor="#666666"
-              keyboardType="numeric"
               style={[
                 styles.textInput,
                 {
                   color: COLORS.text,
                 },
               ]}
+              type={"cel-phone"}
+              options={{
+                maskType: "BRL",
+                withDDD: true,
+                dddMask: "(999) 999 99-99 ",
+              }}
+              value={
+                shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.phoneNumber
+              }
             />
           </View>
 
@@ -162,6 +145,12 @@ const ProfileEditScreen = () => {
               placeholder="faruk@gmail.com"
               placeholderTextColor="#666666"
               keyboardType="email-address"
+              value={
+                shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.email
+              }
               style={[
                 styles.textInput,
                 {
@@ -178,77 +167,3 @@ const ProfileEditScreen = () => {
 };
 
 export default ProfileEditScreen;
-
-const styles = StyleSheet.create({
-  topNavBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 40,
-  },
-  backBtn: {
-    width: 48,
-    height: 48,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  action: {
-    flexDirection: "row",
-    marginTop: 5,
-    borderColor: "#979797",
-    padding: 13,
-    borderWidth: 1,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  textInput: {
-    flex: 1,
-    paddingLeft: 10,
-    color: COLORS.gray,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text_footer: {
-    color: COLORS.text,
-    fontWeight: "bold",
-    fontSize: 14,
-    marginTop: 20,
-  },
-  btnGonder: {
-    backgroundColor: COLORS.primary,
-    padding: 18,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 20,
-    borderRadius: 20,
-  },
-  btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
-  profile: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  btnGonder: {
-    backgroundColor: COLORS.primary,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 20,
-    borderRadius: 20,
-  },
-  btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
-  modalBackGround: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContainer: {
-    width: "80%",
-    backgroundColor: "white",
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-    borderRadius: 20,
-    elevation: 20,
-  },
-});
