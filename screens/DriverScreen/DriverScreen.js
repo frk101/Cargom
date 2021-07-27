@@ -7,30 +7,30 @@ import {
   Image,
   Dimensions,
   Alert,
+  RefreshControl,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { Appbar, FAB } from "react-native-paper";
-import Modal from "react-native-modal";
 import { FlatList } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
-import myData from "../../data/FakeData";
 import Layout from "../../components/Layout";
 import styles from "./styles";
-import PopupButton from "../../components/Button/PopupButton";
-import { Content } from "native-base";
-import CreateDriver from "../../components/createDriver";
+import { Fontisto } from "react-native-vector-icons";
 import { driverGetByShipper } from "../../business/actions/shipper";
 const { width, height } = Dimensions.get("screen");
 const DriverScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  const { driverGetAllShipperResult } = useSelector((x) => x.shipper);
+  const { driverGetAllShipperResult, driverGetAllShipperLoading } = useSelector(
+    (x) => x.shipper
+  );
 
   useEffect(() => {
     _getDriverList();
@@ -50,6 +50,12 @@ const DriverScreen = () => {
           </Text>
         ) : (
           <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={driverGetAllShipperLoading}
+                onRefresh={_getDriverList}
+              />
+            }
             data={driverGetAllShipperResult.data}
             renderItem={({ item }) => <RenderList item={item} />}
           />
@@ -60,33 +66,31 @@ const DriverScreen = () => {
         medium
         icon="plus"
         color="#fff"
-        onPress={toggleModal}
+        onPress={() => navigation.navigate("CreateDriver")}
       />
-
-      <Modal
-        isVisible={isModalVisible}
-        backdropOpacity={0.8}
-        animationIn="zoomInDown"
-        animationOut="zoomOutUp"
-        animationInTiming={600}
-        animationOutTiming={600}
-        backdropTransitionInTiming={600}
-        backdropTransitionOutTiming={600}
-        style={{ margin: 0, padding: 0, justifyContent: "flex-end" }}
-      >
-        <CreateDriver setModalVisible={setModalVisible} />
-      </Modal>
     </Layout>
   );
 };
 
 const RenderList = ({ item }) => {
+  console.log(item.driver);
   return (
     <View style={styles.listContainer}>
       <ListItem bottomDivider>
-        <Image source={item.img} style={{ width: 40, height: 40 }} />
+        {item.driver.gender == true ? (
+          <Fontisto name="male" color={COLORS.gray} size={30} />
+        ) : (
+          <Fontisto name="female" color={COLORS.gray} size={30} />
+        )}
+
+        {/* <Image
+          source={require("../../assets/Oval.png")}
+          style={{ width: 40, height: 40 }}
+        /> */}
         <ListItem.Content>
-          <ListItem.Title>{item.surucuAdi}</ListItem.Title>
+          <ListItem.Title>
+            {item.driver.firstname} {item.driver.lastname}
+          </ListItem.Title>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>

@@ -13,7 +13,6 @@ export default Yup.object().shape({
     .min(1, "Boş geçilemez!")
     .max(50, "Hatalı giriş yaptınız!")
     .required("Boş geçilemez"),
-
   Lastname: Yup.string()
     .min(1, "Boş geçilemez!")
     .max(50, "Hatalı giriş yaptınız!")

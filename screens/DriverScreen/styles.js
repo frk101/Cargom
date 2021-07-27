@@ -1,7 +1,7 @@
 import COLORS from "../../constans/colors";
 import { StyleSheet, Dimensions, Platform } from "react-native";
-
 const { width, height } = Dimensions.get("screen");
+
 export default StyleSheet.create({
   viewHeaderContainer: {
     backgroundColor: "#ffffff",
