@@ -17,55 +17,50 @@ import { useSelector, useDispatch } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
 import { useNavigation } from "@react-navigation/native";
 import DropDownPicker from "react-native-dropdown-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Content, Footer, FooterTab } from "native-base";
 import { Formik } from "formik";
 import { driverCraete } from "../../business/actions/shipper";
-import { Menu, Portal } from "react-native-paper";
 import COLORS from "../../constans/colors";
 import moment from "moment";
+
 import styles from "./styles";
 import FormErrorText from "../../components/FormErrorText";
+import { Button as PPButton, Menu } from "react-native-paper";
 
 const CreateDriver = () => {
-  const openMenu = () => setVisible(true);
-  const [visible, setVisible] = useState(false);
-  const [activeGender, setActiveGender] = useState(null);
-  const closeMenu = () => setVisible(false);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
-  const [text, setText] = useState("Doğum Tarihinizi Seçiniz");
+  const [text, setText] = useState("Doğum Tarihinizi Seçinz");
   const [value, setValue] = useState(null);
+  console.log(value);
   const [items, setItems] = useState([
     { label: "Erkek", value: true },
     { label: "Kadın", value: false },
   ]);
+  const [visible, setVisible] = React.useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-    let tempDate = new Date(currentDate);
-    let fDate =
-      tempDate.getFullYear() +
-      "-" +
-      (tempDate.getMonth() + 1) +
-      "-" +
-      tempDate.getDate();
-    setText(fDate + "\n");
-  };
-  const _handleBankaSecimi = (items) => {
-    setActiveGender(items);
-  };
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
   };
 
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    let tempDate = new Date(date);
+    setDate(date);
+    hideDatePicker();
+  };
+
   const _handleRegister = (values) => {
     values.PhoneNumber = values.PhoneNumber.replace("(", "")
       .replace(")", "")
@@ -73,9 +68,10 @@ const CreateDriver = () => {
       .replace(/\s/g, "")
       .trim();
     values.Gender = value;
-    values.Birthdate = date;
+    values.Birthdate = moment(date).format("YYYY-MM-DD");
+
     dispatch(driverCraete(values)).then(({ payload: { data } }) => {
-      if (data.status == true) {
+      if (data.status) {
         navigation.navigate("DriverScreen");
       } else {
         let message = "Kayıt işlemi sırasında bir hata oluştu.";
@@ -116,6 +112,7 @@ const CreateDriver = () => {
             Firstname: "",
             Lastname: "",
             IdentityNumber: "",
+            Gender: null,
           }}
           validationSchema={DriverScheme}
           onSubmit={(values) => _handleRegister(values)}
@@ -124,6 +121,7 @@ const CreateDriver = () => {
             handleChange,
             handleBlur,
             handleSubmit,
+            setFieldValue,
             values,
             errors,
             touched,
@@ -298,17 +296,52 @@ const CreateDriver = () => {
               >
                 Cinsiyet
               </Text>
-              <View style={styles.actions}>
-                <DropDownPicker
-                  style={styles.drop}
-                  placeholder="Cinsiyetinizi Seçiniz"
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                />
+              <View style={styles.action}>
+                <Menu
+                  visible={visible}
+                  onDismiss={closeMenu}
+                  anchor={
+                    <>
+                      <TouchableOpacity
+                        onPress={openMenu}
+                        placeholder="Cinsiyet seçiniz"
+                        placeholderTextColor="#666666"
+                        style={[
+                          styles.textInput,
+                          {
+                            color: COLORS.text,
+                          },
+                        ]}
+                      >
+                        <Text>
+                          {values.Gender == null
+                            ? "Cinsiyet seçiniz"
+                            : values.Gender
+                            ? "Erkek"
+                            : "Kadın"}
+                        </Text>
+                      </TouchableOpacity>
+                    </>
+                  }
+                >
+                  <Menu.Item
+                    onPress={() => {
+                      setFieldValue("Gender", true);
+                      closeMenu();
+                    }}
+                    title="Erkek"
+                  />
+                  <Menu.Item
+                    onPress={() => {
+                      setFieldValue("Gender", false);
+                      closeMenu();
+                    }}
+                    title="Kadın"
+                  />
+                </Menu>
+                {errors.Gender && touched.Gender ? (
+                  <FormErrorText>* {errors.Gender}</FormErrorText>
+                ) : null}
               </View>
               <Text
                 style={[
@@ -321,15 +354,33 @@ const CreateDriver = () => {
               >
                 Doğum Tarihi
               </Text>
-              <TouchableOpacity onPress={() => showMode()}>
+              <TouchableOpacity onPress={showDatePicker}>
+                <View style={styles.actionss}>
+                  <Text style={{ textAlign: "center" }}>
+                    {moment(date).format("DD MMMM YYYY")}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <DateTimePickerModal
+                pickerContainerStyleIOS={{ backgroundColor: "#fff" }}
+                textColor="black"
+                isVisible={isDatePickerVisible}
+                value={date}
+                mode="date"
+                // onChange={onChange}
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+                locale="tr-TR"
+                cancelTextIOS="Vazgeç"
+                confirmTextIOS="Tamam"
+              />
+              {/* <TouchableOpacity onPress={() => showMode()}>
                 <View style={styles.actionss}>
                   <Text style={{ textAlign: "center" }}>{text}</Text>
                 </View>
               </TouchableOpacity>
-              {/* <Button
-                title="Doğum Tarihinizi Giriniz"
-                onPress={() => showMode()}
-              /> */}
+             
               {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -340,7 +391,7 @@ const CreateDriver = () => {
                   onChange={onChange}
                   locale={"tr"}
                 />
-              )}
+              )} */}
               <TouchableOpacity style={styles.btnGonder} onPress={handleSubmit}>
                 <Text style={styles.btnText}>Ekle</Text>
               </TouchableOpacity>

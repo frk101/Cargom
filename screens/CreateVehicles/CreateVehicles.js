@@ -7,16 +7,18 @@ import { vehicleBrandsGetAll } from "../../business/actions/general";
 import { vehicleModelsgetByBrand } from "../../business/actions/general";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+
 import COLORS from "../../constans/colors";
 const CreateVehicles = ({ toggleModal, setModalVisible }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const { vehicleModelGetByBrandLoading, vehicleModelGetByBrandResult } =
-    useSelector((x) => x.general);
+  const { vehicleGetAllBrandsResult, vehicleGetAllBrandsLoading } = useSelector(
+    (x) => x.general
+  );
 
   useEffect(() => {
-    console.log(vehicleModelGetByBrandResult);
+    console.log(vehicleGetAllBrandsResult);
     _getVehiclesBrandList();
     return () => {};
   }, []);
@@ -24,19 +26,6 @@ const CreateVehicles = ({ toggleModal, setModalVisible }) => {
   const _getVehiclesBrandList = async () => {
     dispatch(vehicleBrandsGetAll());
   };
-  // const { vehicleGetAllBrandsResult, vehicleGetAllBrandsLoading } = useSelector(
-  //   (x) => x.general
-  // );
-
-  // useEffect(() => {
-  //   console.log(vehicleGetAllBrandsResult);
-  //   _getVehiclesBrandList();
-  //   return () => {};
-  // }, []);
-
-  // const _getVehiclesBrandList = async () => {
-  //   dispatch(vehicleBrandsGetAll());
-  // };
 
   return (
     <Layout
@@ -51,7 +40,9 @@ const CreateVehicles = ({ toggleModal, setModalVisible }) => {
           />
         </TouchableOpacity>
       }
-    ></Layout>
+    >
+      <View></View>
+    </Layout>
   );
 };
 

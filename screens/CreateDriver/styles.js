@@ -66,5 +66,9 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
-  drop: { borderColor: "#979797", borderWidth: 1, marginTop: 5 },
+  drop: {
+    borderColor: "#979797",
+    borderWidth: 1,
+    marginTop: 5,
+  },
 });

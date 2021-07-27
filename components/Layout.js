@@ -13,6 +13,7 @@ import {
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 import Colors from "../constans/colors";
+import { Platform } from "react-native";
 
 const Layout = ({
   children,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     backgroundColor: "#ffffff",
-    height: 100,
+    height: Platform.OS == "ios" ? 100 : 80,
     borderBottomColor: "#ffffff",
     justifyContent: "space-between",
     flexDirection: "row",

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import promise from "redux-promise-middleware";
 import { NotifierWrapper } from "react-native-notifier";
 import { createStore, applyMiddleware } from "redux";
+import { Provider as PaperProvider } from "react-native-paper";
 
 import { Provider } from "react-redux";
 import { multiClientMiddleware } from "redux-axios-middleware";
@@ -20,9 +21,12 @@ const store = createStore(
 const App = () => {
   return (
     <NotifierWrapper>
-      <Provider store={store}>
-        <Navigator />
-      </Provider>
+      <PaperProvider>
+        <Provider store={store}>
+          <StatusBar hidden={true} />
+          <Navigator />
+        </Provider>
+      </PaperProvider>
     </NotifierWrapper>
   );
 };
