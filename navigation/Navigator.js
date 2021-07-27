@@ -22,6 +22,7 @@ import MyTaskScreen from "../screens/MyTaskScreen/MyTaskScreen";
 import StepCargo from "../deneme/StepCargo";
 import VehiclesScreen from "../screens/VehiclesScreen";
 import CreateDriver from "../screens/CreateDriver/createDriver";
+import CreateVehicles from "../screens/CreateVehicles/CreateVehicles";
 
 const LoginStack = createStackNavigator();
 
@@ -61,6 +62,7 @@ const HomeNavigator = () => {
       <HomeStack.Screen name="MyTaskScreen" component={MyTaskScreen} />
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="CreateDriver" component={CreateDriver} />
+      <HomeStack.Screen name="CreateVehicles" component={CreateVehicles} />
       <HomeStack.Screen name="StepCargo" component={StepCargo} />
     </HomeStack.Navigator>
   );

@@ -2,16 +2,12 @@ import COLORS from "../../constans/colors";
 import { StyleSheet, Dimensions, Platform } from "react-native";
 const { width, height } = Dimensions.get("screen");
 
-
-export default createDriver;
-
 export default StyleSheet.create({
   action: {
     flexDirection: "row",
     marginTop: 5,
-
     borderColor: "#979797",
-    padding: 13,
+    padding: 10,
     borderWidth: 1,
     marginHorizontal: 20,
     borderRadius: 10,
@@ -21,6 +17,16 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 20,
+  },
+  actionss: {
+    flexDirection: "row",
+    marginTop: 5,
+    borderColor: "#979797",
+    padding: 10,
+    borderWidth: 1,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
   },
   textInput: {
     flex: 1,
@@ -60,4 +66,5 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
+  drop: { borderColor: "#979797", borderWidth: 1, marginTop: 5 },
 });

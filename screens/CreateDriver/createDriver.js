@@ -21,17 +21,22 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Content, Footer, FooterTab } from "native-base";
 import { Formik } from "formik";
 import { driverCraete } from "../../business/actions/shipper";
+import { Menu, Portal } from "react-native-paper";
 import COLORS from "../../constans/colors";
 import moment from "moment";
 import styles from "./styles";
 import FormErrorText from "../../components/FormErrorText";
 
-const createDriver = ({ toggleModal, setModalVisible }) => {
+const CreateDriver = () => {
+  const openMenu = () => setVisible(true);
+  const [visible, setVisible] = useState(false);
+  const [activeGender, setActiveGender] = useState(null);
+  const closeMenu = () => setVisible(false);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
-  const [text, setText] = useState("dddd");
+  const [text, setText] = useState("Doğum Tarihinizi Seçiniz");
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Erkek", value: true },
@@ -51,7 +56,9 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
       tempDate.getDate();
     setText(fDate + "\n");
   };
-
+  const _handleBankaSecimi = (items) => {
+    setActiveGender(items);
+  };
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -68,13 +75,11 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
     values.Gender = value;
     values.Birthdate = date;
     dispatch(driverCraete(values)).then(({ payload: { data } }) => {
-      console.log(values);
       if (data.status == true) {
         navigation.navigate("DriverScreen");
       } else {
         let message = "Kayıt işlemi sırasında bir hata oluştu.";
         if (data.message) {
-          console.log(data.message);
           message += data.message;
         }
         Notifier.showNotification({
@@ -129,7 +134,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
@@ -159,7 +164,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
@@ -196,7 +201,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
@@ -226,7 +231,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
@@ -256,7 +261,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
@@ -287,7 +292,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
@@ -295,6 +300,7 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
               </Text>
               <View style={styles.actions}>
                 <DropDownPicker
+                  style={styles.drop}
                   placeholder="Cinsiyetinizi Seçiniz"
                   open={open}
                   value={value}
@@ -309,13 +315,21 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
                   styles.text_footer,
                   {
                     color: COLORS.text,
-                    marginTop: 35,
+                    marginTop: 20,
                   },
                 ]}
               >
-                {text}
+                Doğum Tarihi
               </Text>
-              <Button title="Tarih" onPress={() => showMode("date")} />
+              <TouchableOpacity onPress={() => showMode()}>
+                <View style={styles.actionss}>
+                  <Text style={{ textAlign: "center" }}>{text}</Text>
+                </View>
+              </TouchableOpacity>
+              {/* <Button
+                title="Doğum Tarihinizi Giriniz"
+                onPress={() => showMode()}
+              /> */}
               {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -337,3 +351,5 @@ const createDriver = ({ toggleModal, setModalVisible }) => {
     </Layout>
   );
 };
+
+export default CreateDriver;

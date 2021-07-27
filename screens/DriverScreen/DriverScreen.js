@@ -73,7 +73,6 @@ const DriverScreen = () => {
 };
 
 const RenderList = ({ item }) => {
-  console.log(item.driver);
   return (
     <View style={styles.listContainer}>
       <ListItem bottomDivider>
@@ -83,10 +82,6 @@ const RenderList = ({ item }) => {
           <Fontisto name="female" color={COLORS.gray} size={30} />
         )}
 
-        {/* <Image
-          source={require("../../assets/Oval.png")}
-          style={{ width: 40, height: 40 }}
-        /> */}
         <ListItem.Content>
           <ListItem.Title>
             {item.driver.firstname} {item.driver.lastname}
