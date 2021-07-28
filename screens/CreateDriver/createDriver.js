@@ -1,46 +1,53 @@
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Platform,
-  Button,
-} from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import Layout from "../../components/Layout";
 import { AntDesign } from "react-native-vector-icons";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import DriverScheme from "../../ValidationScheme/DriverScheme";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
-import { useNavigation } from "@react-navigation/native";
-import DropDownPicker from "react-native-dropdown-picker";
+import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Content, Footer, FooterTab } from "native-base";
-import { Formik } from "formik";
+import { Content } from "native-base";
+import { Formik, useFormikContext } from "formik";
 import { driverCraete } from "../../business/actions/shipper";
 import COLORS from "../../constans/colors";
 import moment from "moment";
 
 import styles from "./styles";
 import FormErrorText from "../../components/FormErrorText";
-import { Button as PPButton, Menu } from "react-native-paper";
+import { Menu } from "react-native-paper";
+
+const FormikSubmitToken = ({}) => {
+  const route = useRoute();
+  const isFocused = useIsFocused();
+  const { values, setFieldValue } = useFormikContext();
+  useEffect(() => {
+    if (route.params.driver) {
+      setFieldValue("EmailAddress", route.params.driver.emailAddress);
+      setFieldValue("PhoneNumber", route.params.driver.phoneNumber);
+      setFieldValue("Firstname", route.params.driver.firstname);
+      setFieldValue("Lastname", route.params.driver.lastname);
+      setFieldValue("IdentityNumber", route.params.driver.identityNumber);
+      setFieldValue("Gender", route.params.driver.gender);
+    } else {
+      setFieldValue("EmailAddress", "");
+      setFieldValue("PhoneNumber", "");
+      setFieldValue("Firstname", "");
+      setFieldValue("Lastname", "");
+      setFieldValue("IdentityNumber", "");
+      setFieldValue("Gender", null);
+    }
+  }, [isFocused]);
+
+  return null;
+};
 
 const CreateDriver = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [text, setText] = useState("Doğum Tarihinizi Seçinz");
-  const [value, setValue] = useState(null);
-  console.log(value);
-  const [items, setItems] = useState([
-    { label: "Erkek", value: true },
-    { label: "Kadın", value: false },
-  ]);
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
@@ -56,23 +63,18 @@ const CreateDriver = () => {
   };
 
   const handleConfirm = (date) => {
-    let tempDate = new Date(date);
     setDate(date);
     hideDatePicker();
   };
 
-  const _handleRegister = (values) => {
-    values.PhoneNumber = values.PhoneNumber.replace("(", "")
-      .replace(")", "")
-      .replace("-", "")
-      .replace(/\s/g, "")
-      .trim();
-    values.Gender = value;
+  const _handleRegister = (values, { resetForm }) => {
+    values.PhoneNumber = values.PhoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(/\s/g, "").trim();
     values.Birthdate = moment(date).format("YYYY-MM-DD");
-
     dispatch(driverCraete(values)).then(({ payload: { data } }) => {
+      console.log(data);
       if (data.status) {
         navigation.navigate("DriverScreen");
+        resetForm({});
       } else {
         let message = "Kayıt işlemi sırasında bir hata oluştu.";
         if (data.message) {
@@ -95,17 +97,32 @@ const CreateDriver = () => {
       title="Sürücü Ekle"
       left={
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign
-            name="left"
-            style={{ paddingHorizontal: 10, color: "black" }}
-            size={24}
-            color={COLORS.themeColor}
-          />
+          <AntDesign name="left" style={{ paddingHorizontal: 10, color: "black" }} size={24} color={COLORS.themeColor} />
         </TouchableOpacity>
       }
     >
       <Content>
         <Formik
+          // innerRef={formikRef}
+          // initialValues={
+          //   route && route.params
+          //     ? {
+          //         EmailAddress: route.params.driver.emailAddress,
+          //         PhoneNumber: route.params.driver.phoneNumber,
+          //         Firstname: route.params.driver.firstname,
+          //         Lastname: route.params.driver.lastname,
+          //         IdentityNumber: route.params.driver.identityNumber,
+          //         Gender: route.params.driver.gender,
+          //       }
+          //     : {
+          //         EmailAddress: "",
+          //         PhoneNumber: "",
+          //         Firstname: "",
+          //         Lastname: "",
+          //         IdentityNumber: "",
+          //         Gender: null,
+          //       }
+          // }
           initialValues={{
             EmailAddress: "",
             PhoneNumber: "",
@@ -117,15 +134,7 @@ const CreateDriver = () => {
           validationSchema={DriverScheme}
           onSubmit={(values) => _handleRegister(values)}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            setFieldValue,
-            values,
-            errors,
-            touched,
-          }) => (
+          {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
             <>
               <Text
                 style={[
@@ -154,9 +163,7 @@ const CreateDriver = () => {
                   value={values.EmailAddress}
                 />
               </View>
-              {errors.EmailAddress && touched.EmailAddress ? (
-                <FormErrorText>* {errors.EmailAddress}</FormErrorText>
-              ) : null}
+              {errors.EmailAddress && touched.EmailAddress ? <FormErrorText>* {errors.EmailAddress}</FormErrorText> : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -170,9 +177,7 @@ const CreateDriver = () => {
               </Text>
               <View style={styles.action}>
                 <View style={{ flexDirection: "row" }}>
-                  <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>
-                    +90
-                  </Text>
+                  <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>+90</Text>
                 </View>
 
                 <TextInputMask
@@ -191,9 +196,7 @@ const CreateDriver = () => {
                   value={values.PhoneNumber}
                 />
               </View>
-              {errors.PhoneNumber && touched.PhoneNumber ? (
-                <FormErrorText>* {errors.PhoneNumber}</FormErrorText>
-              ) : null}
+              {errors.PhoneNumber && touched.PhoneNumber ? <FormErrorText>* {errors.PhoneNumber}</FormErrorText> : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -221,9 +224,7 @@ const CreateDriver = () => {
                   value={values.Firstname}
                 />
               </View>
-              {errors.Firstname && touched.Firstname ? (
-                <FormErrorText>* {errors.Firstname}</FormErrorText>
-              ) : null}
+              {errors.Firstname && touched.Firstname ? <FormErrorText>* {errors.Firstname}</FormErrorText> : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -251,9 +252,7 @@ const CreateDriver = () => {
                   value={values.Lastname}
                 />
               </View>
-              {errors.Lastname && touched.Lastname ? (
-                <FormErrorText>* {errors.Lastname}</FormErrorText>
-              ) : null}
+              {errors.Lastname && touched.Lastname ? <FormErrorText>* {errors.Lastname}</FormErrorText> : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -282,9 +281,7 @@ const CreateDriver = () => {
                   value={values.IdentityNumber}
                 />
               </View>
-              {errors.IdentityNumber && touched.IdentityNumber ? (
-                <FormErrorText>* {errors.IdentityNumber}</FormErrorText>
-              ) : null}
+              {errors.IdentityNumber && touched.IdentityNumber ? <FormErrorText>* {errors.IdentityNumber}</FormErrorText> : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -313,13 +310,7 @@ const CreateDriver = () => {
                           },
                         ]}
                       >
-                        <Text>
-                          {values.Gender == null
-                            ? "Cinsiyet seçiniz"
-                            : values.Gender
-                            ? "Erkek"
-                            : "Kadın"}
-                        </Text>
+                        <Text>{values.Gender == null ? "Cinsiyet seçiniz" : values.Gender ? "Erkek" : "Kadın"}</Text>
                       </TouchableOpacity>
                     </>
                   }
@@ -339,9 +330,7 @@ const CreateDriver = () => {
                     title="Kadın"
                   />
                 </Menu>
-                {errors.Gender && touched.Gender ? (
-                  <FormErrorText>* {errors.Gender}</FormErrorText>
-                ) : null}
+                {errors.Gender && touched.Gender ? <FormErrorText>* {errors.Gender}</FormErrorText> : null}
               </View>
               <Text
                 style={[
@@ -356,9 +345,7 @@ const CreateDriver = () => {
               </Text>
               <TouchableOpacity onPress={showDatePicker}>
                 <View style={styles.actionss}>
-                  <Text style={{ textAlign: "center" }}>
-                    {moment(date).format("DD MMMM YYYY")}
-                  </Text>
+                  <Text style={{ textAlign: "center" }}>{moment(date).format("DD MMMM YYYY")}</Text>
                 </View>
               </TouchableOpacity>
 
@@ -395,6 +382,7 @@ const CreateDriver = () => {
               <TouchableOpacity style={styles.btnGonder} onPress={handleSubmit}>
                 <Text style={styles.btnText}>Ekle</Text>
               </TouchableOpacity>
+              <FormikSubmitToken />
             </>
           )}
         </Formik>
