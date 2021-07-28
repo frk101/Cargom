@@ -77,8 +77,8 @@ export default function Navigator() {
         headerMode="none"
         screenOptions={{ gestureEnabled: false }}
       >
-        <Stack.Screen name="LoginScreen" component={LoginNavigator} />
         <Stack.Screen name="MainScreen" component={HomeNavigator} />
+        <Stack.Screen name="LoginScreen" component={LoginNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
