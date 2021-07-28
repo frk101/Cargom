@@ -6,7 +6,7 @@ import { Notifier, NotifierComponents } from "react-native-notifier";
 import DriverScheme from "../../ValidationScheme/DriverScheme";
 import { useDispatch } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
-import { useNavigation, useRoute, useIsFocused, CommonActions } from "@react-navigation/native";
+import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Content } from "native-base";
 import { Formik, useFormikContext } from "formik";
@@ -70,7 +70,7 @@ const CreateDriver = () => {
     hideDatePicker();
   };
 
-  const _handleRegister = (values, { resetForm }) => {
+  const _handleRegister = (values) => {
     values.PhoneNumber = values.PhoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(/\s/g, "").trim();
     values.Birthdate = moment(date).format("YYYY-MM-DD");
     dispatch(driverCraete(values)).then(({ payload: { data } }) => {
@@ -109,26 +109,6 @@ const CreateDriver = () => {
     >
       <Content>
         <Formik
-          // innerRef={formikRef}
-          // initialValues={
-          //   route && route.params
-          //     ? {
-          //         EmailAddress: route.params.driver.emailAddress,
-          //         PhoneNumber: route.params.driver.phoneNumber,
-          //         Firstname: route.params.driver.firstname,
-          //         Lastname: route.params.driver.lastname,
-          //         IdentityNumber: route.params.driver.identityNumber,
-          //         Gender: route.params.driver.gender,
-          //       }
-          //     : {
-          //         EmailAddress: "",
-          //         PhoneNumber: "",
-          //         Firstname: "",
-          //         Lastname: "",
-          //         IdentityNumber: "",
-          //         Gender: null,
-          //       }
-          // }
           initialValues={{
             EmailAddress: "",
             PhoneNumber: "",

@@ -51,7 +51,10 @@ const DriverScreen = () => {
 const RenderList = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.listContainer} onPress={() => navigation.navigate("CreateDriver", item)}>
+    <TouchableOpacity
+      style={styles.listContainer}
+      // onPress={() => navigation.navigate("CreateDriver", item)}
+    >
       <ListItem bottomDivider>
         {item.driver.gender == true ? <Fontisto name="male" color={COLORS.gray} size={30} /> : <Fontisto name="female" color={COLORS.gray} size={30} />}
 
