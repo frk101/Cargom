@@ -15,6 +15,7 @@ import { Menu, Button } from "react-native-paper";
 const CreateVehicles = ({ toggleModal, setModalVisible }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [desi, setDesi] = useState(false);
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
@@ -96,19 +97,35 @@ const CreateVehicles = ({ toggleModal, setModalVisible }) => {
           <AntDesign name="down" />
         </View>
         <Text style={styles.text_footer}>Desi</Text>
-        <View style={styles.action}>
-          <TextInput
-            placeholder="Araç Desi Bilgisini Giriniz"
-            placeholderTextColor="#666666"
-            keyboardType="decimal-pad"
-            style={[
-              styles.textInput,
-              {
-                color: COLORS.text,
-              },
-            ]}
-          />
+        <View style={styles.actions}>
+          <Text style={{ textAlign: "center" }}>
+            Aracınızda Değişen Kısım Varmı ?
+          </Text>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity style={styles.btn} onPress={() => setDesi(false)}>
+              <Text style={styles.onay}>Var</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btn}>
+              <Text style={styles.onay}>Yok</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+        {desi == false ? null : (
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Araç Desi Bilgisini Giriniz"
+              placeholderTextColor="#666666"
+              keyboardType="decimal-pad"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
+            />
+          </View>
+        )}
+
         <TouchableOpacity style={styles.btnGonder}>
           <Text style={styles.btnText}>Ekle</Text>
         </TouchableOpacity>
@@ -131,6 +148,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  actions: {
+    marginTop: 5,
+    borderColor: "#979797",
+    padding: 10,
+    borderWidth: 1,
+    marginHorizontal: 20,
+    borderRadius: 10,
+  },
   text_footer: {
     color: COLORS.text,
     fontWeight: "bold",
@@ -148,4 +173,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
+  btn: {
+    backgroundColor: COLORS.primary,
+    padding: 10,
+    borderRadius: 5,
+  },
+  btnContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 5,
+  },
+  onay: { color: "#fff", fontWeight: "bold" },
 });
