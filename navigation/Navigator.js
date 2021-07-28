@@ -42,11 +42,7 @@ const HomeStack = createDrawerNavigator();
 
 const HomeNavigator = () => {
   return (
-    <HomeStack.Navigator
-      headerMode="none"
-      drawerContent={(props) => <DrawerContent {...props} />}
-      drawerStyle={{ width: "75%" }}
-    >
+    <HomeStack.Navigator headerMode="none" drawerContent={(props) => <DrawerContent {...props} />} drawerStyle={{ width: "75%" }}>
       <HomeStack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
       {/* <HomeNavigator.Screen name="DrawerScreen" component={DrawerScreen} /> */}
       <HomeStack.Screen name="DriverScreen" component={DriverScreen} />
@@ -54,10 +50,7 @@ const HomeNavigator = () => {
       <HomeStack.Screen name="AllCargoDetail" component={AllCargoDetail} />
 
       <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <HomeStack.Screen
-        name="ProfileEditScreen"
-        component={ProfileEditScreen}
-      />
+      <HomeStack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
       <HomeStack.Screen name="OffersScreeen" component={OffersScreeen} />
       <HomeStack.Screen name="MyTaskScreen" component={MyTaskScreen} />
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
@@ -73,12 +66,9 @@ const Stack = createStackNavigator();
 export default function Navigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        headerMode="none"
-        screenOptions={{ gestureEnabled: false }}
-      >
-        <Stack.Screen name="MainScreen" component={HomeNavigator} />
+      <Stack.Navigator headerMode="none" screenOptions={{ gestureEnabled: false }}>
         <Stack.Screen name="LoginScreen" component={LoginNavigator} />
+        <Stack.Screen name="MainScreen" component={HomeNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
