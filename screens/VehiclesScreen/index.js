@@ -14,6 +14,7 @@ import COLORS from "../../constans/colors";
 import styles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { vehiclesGetByShipper } from "../../business/actions/shipper";
+import { List } from "react-native-paper";
 import { ListItem } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
@@ -21,6 +22,7 @@ const { width, height } = Dimensions.get("window");
 const index = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
   const { vehiclesGetByShipperResult, vehiclesGetByShipperLoading } =
     useSelector((x) => x.shipper);
 
@@ -34,7 +36,7 @@ const index = () => {
   };
 
   return (
-    <Layout isBackIcon title="Araçlar">
+    <Layout title="Araçlar" isBackIcon>
       <View style={{ flex: 1 }}>
         {vehiclesGetByShipperResult.data == "" ? (
           <Text style={{ justifyContent: "center", alignItems: "center" }}>
@@ -65,17 +67,26 @@ const index = () => {
   );
 };
 const RenderList = ({ item }) => {
-  const navigation = useNavigation();
+  const [expanded, setExpanded] = React.useState(true);
 
+  const handlePress = () => setExpanded(!expanded);
+  const navigation = useNavigation();
+  console.log(item);
   return (
-    <TouchableOpacity style={styles.listContainer}>
-      <ListItem bottomDivider>
-        <ListItem.Content>
-          <ListItem.Title></ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
-    </TouchableOpacity>
+    <List.Section style={styles.listContainer}>
+      <List.Accordion
+        title={item.brand.brandName}
+        titleStyle={{ color: COLORS.text, fontWeight: "bold", fontSize: 18 }}
+        left={() => (
+          <List.Icon icon="format-list-bulleted-square" color={COLORS.text} />
+        )}
+      >
+        <List.Item title={item.model.modelName} />
+        <List.Item title={item.model.desi} />
+        <List.Item title={item.type.typeName} />
+        <List.Item title={item.vehicle.plate} />
+      </List.Accordion>
+    </List.Section>
   );
 };
 
