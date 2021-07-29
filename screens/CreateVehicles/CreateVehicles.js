@@ -3,10 +3,18 @@ import { StyleSheet, Text, View, TextInput } from "react-native";
 import Layout from "../../components/Layout";
 import { AntDesign } from "react-native-vector-icons";
 import { TouchableOpacity } from "react-native";
-import { vehicleBrandsGetAll, vehicleTypesGetAll, vehicleModelsgetByBrand } from "../../business/actions/general";
+import {
+  vehicleBrandsGetAll,
+  vehicleTypesGetAll,
+  vehicleModelsgetByBrand,
+} from "../../business/actions/general";
 import { vehiclesCreate } from "../../business/actions/shipper";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
 import { Formik, useFormikContext } from "formik";
 import VehiclesScheme from "../../ValidationScheme/VehiclesScheme";
 import COLORS from "../../constans/colors";
@@ -18,6 +26,7 @@ import { Notifier, NotifierComponents } from "react-native-notifier";
 const FormikSubmitToken = ({}) => {
   const route = useRoute();
   const navigation = useNavigation();
+
   const isFocused = useIsFocused();
   const { values, setFieldValue } = useFormikContext();
 
@@ -116,7 +125,12 @@ const CreateVehicles = () => {
       title="Araç Ekle"
       left={
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="left" style={{ paddingHorizontal: 10, color: "black" }} size={24} color={COLORS.themeColor} />
+          <AntDesign
+            name="left"
+            style={{ paddingHorizontal: 10, color: "black" }}
+            size={24}
+            color={COLORS.themeColor}
+          />
         </TouchableOpacity>
       }
     >
@@ -136,7 +150,15 @@ const CreateVehicles = () => {
           validationSchema={VehiclesScheme}
           onSubmit={(values) => _handleSubmit(values)}
         >
-          {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            setFieldValue,
+            values,
+            errors,
+            touched,
+          }) => (
             <>
               <Text style={styles.text_footer}>Araç Türü</Text>
               <View style={styles.action}>
@@ -150,7 +172,11 @@ const CreateVehicles = () => {
                         openVehicleTypeMenu();
                       }}
                     >
-                      <Text>{values.VehicleTypeId ? values.VehicleTypeText : "Araç Türü Seçiniz"}</Text>
+                      <Text>
+                        {values.VehicleTypeId
+                          ? values.VehicleTypeText
+                          : "Araç Türü Seçiniz"}
+                      </Text>
                     </TouchableOpacity>
                   }
                 >
@@ -171,7 +197,9 @@ const CreateVehicles = () => {
                     })}
                 </Menu>
               </View>
-              {errors.VehicleTypeId && touched.VehicleTypeId ? <FormErrorText>* {errors.VehicleTypeId}</FormErrorText> : null}
+              {errors.VehicleTypeId && touched.VehicleTypeId ? (
+                <FormErrorText>* {errors.VehicleTypeId}</FormErrorText>
+              ) : null}
 
               <Text style={styles.text_footer}>Marka</Text>
               <View style={styles.action}>
@@ -185,7 +213,11 @@ const CreateVehicles = () => {
                         openBrandMenu();
                       }}
                     >
-                      <Text>{values.VehicleBrandId ? values.VehicleBrandText : "Marka Seçiniz"}</Text>
+                      <Text>
+                        {values.VehicleBrandId
+                          ? values.VehicleBrandText
+                          : "Marka Seçiniz"}
+                      </Text>
                     </TouchableOpacity>
                   }
                 >
@@ -207,7 +239,9 @@ const CreateVehicles = () => {
                     })}
                 </Menu>
               </View>
-              {errors.VehicleBrandId && touched.VehicleBrandId ? <FormErrorText>* {errors.VehicleBrandId}</FormErrorText> : null}
+              {errors.VehicleBrandId && touched.VehicleBrandId ? (
+                <FormErrorText>* {errors.VehicleBrandId}</FormErrorText>
+              ) : null}
 
               <Text style={styles.text_footer}>Model</Text>
               <View style={styles.action}>
@@ -221,11 +255,15 @@ const CreateVehicles = () => {
                         openModelMenu();
                       }}
                     >
-                      <Text>{values.VehicleModelId ? values.VehicleModelText : "Model Seçiniz"}</Text>
+                      <Text>
+                        {values.VehicleModelId
+                          ? values.VehicleModelText
+                          : "Model Seçiniz"}
+                      </Text>
                     </TouchableOpacity>
                   }
                 >
-                  {/* {vehicleModelGetByBrandResult &&
+                  {vehicleModelGetByBrandResult &&
                     vehicleModelGetByBrandResult.data &&
                     vehicleModelGetByBrandResult.data.map((item) => {
                       return (
@@ -240,8 +278,8 @@ const CreateVehicles = () => {
                           title={item.modelName}
                         />
                       );
-                    })} */}
-                  {vehicleModelGetByBrandResult && vehicleModelGetByBrandResult.data && (
+                    })}
+                  {/* {vehicleModelGetByBrandResult && vehicleModelGetByBrandResult.data && (
                     <Menu.Item
                       key={vehicleModelGetByBrandResult.data.id.toString()}
                       onPress={() => {
@@ -252,10 +290,12 @@ const CreateVehicles = () => {
                       }}
                       title={vehicleModelGetByBrandResult.data.modelName}
                     />
-                  )}
+                  )} */}
                 </Menu>
               </View>
-              {errors.VehicleModelId && touched.VehicleModelId ? <FormErrorText>* {errors.VehicleModelId}</FormErrorText> : null}
+              {errors.VehicleModelId && touched.VehicleModelId ? (
+                <FormErrorText>* {errors.VehicleModelId}</FormErrorText>
+              ) : null}
 
               <Text
                 style={[
@@ -283,13 +323,20 @@ const CreateVehicles = () => {
                   value={values.Plate}
                 />
               </View>
-              {errors.Plate && touched.Plate ? <FormErrorText>* {errors.Plate}</FormErrorText> : null}
+              {errors.Plate && touched.Plate ? (
+                <FormErrorText>* {errors.Plate}</FormErrorText>
+              ) : null}
 
               {!values.ChangingPart ? (
                 <View style={styles.actions}>
-                  <Text style={{ textAlign: "center" }}>Aracınızda Değişen Kısım Varmı ?</Text>
+                  <Text style={{ textAlign: "center" }}>
+                    Aracınızda Değişen Kısım Varmı ?
+                  </Text>
                   <View style={styles.btnContainer}>
-                    <TouchableOpacity style={styles.btn} onPress={() => setFieldValue("ChangingPart", true, true)}>
+                    <TouchableOpacity
+                      style={styles.btn}
+                      onPress={() => setFieldValue("ChangingPart", true, true)}
+                    >
                       <Text style={styles.onay}>Var</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn}>
@@ -326,7 +373,9 @@ const CreateVehicles = () => {
                       value={values.Desi.toString()}
                     />
                   </View>
-                  {errors.Desi && touched.Desi ? <FormErrorText>* {errors.Desi}</FormErrorText> : null}
+                  {errors.Desi && touched.Desi ? (
+                    <FormErrorText>* {errors.Desi}</FormErrorText>
+                  ) : null}
                 </>
               )}
 

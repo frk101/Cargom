@@ -17,6 +17,9 @@ import {
   SHIPPERS_LOGIN,
   SHIPPERS_LOGIN_SUCCESS,
   SHIIPERS_LOGIN_FAIL,
+  VEHICLES_GET_BY_SHIPPER_ID,
+  VEHICLES_GET_BY_SHIPPER_ID_FAIL,
+  VEHICLES_GET_BY_SHIPPER_ID_SUCCESS,
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -38,6 +41,9 @@ const INITIAL_STATE = {
   shipperLoginLoading: false,
   shipperLoginResult: {},
   shipperLoginFail: false,
+  vehiclesGetByShipperLoading: false,
+  vehiclesGetByShipperResult: {},
+  vehiclesGetByShipperFail: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -173,6 +179,28 @@ export default (state = INITIAL_STATE, action) => {
         shipperLoginLoading: false,
         shipperLoginResult: {},
         shipperLoginFail: true,
+      };
+
+    case VEHICLES_GET_BY_SHIPPER_ID:
+      return {
+        ...state,
+        vehiclesGetByShipperLoading: false,
+        vehiclesGetByShipperResult: {},
+        vehiclesGetByShipperFail: false,
+      };
+    case VEHICLES_GET_BY_SHIPPER_ID_SUCCESS:
+      return {
+        ...state,
+        vehiclesGetByShipperLoading: false,
+        vehiclesGetByShipperResult: action.payload.data,
+        vehiclesGetByShipperFail: false,
+      };
+    case VEHICLES_GET_BY_SHIPPER_ID_FAIL:
+      return {
+        ...state,
+        vehiclesGetByShipperLoading: false,
+        vehiclesGetByShipperResult: {},
+        vehiclesGetByShipperFail: true,
       };
 
     default:

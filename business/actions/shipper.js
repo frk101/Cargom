@@ -11,6 +11,8 @@ import {
   SHIPPERS_REGISTER_COMPLATE_URL,
   SHIPPERS_LOGIN_URL,
   SHIPPERS_LOGIN,
+  VEHICLES_GET_BY_SHIPPER_ID,
+  VEHICLES_GET_BY_SHIPPER_ID_URL,
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -92,6 +94,17 @@ export function shipperLogin(userModel) {
         method: "POST",
         url: SHIPPERS_LOGIN_URL,
         data: userModel,
+      },
+    },
+  };
+}
+
+export function vehiclesGetByShipper() {
+  return {
+    type: VEHICLES_GET_BY_SHIPPER_ID,
+    payload: {
+      request: {
+        url: VEHICLES_GET_BY_SHIPPER_ID_URL,
       },
     },
   };
