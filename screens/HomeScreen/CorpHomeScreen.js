@@ -24,6 +24,7 @@ import Constants from "expo-constants";
 import { useDispatch, useSelector } from "react-redux";
 import { driverCraete } from "../../business/actions/general";
 import styles from "./styles";
+import { Content } from "native-base";
 
 export const dummyData = [
   {
@@ -117,7 +118,7 @@ const CorpHomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-      <ScrollView
+      <Content
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -197,7 +198,7 @@ const CorpHomeScreen = () => {
             )}
           />
         )}
-      </ScrollView>
+      </Content>
     </SafeAreaView>
   );
 };

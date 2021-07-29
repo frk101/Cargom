@@ -87,7 +87,7 @@ const CreateDriver = () => {
         navigation.navigate("DriverScreen");
         Notifier.showNotification({
           title: "UYARI",
-          description: "Yeni araç ekleme işlemi başarılı.",
+          description: "Yeni sürücü ekleme işlemi başarılı.",
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: "success",

@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   Dimensions,
   FlatList,
   RefreshControl,
+  ScrollView,
 } from "react-native";
 import Layout from "../../components/Layout";
 import { FAB } from "react-native-paper";
 import COLORS from "../../constans/colors";
-import { Content } from "native-base";
-import { AntDesign } from "react-native-vector-icons";
 import styles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { vehiclesGetByShipper } from "../../business/actions/shipper";
 import { ListItem } from "react-native-elements";
-import LoginScheme from "../../ValidationScheme/LoginScheme";
-import { Formik } from "formik";
-import FormErrorText from "../../components/FormErrorText";
-
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
@@ -32,7 +25,6 @@ const index = () => {
     useSelector((x) => x.shipper);
 
   useEffect(() => {
-    console.log(vehiclesGetByShipperResult);
     _getVehiclesList();
     return () => {};
   }, []);
@@ -56,6 +48,7 @@ const index = () => {
                 onRefresh={_getVehiclesList}
               />
             }
+            keyExtractor={(item) => item.id}
             data={vehiclesGetByShipperResult.data}
             renderItem={({ item }) => <RenderList item={item} />}
           />
@@ -75,10 +68,7 @@ const RenderList = ({ item }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity
-      style={styles.listContainer}
-      // onPress={() => navigation.navigate("CreateDriver", item)}
-    >
+    <TouchableOpacity style={styles.listContainer}>
       <ListItem bottomDivider>
         <ListItem.Content>
           <ListItem.Title></ListItem.Title>
