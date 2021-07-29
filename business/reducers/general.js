@@ -22,7 +22,7 @@ import {
   DISTRICTS_GET_BY_CITY_ID_FAIL,
   ADDRESS_SEARCH_BY_KEYWORD,
   ADDRESS_SEARCH_BY_KEYWORD_FAIL,
-  ADDRESS_SEARCH_BY_KEYWORDL_SUCCESS,
+  ADDRESS_SEARCH_BY_KEYWORD_SUCCESS,
 } from "../types/general";
 
 const INITIAL_STATE = {
@@ -214,7 +214,7 @@ export default (state = INITIAL_STATE, action) => {
         addressSearchByKewordResult: {},
         addressSearchByKewordFail: false,
       };
-    case ADDRESS_SEARCH_BY_KEYWORDL_SUCCESS:
+    case ADDRESS_SEARCH_BY_KEYWORD_SUCCESS:
       return {
         ...state,
         addressSearchByKewordLoading: false,

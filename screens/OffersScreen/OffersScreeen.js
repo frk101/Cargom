@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,14 +13,17 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { ListItem } from "react-native-elements";
+import { useSelector, useDispatch } from "react-redux";
 import { Container, Content, Footer, FooterTab, Button } from "native-base";
 import myData from "../../data/FakeData";
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
 import { FontAwesome5, FontAwesome } from "react-native-vector-icons";
+import { ordersGetAllPendingOffers } from "../../business/actions/driver";
 import Layout from "../../components/Layout";
 import Filter from "../../components/Filter";
 import styles from "./styles";
 const OffersScreeen = () => {
+  const dispatch = useDispatch();
   const _goBack = () => navigation.goBack();
   const [openModal, setOpenModal] = useState(false);
   const [aktifKey, setAktifKey] = useState(null);
@@ -29,13 +32,26 @@ const OffersScreeen = () => {
     setAktifKey(val);
   };
   const navigation = useNavigation();
+  const { ordersGetAllPendingOffersResult, ordersGetAllPendingOffersLoading } =
+    useSelector((x) => x.driver);
+
+  useEffect(() => {
+    _getOfferList();
+
+    return () => {};
+  }, []);
+
+  const _getOfferList = async () => {
+    dispatch(ordersGetAllPendingOffers());
+  };
+
   return (
     <Layout
       title="Teklifler"
       isBackIcon
-      right={<LayoutLeft1 setOpenModal={setOpenModal} />}
+      right={<LayoutRight1 setOpenModal={setOpenModal} />}
     >
-      <View style={styles.buttonContainer}>
+      {/* <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
             aktifKey
@@ -74,12 +90,17 @@ const OffersScreeen = () => {
             Tüm
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <Content>
-        {aktifKey == true ? (
+        <FlatList
+          style={{ marginTop: 20 }}
+          data={ordersGetAllPendingOffersResult.data}
+          renderItem={({ item }) => <GrupCargo item={item} />}
+        />
+        {/* {aktifKey == true ? (
           <FlatList
             style={{ marginTop: 20 }}
-            data={myData}
+            data={ordersGetAllPendingOffersResult.data}
             renderItem={({ item }) => <GrupCargo item={item} />}
           />
         ) : (
@@ -88,7 +109,7 @@ const OffersScreeen = () => {
             data={myData}
             renderItem={({ item }) => <AllCargo item={item} />}
           />
-        )}
+        )} */}
       </Content>
       <Modal visible={openModal} animationType="slide">
         <Filter setOpenModal={setOpenModal} />
@@ -98,6 +119,7 @@ const OffersScreeen = () => {
 };
 
 const GrupCargo = ({ item }) => {
+  console.log(item);
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -105,17 +127,21 @@ const GrupCargo = ({ item }) => {
       onPress={() => navigation.navigate("AllCargoDetail", item)}
     >
       <ListItem bottomDivider>
-        <FontAwesome5 name={item.icon} size={24} color={item.color} />
+        <FontAwesome5
+          name="box-open"
+          size={24}
+          color={item.group.isPriorityOffer ? COLORS.primary : "#8F9BB3"}
+        />
         <ListItem.Content>
           <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
-            {item.name}
+            {item.group.startAddress}
           </ListItem.Title>
           <ListItem.Title style={{ color: COLORS.text }}>
-            {item.km}
+            {item.group.distance} Km
           </ListItem.Title>
         </ListItem.Content>
         <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
-          {item.ücret}
+          {item.group.price} ₺
         </ListItem.Title>
       </ListItem>
     </TouchableOpacity>
@@ -145,7 +171,7 @@ const AllCargo = ({ item }) => {
     </TouchableOpacity>
   );
 };
-const LayoutLeft1 = ({ setOpenModal }) => {
+const LayoutRight1 = ({ setOpenModal }) => {
   const navigation = useNavigation();
 
   return (
