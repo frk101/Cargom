@@ -108,7 +108,6 @@ const OffersScreeen = () => {
 };
 
 const GrupCargo = ({ item }) => {
-  console.log(item.group.id);
   const navigation = useNavigation();
   return (
     <TouchableOpacity
