@@ -13,7 +13,7 @@ export const ORDERS_GET_PENDING_OFFER_DETAIL_SUCCESS =
 export const ORDERS_GET_PENDING_OFFER_DETAIL_FAIL =
   "ORDERS_GET/PENDING_OFFER/DETAIL_FAIL";
 export const ORDERS_GET_PENDING_OFFER_DETAIL_URL =
-  "/driver/orders/GetPendingOfferDetail/";
+  "/driver/orders/GetPendingOfferDetail";
 
 export const ORDERS_ASSIGN_GROUP_DRIVER = "ORDERS_ASSIGN/GROUP_DRIVER";
 export const ORDERS_ASSIGN_GROUP_DRIVER_SUCCESS =

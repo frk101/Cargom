@@ -20,7 +20,6 @@ const DriverScreen = () => {
   );
 
   useEffect(() => {
-    console.log(driverGetAllShipperResult);
     _getDriverList();
     return () => {};
   }, []);

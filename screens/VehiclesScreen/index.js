@@ -71,7 +71,7 @@ const RenderList = ({ item }) => {
 
   const handlePress = () => setExpanded(!expanded);
   const navigation = useNavigation();
-  console.log(item);
+
   return (
     <List.Section style={styles.listContainer}>
       <List.Accordion

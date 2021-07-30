@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  Modal,
-  TextInput,
-} from "react-native";
+import { FlatList, TouchableOpacity, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { ListItem } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Content, Footer, FooterTab, Button } from "native-base";
-import myData from "../../data/FakeData";
-import RangeSlider, { Slider } from "react-native-range-slider-expo";
+
 import { FontAwesome5, FontAwesome } from "react-native-vector-icons";
 import { ordersGetAllPendingOffers } from "../../business/actions/driver";
 import Layout from "../../components/Layout";
@@ -119,12 +108,14 @@ const OffersScreeen = () => {
 };
 
 const GrupCargo = ({ item }) => {
-  console.log(item);
+  console.log(item.group.id);
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.listGrupContainer}
-      onPress={() => navigation.navigate("AllCargoDetail", item)}
+      onPress={() =>
+        navigation.navigate("OffersDetailScreen", { id: item.group.id })
+      }
     >
       <ListItem bottomDivider>
         <FontAwesome5
@@ -136,6 +127,7 @@ const GrupCargo = ({ item }) => {
           <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
             {item.group.startAddress}
           </ListItem.Title>
+          <ListItem.Subtitle>{item.group.endAddress}</ListItem.Subtitle>
           <ListItem.Title style={{ color: COLORS.text }}>
             {item.group.distance} Km
           </ListItem.Title>
@@ -149,10 +141,11 @@ const GrupCargo = ({ item }) => {
 };
 const AllCargo = ({ item }) => {
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       style={styles.listContainer}
-      onPress={() => navigation.navigate("AllCargoDetail", item)}
+      onPress={() => navigation.navigate("OffersDetailScreen", item)}
     >
       <ListItem bottomDivider>
         <FontAwesome5 name={item.icon} size={24} color={item.color} />

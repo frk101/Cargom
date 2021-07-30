@@ -18,7 +18,7 @@ export function ordersGetAllPendingOffers() {
   };
 }
 
-export function ordersGetPendingOffferDetail(offerId) {
+export function ordersGetPendingOfferDetail(offerId) {
   return {
     type: ORDERS_GET_PENDING_OFFER_DETAIL,
     payload: {
