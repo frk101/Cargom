@@ -6,7 +6,9 @@ import COLORS from "../constans/colors";
 import styles from "../screens/OffersScreen/styles";
 import { Content, Footer, FooterTab, Button } from "native-base";
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
+import SearchableDropdown from "searchable-dropdown-react-native";
 const Filter = ({ setOpenModal }) => {
+  const [selectedValues, setSelectedValues] = useState([]);
   const [fromValue, setFromValue] = useState(0);
   const [toValue, setToValue] = useState(0);
   return (
@@ -91,6 +93,15 @@ const Filter = ({ setOpenModal }) => {
             valueLabelsBackgroundColor="black"
             inRangeBarColor={COLORS.primary}
             outOfRangeBarColor="gray"
+          />
+        </View>
+        <View style={styles.actiond}>
+          <SearchableDropdown
+            selectedValues={selectedValues}
+            setSelectedValues={setSelectedValues}
+            label="test dropdown"
+            placeholder="Test placeholder"
+            inputSize={300}
           />
         </View>
 

@@ -24,7 +24,11 @@ const AllCargoDetail = () => {
   return (
     <Layout title="Teklif Detay" isBackIcon>
       <FlatList
-        data={ordersGetPendingOfferDetailResult.data}
+        data={
+          ordersGetPendingOfferDetailResult &&
+          ordersGetPendingOfferDetailResult.data &&
+          ordersGetPendingOfferDetailResult.data.steps
+        }
         renderItem={({ item }) => <OffersDesciraption item={item} />}
       />
     </Layout>
@@ -34,7 +38,6 @@ const AllCargoDetail = () => {
 export default AllCargoDetail;
 
 const OffersDesciraption = ({ item }) => {
-  /////console hiç bir şey gelmiyor
-  console.log(item.data);
+  console.log(item);
   return <View></View>;
 };

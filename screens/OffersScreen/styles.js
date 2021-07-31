@@ -117,6 +117,15 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
+  actiond: {
+    flexDirection: "row",
+    marginTop: 5,
+
+    padding: 13,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
   textInput: {
     flex: 1,
     paddingLeft: 10,
