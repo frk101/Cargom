@@ -7,12 +7,14 @@ import {
   ORDERS_ASSIGN_GROUP_DRIVER_URL,
 } from "../types/driver";
 
-export function ordersGetAllPendingOffers() {
+export function ordersGetAllPendingOffers(params) {
+  if (!params) params = "";
+  else params = "/" + params;
   return {
     type: ORDERS_GET_ALL_PENDING_OFFERS,
     payload: {
       request: {
-        url: ORDERS_GET_ALL_PENDING_OFFERS_URL,
+        url: `${ORDERS_GET_ALL_PENDING_OFFERS_URL}${params}`,
       },
     },
   };

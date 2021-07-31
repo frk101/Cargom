@@ -48,7 +48,7 @@ const INITIAL_STATE = {
   districtGetByCityResult: {},
   districtGetByCityFail: false,
   addressSearchByKewordLoading: false,
-  addressSearchByKewordResult: {},
+  addressSearchByKewordResult: { data: [] },
   addressSearchByKewordFail: false,
 };
 
@@ -211,10 +211,15 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         addressSearchByKewordLoading: true,
-        addressSearchByKewordResult: {},
+        addressSearchByKewordResult: { data: [] },
         addressSearchByKewordFail: false,
       };
     case ADDRESS_SEARCH_BY_KEYWORD_SUCCESS:
+      if (action && action.payload && action.payload.data && action.payload.data.data) {
+        action.payload.data.data = action.payload.data.data.map((value, index) => {
+          return { ...value, name: value.fullName, id: index };
+        });
+      }
       return {
         ...state,
         addressSearchByKewordLoading: false,
@@ -225,7 +230,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         addressSearchByKewordLoading: false,
-        addressSearchByKewordResult: {},
+        addressSearchByKewordResult: { data: [] },
         addressSearchByKewordFail: true,
       };
     default:

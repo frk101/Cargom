@@ -1,16 +1,78 @@
 import React, { useState } from "react";
 import { Text, View, TextInput } from "react-native";
-
 import { Appbar } from "react-native-paper";
 import COLORS from "../constans/colors";
 import styles from "../screens/OffersScreen/styles";
 import { Content, Footer, FooterTab, Button } from "native-base";
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
-import SearchableDropdown from "searchable-dropdown-react-native";
+import { addressSearchByKeword } from "../business/actions/general";
+import { ordersGetAllPendingOffers } from "../business/actions/driver";
+import { useDispatch, useSelector } from "react-redux";
+import { TouchableOpacity } from "react-native";
+
 const Filter = ({ setOpenModal }) => {
-  const [selectedValues, setSelectedValues] = useState([]);
-  const [fromValue, setFromValue] = useState(0);
-  const [toValue, setToValue] = useState(0);
+  const dispatch = useDispatch();
+  const [selectedOriginTown, setSelectedOriginTown] = useState(null);
+  const [openOriginTown, setOpenOriginTown] = useState(false);
+  const [originTownSearch, setOriginTownSearch] = useState("");
+  const [selectedDestinationTown, setSelectedDestinationTown] = useState(null);
+  const [openDestinationTown, setOpenDestinationTown] = useState(false);
+  const [DestinationTownSearch, setDestinationTownSearch] = useState("");
+  const [fromPrice, setFormPrice] = useState(0);
+  const [toPrice, setToPrice] = useState(0);
+
+  const { addressSearchByKewordResult, addressSearchByKewordLoading } = useSelector((x) => x.general);
+
+  const _handleSearchOriginTown = (searchText) => {
+    setSelectedOriginTown(null);
+    if (searchText) {
+      dispatch(addressSearchByKeword(searchText));
+    }
+    setOpenOriginTown(true);
+    setOriginTownSearch(searchText);
+  };
+
+  const _handleChooseOriginTown = (town) => {
+    setSelectedOriginTown(town);
+    setOpenOriginTown(false);
+    setOriginTownSearch(town.fullName);
+  };
+
+  const _handleSearchDestinationTown = (searchText) => {
+    setSelectedDestinationTown(null);
+    if (searchText) {
+      dispatch(addressSearchByKeword(searchText));
+    }
+    setOpenDestinationTown(true);
+    setDestinationTownSearch(searchText);
+  };
+
+  const _handleChooseDestinationTown = (town) => {
+    setSelectedDestinationTown(town);
+    setOpenDestinationTown(false);
+    setDestinationTownSearch(town.fullName);
+  };
+
+  const _handleSearchOffer = () => {
+    let searchParams = "?";
+    if (selectedOriginTown) {
+      searchParams += "OriginTownID=" + selectedOriginTown.townID;
+    }
+    if (selectedDestinationTown) {
+      searchParams += "&DestinationTownID=" + selectedDestinationTown.townID;
+    }
+    if (fromPrice > 0) {
+      searchParams += "&Price1=" + fromPrice;
+    }
+    if (toPrice > 0) {
+      searchParams += "&Price2=" + toPrice;
+    }
+    if (searchParams.length > 1) {
+      dispatch(ordersGetAllPendingOffers(searchParams));
+    }
+    setOpenModal(false);
+  };
+
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
       <HeadersModal setOpenModal={setOpenModal} />
@@ -28,9 +90,8 @@ const Filter = ({ setOpenModal }) => {
         </Text>
         <View style={styles.action}>
           <TextInput
-            placeholder="İlçe Seçiniz"
+            placeholder={selectedOriginTown ? "" : "İlçe Seçiniz"}
             placeholderTextColor="#666666"
-            keyboardType="email-address"
             returnKeyType="done"
             style={[
               styles.textInput,
@@ -38,8 +99,19 @@ const Filter = ({ setOpenModal }) => {
                 color: COLORS.text,
               },
             ]}
+            value={originTownSearch}
+            onChangeText={(text) => _handleSearchOriginTown(text)}
           />
         </View>
+        {openOriginTown &&
+          addressSearchByKewordResult.data.map((item) => {
+            return (
+              <TouchableOpacity key={item.id.toString()} onPress={() => _handleChooseOriginTown(item)} style={{ borderBottomColor: "red", borderBottomWidth: 1, margin: 5 }}>
+                <Text>{item.fullName}</Text>
+              </TouchableOpacity>
+            );
+          })}
+
         <Text
           style={[
             styles.text_footer,
@@ -53,9 +125,8 @@ const Filter = ({ setOpenModal }) => {
         </Text>
         <View style={styles.action}>
           <TextInput
-            placeholder="İlçe Seçiniz"
+            placeholder={selectedDestinationTown ? "" : "İlçe Seçiniz"}
             placeholderTextColor="#666666"
-            keyboardType="email-address"
             returnKeyType="done"
             style={[
               styles.textInput,
@@ -63,8 +134,19 @@ const Filter = ({ setOpenModal }) => {
                 color: COLORS.text,
               },
             ]}
+            value={DestinationTownSearch}
+            onChangeText={(text) => _handleSearchDestinationTown(text)}
           />
         </View>
+        {openDestinationTown &&
+          addressSearchByKewordResult.data.map((item) => {
+            return (
+              <TouchableOpacity key={item.id.toString()} onPress={() => _handleChooseDestinationTown(item)} style={{ borderBottomColor: "red", borderBottomWidth: 1, margin: 5 }}>
+                <Text>{item.fullName}</Text>
+              </TouchableOpacity>
+            );
+          })}
+
         <Text
           style={[
             styles.text_footer,
@@ -86,22 +168,13 @@ const Filter = ({ setOpenModal }) => {
           <RangeSlider
             min={0}
             max={1000}
-            fromValueOnChange={(value) => setFromValue(value)}
-            toValueOnChange={(value) => setToValue(value)}
+            fromValueOnChange={(value) => setFormPrice(value)}
+            toValueOnChange={(value) => setToPrice(value)}
             initialFromValue={11}
             knobColor={COLORS.primary}
             valueLabelsBackgroundColor="black"
             inRangeBarColor={COLORS.primary}
             outOfRangeBarColor="gray"
-          />
-        </View>
-        <View style={styles.actiond}>
-          <SearchableDropdown
-            selectedValues={selectedValues}
-            setSelectedValues={setSelectedValues}
-            label="test dropdown"
-            placeholder="Test placeholder"
-            inputSize={300}
           />
         </View>
 
@@ -120,10 +193,8 @@ const Filter = ({ setOpenModal }) => {
       </Content>
       <Footer>
         <FooterTab style={{ backgroundColor: COLORS.primary }}>
-          <Button full onPress={() => setOpenModal(false)}>
-            <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>
-              UYGULA
-            </Text>
+          <Button full onPress={() => _handleSearchOffer()}>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>UYGULA</Text>
           </Button>
         </FooterTab>
       </Footer>
@@ -133,16 +204,8 @@ const Filter = ({ setOpenModal }) => {
 const HeadersModal = ({ setOpenModal }) => {
   return (
     <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-      <Appbar.Action
-        icon="close"
-        onPress={() => setOpenModal(false)}
-        style={{ flex: 1 }}
-      />
-      <Appbar.Content
-        style={{ flex: 4 }}
-        title="Filtrele"
-        titleStyle={{ color: COLORS.text, fontWeight: "500" }}
-      />
+      <Appbar.Action icon="close" onPress={() => setOpenModal(false)} style={{ flex: 1 }} />
+      <Appbar.Content style={{ flex: 4 }} title="Filtrele" titleStyle={{ color: COLORS.text, fontWeight: "500" }} />
       <Appbar.Action style={{ flex: 1 }} />
     </Appbar.Header>
   );

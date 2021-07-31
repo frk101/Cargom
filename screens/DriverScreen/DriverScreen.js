@@ -15,9 +15,7 @@ const DriverScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const { driverGetAllShipperResult, driverGetAllShipperLoading } = useSelector(
-    (x) => x.shipper
-  );
+  const { driverGetAllShipperResult, driverGetAllShipperLoading } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _getDriverList();
@@ -32,29 +30,16 @@ const DriverScreen = () => {
     <Layout isBackIcon title="Sürücüler">
       <View style={{ flex: 1 }}>
         {driverGetAllShipperResult.data == "" ? (
-          <Text style={{ justifyContent: "center", alignItems: "center" }}>
-            Sürücünüz Bulunmamaktadır
-          </Text>
+          <Text style={{ justifyContent: "center", alignItems: "center" }}>Sürücünüz Bulunmamaktadır</Text>
         ) : (
           <FlatList
-            refreshControl={
-              <RefreshControl
-                refreshing={driverGetAllShipperLoading}
-                onRefresh={_getDriverList}
-              />
-            }
+            refreshControl={<RefreshControl refreshing={driverGetAllShipperLoading} onRefresh={_getDriverList} />}
             data={driverGetAllShipperResult.data}
             renderItem={({ item }) => <RenderList item={item} />}
           />
         )}
       </View>
-      <FAB
-        style={styles.fab}
-        medium
-        icon="plus"
-        color="#fff"
-        onPress={() => navigation.navigate("CreateDriver", { driver: null })}
-      />
+      <FAB style={styles.fab} medium icon="plus" color="#fff" onPress={() => navigation.navigate("CreateDriver", { driver: null })} />
     </Layout>
   );
 };
@@ -62,10 +47,7 @@ const DriverScreen = () => {
 const RenderList = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.listContainer}
-      // onPress={() => navigation.navigate("CreateDriver", item)}
-    >
+    <TouchableOpacity style={styles.listContainer} onPress={() => navigation.navigate("CreateDriver", item)}>
       <ListItem bottomDivider>
         {item.driver.isApproved ? (
           item.driver.gender == true ? (
@@ -79,8 +61,7 @@ const RenderList = ({ item }) => {
 
         <ListItem.Content>
           <ListItem.Title>
-            {item.driver.firstname} {item.driver.lastname}{" "}
-            {/* {item.driver.isApproved ? "Onaylı" : "Onaysız"} */}
+            {item.driver.firstname} {item.driver.lastname} {/* {item.driver.isApproved ? "Onaylı" : "Onaysız"} */}
           </ListItem.Title>
         </ListItem.Content>
         <ListItem.Chevron />

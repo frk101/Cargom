@@ -98,7 +98,7 @@ export function addressSearchByKeword(kelime) {
     type: ADDRESS_SEARCH_BY_KEYWORD,
     payload: {
       request: {
-        url: `${ADDRESS_SEARCH_BY_KEYWORD_URL}/${kelime}`,
+        url: `${ADDRESS_SEARCH_BY_KEYWORD_URL}${kelime}`,
       },
     },
   };
