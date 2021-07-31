@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, TouchableOpacity, Modal } from "react-native";
+import { FlatList, TouchableOpacity, Modal, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { ListItem } from "react-native-elements";
@@ -86,6 +86,7 @@ const OffersScreeen = () => {
           data={ordersGetAllPendingOffersResult.data}
           renderItem={({ item }) => <GrupCargo item={item} />}
         />
+
         {/* {aktifKey == true ? (
           <FlatList
             style={{ marginTop: 20 }}
@@ -100,6 +101,7 @@ const OffersScreeen = () => {
           />
         )} */}
       </Content>
+
       <Modal visible={openModal} animationType="slide">
         <Filter setOpenModal={setOpenModal} />
       </Modal>

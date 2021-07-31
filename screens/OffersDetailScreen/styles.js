@@ -2,6 +2,23 @@ import COLORS from "../../constans/colors";
 import { StyleSheet, Dimensions, Platform } from "react-native";
 
 export default StyleSheet.create({
+  action: {
+    flexDirection: "row",
+    marginTop: 10,
+    borderColor: "#979797",
+    padding: 13,
+    borderWidth: 1,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  text_footer: {
+    color: COLORS.text,
+    fontWeight: "bold",
+    fontSize: 14,
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
   pim: {
     width: 60,
     height: 60,

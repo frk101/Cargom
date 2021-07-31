@@ -104,7 +104,7 @@ const StepCargo = () => {
 
   return (
     <View style={styles.container}>
-      <MapView
+      {/* <MapView
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
@@ -142,7 +142,7 @@ const StepCargo = () => {
       >
         <Feather name="arrow-left" size={24} />
       </TouchableOpacity>
-      {/* <View style={styles.searchBox}>
+      <View style={styles.searchBox}>
         <TextInput
           placeholder="Search here"
           placeholderTextColor="#000"
@@ -150,8 +150,8 @@ const StepCargo = () => {
           style={{ flex: 1, padding: 0 }}
         />
         <Ionicons name="ios-search" size={20} />
-      </View> */}
-      {/* <ScrollView
+      </View>
+      <ScrollView
         horizontal
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
@@ -174,8 +174,8 @@ const StepCargo = () => {
             <Text>{category.name}</Text>
           </TouchableOpacity>
         ))}
-      </ScrollView> */}
-      <View></View>
+      </ScrollView>
+      <View></View> */}
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
@@ -195,18 +195,18 @@ const StepCargo = () => {
           paddingHorizontal:
             Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
         }}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: mapAnimation,
-                },
-              },
-            },
-          ],
-          { useNativeDriver: true }
-        )}
+        // onScroll={Animated.event(
+        //   [
+        //     {
+        //       nativeEvent: {
+        //         contentOffset: {
+        //           x: mapAnimation,
+        //         },
+        //       },
+        //     },
+        //   ],
+        //   { useNativeDriver: true }
+        // )}
       >
         {state.markers.map((marker, index) => (
           <View style={styles.card} key={index}>
