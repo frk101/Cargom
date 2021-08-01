@@ -14,6 +14,7 @@ const AllCargoScreen = () => {
   return (
     <Layout isBackIcon title="Tüm Kargolar">
       <FlatList
+        keyExtractor={(item, index) => index.toString()}
         data={myData}
         renderItem={({ item }) => <RenderList item={item} />}
       />

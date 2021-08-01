@@ -13,6 +13,10 @@ import {
   SHIPPERS_LOGIN,
   VEHICLES_GET_BY_SHIPPER_ID,
   VEHICLES_GET_BY_SHIPPER_ID_URL,
+  SHIPPER_ORDERS_GET_ALL_MY_ORDERS,
+  SHIPPER_ORDERS_GET_ALL_MY_ORDERS_URL,
+  SHIPPER_ORDERS_GET_BY_ID,
+  SHIPPER_ORDERS_GET_BY_ID_URL,
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -105,6 +109,28 @@ export function vehiclesGetByShipper() {
     payload: {
       request: {
         url: VEHICLES_GET_BY_SHIPPER_ID_URL,
+      },
+    },
+  };
+}
+
+export function shipperOrdersGetAllMyOrders() {
+  return {
+    type: SHIPPER_ORDERS_GET_ALL_MY_ORDERS,
+    payload: {
+      request: {
+        url: SHIPPER_ORDERS_GET_ALL_MY_ORDERS_URL,
+      },
+    },
+  };
+}
+
+export function shipperOrdersgetById() {
+  return {
+    type: SHIPPER_ORDERS_GET_BY_ID,
+    payload: {
+      request: {
+        url: SHIPPER_ORDERS_GET_BY_ID_URL,
       },
     },
   };

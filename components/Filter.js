@@ -22,7 +22,8 @@ const Filter = ({ setOpenModal }) => {
   const [fromPrice, setFormPrice] = useState(0);
   const [toPrice, setToPrice] = useState(0);
 
-  const { addressSearchByKewordResult, addressSearchByKewordLoading } = useSelector((x) => x.general);
+  const { addressSearchByKewordResult, addressSearchByKewordLoading } =
+    useSelector((x) => x.general);
 
   const _handleSearchOriginTown = (searchText) => {
     setSelectedOriginTown(null);
@@ -69,21 +70,23 @@ const Filter = ({ setOpenModal }) => {
       searchParams += "&Price2=" + toPrice;
     }
     if (searchParams.length > 1) {
-      dispatch(ordersGetAllPendingOffers(searchParams)).then(({ payload: { data } }) => {
-        if (data.length == undefined || data.length == 0) {
-          alert("Sonuç bulunamadı.");
-          // Notifier.showNotification({
-          //   title: "UYARI",
-          //   description: "sss",
-          //   Component: NotifierComponents.Alert,
-          //   componentProps: {
-          //     alertType: "error",
-          //   },
-          // });
-        } else {
-          setOpenModal(false);
+      dispatch(ordersGetAllPendingOffers(searchParams)).then(
+        ({ payload: { data } }) => {
+          if (data.length == undefined || data.length == 0) {
+            alert("Sonuç bulunamadı.");
+            // Notifier.showNotification({
+            //   title: "UYARI",
+            //   description: "sss",
+            //   Component: NotifierComponents.Alert,
+            //   componentProps: {
+            //     alertType: "error",
+            //   },
+            // });
+          } else {
+            setOpenModal(false);
+          }
         }
-      });
+      );
     }
   };
 
@@ -118,8 +121,14 @@ const Filter = ({ setOpenModal }) => {
           />
         </View>
         <FlatList
+          keyExtractor={(item, index) => index.toString()}
           data={openOriginTown && addressSearchByKewordResult.data}
-          renderItem={({ item }) => <OriginTown item={item} _handleChooseOriginTown={_handleChooseOriginTown} />}
+          renderItem={({ item }) => (
+            <OriginTown
+              item={item}
+              _handleChooseOriginTown={_handleChooseOriginTown}
+            />
+          )}
         />
         <Text
           style={[
@@ -148,8 +157,14 @@ const Filter = ({ setOpenModal }) => {
           />
         </View>
         <FlatList
+          keyExtractor={(item, index) => index.toString()}
           data={openDestinationTown && addressSearchByKewordResult.data}
-          renderItem={({ item }) => <DestinationTown item={item} _handleChooseDestinationTown={_handleChooseDestinationTown} />}
+          renderItem={({ item }) => (
+            <DestinationTown
+              item={item}
+              _handleChooseDestinationTown={_handleChooseDestinationTown}
+            />
+          )}
         />
 
         <Text
@@ -186,7 +201,9 @@ const Filter = ({ setOpenModal }) => {
       <Footer>
         <FooterTab style={{ backgroundColor: COLORS.primary }}>
           <Button full onPress={() => _handleSearchOffer()}>
-            <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>UYGULA</Text>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>
+              UYGULA
+            </Text>
           </Button>
         </FooterTab>
       </Footer>
@@ -196,8 +213,16 @@ const Filter = ({ setOpenModal }) => {
 const HeadersModal = ({ setOpenModal }) => {
   return (
     <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
-      <Appbar.Action icon="close" onPress={() => setOpenModal(false)} style={{ flex: 1 }} />
-      <Appbar.Content style={{ flex: 4 }} title="Filtrele" titleStyle={{ color: COLORS.text, fontWeight: "500" }} />
+      <Appbar.Action
+        icon="close"
+        onPress={() => setOpenModal(false)}
+        style={{ flex: 1 }}
+      />
+      <Appbar.Content
+        style={{ flex: 4 }}
+        title="Filtrele"
+        titleStyle={{ color: COLORS.text, fontWeight: "500" }}
+      />
       <Appbar.Action style={{ flex: 1 }} />
     </Appbar.Header>
   );
@@ -205,14 +230,22 @@ const HeadersModal = ({ setOpenModal }) => {
 
 const OriginTown = ({ item, _handleChooseOriginTown }) => {
   return (
-    <TouchableOpacity key={item.id.toString()} onPress={() => _handleChooseOriginTown(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.id.toString()}
+      onPress={() => _handleChooseOriginTown(item)}
+      style={styles.actionSearch}
+    >
       <Text>{item.fullName}</Text>
     </TouchableOpacity>
   );
 };
 const DestinationTown = ({ item, _handleChooseDestinationTown }) => {
   return (
-    <TouchableOpacity key={item.id.toString()} onPress={() => _handleChooseDestinationTown(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.id.toString()}
+      onPress={() => _handleChooseDestinationTown(item)}
+      style={styles.actionSearch}
+    >
       <Text>{item.fullName}</Text>
     </TouchableOpacity>
   );

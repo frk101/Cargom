@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, TouchableOpacity, Modal, Text } from "react-native";
+import {
+  FlatList,
+  TouchableOpacity,
+  Modal,
+  RefreshControl,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { ListItem } from "react-native-elements";
@@ -21,7 +26,8 @@ const OffersScreeen = () => {
     setAktifKey(val);
   };
   const navigation = useNavigation();
-  const { ordersGetAllPendingOffersResult, ordersGetAllPendingOffersLoading } = useSelector((x) => x.driver);
+  const { ordersGetAllPendingOffersResult, ordersGetAllPendingOffersLoading } =
+    useSelector((x) => x.driver);
 
   useEffect(() => {
     _getOfferList();
@@ -34,7 +40,11 @@ const OffersScreeen = () => {
   };
 
   return (
-    <Layout title="Teklifler" isBackIcon right={<LayoutRight1 setOpenModal={setOpenModal} />}>
+    <Layout
+      title="Teklifler"
+      isBackIcon
+      right={<LayoutRight1 setOpenModal={setOpenModal} />}
+    >
       {/* <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
@@ -76,7 +86,19 @@ const OffersScreeen = () => {
         </TouchableOpacity>
       </View> */}
       <Content>
-        <FlatList style={{ marginTop: 20 }} data={ordersGetAllPendingOffersResult.data} renderItem={({ item }) => <GrupCargo item={item} />} />
+        <FlatList
+          scrollEnabled={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={ordersGetAllPendingOffersLoading}
+              onRefresh={_getOfferList}
+            />
+          }
+          style={{ marginTop: 20 }}
+          keyExtractor={(item, index) => index.toString()}
+          data={ordersGetAllPendingOffersResult.data}
+          renderItem={({ item }) => <GrupCargo item={item} />}
+        />
 
         {/* {aktifKey == true ? (
           <FlatList
@@ -103,15 +125,30 @@ const OffersScreeen = () => {
 const GrupCargo = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.listGrupContainer} onPress={() => navigation.navigate("OffersDetailScreen", { id: item.group.id })}>
+    <TouchableOpacity
+      style={styles.listGrupContainer}
+      onPress={() =>
+        navigation.navigate("OffersDetailScreen", { id: item.group.id })
+      }
+    >
       <ListItem bottomDivider>
-        <FontAwesome5 name="box-open" size={24} color={item.group.isPriorityOffer ? COLORS.primary : "#8F9BB3"} />
+        <FontAwesome5
+          name="box-open"
+          size={24}
+          color={item.group.isPriorityOffer ? COLORS.primary : "#8F9BB3"}
+        />
         <ListItem.Content>
-          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>{item.group.startAddress}</ListItem.Title>
+          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
+            {item.group.startAddress}
+          </ListItem.Title>
           <ListItem.Subtitle>{item.group.endAddress}</ListItem.Subtitle>
-          <ListItem.Title style={{ color: COLORS.text }}>{item.group.distance} Km</ListItem.Title>
+          <ListItem.Title style={{ color: COLORS.text }}>
+            {item.group.distance} Km
+          </ListItem.Title>
         </ListItem.Content>
-        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>{item.group.price} ₺</ListItem.Title>
+        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
+          {item.group.price} ₺
+        </ListItem.Title>
       </ListItem>
     </TouchableOpacity>
   );
@@ -120,14 +157,23 @@ const AllCargo = ({ item }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={styles.listContainer} onPress={() => navigation.navigate("OffersDetailScreen", item)}>
+    <TouchableOpacity
+      style={styles.listContainer}
+      onPress={() => navigation.navigate("OffersDetailScreen", item)}
+    >
       <ListItem bottomDivider>
         <FontAwesome5 name={item.icon} size={24} color={item.color} />
         <ListItem.Content>
-          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>{item.name}</ListItem.Title>
-          <ListItem.Title style={{ color: COLORS.text }}>{item.km}</ListItem.Title>
+          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
+            {item.name}
+          </ListItem.Title>
+          <ListItem.Title style={{ color: COLORS.text }}>
+            {item.km}
+          </ListItem.Title>
         </ListItem.Content>
-        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>{item.ücret}</ListItem.Title>
+        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
+          {item.ücret}
+        </ListItem.Title>
       </ListItem>
     </TouchableOpacity>
   );

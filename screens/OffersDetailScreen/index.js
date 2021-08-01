@@ -1,10 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Text, View, Dimensions, TouchableOpacity, Animated, FlatList, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  Animated,
+  FlatList,
+  TextInput,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { Modalize } from "react-native-modalize";
 import COLORS from "../../constans/colors";
-import { ordersGetPendingOfferDetail, ordersAssignGroupDriver } from "../../business/actions/driver";
-import { driverGetByShipper, vehiclesGetByShipper } from "../../business/actions/shipper";
+import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
+import {
+  ordersGetPendingOfferDetail,
+  ordersAssignGroupDriver,
+} from "../../business/actions/driver";
+import {
+  driverGetByShipper,
+  vehiclesGetByShipper,
+} from "../../business/actions/shipper";
 import { useSelector, useDispatch } from "react-redux";
 import { Content } from "native-base";
 import Layout from "../../components/Layout";
@@ -26,8 +41,15 @@ const AllCargoDetail = () => {
   const [vehicleSearch, setVehicleSearch] = useState("");
   const [vehicleList, setVehicleList] = useState([]);
 
-  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } = useSelector((x) => x.driver);
-  const { driverGetAllShipperResult, driverGetAllShipperLoading, vehiclesGetByShipperResult, vehiclesGetByShipperLoading, shipperLoginResult } = useSelector((x) => x.shipper);
+  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
+    useSelector((x) => x.driver);
+  const {
+    driverGetAllShipperResult,
+    driverGetAllShipperLoading,
+    vehiclesGetByShipperResult,
+    vehiclesGetByShipperLoading,
+    shipperLoginResult,
+  } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _handleGetOfferDetail();
@@ -57,7 +79,12 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (driverGetAllShipperResult.data) {
         let searchDrivers = driverGetAllShipperResult.data.filter((x) => {
-          return x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+          return (
+            x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1 ||
+            x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1
+          );
         });
         setDriverList(searchDrivers);
       }
@@ -77,7 +104,10 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (vehiclesGetByShipperResult.data) {
         let searchVehicles = vehiclesGetByShipperResult.data.filter((x) => {
-          return x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+          return (
+            x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1 && x.vehicle.isApproved
+          );
         });
         setVehicleList(searchVehicles);
       }
@@ -114,6 +144,15 @@ const AllCargoDetail = () => {
         },
       });
       return;
+    } else {
+      Notifier.showNotification({
+        title: "HARİKA",
+        description: "Görevlerim Sayfasından Görevinize Bakabilirsiniz",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: "success",
+        },
+      });
     }
     let model = {
       DriverID: selectedDriver.driver.id,
@@ -121,18 +160,41 @@ const AllCargoDetail = () => {
       OrderGroupID: route.params.id,
       VehicleID: selectedVehicle.vehicle.id,
     };
-    dispatch(ordersAssignGroupDriver(model)).then((x) => {
-      console.log(x);
-    });
+    // dispatch(ordersAssignGroupDriver(model)).then((x) => {
+    //   console.log(x);
+    // });
   };
 
   return (
     <Layout title="Teklif Detay" isBackIcon>
       <Content>
-        <FlatList
-          data={ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps}
+        <ProgressSteps>
+          <ProgressStep label="First Step">
+            <View style={{ alignItems: "center" }}>
+              <Text>This is the content within step 1!</Text>
+            </View>
+          </ProgressStep>
+          <ProgressStep label="Second Step">
+            <View style={{ alignItems: "center" }}>
+              <Text>This is the content within step 2!</Text>
+            </View>
+          </ProgressStep>
+          <ProgressStep label="Third Step">
+            <View style={{ alignItems: "center" }}>
+              <Text>This is the content within step 3!</Text>
+            </View>
+          </ProgressStep>
+        </ProgressSteps>
+        {/* <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          scrollEnabled={false}
+          data={
+            ordersGetPendingOfferDetailResult &&
+            ordersGetPendingOfferDetailResult.data &&
+            ordersGetPendingOfferDetailResult.data.steps
+          }
           renderItem={({ item }) => <OffersDesciraption item={item} />}
-        />
+        /> */}
         <TouchableOpacity
           onPress={onOpen}
           style={{
@@ -150,7 +212,7 @@ const AllCargoDetail = () => {
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
         }}
-        modalHeight={500}
+        // modalHeight={500}
       >
         <Text
           style={[
@@ -178,7 +240,14 @@ const AllCargoDetail = () => {
             onChangeText={(text) => _handleSearchDriver(text)}
           />
         </View>
-        <FlatList data={openDriver && driverList} renderItem={({ item }) => <DriverItem item={item} onPress={_handleChooseDriver} />} />
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          scrollEnabled={false}
+          data={openDriver && driverList}
+          renderItem={({ item }) => (
+            <DriverItem item={item} onPress={_handleChooseDriver} />
+          )}
+        />
 
         <Text
           style={[
@@ -206,10 +275,19 @@ const AllCargoDetail = () => {
             onChangeText={(text) => _handleSearchVehicle(text)}
           />
         </View>
-        <FlatList data={openVehicle && vehicleList} renderItem={({ item }) => <VehicleItem item={item} onPress={_handleChooseVehicle} />} />
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={openVehicle && vehicleList}
+          renderItem={({ item }) => (
+            <VehicleItem item={item} onPress={_handleChooseVehicle} />
+          )}
+        />
 
-        <TouchableOpacity onPress={_handleApprovedContract}>
-          <Text>Sex</Text>
+        <TouchableOpacity
+          onPress={_handleApprovedContract}
+          style={styles.btnGonder}
+        >
+          <Text style={styles.btnText}>Teklifi Kabul Et</Text>
         </TouchableOpacity>
       </Modalize>
     </Layout>
@@ -219,6 +297,7 @@ const AllCargoDetail = () => {
 export default AllCargoDetail;
 
 const OffersDesciraption = ({ item }) => {
+  console.log(item);
   return (
     <View>
       <Text>{item.step.address}</Text>
@@ -228,7 +307,11 @@ const OffersDesciraption = ({ item }) => {
 
 const DriverItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity key={item.driver.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.driver.id.toString()}
+      onPress={() => onPress(item)}
+      style={styles.actionSearch}
+    >
       <Text>
         {item.driver.firstname} {item.driver.lastname}
       </Text>
@@ -238,7 +321,11 @@ const DriverItem = ({ item, onPress }) => {
 
 const VehicleItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity key={item.model.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.model.id.toString()}
+      onPress={() => onPress(item)}
+      style={styles.actionSearch}
+    >
       <Text>
         {item.model.modelName} {item.type.typeName}
       </Text>

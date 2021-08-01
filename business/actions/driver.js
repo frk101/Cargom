@@ -5,6 +5,8 @@ import {
   ORDERS_GET_PENDING_OFFER_DETAIL_URL,
   ORDERS_ASSIGN_GROUP_DRIVER,
   ORDERS_ASSIGN_GROUP_DRIVER_URL,
+  DRIVER_ORDERS_GET_ALL_MY_ORDERS,
+  DRIVER_ORDERS_GET_ALL_MY_ORDERS_URL,
 } from "../types/driver";
 
 export function ordersGetAllPendingOffers(params) {
@@ -39,6 +41,17 @@ export function ordersAssignGroupDriver(model) {
         method: "POST",
         url: ORDERS_ASSIGN_GROUP_DRIVER_URL,
         data: model,
+      },
+    },
+  };
+}
+
+export function driverOrdersGetAllMyOrders() {
+  return {
+    type: DRIVER_ORDERS_GET_ALL_MY_ORDERS,
+    payload: {
+      request: {
+        url: DRIVER_ORDERS_GET_ALL_MY_ORDERS_URL,
       },
     },
   };

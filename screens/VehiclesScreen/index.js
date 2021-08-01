@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, Dimensions, FlatList, RefreshControl, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+  RefreshControl,
+  ScrollView,
+} from "react-native";
 import Layout from "../../components/Layout";
 import { FAB } from "react-native-paper";
 import COLORS from "../../constans/colors";
@@ -15,7 +23,8 @@ const index = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { vehiclesGetByShipperResult, vehiclesGetByShipperLoading } = useSelector((x) => x.shipper);
+  const { vehiclesGetByShipperResult, vehiclesGetByShipperLoading } =
+    useSelector((x) => x.shipper);
 
   useEffect(() => {
     _getVehiclesList();
@@ -30,23 +39,35 @@ const index = () => {
     <Layout title="Araçlar" isBackIcon>
       <View style={{ flex: 1 }}>
         {vehiclesGetByShipperResult.data == "" ? (
-          <Text style={{ justifyContent: "center", alignItems: "center" }}>Sürücünüz Bulunmamaktadır</Text>
+          <Text style={{ justifyContent: "center", alignItems: "center" }}>
+            Sürücünüz Bulunmamaktadır
+          </Text>
         ) : (
           <FlatList
-            refreshControl={<RefreshControl refreshing={vehiclesGetByShipperLoading} onRefresh={_getVehiclesList} />}
-            keyExtractor={(item) => item.id}
+            refreshControl={
+              <RefreshControl
+                refreshing={vehiclesGetByShipperLoading}
+                onRefresh={_getVehiclesList}
+              />
+            }
+            keyExtractor={(item, index) => index.toString()}
             data={vehiclesGetByShipperResult.data}
             renderItem={({ item }) => <RenderList item={item} />}
           />
         )}
       </View>
-      <FAB style={styles.fab} medium icon="plus" color="#fff" onPress={() => navigation.navigate("CreateVehicles")} />
+      <FAB
+        style={styles.fab}
+        medium
+        icon="plus"
+        color="#fff"
+        onPress={() => navigation.navigate("CreateVehicles")}
+      />
     </Layout>
   );
 };
 const RenderList = ({ item }) => {
   const [expanded, setExpanded] = React.useState(true);
-
   const handlePress = () => setExpanded(!expanded);
   const navigation = useNavigation();
 
@@ -55,7 +76,16 @@ const RenderList = ({ item }) => {
       <List.Accordion
         title={item.brand.brandName}
         titleStyle={{ color: COLORS.text, fontWeight: "bold", fontSize: 18 }}
-        left={() => <List.Icon icon="format-list-bulleted-square" color={COLORS.text} />}
+        left={() => (
+          <List.Icon
+            icon={
+              item.vehicle.isApproved
+                ? "format-list-bulleted-square"
+                : "hours-24"
+            }
+            color={item.vehicle.isApproved ? COLORS.text : COLORS.primary}
+          />
+        )}
       >
         <List.Item title={item.model.modelName} />
         <List.Item title={item.model.desi} />

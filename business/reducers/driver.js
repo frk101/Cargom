@@ -8,6 +8,9 @@ import {
   ORDERS_ASSIGN_GROUP_DRIVER,
   ORDERS_ASSIGN_GROUP_DRIVER_SUCCESS,
   ORDERS_ASSIGN_GROUP_DRIVER_FAIL,
+  DRIVER_ORDERS_GET_ALL_MY_ORDERS,
+  DRIVER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS,
+  DRIVER_ORDERS_GET_ALL_MY_ORDERS_FAIL,
 } from "../types/driver";
 
 const INITIAL_STATE = {
@@ -22,6 +25,10 @@ const INITIAL_STATE = {
   ordersAssignGroupDriverLoading: false,
   ordersAssignGroupDriverResult: {},
   ordersAssignGroupDriverFail: false,
+
+  driverOrdersGetAllMyOrdersLoading: false,
+  driverOrdersGetAllMyOrdersResult: {},
+  driverOrdersGetAllMyOrdersFail: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -92,6 +99,27 @@ export default (state = INITIAL_STATE, action) => {
         ordersAssignGroupDriverFail: true,
       };
 
+    case DRIVER_ORDERS_GET_ALL_MY_ORDERS:
+      return {
+        ...state,
+        driverOrdersGetAllMyOrdersLoading: true,
+        driverOrdersGetAllMyOrdersResult: {},
+        driverOrdersGetAllMyOrdersFail: false,
+      };
+    case DRIVER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS:
+      return {
+        ...state,
+        driverOrdersGetAllMyOrdersLoading: false,
+        driverOrdersGetAllMyOrdersResult: action.payload.data,
+        driverOrdersGetAllMyOrdersFail: false,
+      };
+    case DRIVER_ORDERS_GET_ALL_MY_ORDERS_FAIL:
+      return {
+        ...state,
+        driverOrdersGetAllMyOrdersLoading: false,
+        driverOrdersGetAllMyOrdersResult: {},
+        driverOrdersGetAllMyOrdersFail: true,
+      };
     default:
       return { ...state };
   }

@@ -20,6 +20,12 @@ import {
   VEHICLES_GET_BY_SHIPPER_ID,
   VEHICLES_GET_BY_SHIPPER_ID_FAIL,
   VEHICLES_GET_BY_SHIPPER_ID_SUCCESS,
+  SHIPPER_ORDERS_GET_ALL_MY_ORDERS,
+  SHIPPER_ORDERS_GET_ALL_MY_ORDERS_FAIL,
+  SHIPPER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS,
+  SHIPPER_ORDERS_GET_BY_ID,
+  SHIPPER_ORDERS_GET_BY_ID_FAIL,
+  SHIPPER_ORDERS_GET_BY_ID_SUCCESS,
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -44,6 +50,12 @@ const INITIAL_STATE = {
   vehiclesGetByShipperLoading: false,
   vehiclesGetByShipperResult: {},
   vehiclesGetByShipperFail: false,
+  shipperOrdersGetAllMyOrdersLoading: false,
+  shipperOrdersGetAllMyOrdersResult: {},
+  shipperOrdersGetAllMyOrdersFail: false,
+  shipperOrdersGetByIdLoading: false,
+  shipperOrdersGetByIdResult: {},
+  shipperOrdersGetByIdFail: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -184,7 +196,7 @@ export default (state = INITIAL_STATE, action) => {
     case VEHICLES_GET_BY_SHIPPER_ID:
       return {
         ...state,
-        vehiclesGetByShipperLoading: false,
+        vehiclesGetByShipperLoading: true,
         vehiclesGetByShipperResult: {},
         vehiclesGetByShipperFail: false,
       };
@@ -203,6 +215,49 @@ export default (state = INITIAL_STATE, action) => {
         vehiclesGetByShipperFail: true,
       };
 
+    case SHIPPER_ORDERS_GET_ALL_MY_ORDERS:
+      return {
+        ...state,
+        vehiclesGetByShipperLoading: true,
+        vehiclesGetByShipperResult: {},
+        vehiclesGetByShipperFail: false,
+      };
+    case SHIPPER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS:
+      return {
+        ...state,
+        vehiclesGetByShipperLoading: false,
+        vehiclesGetByShipperResult: action.payload.data,
+        vehiclesGetByShipperFail: false,
+      };
+    case SHIPPER_ORDERS_GET_ALL_MY_ORDERS_FAIL:
+      return {
+        ...state,
+        vehiclesGetByShipperLoading: false,
+        vehiclesGetByShipperResult: {},
+        vehiclesGetByShipperFail: true,
+      };
+
+    case SHIPPER_ORDERS_GET_BY_ID:
+      return {
+        ...state,
+        shipperOrdersGetByIdLoading: true,
+        shipperOrdersGetByIdResult: {},
+        shipperOrdersGetByIdFail: false,
+      };
+    case SHIPPER_ORDERS_GET_BY_ID_SUCCESS:
+      return {
+        ...state,
+        shipperOrdersGetByIdLoading: false,
+        shipperOrdersGetByIdResult: action.payload.data,
+        shipperOrdersGetByIdFail: false,
+      };
+    case SHIPPER_ORDERS_GET_BY_ID_FAIL:
+      return {
+        ...state,
+        shipperOrdersGetByIdLoading: false,
+        shipperOrdersGetByIdResult: {},
+        shipperOrdersGetByIdFail: true,
+      };
     default:
       return { ...state };
   }

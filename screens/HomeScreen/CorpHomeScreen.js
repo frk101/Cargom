@@ -85,6 +85,7 @@ const wait = (timeout) => {
     setTimeout(resolve, timeout);
   });
 };
+
 const CorpHomeScreen = () => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = React.useState(false);
@@ -118,7 +119,7 @@ const CorpHomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-      <Content
+      {/* <Content
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -126,79 +127,77 @@ const CorpHomeScreen = () => {
             colors={[COLORS.primary]}
           />
         }
-      >
-        <View style={styles.menu}>
-          <TouchableOpacity
-            style={styles.opacitys}
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-          >
-            <Image
-              source={require("../../assets/menu.png")}
-              style={{ width: 30, height: 30 }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-
+      > */}
+      <View style={styles.menu}>
+        <TouchableOpacity
+          style={styles.opacitys}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        >
           <Image
-            source={require("../../assets/shipgeldiLogo-v03-1.png")}
-            style={{ width: 140, resizeMode: "contain" }}
+            source={require("../../assets/menu.png")}
+            style={{ width: 30, height: 30 }}
+            resizeMode="contain"
           />
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ProfileScreen")}
-          >
-            <MaterialCommunityIcons
-              name="account-circle"
-              size={40}
-              color={COLORS.gray}
-              style={{ marginTop: 10 }}
-            />
-          </TouchableOpacity>
-        </View>
-        {shipperLoginResult &&
-        shipperLoginResult.data &&
-        shipperLoginResult.data.shipper &&
-        shipperLoginResult.data.shipper.shipperType == 2 ? (
-          <FlatGrid
-            itemDimension={130}
-            data={dummyData}
-            style={styles.gridView}
-            spacing={10}
-            renderItem={({ item }) => (
-              <View
-                style={[styles.itemContainer, { backgroundColor: item.code }]}
-              >
-                <Image
-                  source={item.img}
-                  style={{ width: 50, height: 50 }}
-                  resizeMode="contain"
-                />
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemCode}>{item.subName}</Text>
-              </View>
-            )}
+        </TouchableOpacity>
+
+        <Image
+          source={require("../../assets/shipgeldiLogo-v03-1.png")}
+          style={{ width: 140, resizeMode: "contain" }}
+        />
+        <TouchableOpacity onPress={() => navigation.navigate("ProfileScreen")}>
+          <MaterialCommunityIcons
+            name="account-circle"
+            size={40}
+            color={COLORS.gray}
+            style={{ marginTop: 10 }}
           />
-        ) : (
-          <FlatGrid
-            itemDimension={130}
-            data={dummyData1}
-            style={styles.gridView}
-            spacing={10}
-            renderItem={({ item }) => (
-              <View
-                style={[styles.itemContainer, { backgroundColor: item.code }]}
-              >
-                <Image
-                  source={item.img}
-                  style={{ width: 50, height: 50 }}
-                  resizeMode="contain"
-                />
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemCode}>{item.subName}</Text>
-              </View>
-            )}
-          />
-        )}
-      </Content>
+        </TouchableOpacity>
+      </View>
+      {shipperLoginResult &&
+      shipperLoginResult.data &&
+      shipperLoginResult.data.shipper &&
+      shipperLoginResult.data.shipper.shipperType == 2 ? (
+        <FlatGrid
+          itemDimension={130}
+          data={dummyData}
+          style={styles.gridView}
+          spacing={10}
+          renderItem={({ item }) => (
+            <View
+              style={[styles.itemContainer, { backgroundColor: item.code }]}
+            >
+              <Image
+                source={item.img}
+                style={{ width: 50, height: 50 }}
+                resizeMode="contain"
+              />
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemCode}>{item.subName}</Text>
+            </View>
+          )}
+        />
+      ) : (
+        <FlatGrid
+          itemDimension={130}
+          data={dummyData1}
+          style={styles.gridView}
+          spacing={10}
+          renderItem={({ item }) => (
+            <View
+              style={[styles.itemContainer, { backgroundColor: item.code }]}
+            >
+              <Image
+                source={item.img}
+                style={{ width: 50, height: 50 }}
+                resizeMode="contain"
+              />
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemCode}>{item.subName}</Text>
+            </View>
+          )}
+        />
+      )}
+      {/* </Content> */}
     </SafeAreaView>
   );
 };

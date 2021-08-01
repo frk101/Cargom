@@ -96,7 +96,7 @@ const StepCargo = () => {
       x = x - SPACING_FOR_CARD_INSET;
     }
 
-    _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
+    // _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
   };
 
   const _map = React.useRef(null);
@@ -191,78 +191,60 @@ const StepCargo = () => {
           bottom: 0,
           right: SPACING_FOR_CARD_INSET,
         }}
-        contentContainerStyle={{
-          paddingHorizontal:
-            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
-        }}
-        // onScroll={Animated.event(
-        //   [
-        //     {
-        //       nativeEvent: {
-        //         contentOffset: {
-        //           x: mapAnimation,
-        //         },
-        //       },
-        //     },
-        //   ],
-        //   { useNativeDriver: true }
-        // )}
       >
         {state.markers.map((marker, index) => (
-          <View style={styles.card} key={index}>
-            <Text numberOfLines={1} style={styles.baslik}>
-              {marker.step}
-            </Text>
-            {/* <Image
-              source={marker.image}
-              style={styles.cardImage}
-              resizeMode="cover"
-            /> */}
-            <View style={styles.textContent}>
-              <Text
-                numberOfLines={1}
-                style={[styles.cardtitle, { marginVertical: 5 }]}
-              >
-                <Text style={{ fontWeight: "bold" }}>Adres :</Text>
-                {marker.title}
+          <View style={{ backgroundColor: "red" }}>
+            <View style={styles.card} key={index}>
+              <Text numberOfLines={1} style={styles.baslik}>
+                {marker.step}
               </Text>
-              {/* <StarRating ratings={marker.rating} reviews={marker.reviews} /> */}
-              <Text
-                numberOfLines={1}
-                style={[styles.cardtitle, { marginVertical: 5 }]}
-              >
-                <Text style={{ fontWeight: "bold" }}>Alıcı Adı :</Text>
-                {marker.description}
-              </Text>
-              <Text
-                numberOfLines={1}
-                style={[styles.cardtitle, { marginVertical: 5 }]}
-              >
-                <Text style={{ fontWeight: "bold" }}>Ücret :</Text>
-                {marker.ucret}
-              </Text>
-              <View style={styles.button}>
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={[
-                    styles.signIn,
-                    {
-                      borderColor: COLORS.primary,
-                      borderWidth: 1,
-                    },
-                  ]}
+
+              <View style={styles.textContent}>
+                <Text
+                  numberOfLines={1}
+                  style={[styles.cardtitle, { marginVertical: 5 }]}
                 >
-                  <Text
+                  <Text style={{ fontWeight: "bold" }}>Adres :</Text>
+                  {marker.title}
+                </Text>
+
+                <Text
+                  numberOfLines={1}
+                  style={[styles.cardtitle, { marginVertical: 5 }]}
+                >
+                  <Text style={{ fontWeight: "bold" }}>Alıcı Adı :</Text>
+                  {marker.description}
+                </Text>
+                <Text
+                  numberOfLines={1}
+                  style={[styles.cardtitle, { marginVertical: 5 }]}
+                >
+                  <Text style={{ fontWeight: "bold" }}>Ücret :</Text>
+                  {marker.ucret}
+                </Text>
+                <View style={styles.button}>
+                  <TouchableOpacity
+                    onPress={() => {}}
                     style={[
-                      styles.textSign,
+                      styles.signIn,
                       {
-                        color: "#FFF",
+                        borderColor: COLORS.primary,
+                        borderWidth: 1,
                       },
                     ]}
                   >
-                    Teslim Et
-                  </Text>
-                </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.textSign,
+                        {
+                          color: "#FFF",
+                        },
+                      ]}
+                    >
+                      Teslim Et
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
