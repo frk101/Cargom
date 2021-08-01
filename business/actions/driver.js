@@ -31,12 +31,14 @@ export function ordersGetPendingOfferDetail(offerId) {
   };
 }
 
-export function ordersAssignGroupDriver() {
+export function ordersAssignGroupDriver(model) {
   return {
     type: ORDERS_ASSIGN_GROUP_DRIVER,
     payload: {
       request: {
+        method: "POST",
         url: ORDERS_ASSIGN_GROUP_DRIVER_URL,
+        data: model,
       },
     },
   };
