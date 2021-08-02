@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -18,7 +19,8 @@ import ProfileEditScreen from "../screens/ProfileEditScreen/ProfileEditScreen";
 import OffersScreeen from "../screens/OffersScreen/OffersScreeen";
 import Kurumsal from "../screens/RegisterKurumsal/Kurumsal";
 import Bireysel from "../screens/RegisterBireysel/Bireysel";
-import MyTaskScreen from "../screens/MyTaskScreen/MyTaskScreen";
+import MyTaskDriverScreen from "../screens/MyTaskDriverScreen";
+import MyTaskShipperScreen from "../screens/MyTaskShipperScreen";
 import StepCargo from "../deneme/StepCargo";
 import VehiclesScreen from "../screens/VehiclesScreen";
 import CreateDriver from "../screens/CreateDriver/createDriver";
@@ -42,6 +44,8 @@ const LoginNavigator = () => {
 const HomeStack = createDrawerNavigator();
 
 const HomeNavigator = () => {
+  const dispatch = useDispatch();
+  const { shipperLoginResult } = useSelector((x) => x.shipper);
   return (
     <HomeStack.Navigator
       headerMode="none"
@@ -60,7 +64,15 @@ const HomeNavigator = () => {
         component={ProfileEditScreen}
       />
       <HomeStack.Screen name="OffersScreeen" component={OffersScreeen} />
-      <HomeStack.Screen name="MyTaskScreen" component={MyTaskScreen} />
+      {shipperLoginResult &&
+      shipperLoginResult.data &&
+      shipperLoginResult.data.shipper &&
+      shipperLoginResult.data.shipper.shipperType == 2 ? (
+        <HomeStack.Screen name="MyTaskScreen" component={MyTaskShipperScreen} />
+      ) : (
+        <HomeStack.Screen name="MyTaskScreen" component={MyTaskDriverScreen} />
+      )}
+
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="CreateDriver" component={CreateDriver} />
       <HomeStack.Screen name="CreateVehicles" component={CreateVehicles} />

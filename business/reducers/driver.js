@@ -54,7 +54,7 @@ export default (state = INITIAL_STATE, action) => {
         ordersGetAllPendingOffersResult: {},
         ordersGetAllPendingOffersFail: true,
       };
-
+    ///
     case ORDERS_GET_PENDING_OFFER_DETAIL:
       return {
         ...state,
@@ -76,7 +76,7 @@ export default (state = INITIAL_STATE, action) => {
         ordersGetPendingOfferDetailResult: {},
         ordersGetPendingOfferDetailFail: true,
       };
-
+    //////
     case ORDERS_ASSIGN_GROUP_DRIVER:
       return {
         ...state,
@@ -98,7 +98,7 @@ export default (state = INITIAL_STATE, action) => {
         ordersAssignGroupDriverResult: {},
         ordersAssignGroupDriverFail: true,
       };
-
+    ////
     case DRIVER_ORDERS_GET_ALL_MY_ORDERS:
       return {
         ...state,

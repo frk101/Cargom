@@ -8,7 +8,8 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import AppIntroSlider from "react-native-app-intro-slider";
 import { Modalize } from "react-native-modalize";
 import COLORS from "../../constans/colors";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
@@ -26,8 +27,11 @@ import Layout from "../../components/Layout";
 import styles from "./styles";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 
+const { width, height } = Dimensions.get("window");
+
 const AllCargoDetail = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const modalizeRef = useRef(null);
 
@@ -145,6 +149,7 @@ const AllCargoDetail = () => {
       });
       return;
     } else {
+      navigation.goBack();
       Notifier.showNotification({
         title: "HARİKA",
         description: "Görevlerim Sayfasından Görevinize Bakabilirsiniz",
@@ -167,34 +172,16 @@ const AllCargoDetail = () => {
 
   return (
     <Layout title="Teklif Detay" isBackIcon>
-      <Content>
-        <ProgressSteps>
-          <ProgressStep label="First Step">
-            <View style={{ alignItems: "center" }}>
-              <Text>This is the content within step 1!</Text>
-            </View>
-          </ProgressStep>
-          <ProgressStep label="Second Step">
-            <View style={{ alignItems: "center" }}>
-              <Text>This is the content within step 2!</Text>
-            </View>
-          </ProgressStep>
-          <ProgressStep label="Third Step">
-            <View style={{ alignItems: "center" }}>
-              <Text>This is the content within step 3!</Text>
-            </View>
-          </ProgressStep>
-        </ProgressSteps>
-        {/* <FlatList
+      {/* <Content> */}
+      {/* <FlatList
           keyExtractor={(item, index) => index.toString()}
-          scrollEnabled={false}
           data={
             ordersGetPendingOfferDetailResult &&
             ordersGetPendingOfferDetailResult.data &&
             ordersGetPendingOfferDetailResult.data.steps
           }
           renderItem={({ item }) => <OffersDesciraption item={item} />}
-        /> */}
+        />
         <TouchableOpacity
           onPress={onOpen}
           style={{
@@ -212,7 +199,6 @@ const AllCargoDetail = () => {
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
         }}
-        // modalHeight={500}
       >
         <Text
           style={[
@@ -289,7 +275,7 @@ const AllCargoDetail = () => {
         >
           <Text style={styles.btnText}>Teklifi Kabul Et</Text>
         </TouchableOpacity>
-      </Modalize>
+      </Modalize> */}
     </Layout>
   );
 };
@@ -297,7 +283,6 @@ const AllCargoDetail = () => {
 export default AllCargoDetail;
 
 const OffersDesciraption = ({ item }) => {
-  console.log(item);
   return (
     <View>
       <Text>{item.step.address}</Text>
@@ -331,4 +316,55 @@ const VehicleItem = ({ item, onPress }) => {
       </Text>
     </TouchableOpacity>
   );
+};
+
+const renderItem = ({ item }) => {
+  return (
+    <View style={styles.slide}>
+      {/* <Image source={item.image} style={styles.image} /> */}
+      <View>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.text}>{item.text}</Text>
+      </View>
+    </View>
+  );
+};
+
+const keyExtractor = (item) => item.title;
+
+const renderNextButton = () => {
+  return (
+    <View style={styles.rightTextWrapper}>
+      <Text style={styles.rightText}>Next</Text>
+    </View>
+  );
+};
+
+//  const renderDoneButton = () => {
+//    return (
+//      <LinearGradient
+//        colors={["#A5C8FF", "#23286B"]}
+//        style={styles.linearGradient}
+//        start={{ x: 0, y: 0.5 }}
+//        end={{ x: 1, y: 0.5 }}
+//        style={styles.doneButtonWrapper}
+//      >
+//        <Text style={styles.doneButtonText}>Done</Text>
+//      </LinearGradient>
+//      // <View style={styles.doneButtonWrapper}>
+//      //   <Text style={styles.doneButtonText}>Done</Text>
+//      // </View>
+//    );
+//  };
+
+const renderPrevButton = () => {
+  return (
+    <View style={styles.leftTextWrapper}>
+      <Text style={styles.leftText}>Prev</Text>
+    </View>
+  );
+};
+
+const handleDone = () => {
+  props.handleDone();
 };

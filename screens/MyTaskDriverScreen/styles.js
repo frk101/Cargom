@@ -35,4 +35,13 @@ export default StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
   },
+  list: {
+    width: "100%",
+    backgroundColor: "#000",
+  },
+  item: {
+    aspectRatio: 1,
+    width: "100%",
+    flex: 1,
+  },
 });

@@ -7,6 +7,14 @@ const CARD_WIDTH = width - 40;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 export default StyleSheet.create({
+  viewContainer: {
+    width: width - 20,
+    height: height * 0.5,
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: "red",
+  },
+
   action: {
     flexDirection: "row",
     marginTop: 10,
