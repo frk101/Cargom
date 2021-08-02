@@ -114,12 +114,12 @@ export function vehiclesGetByShipper() {
   };
 }
 
-export function shipperOrdersGetAllMyOrders() {
+export function shipperOrdersGetAllMyOrders(pageNumber = 0) {
   return {
     type: SHIPPER_ORDERS_GET_ALL_MY_ORDERS,
     payload: {
       request: {
-        url: SHIPPER_ORDERS_GET_ALL_MY_ORDERS_URL,
+        url: `${SHIPPER_ORDERS_GET_ALL_MY_ORDERS_URL}?Page=${pageNumber}`,
       },
     },
   };

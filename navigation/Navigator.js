@@ -46,12 +46,9 @@ const HomeStack = createDrawerNavigator();
 const HomeNavigator = () => {
   const dispatch = useDispatch();
   const { shipperLoginResult } = useSelector((x) => x.shipper);
+
   return (
-    <HomeStack.Navigator
-      headerMode="none"
-      drawerContent={(props) => <DrawerContent {...props} />}
-      drawerStyle={{ width: "75%" }}
-    >
+    <HomeStack.Navigator headerMode="none" drawerContent={(props) => <DrawerContent {...props} />} drawerStyle={{ width: "75%" }}>
       <HomeStack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
       {/* <HomeNavigator.Screen name="DrawerScreen" component={DrawerScreen} /> */}
       <HomeStack.Screen name="DriverScreen" component={DriverScreen} />
@@ -59,15 +56,9 @@ const HomeNavigator = () => {
       <HomeStack.Screen name="AllCargoDetail" component={AllCargoDetail} />
 
       <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <HomeStack.Screen
-        name="ProfileEditScreen"
-        component={ProfileEditScreen}
-      />
+      <HomeStack.Screen name="ProfileEditScreen" component={ProfileEditScreen} />
       <HomeStack.Screen name="OffersScreeen" component={OffersScreeen} />
-      {shipperLoginResult &&
-      shipperLoginResult.data &&
-      shipperLoginResult.data.shipper &&
-      shipperLoginResult.data.shipper.shipperType == 2 ? (
+      {shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.shipper && shipperLoginResult.data.shipper.shipperType == 2 ? (
         <HomeStack.Screen name="MyTaskScreen" component={MyTaskShipperScreen} />
       ) : (
         <HomeStack.Screen name="MyTaskScreen" component={MyTaskDriverScreen} />
@@ -76,10 +67,7 @@ const HomeNavigator = () => {
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="CreateDriver" component={CreateDriver} />
       <HomeStack.Screen name="CreateVehicles" component={CreateVehicles} />
-      <HomeStack.Screen
-        name="OffersDetailScreen"
-        component={OffersDetailScreen}
-      />
+      <HomeStack.Screen name="OffersDetailScreen" component={OffersDetailScreen} />
       <HomeStack.Screen name="StepCargo" component={StepCargo} />
     </HomeStack.Navigator>
   );
@@ -90,10 +78,7 @@ const Stack = createStackNavigator();
 export default function Navigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        headerMode="none"
-        screenOptions={{ gestureEnabled: false }}
-      >
+      <Stack.Navigator headerMode="none" screenOptions={{ gestureEnabled: false }}>
         <Stack.Screen name="LoginScreen" component={LoginNavigator} />
         <Stack.Screen name="MainScreen" component={HomeNavigator} />
       </Stack.Navigator>

@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { shipperOrdersGetAllMyOrders } from "../../business/actions/driver";
+import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
 const index = () => {
   const dispatch = useDispatch();
 
-  const {
-    driverOrdersGetAllMyOrdersResult,
-    driverOrdersGetAllMyOrdersLoading,
-  } = useSelector((x) => x.driver);
+  const { shipperOrdersGetAllMyOrdersResult, shipperOrdersGetAllMyOrdersLoading } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _getShipperTask();
@@ -16,10 +13,9 @@ const index = () => {
   }, []);
 
   const _getShipperTask = async () => {
-    dispatch(shipperOrdersGetAllMyOrders()).then((x) => {
-      console.log(x);
-    });
+    dispatch(shipperOrdersGetAllMyOrders());
   };
+
   return (
     <View>
       <Text>Shipper</Text>

@@ -1,31 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  Animated,
-  FlatList,
-  TextInput,
-} from "react-native";
+import { Text, View, Dimensions, TouchableOpacity, Animated, FlatList, TextInput } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { Modalize } from "react-native-modalize";
 import COLORS from "../../constans/colors";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-import {
-  ordersGetPendingOfferDetail,
-  ordersAssignGroupDriver,
-} from "../../business/actions/driver";
-import {
-  driverGetByShipper,
-  vehiclesGetByShipper,
-} from "../../business/actions/shipper";
+import { ordersGetPendingOfferDetail, ordersAssignGroupDriver } from "../../business/actions/driver";
+import { driverGetByShipper, vehiclesGetByShipper } from "../../business/actions/shipper";
 import { useSelector, useDispatch } from "react-redux";
 import { Content } from "native-base";
 import Layout from "../../components/Layout";
 import styles from "./styles";
 import { Notifier, NotifierComponents } from "react-native-notifier";
+import PagerView from "react-native-pager-view";
 
 const { width, height } = Dimensions.get("window");
 
@@ -45,15 +32,8 @@ const AllCargoDetail = () => {
   const [vehicleSearch, setVehicleSearch] = useState("");
   const [vehicleList, setVehicleList] = useState([]);
 
-  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
-    useSelector((x) => x.driver);
-  const {
-    driverGetAllShipperResult,
-    driverGetAllShipperLoading,
-    vehiclesGetByShipperResult,
-    vehiclesGetByShipperLoading,
-    shipperLoginResult,
-  } = useSelector((x) => x.shipper);
+  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } = useSelector((x) => x.driver);
+  const { driverGetAllShipperResult, driverGetAllShipperLoading, vehiclesGetByShipperResult, vehiclesGetByShipperLoading, shipperLoginResult } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _handleGetOfferDetail();
@@ -83,12 +63,7 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (driverGetAllShipperResult.data) {
         let searchDrivers = driverGetAllShipperResult.data.filter((x) => {
-          return (
-            x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) >
-              -1 ||
-            x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) >
-              -1
-          );
+          return x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
         });
         setDriverList(searchDrivers);
       }
@@ -108,10 +83,7 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (vehiclesGetByShipperResult.data) {
         let searchVehicles = vehiclesGetByShipperResult.data.filter((x) => {
-          return (
-            x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) >
-              -1 && x.vehicle.isApproved
-          );
+          return x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) > -1 && x.vehicle.isApproved;
         });
         setVehicleList(searchVehicles);
       }
@@ -172,16 +144,23 @@ const AllCargoDetail = () => {
 
   return (
     <Layout title="Teklif Detay" isBackIcon>
-      {/* <Content> */}
-      {/* <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={
-            ordersGetPendingOfferDetailResult &&
+      <Content>
+        <PagerView initialPage={0} style={{ height: 100 }}>
+          {ordersGetPendingOfferDetailResult &&
             ordersGetPendingOfferDetailResult.data &&
-            ordersGetPendingOfferDetailResult.data.steps
-          }
+            ordersGetPendingOfferDetailResult.data.steps.map((item, index) => {
+              return (
+                <View key={item.step.id.toString()}>
+                  <OffersDesciraption item={item} />
+                </View>
+              );
+            })}
+        </PagerView>
+        {/* <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps}
           renderItem={({ item }) => <OffersDesciraption item={item} />}
-        />
+        /> */}
         <TouchableOpacity
           onPress={onOpen}
           style={{
@@ -230,9 +209,7 @@ const AllCargoDetail = () => {
           keyExtractor={(item, index) => index.toString()}
           scrollEnabled={false}
           data={openDriver && driverList}
-          renderItem={({ item }) => (
-            <DriverItem item={item} onPress={_handleChooseDriver} />
-          )}
+          renderItem={({ item }) => <DriverItem item={item} onPress={_handleChooseDriver} />}
         />
 
         <Text
@@ -264,18 +241,13 @@ const AllCargoDetail = () => {
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={openVehicle && vehicleList}
-          renderItem={({ item }) => (
-            <VehicleItem item={item} onPress={_handleChooseVehicle} />
-          )}
+          renderItem={({ item }) => <VehicleItem item={item} onPress={_handleChooseVehicle} />}
         />
 
-        <TouchableOpacity
-          onPress={_handleApprovedContract}
-          style={styles.btnGonder}
-        >
+        <TouchableOpacity onPress={_handleApprovedContract} style={styles.btnGonder}>
           <Text style={styles.btnText}>Teklifi Kabul Et</Text>
         </TouchableOpacity>
-      </Modalize> */}
+      </Modalize>
     </Layout>
   );
 };
@@ -292,11 +264,7 @@ const OffersDesciraption = ({ item }) => {
 
 const DriverItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity
-      key={item.driver.id.toString()}
-      onPress={() => onPress(item)}
-      style={styles.actionSearch}
-    >
+    <TouchableOpacity key={item.driver.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
       <Text>
         {item.driver.firstname} {item.driver.lastname}
       </Text>
@@ -306,11 +274,7 @@ const DriverItem = ({ item, onPress }) => {
 
 const VehicleItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity
-      key={item.model.id.toString()}
-      onPress={() => onPress(item)}
-      style={styles.actionSearch}
-    >
+    <TouchableOpacity key={item.model.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
       <Text>
         {item.model.modelName} {item.type.typeName}
       </Text>

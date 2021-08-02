@@ -46,12 +46,13 @@ export function ordersAssignGroupDriver(model) {
   };
 }
 
-export function driverOrdersGetAllMyOrders() {
+export function driverOrdersGetAllMyOrders(pageNumber = 0) {
   return {
     type: DRIVER_ORDERS_GET_ALL_MY_ORDERS,
     payload: {
       request: {
-        url: DRIVER_ORDERS_GET_ALL_MY_ORDERS_URL,
+        method: "GET",
+        url: `${DRIVER_ORDERS_GET_ALL_MY_ORDERS_URL}?Page=${pageNumber}`,
       },
     },
   };
