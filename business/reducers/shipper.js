@@ -59,9 +59,9 @@ const INITIAL_STATE = {
   shipperOrdersGetByIdLoading: false,
   shipperOrdersGetByIdResult: {},
   shipperOrdersGetByIdFail: false,
-  shipperOrdersPıckupLoading: false,
-  shipperOrdersPıckupResult: {},
-  shipperOrdersPıckupFail: false,
+  shipperOrdersPickupLoading: false,
+  shipperOrdersPickupResult: {},
+  shipperOrdersPickupFail: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -270,23 +270,23 @@ export default (state = INITIAL_STATE, action) => {
     case SHIPPER_ORDERS_PICKUP:
       return {
         ...state,
-        shipperOrdersPıckupLoading: true,
-        shipperOrdersPıckupResult: {},
-        shipperOrdersPıckupFail: false,
+        shipperOrdersPickupLoading: true,
+        shipperOrdersPickupResult: {},
+        shipperOrdersPickupFail: false,
       };
     case SHIPPER_ORDERS_PICKUP_SUCCESS:
       return {
         ...state,
-        shipperOrdersPıckupLoading: false,
-        shipperOrdersPıckupResult: action.payload.data,
-        shipperOrdersPıckupFail: false,
+        shipperOrdersPickupLoading: false,
+        shipperOrdersPickupResult: action.payload.data,
+        shipperOrdersPickupFail: false,
       };
     case SHIPPER_ORDERS_PICKUP_FAIL:
       return {
         ...state,
-        shipperOrdersPıckupLoading: false,
-        shipperOrdersPıckupResult: {},
-        shipperOrdersPıckupFail: true,
+        shipperOrdersPickupLoading: false,
+        shipperOrdersPickupResult: {},
+        shipperOrdersPickupFail: true,
       };
     default:
       return { ...state };

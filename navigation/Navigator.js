@@ -27,11 +27,13 @@ import CreateDriver from "../screens/CreateDriver/createDriver";
 import CreateVehicles from "../screens/CreateVehicles/CreateVehicles";
 import OffersDetailScreen from "../screens/OffersDetailScreen";
 import MyTaskShipperDetailScreen from "../screens/MyTaskShipperDetailSecreen";
+import BarCodeScanner from "../screens/BracodeScanner";
 const LoginStack = createStackNavigator();
 
 const LoginNavigator = () => {
   return (
     <LoginStack.Navigator headerMode="none">
+      <LoginStack.Screen name="BarCodeScanner" component={BarCodeScanner} />
       <LoginStack.Screen name="SplashScreen" component={SplashScreen} />
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
       <LoginStack.Screen name="Kurumsal" component={Kurumsal} />
@@ -85,6 +87,7 @@ const HomeNavigator = () => {
         name="OffersDetailScreen"
         component={OffersDetailScreen}
       />
+
       <HomeStack.Screen name="StepCargo" component={StepCargo} />
     </HomeStack.Navigator>
   );
