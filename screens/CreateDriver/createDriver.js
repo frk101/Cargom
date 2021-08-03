@@ -6,13 +6,19 @@ import { Notifier, NotifierComponents } from "react-native-notifier";
 import DriverScheme from "../../ValidationScheme/DriverScheme";
 import { useDispatch } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
-import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Content } from "native-base";
 import { Formik, useFormikContext } from "formik";
 import { driverCraete } from "../../business/actions/shipper";
 import COLORS from "../../constans/colors";
 import moment from "moment";
+import "moment/locale/tr";
+moment.locale("tr");
 
 import styles from "./styles";
 import FormErrorText from "../../components/FormErrorText";
@@ -73,7 +79,11 @@ const CreateDriver = () => {
   };
 
   const _handleRegister = (values) => {
-    values.PhoneNumber = values.PhoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(/\s/g, "").trim();
+    values.PhoneNumber = values.PhoneNumber.replace("(", "")
+      .replace(")", "")
+      .replace("-", "")
+      .replace(/\s/g, "")
+      .trim();
     values.Birthdate = moment(date).format("YYYY-MM-DD");
     dispatch(driverCraete(values)).then(({ payload: { data } }) => {
       if (data.status) {
@@ -113,7 +123,12 @@ const CreateDriver = () => {
             navigation.navigate("DriverScreen");
           }}
         >
-          <AntDesign name="left" style={{ paddingHorizontal: 10, color: "black" }} size={24} color={COLORS.themeColor} />
+          <AntDesign
+            name="left"
+            style={{ paddingHorizontal: 10, color: "black" }}
+            size={24}
+            color={COLORS.themeColor}
+          />
         </TouchableOpacity>
       }
     >
@@ -131,7 +146,15 @@ const CreateDriver = () => {
           validationSchema={DriverScheme}
           onSubmit={(values) => _handleRegister(values)}
         >
-          {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            setFieldValue,
+            values,
+            errors,
+            touched,
+          }) => (
             <>
               <Text
                 style={[
@@ -160,7 +183,9 @@ const CreateDriver = () => {
                   value={values.EmailAddress}
                 />
               </View>
-              {errors.EmailAddress && touched.EmailAddress ? <FormErrorText>* {errors.EmailAddress}</FormErrorText> : null}
+              {errors.EmailAddress && touched.EmailAddress ? (
+                <FormErrorText>* {errors.EmailAddress}</FormErrorText>
+              ) : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -174,7 +199,9 @@ const CreateDriver = () => {
               </Text>
               <View style={styles.action}>
                 <View style={{ flexDirection: "row" }}>
-                  <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>+90</Text>
+                  <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>
+                    +90
+                  </Text>
                 </View>
 
                 <TextInputMask
@@ -193,7 +220,9 @@ const CreateDriver = () => {
                   value={values.PhoneNumber}
                 />
               </View>
-              {errors.PhoneNumber && touched.PhoneNumber ? <FormErrorText>* {errors.PhoneNumber}</FormErrorText> : null}
+              {errors.PhoneNumber && touched.PhoneNumber ? (
+                <FormErrorText>* {errors.PhoneNumber}</FormErrorText>
+              ) : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -221,7 +250,9 @@ const CreateDriver = () => {
                   value={values.Firstname}
                 />
               </View>
-              {errors.Firstname && touched.Firstname ? <FormErrorText>* {errors.Firstname}</FormErrorText> : null}
+              {errors.Firstname && touched.Firstname ? (
+                <FormErrorText>* {errors.Firstname}</FormErrorText>
+              ) : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -249,7 +280,9 @@ const CreateDriver = () => {
                   value={values.Lastname}
                 />
               </View>
-              {errors.Lastname && touched.Lastname ? <FormErrorText>* {errors.Lastname}</FormErrorText> : null}
+              {errors.Lastname && touched.Lastname ? (
+                <FormErrorText>* {errors.Lastname}</FormErrorText>
+              ) : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -278,7 +311,9 @@ const CreateDriver = () => {
                   value={values.IdentityNumber}
                 />
               </View>
-              {errors.IdentityNumber && touched.IdentityNumber ? <FormErrorText>* {errors.IdentityNumber}</FormErrorText> : null}
+              {errors.IdentityNumber && touched.IdentityNumber ? (
+                <FormErrorText>* {errors.IdentityNumber}</FormErrorText>
+              ) : null}
               <Text
                 style={[
                   styles.text_footer,
@@ -307,7 +342,13 @@ const CreateDriver = () => {
                           },
                         ]}
                       >
-                        <Text>{values.Gender == null ? "Cinsiyet seçiniz" : values.Gender ? "Erkek" : "Kadın"}</Text>
+                        <Text>
+                          {values.Gender == null
+                            ? "Cinsiyet seçiniz"
+                            : values.Gender
+                            ? "Erkek"
+                            : "Kadın"}
+                        </Text>
                       </TouchableOpacity>
                     </>
                   }
@@ -327,7 +368,9 @@ const CreateDriver = () => {
                     title="Kadın"
                   />
                 </Menu>
-                {errors.Gender && touched.Gender ? <FormErrorText>* {errors.Gender}</FormErrorText> : null}
+                {errors.Gender && touched.Gender ? (
+                  <FormErrorText>* {errors.Gender}</FormErrorText>
+                ) : null}
               </View>
               <Text
                 style={[
@@ -342,7 +385,9 @@ const CreateDriver = () => {
               </Text>
               <TouchableOpacity onPress={showDatePicker}>
                 <View style={styles.actionss}>
-                  <Text style={{ textAlign: "center" }}>{moment(date).format("DD MMMM YYYY")}</Text>
+                  <Text style={{ textAlign: "center" }}>
+                    {moment(date).format("DD MMMM YYYY")}
+                  </Text>
                 </View>
               </TouchableOpacity>
 
@@ -377,7 +422,15 @@ const CreateDriver = () => {
                 />
               )} */}
               <TouchableOpacity style={styles.btnGonder} onPress={handleSubmit}>
-                <Text style={styles.btnText}>{route.params && route.params.driver ? "Güncelle" : !route.params ? "Ekle" : route.params.driver == null ? "Ekle" : null}</Text>
+                <Text style={styles.btnText}>
+                  {route.params && route.params.driver
+                    ? "Güncelle"
+                    : !route.params
+                    ? "Ekle"
+                    : route.params.driver == null
+                    ? "Ekle"
+                    : null}
+                </Text>
               </TouchableOpacity>
               <FormikSubmitToken />
             </>

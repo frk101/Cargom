@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ScrollView, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+} from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -11,7 +20,7 @@ import { TextInputMask } from "react-native-masked-text";
 import { Formik } from "formik";
 import LoginScheme from "../../ValidationScheme/LoginScheme";
 import { shipperLogin } from "../../business/actions/shipper";
-import axios from "axios";
+
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import FormErrorText from "../../components/FormErrorText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -51,16 +60,30 @@ const LoginScreen = () => {
   return (
     <Container>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-        <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.goBack()}
+        >
           <View style={styles.backBtn}>
-            <Image source={require("../../assets/backicon.png")} style={{ width: 30, height: 30 }} resizeMode="contain" />
+            <Image
+              source={require("../../assets/backicon.png")}
+              style={{ width: 30, height: 30 }}
+              resizeMode="contain"
+            />
           </View>
         </TouchableOpacity>
         <View style={{ marginHorizontal: 20, marginTop: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: "bold", color: COLORS.text }}>Tekrar Hoş Geldiniz</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+          <Text
+            style={{ fontSize: 30, fontWeight: "bold", color: COLORS.text }}
+          >
+            Tekrar Hoş Geldiniz
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("RegisterScreen")}
+          >
             <Text style={styles.headerSubTitle}>
-              Henüz Hesabınız Yok mu ?<Text style={{ color: COLORS.primary }}>Kayıt Ol</Text>
+              Henüz Hesabınız Yok mu ?
+              <Text style={{ color: COLORS.primary }}>Kayıt Ol</Text>
             </Text>
           </TouchableOpacity>
         </View>
@@ -68,13 +91,20 @@ const LoginScreen = () => {
         <Content>
           <Formik
             initialValues={{
-              email: __DEV__ ? "destek@inetrum.com" : "",
-              password: __DEV__ ? "522134828" : "",
+              email: __DEV__ ? "faruk@deneme.com" : "",
+              password: __DEV__ ? "150169223" : "",
             }}
             onSubmit={(values) => _handleLogin(values)}
             validationSchema={LoginScheme}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
               <>
                 <Text
                   style={[
@@ -89,7 +119,9 @@ const LoginScreen = () => {
                 </Text>
                 <View style={styles.action}>
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>+90</Text>
+                    <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>
+                      +90
+                    </Text>
                   </View>
                   <TextInput
                     placeholder="Telefon Numaranızı Giriniz"
@@ -113,7 +145,9 @@ const LoginScreen = () => {
               onChangeText={(text) => setCell(text)}
             /> */}
                 </View>
-                {errors.email && touched.email ? <FormErrorText>* {errors.email}</FormErrorText> : null}
+                {errors.email && touched.email ? (
+                  <FormErrorText>* {errors.email}</FormErrorText>
+                ) : null}
                 <Text
                   style={[
                     styles.text_footer,
@@ -141,13 +175,30 @@ const LoginScreen = () => {
                     value={values.password}
                   />
                   {secureTextEntry == true ? (
-                    <Ionicons name="eye" size={25} color="#666666" style={{ color: "#666666" }} onPress={() => setSecureTextEntry(!secureTextEntry)} />
+                    <Ionicons
+                      name="eye"
+                      size={25}
+                      color="#666666"
+                      style={{ color: "#666666" }}
+                      onPress={() => setSecureTextEntry(!secureTextEntry)}
+                    />
                   ) : (
-                    <Ionicons size={25} name="eye-off" color="#666666" style={{ color: "#666666" }} onPress={() => setSecureTextEntry(!secureTextEntry)} />
+                    <Ionicons
+                      size={25}
+                      name="eye-off"
+                      color="#666666"
+                      style={{ color: "#666666" }}
+                      onPress={() => setSecureTextEntry(!secureTextEntry)}
+                    />
                   )}
                 </View>
-                {errors.password && touched.password ? <FormErrorText>* {errors.password}</FormErrorText> : null}
-                <TouchableOpacity onPress={handleSubmit} style={styles.btnGonder}>
+                {errors.password && touched.password ? (
+                  <FormErrorText>* {errors.password}</FormErrorText>
+                ) : null}
+                <TouchableOpacity
+                  onPress={handleSubmit}
+                  style={styles.btnGonder}
+                >
                   <Text style={styles.btnText}>Giriş Yap</Text>
                 </TouchableOpacity>
               </>

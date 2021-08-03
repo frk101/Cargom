@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import myData from "../../data/FakeData";
 import COLORS from "../../constans/colors";
-import { Appbar } from "react-native-paper";
 
 import { ListItem, Avatar, Badge } from "react-native-elements";
 import { TouchableOpacity } from "react-native";

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import COLORS from "../../constans/colors";
@@ -15,24 +23,31 @@ const MyTaskScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const { driverOrdersGetAllMyOrdersResult, driverOrdersGetAllMyOrdersLoading } = useSelector((x) => x.driver);
+  // const {
+  //   driverOrdersGetAllMyOrdersResult,
+  //   driverOrdersGetAllMyOrdersLoading,
+  // } = useSelector((x) => x.driver);
 
-  useEffect(() => {
-    _getShipperTask();
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   _getShipperTask();
+  //   return () => {};
+  // }, []);
 
-  const _getShipperTask = async () => {
-    dispatch(driverOrdersGetAllMyOrders(0)).then((x) => {
-      console.log(x);
-    });
-  };
+  // const _getShipperTask = async () => {
+  //   dispatch(driverOrdersGetAllMyOrders(0)).then((x) => {
+  //     console.log(x);
+  //   });
+  // };
 
   return (
     <Layout isBackIcon title="Görevlerim">
       <Text>Driver</Text>
 
-      <FlatList data={driverOrdersGetAllMyOrdersResult} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) => <RenderList item={item} />} />
+      {/* <FlatList
+        data={driverOrdersGetAllMyOrdersResult}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => <RenderList item={item} />}
+      /> */}
     </Layout>
   );
 };
@@ -58,7 +73,10 @@ const RenderList = ({ item }) => {
   console.log("sss", item);
   const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.listContainer} onPress={() => navigation.navigate("CreateDriver", item)}>
+    <TouchableOpacity
+      style={styles.listContainer}
+      onPress={() => navigation.navigate("CreateDriver", item)}
+    >
       <ListItem bottomDivider>
         {/* {item.driver.isApproved ? (
           item.driver.gender == true ? (

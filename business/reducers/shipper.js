@@ -218,23 +218,23 @@ export default (state = INITIAL_STATE, action) => {
     case SHIPPER_ORDERS_GET_ALL_MY_ORDERS:
       return {
         ...state,
-        vehiclesGetByShipperLoading: true,
-        vehiclesGetByShipperResult: {},
-        vehiclesGetByShipperFail: false,
+        shipperOrdersGetAllMyOrdersLoading: true,
+        shipperOrdersGetAllMyOrdersResult: {},
+        shipperOrdersGetAllMyOrdersFail: false,
       };
     case SHIPPER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS:
       return {
         ...state,
-        vehiclesGetByShipperLoading: false,
-        vehiclesGetByShipperResult: action.payload.data,
-        vehiclesGetByShipperFail: false,
+        shipperOrdersGetAllMyOrdersLoading: false,
+        shipperOrdersGetAllMyOrdersResult: action.payload.data,
+        shipperOrdersGetAllMyOrdersFail: false,
       };
     case SHIPPER_ORDERS_GET_ALL_MY_ORDERS_FAIL:
       return {
         ...state,
-        vehiclesGetByShipperLoading: false,
-        vehiclesGetByShipperResult: {},
-        vehiclesGetByShipperFail: true,
+        shipperOrdersGetAllMyOrdersLoading: false,
+        shipperOrdersGetAllMyOrdersResult: {},
+        shipperOrdersGetAllMyOrdersFail: true,
       };
 
     case SHIPPER_ORDERS_GET_BY_ID:
