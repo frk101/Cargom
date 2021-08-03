@@ -51,7 +51,7 @@ const INITIAL_STATE = {
   vehiclesGetByShipperResult: {},
   vehiclesGetByShipperFail: false,
   shipperOrdersGetAllMyOrdersLoading: false,
-  shipperOrdersGetAllMyOrdersResult: {},
+  shipperOrdersGetAllMyOrdersResult: null,
   shipperOrdersGetAllMyOrdersFail: false,
   shipperOrdersGetByIdLoading: false,
   shipperOrdersGetByIdResult: {},
@@ -219,7 +219,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         shipperOrdersGetAllMyOrdersLoading: true,
-        shipperOrdersGetAllMyOrdersResult: {},
+        shipperOrdersGetAllMyOrdersResult: state.shipperOrdersGetAllMyOrdersResult,
         shipperOrdersGetAllMyOrdersFail: false,
       };
     case SHIPPER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS:
@@ -233,7 +233,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         shipperOrdersGetAllMyOrdersLoading: false,
-        shipperOrdersGetAllMyOrdersResult: {},
+        shipperOrdersGetAllMyOrdersResult: state.shipperOrdersGetAllMyOrdersResult,
         shipperOrdersGetAllMyOrdersFail: true,
       };
 

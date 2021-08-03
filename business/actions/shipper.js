@@ -125,12 +125,12 @@ export function shipperOrdersGetAllMyOrders(pageNumber = 0) {
   };
 }
 
-export function shipperOrdersgetById() {
+export function shipperOrdersgetById(orderId) {
   return {
     type: SHIPPER_ORDERS_GET_BY_ID,
     payload: {
       request: {
-        url: SHIPPER_ORDERS_GET_BY_ID_URL,
+        url: `${SHIPPER_ORDERS_GET_BY_ID_URL}/${orderId}`,
       },
     },
   };

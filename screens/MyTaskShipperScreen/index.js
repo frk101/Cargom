@@ -1,42 +1,39 @@
-import React, { useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
 import Layout from "../../components/Layout";
 const index = () => {
+  const isFocus = useIsFocused();
+  const pageNumber = useRef(-1);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {
-    shipperOrdersGetAllMyOrdersResult,
-    shipperOrdersGetAllMyOrdersLoading,
-  } = useSelector((x) => x.shipper);
+  const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    _getShipperTask();
+    if (!isFocus) {
+      pageNumber.current = -1;
+      setDataList([]);
+    } else {
+      _getShipperTask();
+    }
     return () => {};
-  }, []);
+  }, [isFocus]);
 
   const _getShipperTask = async () => {
-    dispatch(shipperOrdersGetAllMyOrders());
+    const nextPage = pageNumber.current + 1;
+    pageNumber.current = nextPage;
+    dispatch(shipperOrdersGetAllMyOrders(nextPage)).then(({ payload: { data } }) => {
+      if (data && data.data && data.data.length != undefined && data.data.length > 0) {
+        setDataList([...dataList, ...data.data]);
+      }
+    });
   };
 
   return (
     <Layout title="Görevlerim" isBackIcon>
-      <FlatList
-        data={
-          shipperOrdersGetAllMyOrdersResult &&
-          shipperOrdersGetAllMyOrdersResult.data
-        }
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <RenderList item={item} />}
-      />
+      <FlatList data={dataList} keyExtractor={(item, index) => item.order.id.toString()} renderItem={({ item }) => <RenderList item={item} />} onEndReached={_getShipperTask} />
     </Layout>
   );
 };
@@ -47,9 +44,7 @@ const RenderList = ({ item }) => {
   return (
     <View>
       <Text>{item.order.firstname}</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("MyTaskShipperDetailScreen")}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("MyTaskShipperDetailScreen", { orderDetail: item })}>
         <Text>Detayı Gör</Text>
       </TouchableOpacity>
     </View>
