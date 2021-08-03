@@ -26,6 +26,9 @@ import {
   SHIPPER_ORDERS_GET_BY_ID,
   SHIPPER_ORDERS_GET_BY_ID_FAIL,
   SHIPPER_ORDERS_GET_BY_ID_SUCCESS,
+  SHIPPER_ORDERS_PICKUP,
+  SHIPPER_ORDERS_PICKUP_SUCCESS,
+  SHIPPER_ORDERS_PICKUP_FAIL,
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -56,6 +59,9 @@ const INITIAL_STATE = {
   shipperOrdersGetByIdLoading: false,
   shipperOrdersGetByIdResult: {},
   shipperOrdersGetByIdFail: false,
+  shipperOrdersPıckupLoading: false,
+  shipperOrdersPıckupResult: {},
+  shipperOrdersPıckupFail: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -219,7 +225,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         shipperOrdersGetAllMyOrdersLoading: true,
-        shipperOrdersGetAllMyOrdersResult: state.shipperOrdersGetAllMyOrdersResult,
+        shipperOrdersGetAllMyOrdersResult:
+          state.shipperOrdersGetAllMyOrdersResult,
         shipperOrdersGetAllMyOrdersFail: false,
       };
     case SHIPPER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS:
@@ -233,7 +240,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         shipperOrdersGetAllMyOrdersLoading: false,
-        shipperOrdersGetAllMyOrdersResult: state.shipperOrdersGetAllMyOrdersResult,
+        shipperOrdersGetAllMyOrdersResult:
+          state.shipperOrdersGetAllMyOrdersResult,
         shipperOrdersGetAllMyOrdersFail: true,
       };
 
@@ -257,6 +265,28 @@ export default (state = INITIAL_STATE, action) => {
         shipperOrdersGetByIdLoading: false,
         shipperOrdersGetByIdResult: {},
         shipperOrdersGetByIdFail: true,
+      };
+    /////
+    case SHIPPER_ORDERS_PICKUP:
+      return {
+        ...state,
+        shipperOrdersPıckupLoading: true,
+        shipperOrdersPıckupResult: {},
+        shipperOrdersPıckupFail: false,
+      };
+    case SHIPPER_ORDERS_PICKUP_SUCCESS:
+      return {
+        ...state,
+        shipperOrdersPıckupLoading: false,
+        shipperOrdersPıckupResult: action.payload.data,
+        shipperOrdersPıckupFail: false,
+      };
+    case SHIPPER_ORDERS_PICKUP_FAIL:
+      return {
+        ...state,
+        shipperOrdersPıckupLoading: false,
+        shipperOrdersPıckupResult: {},
+        shipperOrdersPıckupFail: true,
       };
     default:
       return { ...state };

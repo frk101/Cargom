@@ -17,6 +17,8 @@ import {
   SHIPPER_ORDERS_GET_ALL_MY_ORDERS_URL,
   SHIPPER_ORDERS_GET_BY_ID,
   SHIPPER_ORDERS_GET_BY_ID_URL,
+  SHIPPER_ORDERS_PICKUP_URL,
+  SHIPPER_ORDERS_PICKUP,
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -131,6 +133,19 @@ export function shipperOrdersgetById(orderId) {
     payload: {
       request: {
         url: `${SHIPPER_ORDERS_GET_BY_ID_URL}/${orderId}`,
+      },
+    },
+  };
+}
+
+export function shipperOrdersPıckup(userModel) {
+  return {
+    type: SHIPPER_ORDERS_PICKUP,
+    payload: {
+      request: {
+        method: "POST",
+        url: SHIPPER_ORDERS_PICKUP_URL,
+        data: userModel,
       },
     },
   };
