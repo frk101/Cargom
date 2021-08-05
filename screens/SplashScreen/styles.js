@@ -47,7 +47,12 @@ export default StyleSheet.create({
 
     borderRadius: 10,
   },
-  btnText: { color: "#ffffff", fontSize: 18, fontWeight: "bold" },
+  btnText: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   modalContainer: {
     flex: 1,
     height: 350,

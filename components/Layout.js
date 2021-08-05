@@ -47,14 +47,17 @@ const Layout = ({
                   size={27}
                   color={Colors.themeColor}
                 />
-                {/* <AntDesign
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <AntDesign
                   name="left"
                   style={{ paddingHorizontal: 10, color: "black" }}
                   size={24}
                   color={Colors.themeColor}
-                /> */}
+                />
               </TouchableOpacity>
-            ) : null}
+            )}
           </View>
           <View style={{ flex: 4, alignItems: "center" }}>
             {body && React.isValidElement(body) ? (

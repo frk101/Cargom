@@ -325,7 +325,6 @@ const AllCargoDetail = () => {
 export default AllCargoDetail;
 
 const OffersDesciraption = ({ item }) => {
-  console.log(item);
   return (
     <View>
       <Text

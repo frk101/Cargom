@@ -7,12 +7,13 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { Modalize } from "react-native-modalize";
 import styles from "./styles";
-
+const { width, height } = Dimensions.get("window");
 const SplashhScreen = () => {
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
@@ -44,11 +45,11 @@ const SplashhScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <Modalize ref={modalizeRef} snapPoint={350} modalHeight={350}>
+      <Modalize ref={modalizeRef} snapPoint={350} modalHeight={height * 0.5}>
         <View style={styles.modalContainer}>
           <Image
             source={require("../../assets/shipgeldiLogo-v03-1.png")}
-            style={{ width: 200, resizeMode: "cover", marginBottom: 20 }}
+            style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
           />
           <Text style={styles.modalTxt}>
             KAYIT OLMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ

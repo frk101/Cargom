@@ -12,8 +12,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { shipperOrdersgetById } from "../../business/actions/shipper";
 import { Content } from "native-base";
-import { MaterialCommunityIcons } from "react-native-vector-icons";
+import { MaterialCommunityIcons, Feather } from "react-native-vector-icons";
 import Layout from "../../components/Layout";
+import { Divider } from "react-native-paper";
 
 import COLORS from "../../constans/colors";
 
@@ -21,11 +22,12 @@ const { width, height } = Dimensions.get("window");
 const MyTaskShipperDetailSecreen = () => {
   const dispatch = useDispatch();
   const route = useRoute();
+  console.log(route.params.orderDetail.orderID);
+
   const navigation = useNavigation();
   const { shipperOrdersGetByIdResult, shipperOrdersGetByIdLoading } =
     useSelector((x) => x.shipper);
 
-  console.log("ssssss", shipperOrdersGetByIdResult);
   useEffect(() => {
     _getShipperTaskDetail();
     return () => {};
@@ -37,61 +39,87 @@ const MyTaskShipperDetailSecreen = () => {
 
   if (shipperOrdersGetByIdLoading) return <ActivityIndicator />;
   return (
-    <Layout title="Görev Detay" isBackIcon>
+    <Layout title="Görev Detay">
       <Content style={{ backgroundColor: "#F1F2F4" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            marginHorizontal: 20,
-            marginVertical: 20,
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.container}>
           <MaterialCommunityIcons name="account-circle" size={30} />
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 20,
-              color: COLORS.text,
-              marginLeft: 20,
-            }}
-          >
-            Alıcı Bilgileri
-          </Text>
+          <Text style={styles.txtBaslik}>Gönderici Bilgileri</Text>
         </View>
-        <FlatList
-          style={{
-            width: width - 40,
-            marginTop: 30,
-            justifyContent: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-          }}
-        />
+        <View style={styles.list}>
+          {/* <View style={{ marginHorizontal: 20 }}>
+            <Text>Ad Soyad</Text>
+            <Text>
+              {shipperOrdersGetByIdResult &&
+                shipperOrdersGetByIdResult.data &&
+                shipperOrdersGetByIdResult.data.order &&
+                shipperOrdersGetByIdResult.data.order.firstname}
+              {"  "}
+              {shipperOrdersGetByIdResult &&
+                shipperOrdersGetByIdResult.data &&
+                shipperOrdersGetByIdResult.data.order &&
+                shipperOrdersGetByIdResult.data.order.lastname}
+            </Text>
+            <Divider />
+            <Text>E-posta</Text>
+            <Text>
+              {shipperOrdersGetByIdResult &&
+                shipperOrdersGetByIdResult.data &&
+                shipperOrdersGetByIdResult.data.order &&
+                shipperOrdersGetByIdResult.data.order.email}
+            </Text>
+            <Divider />
+            <Text>Cep Telefonu</Text>
+            <Text>
+              {shipperOrdersGetByIdResult &&
+                shipperOrdersGetByIdResult.data &&
+                shipperOrdersGetByIdResult.data.order &&
+                shipperOrdersGetByIdResult.data.order.phoneNumber}
+            </Text>
+
+            <Divider />
+            <Text>Adres</Text>
+            <Text>
+              {shipperOrdersGetByIdResult &&
+                shipperOrdersGetByIdResult.data &&
+                shipperOrdersGetByIdResult.data.order &&
+                shipperOrdersGetByIdResult.data.order.address}
+              {shipperOrdersGetByIdResult &&
+                shipperOrdersGetByIdResult.data &&
+                shipperOrdersGetByIdResult.data.order &&
+                shipperOrdersGetByIdResult.data.order.address}
+            </Text>
+            <Divider />
+          </View> */}
+        </View>
       </Content>
-
-      {/* <Text>
-        {shipperOrdersGetByIdResult &&
-          shipperOrdersGetByIdResult.data &&
-          shipperOrdersGetByIdResult.data.city &&
-          shipperOrdersGetByIdResult.data.city.cityName}
-      </Text>
-
-      <TouchableOpacity onPress={() => navigation.navigate("BarCodeScanner")}>
-        <Text> Araca Yükle</Text>
-      </TouchableOpacity>
-      <FlatList
-        data={shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data}
-        renderItem={(item) => <RenderItem item={item} />}
-      /> */}
     </Layout>
   );
 };
-const RenderItem = ({ item }) => {
-  console.log(item);
-  return <View style={{ backgroundColor: "yellow" }}></View>;
-};
+
 export default MyTaskShipperDetailSecreen;
 
-const styles = StyleSheet.create({});
-//// data.city.cityName
+const RenderItem = ({ item }) => {
+  return <View style={{ backgroundColor: "yellow" }}></View>;
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 20,
+    alignItems: "center",
+  },
+  txtBaslik: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: COLORS.text,
+    marginLeft: 20,
+  },
+  list: {
+    width: width - 40,
+    marginTop: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+});
