@@ -85,22 +85,21 @@ const OffersScreeen = () => {
           </Text>
         </TouchableOpacity>
       </View> */}
-      <Content>
-        <FlatList
-          scrollEnabled={false}
-          refreshControl={
-            <RefreshControl
-              refreshing={ordersGetAllPendingOffersLoading}
-              onRefresh={_getOfferList}
-            />
-          }
-          style={{ marginTop: 20 }}
-          keyExtractor={(item, index) => index.toString()}
-          data={ordersGetAllPendingOffersResult.data}
-          renderItem={({ item }) => <GrupCargo item={item} />}
-        />
+      {/* <Content> */}
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={ordersGetAllPendingOffersLoading}
+            onRefresh={_getOfferList}
+          />
+        }
+        style={{ marginTop: 20 }}
+        keyExtractor={(item, index) => index.toString()}
+        data={ordersGetAllPendingOffersResult.data}
+        renderItem={({ item }) => <GrupCargo item={item} />}
+      />
 
-        {/* {aktifKey == true ? (
+      {/* {aktifKey == true ? (
           <FlatList
             style={{ marginTop: 20 }}
             data={ordersGetAllPendingOffersResult.data}
@@ -113,7 +112,7 @@ const OffersScreeen = () => {
             renderItem={({ item }) => <AllCargo item={item} />}
           />
         )} */}
-      </Content>
+      {/* </Content> */}
 
       <Modal visible={openModal} animationType="slide">
         <Filter setOpenModal={setOpenModal} />

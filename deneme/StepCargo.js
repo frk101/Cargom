@@ -11,11 +11,11 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import COLORS from "../constans/colors";
-import Feather from "react-native-vector-icons/Feather";
-import MapViewDirections from "react-native-maps-directions";
-import { useNavigation, DrawerActions } from "@react-navigation/native";
+import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
+
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Fontisto from "react-native-vector-icons/Fontisto";
 import { markers, mapDarkStyle, mapStandardStyle } from "../data/mapData";
 
 import { useTheme } from "@react-navigation/native";
@@ -27,7 +27,7 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const StepCargo = () => {
   const theme = useTheme();
-  const navigation = useNavigation();
+
   const initialMapState = {
     markers,
     region: {
@@ -96,15 +96,14 @@ const StepCargo = () => {
       x = x - SPACING_FOR_CARD_INSET;
     }
 
-    // _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
+    _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
   };
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
-
   return (
     <View style={styles.container}>
-      {/* <MapView
+      <MapView
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
@@ -120,37 +119,23 @@ const StepCargo = () => {
             ],
           };
           return (
-            <MapView.Marker
+            <Marker
               key={index}
               coordinate={marker.coordinate}
               onPress={(e) => onMarkerPress(e)}
-            >
-              <Animated.View style={[styles.markerWrap]}>
-                <Animated.Image
-                  source={require("../assets/Marker.png")}
-                  style={[styles.marker, scaleStyle]}
-                  resizeMode="cover"
-                />
-              </Animated.View>
-            </MapView.Marker>
+              // image={require("../assets/Marker.png")}
+            />
           );
         })}
-      </MapView>
-      <TouchableOpacity
-        style={{ marginTop: 40, marginLeft: 15, position: "absolute" }}
-        onPress={() => navigation.goBack()}
-      >
-        <Feather name="arrow-left" size={24} />
-      </TouchableOpacity>
-      <View style={styles.searchBox}>
-        <TextInput
-          placeholder="Search here"
-          placeholderTextColor="#000"
-          autoCapitalize="none"
-          style={{ flex: 1, padding: 0 }}
+        <Polyline
+          coordinates={state.markers.map((item) => item.coordinate)}
+          strokeColor="#171797"
+          lineJoin="miter"
+          strokeWidth={3}
+          lineDashPattern={[13, 13]}
         />
-        <Ionicons name="ios-search" size={20} />
-      </View>
+      </MapView>
+
       <ScrollView
         horizontal
         scrollEventThrottle={1}
@@ -168,14 +153,13 @@ const StepCargo = () => {
           paddingRight: Platform.OS === "android" ? 20 : 0,
         }}
       >
-        {state.categories.map((category, index) => (
+        {/* {state.categories.map((category, index) => (
           <TouchableOpacity key={index} style={styles.chipsItem}>
             {category.icon}
             <Text>{category.name}</Text>
           </TouchableOpacity>
-        ))}
+        ))} */}
       </ScrollView>
-      <View></View> */}
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
@@ -191,60 +175,60 @@ const StepCargo = () => {
           bottom: 0,
           right: SPACING_FOR_CARD_INSET,
         }}
+        contentContainerStyle={{
+          paddingHorizontal:
+            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
+        }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: mapAnimation,
+                },
+              },
+            },
+          ],
+          { useNativeDriver: true }
+        )}
       >
         {state.markers.map((marker, index) => (
-          <View style={{ backgroundColor: "red" }}>
-            <View style={styles.card} key={index}>
-              <Text numberOfLines={1} style={styles.baslik}>
-                {marker.step}
+          <View style={styles.card} key={index}>
+            <Image
+              source={marker.image}
+              style={styles.cardImage}
+              resizeMode="cover"
+            />
+            <View style={styles.textContent}>
+              <Text numberOfLines={1} style={styles.cardtitle}>
+                {marker.title}
               </Text>
-
-              <View style={styles.textContent}>
-                <Text
-                  numberOfLines={1}
-                  style={[styles.cardtitle, { marginVertical: 5 }]}
+              {/* <StarRating ratings={marker.rating} reviews={marker.reviews} /> */}
+              <Text numberOfLines={1} style={styles.cardDescription}>
+                {marker.description}
+              </Text>
+              <View style={styles.button}>
+                <TouchableOpacity
+                  onPress={() => {}}
+                  style={[
+                    styles.signIn,
+                    {
+                      borderColor: "#FF6347",
+                      borderWidth: 1,
+                    },
+                  ]}
                 >
-                  <Text style={{ fontWeight: "bold" }}>Adres :</Text>
-                  {marker.title}
-                </Text>
-
-                <Text
-                  numberOfLines={1}
-                  style={[styles.cardtitle, { marginVertical: 5 }]}
-                >
-                  <Text style={{ fontWeight: "bold" }}>Alıcı Adı :</Text>
-                  {marker.description}
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={[styles.cardtitle, { marginVertical: 5 }]}
-                >
-                  <Text style={{ fontWeight: "bold" }}>Ücret :</Text>
-                  {marker.ucret}
-                </Text>
-                <View style={styles.button}>
-                  <TouchableOpacity
-                    onPress={() => {}}
+                  <Text
                     style={[
-                      styles.signIn,
+                      styles.textSign,
                       {
-                        borderColor: COLORS.primary,
-                        borderWidth: 1,
+                        color: "#FF6347",
                       },
                     ]}
                   >
-                    <Text
-                      style={[
-                        styles.textSign,
-                        {
-                          color: "#FFF",
-                        },
-                      ]}
-                    >
-                      Teslim Et
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+                    Order Now
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -311,7 +295,8 @@ const styles = StyleSheet.create({
     // padding: 10,
     elevation: 2,
     backgroundColor: "#FFF",
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     marginHorizontal: 10,
     shadowColor: "#000",
     shadowRadius: 5,
@@ -320,9 +305,6 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
   },
   cardImage: {
     flex: 3,
@@ -334,18 +316,10 @@ const styles = StyleSheet.create({
     flex: 2,
     padding: 10,
   },
-  baslik: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 30,
-    color: COLORS.text,
-  },
-
   cardtitle: {
-    fontSize: 17,
+    fontSize: 12,
     // marginTop: 5,
-    color: COLORS.text,
+    fontWeight: "bold",
   },
   cardDescription: {
     fontSize: 12,
@@ -364,9 +338,6 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     marginTop: 5,
-    backgroundColor: COLORS.primary,
-    borderRadius: 5,
-    paddingVertical: 10,
   },
   signIn: {
     width: "100%",
@@ -376,7 +347,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   textSign: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
 });

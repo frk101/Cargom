@@ -73,7 +73,8 @@ const Filter = ({ setOpenModal }) => {
       dispatch(ordersGetAllPendingOffers(searchParams)).then(
         ({ payload: { data } }) => {
           if (data.length == undefined || data.length == 0) {
-            alert("Sonuç bulunamadı.");
+            setOpenModal(false);
+            // alert("Sonuç bulunamadı.");
             // Notifier.showNotification({
             //   title: "UYARI",
             //   description: "sss",

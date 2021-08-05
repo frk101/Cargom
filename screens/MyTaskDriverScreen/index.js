@@ -70,7 +70,6 @@ const renderItem = ({ item }) => {
 };
 
 const RenderList = ({ item }) => {
-  console.log("sss", item);
   const navigation = useNavigation();
   return (
     <TouchableOpacity

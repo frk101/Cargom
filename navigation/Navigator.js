@@ -33,7 +33,7 @@ const LoginStack = createStackNavigator();
 const LoginNavigator = () => {
   return (
     <LoginStack.Navigator headerMode="none">
-      <LoginStack.Screen name="BarCodeScanner" component={BarCodeScanner} />
+      <LoginStack.Screen name="StepCargo" component={StepCargo} />
       <LoginStack.Screen name="SplashScreen" component={SplashScreen} />
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
       <LoginStack.Screen name="Kurumsal" component={Kurumsal} />
@@ -80,6 +80,7 @@ const HomeNavigator = () => {
         name="MyTaskShipperDetailScreen"
         component={MyTaskShipperDetailScreen}
       />
+      <LoginStack.Screen name="BarCodeScanner" component={BarCodeScanner} />
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="CreateDriver" component={CreateDriver} />
       <HomeStack.Screen name="CreateVehicles" component={CreateVehicles} />

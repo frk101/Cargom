@@ -17,7 +17,7 @@ const BracodeScanner = () => {
   // );
 
   useEffect(() => {
-    _getPickup();
+    // _getPickup();
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
@@ -41,9 +41,9 @@ const BracodeScanner = () => {
   //   return () => {};
   // }, []);
 
-  const _getPickup = async () => {
-    dispatch(shipperOrdersPıckup());
-  };
+  // const _getPickup = async () => {
+  //   dispatch(shipperOrdersPıckup());
+  // };
 
   return (
     <>

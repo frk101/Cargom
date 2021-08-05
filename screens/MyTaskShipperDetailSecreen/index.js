@@ -30,8 +30,8 @@ const MyTaskShipperDetailSecreen = () => {
   if (shipperOrdersGetByIdLoading) return <ActivityIndicator />;
   return (
     <Layout title="Görev Detay" isBackIcon>
-      <Text>{shipperOrdersGetByIdResult.data.city.cityName}</Text>
-      <Text>{shipperOrdersGetByIdResult.data.district.districtName}</Text>
+      {/* <Text>{shipperOrdersGetByIdResult.data.city.cityName}</Text>
+      <Text>{shipperOrdersGetByIdResult.data.district.districtName}</Text> */}
       <TouchableOpacity onPress={() => navigation.navigate("BracodeScanner")}>
         <Text> Araca Yükle</Text>
       </TouchableOpacity>
@@ -43,8 +43,8 @@ const MyTaskShipperDetailSecreen = () => {
   );
 };
 const RenderItem = ({ item }) => {
-  console.log("sss", item);
-  return <View style={{ borderWidth: 1, borderColor: "red" }}></View>;
+  console.log(item);
+  return <View style={{ backgroundColor: "yellow" }}></View>;
 };
 export default MyTaskShipperDetailSecreen;
 

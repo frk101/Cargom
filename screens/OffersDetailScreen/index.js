@@ -7,10 +7,13 @@ import {
   Animated,
   FlatList,
   TextInput,
+  Image,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { Modalize } from "react-native-modalize";
+import Modal from "react-native-modal";
+import { AntDesign } from "react-native-vector-icons";
 import COLORS from "../../constans/colors";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import {
@@ -26,9 +29,12 @@ import { Content } from "native-base";
 import Layout from "../../components/Layout";
 import styles from "./styles";
 import { Notifier, NotifierComponents } from "react-native-notifier";
+import StepCargo from "../../deneme/StepCargo";
+import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import PagerView from "react-native-pager-view";
 
 const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / (height * 0.6);
 
 const AllCargoDetail = () => {
   const route = useRoute();
@@ -36,6 +42,13 @@ const AllCargoDetail = () => {
   const dispatch = useDispatch();
   const modalizeRef = useRef(null);
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const [tabState, setTabState] = useState(false);
+  const mapRef = useRef(null);
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openDriver, setOpenDriver] = useState(false);
   const [driverSearch, setDriverSearch] = useState("");
@@ -150,7 +163,7 @@ const AllCargoDetail = () => {
       });
       return;
     } else {
-      navigation.goBack();
+      setModalVisible(false);
       Notifier.showNotification({
         title: "HARİKA",
         description: "Görevlerim Sayfasından Görevinize Bakabilirsiniz",
@@ -173,25 +186,29 @@ const AllCargoDetail = () => {
 
   return (
     <Layout title="Teklif Detay" isBackIcon>
-      <Content>
-        <PagerView initialPage={0} style={{ height: 100 }}>
-          {ordersGetPendingOfferDetailResult &&
-            ordersGetPendingOfferDetailResult.data &&
-            ordersGetPendingOfferDetailResult.data.steps.map((item, index) => {
-              return (
-                <View key={item.step.id.toString()}>
-                  <OffersDesciraption item={item} />
-                </View>
-              );
-            })}
-        </PagerView>
-        {/* <FlatList
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        horizontal
+        data={
+          ordersGetPendingOfferDetailResult &&
+          ordersGetPendingOfferDetailResult.data &&
+          ordersGetPendingOfferDetailResult.data.steps
+        }
+        renderItem={({ item }) => <OffersDesciraption item={item} />}
+      />
+      {/* <Content>
+        <FlatList
           keyExtractor={(item, index) => index.toString()}
-          data={ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps}
+          horizontal
+          data={
+            ordersGetPendingOfferDetailResult &&
+            ordersGetPendingOfferDetailResult.data &&
+            ordersGetPendingOfferDetailResult.data.steps
+          }
           renderItem={({ item }) => <OffersDesciraption item={item} />}
-        /> */}
+        />
         <TouchableOpacity
-          onPress={onOpen}
+          onPress={toggleModal}
           style={{
             justifyContent: "center",
             alignItems: "center",
@@ -201,90 +218,106 @@ const AllCargoDetail = () => {
           <Text>Teklifi Kabul Et</Text>
         </TouchableOpacity>
       </Content>
-      <Modalize
-        ref={modalizeRef}
-        modalStyle={{
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-        }}
-        modalHeight={200}
-      >
-        <Text
-          style={[
-            styles.text_footer,
-            {
-              color: COLORS.text,
-              marginTop: 35,
-            },
-          ]}
+      <Modal isVisible={isModalVisible}>
+        <View
+          style={{
+            height: height / 2,
+            borderRadius: 20,
+            backgroundColor: "#ffffff",
+          }}
         >
-          Sürücü
-        </Text>
-        <View style={styles.action}>
-          <TextInput
-            placeholder={selectedDriver ? "" : "Sürücü Seçiniz"}
-            placeholderTextColor="#666666"
-            returnKeyType="done"
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              marginVertical: 30,
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity onPress={toggleModal}>
+              <AntDesign name="closecircleo" size={30} />
+            </TouchableOpacity>
+
+            <Image
+              source={require("../../assets/shipgeldiLogo-v03-1.png")}
+              style={{ width: 200, resizeMode: "cover" }}
+            />
+          </View>
+          <Text
             style={[
-              styles.textInput,
+              styles.text_footer,
+              {
+                color: COLORS.text,
+                marginTop: 35,
+              },
+            ]}
+          >
+            Sürücü
+          </Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder={selectedDriver ? "" : "Sürücü Seçiniz"}
+              placeholderTextColor="#666666"
+              returnKeyType="done"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
+              value={driverSearch}
+              onChangeText={(text) => _handleSearchDriver(text)}
+            />
+          </View>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            scrollEnabled={false}
+            data={openDriver && driverList}
+            renderItem={({ item }) => (
+              <DriverItem item={item} onPress={_handleChooseDriver} />
+            )}
+          />
+          <Text
+            style={[
+              styles.text_footer,
               {
                 color: COLORS.text,
               },
             ]}
-            value={driverSearch}
-            onChangeText={(text) => _handleSearchDriver(text)}
+          >
+            Araç
+          </Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder={selectedVehicle ? "" : "Araç Seçiniz"}
+              placeholderTextColor="#666666"
+              returnKeyType="done"
+              style={[
+                styles.textInput,
+                {
+                  color: COLORS.text,
+                },
+              ]}
+              value={vehicleSearch}
+              onChangeText={(text) => _handleSearchVehicle(text)}
+            />
+          </View>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={openVehicle && vehicleList}
+            renderItem={({ item }) => (
+              <VehicleItem item={item} onPress={_handleChooseVehicle} />
+            )}
           />
-        </View>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          scrollEnabled={false}
-          data={openDriver && driverList}
-          renderItem={({ item }) => (
-            <DriverItem item={item} onPress={_handleChooseDriver} />
-          )}
-        />
 
-        <Text
-          style={[
-            styles.text_footer,
-            {
-              color: COLORS.text,
-              marginTop: 35,
-            },
-          ]}
-        >
-          Araç
-        </Text>
-        <View style={styles.action}>
-          <TextInput
-            placeholder={selectedVehicle ? "" : "Araç Seçiniz"}
-            placeholderTextColor="#666666"
-            returnKeyType="done"
-            style={[
-              styles.textInput,
-              {
-                color: COLORS.text,
-              },
-            ]}
-            value={vehicleSearch}
-            onChangeText={(text) => _handleSearchVehicle(text)}
-          />
+          <TouchableOpacity
+            onPress={_handleApprovedContract}
+            style={styles.btnGonder}
+          >
+            <Text style={styles.btnText}>Teklifi Kabul Et</Text>
+          </TouchableOpacity>
         </View>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={openVehicle && vehicleList}
-          renderItem={({ item }) => (
-            <VehicleItem item={item} onPress={_handleChooseVehicle} />
-          )}
-        />
-
-        <TouchableOpacity
-          onPress={_handleApprovedContract}
-          style={styles.btnGonder}
-        >
-          <Text style={styles.btnText}>Teklifi Kabul Et</Text>
-        </TouchableOpacity>
-      </Modalize>
+      </Modal> */}
     </Layout>
   );
 };
@@ -295,6 +328,13 @@ const OffersDesciraption = ({ item }) => {
   console.log(item);
   return (
     <View>
+      <Text
+        style={{
+          textAlign: "center",
+        }}
+      >
+        Step
+      </Text>
       <View style={styles.actionSearch}>
         <Text>{item.step.address}</Text>
       </View>

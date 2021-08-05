@@ -30,7 +30,6 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
     marginHorizontal: 20,
-    marginTop: 20,
   },
   pim: {
     width: 60,
