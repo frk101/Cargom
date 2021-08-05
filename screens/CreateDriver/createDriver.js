@@ -42,6 +42,7 @@ const FormikSubmitToken = ({}) => {
       setFieldValue("Gender", route.params.driver.gender);
     } else {
       setFieldValue("Id", 0);
+      setFieldValue("EmailAddress", "");
       setFieldValue("PhoneNumber", "");
       setFieldValue("Firstname", "");
       setFieldValue("Lastname", "");

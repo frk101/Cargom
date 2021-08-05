@@ -2,19 +2,44 @@ import COLORS from "../../constans/colors";
 import { StyleSheet, Dimensions, Platform } from "react-native";
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = 300;
+const CARD_HEIGHT = 200;
 const CARD_WIDTH = width - 40;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 export default StyleSheet.create({
-  viewContainer: {
-    width: width - 20,
-    height: height * 0.5,
-    alignSelf: "center",
-    borderWidth: 1,
-    borderColor: "red",
+  offer: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
   },
-
+  openModal: {
+    backgroundColor: COLORS.primary,
+    padding: 10,
+    borderRadius: 10,
+    flex: 3,
+  },
+  price: {
+    position: "absolute",
+    backgroundColor: COLORS.primary,
+    bottom: CARD_HEIGHT + 30,
+    right: 20,
+    padding: 20,
+    borderRadius: 10,
+  },
+  divider: {
+    width: "100%",
+    backgroundColor: COLORS.primary,
+    height: 1,
+    marginVertical: 10,
+  },
+  text_footer: {
+    color: COLORS.text,
+    fontWeight: "bold",
+    fontSize: 14,
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
   action: {
     flexDirection: "row",
     marginTop: 10,
@@ -25,72 +50,16 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
-  text_footer: {
-    color: COLORS.text,
-    fontWeight: "bold",
-    fontSize: 14,
-    marginHorizontal: 20,
-  },
-  pim: {
-    width: 60,
-    height: 60,
-    borderRadius: 60,
-    backgroundColor: "rgba(0,0,0,.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  marker: {
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-    backgroundColor: "rgba(0,0,0,.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  toolTip: {
-    width: 220,
-    backgroundColor: "#fff",
-    position: "relative",
-    flexDirection: "row",
-    borderLeftWidth: 6,
-    justifyContent: "space-between",
-    padding: 10,
-  },
-  opacitys: {
-    marginHorizontal: 10,
-
-    backgroundColor: "#ffffff",
-    padding: 10,
+  action1: {
     marginTop: 10,
-    // paddingBottom: 10,
-    shadowColor: "#000",
-    borderRadius: 5,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
+    padding: 15,
+    backgroundColor: COLORS.primary,
+    // marginHorizontal: 20,
     borderRadius: 10,
+    alignItems: "center",
+    marginVertical: 30,
   },
-  baslik: {
-    fontSize: 15,
-    color: COLORS.primary,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  baslik1: {
-    fontSize: 15,
-    color: COLORS.text,
-    fontWeight: "bold",
-    textAlign: "right",
-  },
-  title: {
-    fontSize: 15,
-    color: COLORS.gray,
-    fontWeight: "bold",
-  },
+
   btnGonder: {
     backgroundColor: COLORS.primary,
     marginHorizontal: 20,
@@ -101,63 +70,12 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   btnText: { color: "#ffffff", fontSize: 20, fontWeight: "bold" },
-  modalBackGround: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContainer: {
-    width: "80%",
-    backgroundColor: "white",
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-    borderRadius: 20,
-    elevation: 20,
-  },
+
   card: {
     flexDirection: "row",
     paddingVertical: 10,
   },
-  txtContainer1: {
-    flex: 1,
-  },
-  txtContainer2: { flex: 1.5 },
-  listContainer: {
-    marginVertical: 10,
 
-    marginHorizontal: 10,
-    backgroundColor: "#ffffff",
-    // paddingBottom: 10,
-    shadowColor: "#000",
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  container: {
-    flex: 1,
-  },
-  searchBox: {
-    position: "absolute",
-    marginTop: Platform.OS === "ios" ? 40 : 20,
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    width: "90%",
-    alignSelf: "center",
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: "#ccc",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
-  },
   chipsScrollView: {
     position: "absolute",
     top: Platform.OS === "ios" ? 90 : 80,
@@ -216,6 +134,7 @@ export default StyleSheet.create({
   textContent: {
     flex: 2,
     padding: 10,
+    marginHorizontal: 10,
   },
   baslik: {
     textAlign: "center",
@@ -230,9 +149,11 @@ export default StyleSheet.create({
     // marginTop: 5,
     color: COLORS.text,
   },
-  cardDescription: {
-    fontSize: 12,
-    color: "#444",
+  cardDescription1: {
+    fontSize: 20,
+    textAlign: "right",
+    color: COLORS.text,
+    fontWeight: "bold",
   },
   markerWrap: {
     alignItems: "center",
@@ -271,6 +192,143 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginHorizontal: 20,
     borderRadius: 10,
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
+  },
+  view: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: Platform.OS === "ios" ? 50 : 30,
+    position: "absolute",
+    width: "90%",
+    alignSelf: "center",
+    padding: 10,
+  },
+  searchBox: {
+    flexDirection: "row",
+    position: "absolute",
+    marginTop: Platform.OS === "ios" ? 50 : 30,
+    backgroundColor: COLORS.primary,
+    width: "90%",
+    alignSelf: "center",
+    borderRadius: 5,
+    padding: 10,
+    shadowColor: "#ccc",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  chipsScrollView: {
+    position: "absolute",
+    top: Platform.OS === "ios" ? 90 : 80,
+    paddingHorizontal: 10,
+  },
+  chipsIcon: {
+    marginRight: 5,
+  },
+  chipsItem: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 8,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    height: 35,
+    shadowColor: "#ccc",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  scrollView: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: 10,
+  },
+  endPadding: {
+    paddingRight: width - CARD_WIDTH,
+  },
+  card: {
+    // padding: 10,
+    elevation: 2,
+    backgroundColor: "#FFF",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: { x: 2, y: -2 },
+    height: CARD_HEIGHT,
+    width: CARD_WIDTH,
+    overflow: "hidden",
+  },
+  cardImage: {
+    flex: 3,
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+  },
+  cardtitle: {
+    marginTop: 20,
+    fontSize: 12,
+    // marginTop: 5,
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 17,
+    color: COLORS.text,
+  },
+  cardDescription: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: COLORS.text,
+    textAlign: "center",
+  },
+  markerWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+  },
+  marker: {
+    width: 30,
+    height: 30,
+  },
+  button: {
+    alignItems: "center",
+    marginTop: 5,
+  },
+  signIn: {
+    width: "100%",
+    padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
+  },
+  textSign: {
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 30,
+    alignItems: "center",
+  },
+  mdl: {
+    height: height / 2,
+    borderRadius: 20,
+    backgroundColor: "#ffffff",
+  },
+  textDesign: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
     alignItems: "center",
   },
 });

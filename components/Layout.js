@@ -41,12 +41,18 @@ const Layout = ({
                 onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
                 hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
               >
-                <AntDesign
+                <MaterialIcons
+                  name="menu-open"
+                  style={{ paddingHorizontal: 10, color: "black" }}
+                  size={27}
+                  color={Colors.themeColor}
+                />
+                {/* <AntDesign
                   name="left"
                   style={{ paddingHorizontal: 10, color: "black" }}
                   size={24}
                   color={Colors.themeColor}
-                />
+                /> */}
               </TouchableOpacity>
             ) : null}
           </View>

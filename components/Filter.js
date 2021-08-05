@@ -187,8 +187,8 @@ const Filter = ({ setOpenModal }) => {
           }}
         >
           <RangeSlider
-            min={0}
-            max={1000}
+            min={""}
+            max={""}
             fromValueOnChange={(value) => setFormPrice(value)}
             toValueOnChange={(value) => setToPrice(value)}
             initialFromValue={11}

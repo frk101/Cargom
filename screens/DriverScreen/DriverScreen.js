@@ -65,7 +65,7 @@ const RenderList = ({ item }) => {
   return (
     <TouchableOpacity
       style={styles.listContainer}
-      onPress={() => navigation.navigate("CreateDriver", item)}
+      // onPress={() => navigation.navigate("CreateDriver", item)}
     >
       <ListItem bottomDivider>
         {item.driver.isApproved ? (

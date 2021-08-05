@@ -92,14 +92,14 @@ export function DrawerContent(props) {
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("MyTaskScreen")}
             />
-            <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="account-check-outline" color={color} size={size} />
-              //   )}
+            {/* <DrawerItem
+                icon={({ color, size }) => (
+                  <Icon name="account-check-outline" color={color} size={size} />
+                )}
               label="Tüm Kargolar"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("AllCargoScreen")}
-            />
+            /> */}
 
             <DrawerItem
               //   icon={({ color, size }) => (

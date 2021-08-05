@@ -142,7 +142,7 @@ const GrupCargo = ({ item }) => {
           </ListItem.Title>
           <ListItem.Subtitle>{item.group.endAddress}</ListItem.Subtitle>
           <ListItem.Title style={{ color: COLORS.text }}>
-            {item.group.distance} Km
+            {item.group.distance / 1000} Km
           </ListItem.Title>
         </ListItem.Content>
         <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>

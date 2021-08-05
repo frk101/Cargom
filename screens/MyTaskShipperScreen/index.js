@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  useNavigation,
-  useRoute,
-  useIsFocused,
-} from "@react-navigation/native";
+import COLORS from "../../constans/colors";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { FontAwesome5, FontAwesome } from "react-native-vector-icons";
+import { ListItem } from "react-native-elements";
 import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
 import Layout from "../../components/Layout";
+import styles from "./styles";
 const index = () => {
   const isFocus = useIsFocused();
   const pageNumber = useRef(-1);
@@ -52,7 +52,7 @@ const index = () => {
     <Layout title="Görevlerim" isBackIcon>
       <FlatList
         data={dataList}
-        keyExtractor={(item) => item.order.id.toString()}
+        keyExtractor={(item) => item.orderID.toString()}
         renderItem={({ item }) => <RenderList item={item} />}
         onEndReached={_getShipperTask}
       />
@@ -62,11 +62,34 @@ const index = () => {
 
 const RenderList = ({ item }) => {
   const navigation = useNavigation();
-
   return (
     <View>
-      <Text>{item.order.firstname}</Text>
       <TouchableOpacity
+        style={styles.listGrupContainer}
+        onPress={() =>
+          navigation.navigate("MyTaskShipperDetailScreen", {
+            orderDetail: item,
+          })
+        }
+      >
+        <ListItem bottomDivider>
+          <FontAwesome5 name="box-open" size={24} color={COLORS.primary} />
+          <ListItem.Content>
+            <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
+              {item.startAddress}
+            </ListItem.Title>
+            <ListItem.Subtitle>{item.endAddress}</ListItem.Subtitle>
+            <ListItem.Title style={{ color: COLORS.text }}>
+              {item.orderNumber}
+            </ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
+            {item.price} ₺
+          </ListItem.Title>
+        </ListItem>
+      </TouchableOpacity>
+
+      {/* <TouchableOpacity
         onPress={() =>
           navigation.navigate("MyTaskShipperDetailScreen", {
             orderDetail: item,
@@ -74,10 +97,8 @@ const RenderList = ({ item }) => {
         }
       >
         <Text>Detayı Gör</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
 export default index;
-
-const styles = StyleSheet.create({});

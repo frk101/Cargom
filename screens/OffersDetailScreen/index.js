@@ -1,29 +1,43 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Text, View, Dimensions, TouchableOpacity, FlatList, TextInput, Image, Platform, ScrollView, Animated, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+  Image,
+  Platform,
+  ScrollView,
+  Animated,
+  StyleSheet,
+} from "react-native";
 import { useRoute, useNavigation, useTheme } from "@react-navigation/native";
-import AppIntroSlider from "react-native-app-intro-slider";
-import { Modalize } from "react-native-modalize";
+
 import Modal from "react-native-modal";
 import { AntDesign } from "react-native-vector-icons";
 import COLORS from "../../constans/colors";
-import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-import { ordersGetPendingOfferDetail, ordersAssignGroupDriver } from "../../business/actions/driver";
-import { driverGetByShipper, vehiclesGetByShipper } from "../../business/actions/shipper";
+
+import {
+  ordersGetPendingOfferDetail,
+  ordersAssignGroupDriver,
+} from "../../business/actions/driver";
+import {
+  driverGetByShipper,
+  vehiclesGetByShipper,
+} from "../../business/actions/shipper";
 import { useSelector, useDispatch } from "react-redux";
-import { Content } from "native-base";
 import Layout from "../../components/Layout";
-
 import { Notifier, NotifierComponents } from "react-native-notifier";
-
+import styles from "./styles";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import PagerView from "react-native-pager-view";
 import { markers, mapDarkStyle, mapStandardStyle } from "../../data/mapData";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = 300;
+
 const CARD_WIDTH = width - 40;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
-const ASPECT_RATIO = width / (height * 0.6);
 
 const initialMapState = {
   markers,
@@ -48,8 +62,7 @@ const AllCargoDetail = () => {
   let mapAnimation = new Animated.Value(0);
 
   const [isModalVisible, setModalVisible] = useState(false);
-  const [state, setState] = React.useState(initialMapState);
-  const [tabState, setTabState] = useState(false);
+  const [state, setState] = useState(initialMapState);
 
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openDriver, setOpenDriver] = useState(false);
@@ -61,8 +74,15 @@ const AllCargoDetail = () => {
   const [vehicleSearch, setVehicleSearch] = useState("");
   const [vehicleList, setVehicleList] = useState([]);
 
-  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } = useSelector((x) => x.driver);
-  const { driverGetAllShipperResult, driverGetAllShipperLoading, vehiclesGetByShipperResult, vehiclesGetByShipperLoading, shipperLoginResult } = useSelector((x) => x.shipper);
+  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
+    useSelector((x) => x.driver);
+  const {
+    driverGetAllShipperResult,
+    driverGetAllShipperLoading,
+    vehiclesGetByShipperResult,
+    vehiclesGetByShipperLoading,
+    shipperLoginResult,
+  } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _handleGetOfferDetail();
@@ -101,7 +121,11 @@ const AllCargoDetail = () => {
   });
 
   const interpolations = state.markers.map((marker, index) => {
-    const inputRange = [(index - 1) * CARD_WIDTH, index * CARD_WIDTH, (index + 1) * CARD_WIDTH];
+    const inputRange = [
+      (index - 1) * CARD_WIDTH,
+      index * CARD_WIDTH,
+      (index + 1) * CARD_WIDTH,
+    ];
 
     const scale = mapAnimation.interpolate({
       inputRange,
@@ -148,7 +172,12 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (driverGetAllShipperResult.data) {
         let searchDrivers = driverGetAllShipperResult.data.filter((x) => {
-          return x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+          return (
+            x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1 ||
+            x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1
+          );
         });
         setDriverList(searchDrivers);
       }
@@ -168,7 +197,10 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (vehiclesGetByShipperResult.data) {
         let searchVehicles = vehiclesGetByShipperResult.data.filter((x) => {
-          return x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) > -1 && x.vehicle.isApproved;
+          return (
+            x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1 && x.vehicle.isApproved
+          );
         });
         setVehicleList(searchVehicles);
       }
@@ -228,11 +260,20 @@ const AllCargoDetail = () => {
   };
 
   return (
-    <Layout title="Teklif Detay" isBackIcon>
-      <View style={styles.container}>
-        <MapView ref={_map} initialRegion={state.region} style={styles.container} provider={PROVIDER_GOOGLE} customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}>
-          {ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
-            ? ordersGetPendingOfferDetailResult.data.steps.map((marker, index) => {
+    // <Layout title="Teklif Detay" isBackIcon>
+    <View style={styles.container}>
+      <MapView
+        ref={_map}
+        initialRegion={state.region}
+        style={styles.container}
+        provider={PROVIDER_GOOGLE}
+        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
+      >
+        {ordersGetPendingOfferDetailResult &&
+        ordersGetPendingOfferDetailResult.data &&
+        ordersGetPendingOfferDetailResult.data.steps
+          ? ordersGetPendingOfferDetailResult.data.steps.map(
+              (marker, index) => {
                 // const scaleStyle = {
                 //   transform: [
                 //     {
@@ -244,173 +285,124 @@ const AllCargoDetail = () => {
                   latitude: parseFloat(marker.town.lat),
                   longitude: parseFloat(marker.town.lng),
                 };
-                return <Marker key={index} coordinate={coordinate} onPress={(e) => onMarkerPress(e)} image={require("../../assets/Marker.png")} />;
-              })
-            : null}
-          <Polyline
-            coordinates={
-              ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
-                ? ordersGetPendingOfferDetailResult.data.steps.map((marker) => {
-                    const coordinate = {
-                      latitude: parseFloat(marker.town.lat),
-                      longitude: parseFloat(marker.town.lng),
-                    };
-                    return coordinate;
-                  })
-                : []
-            }
-            strokeColor="#171797"
-            lineJoin="miter"
-            strokeWidth={3}
-            lineDashPattern={[13, 13]}
-          />
-        </MapView>
-
-        <ScrollView
-          horizontal
-          scrollEventThrottle={1}
-          showsHorizontalScrollIndicator={false}
-          height={50}
-          style={styles.chipsScrollView}
-          contentInset={{
-            // iOS only
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 20,
-          }}
-          contentContainerStyle={{
-            paddingRight: Platform.OS === "android" ? 20 : 0,
-          }}
-        >
-          {/* {state.categories.map((category, index) => (
-        <TouchableOpacity key={index} style={styles.chipsItem}>
-          {category.icon}
-          <Text>{category.name}</Text>
-        </TouchableOpacity>
-      ))} */}
-        </ScrollView>
-        <Animated.ScrollView
-          ref={_scrollView}
-          horizontal
-          pagingEnabled
-          scrollEventThrottle={1}
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={CARD_WIDTH + 20}
-          snapToAlignment="center"
-          style={styles.scrollView}
-          contentInset={{
-            top: 0,
-            left: SPACING_FOR_CARD_INSET,
-            bottom: 0,
-            right: SPACING_FOR_CARD_INSET,
-          }}
-          contentContainerStyle={{
-            paddingHorizontal: Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
-          }}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {
-                    x: mapAnimation,
-                  },
-                },
-              },
-            ],
-            { useNativeDriver: true }
-          )}
-        >
-          {ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
-            ? ordersGetPendingOfferDetailResult.data.steps.map((marker, index) => (
-                <View style={styles.card} key={index}>
-                  {/* <Image source={marker.image} style={styles.cardImage} resizeMode="cover" /> */}
-                  <View style={styles.textContent}>
-                    <Text numberOfLines={1} style={styles.cardtitle}>
-                      {marker.step.address}
-                    </Text>
-                    {/* <StarRating ratings={marker.rating} reviews={marker.reviews} /> */}
-                    <Text numberOfLines={1} style={styles.cardDescription}>
-                      {marker.town.townName}
-                    </Text>
-                    <View style={styles.button}>
-                      <TouchableOpacity
-                        onPress={() => {}}
-                        style={[
-                          styles.signIn,
-                          {
-                            borderColor: "#FF6347",
-                            borderWidth: 1,
-                          },
-                        ]}
-                      >
-                        <Text
-                          style={[
-                            styles.textSign,
-                            {
-                              color: "#FF6347",
-                            },
-                          ]}
-                        >
-                          Order Now
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-              ))
-            : null}
-        </Animated.ScrollView>
-      </View>
-    </Layout>
-  );
-
-  return (
-    <Layout title="Teklif Detay" isBackIcon>
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        horizontal
-        data={ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps}
-        renderItem={({ item }) => <OffersDesciraption item={item} />}
-      />
-      {/* <Content>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          data={
+                return (
+                  <Marker
+                    key={index}
+                    coordinate={coordinate}
+                    onPress={(e) => onMarkerPress(e)}
+                    image={require("../../assets/Marker.png")}
+                  />
+                );
+              }
+            )
+          : null}
+        <Polyline
+          coordinates={
             ordersGetPendingOfferDetailResult &&
             ordersGetPendingOfferDetailResult.data &&
             ordersGetPendingOfferDetailResult.data.steps
+              ? ordersGetPendingOfferDetailResult.data.steps.map((marker) => {
+                  const coordinate = {
+                    latitude: parseFloat(marker.town.lat),
+                    longitude: parseFloat(marker.town.lng),
+                  };
+                  return coordinate;
+                })
+              : []
           }
-          renderItem={({ item }) => <OffersDesciraption item={item} />}
+          strokeColor="#171797"
+          lineJoin="miter"
+          strokeWidth={3}
+          lineDashPattern={[13, 13]}
         />
+      </MapView>
+
+      <View style={styles.view}>
         <TouchableOpacity
-          onPress={toggleModal}
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 50,
-          }}
+          style={{ flex: 1, justifyContent: "center" }}
+          onPress={() => navigation.goBack()}
         >
-          <Text>Teklifi Kabul Et</Text>
+          <Ionicons name="arrow-back-circle" size={30} color={COLORS.text} />
         </TouchableOpacity>
-      </Content>
+
+        <TouchableOpacity onPress={toggleModal} style={styles.openModal}>
+          <Text style={styles.offer}>Teklifi Kabul Et</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.price}>
+        <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
+          {ordersGetPendingOfferDetailResult &&
+            ordersGetPendingOfferDetailResult.data &&
+            ordersGetPendingOfferDetailResult.data.group &&
+            ordersGetPendingOfferDetailResult.data.group.price}{" "}
+          ₺
+        </Text>
+      </View>
+      <Animated.ScrollView
+        ref={_scrollView}
+        horizontal
+        pagingEnabled
+        scrollEventThrottle={1}
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={CARD_WIDTH + 20}
+        snapToAlignment="center"
+        style={styles.scrollView}
+        contentInset={{
+          top: 0,
+          left: SPACING_FOR_CARD_INSET,
+          bottom: 0,
+          right: SPACING_FOR_CARD_INSET,
+        }}
+        contentContainerStyle={{
+          paddingHorizontal:
+            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
+        }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: mapAnimation,
+                },
+              },
+            },
+          ],
+          { useNativeDriver: true }
+        )}
+      >
+        {ordersGetPendingOfferDetailResult &&
+        ordersGetPendingOfferDetailResult.data &&
+        ordersGetPendingOfferDetailResult.data.steps
+          ? ordersGetPendingOfferDetailResult.data.steps.map(
+              (marker, index) => (
+                <View style={styles.card} key={index}>
+                  <View style={styles.textContent}>
+                    <Text numberOfLines={1} style={styles.cardtitle}>
+                      Step {""}
+                      {marker.step.stepNumber}
+                    </Text>
+
+                    <View style={styles.divider} />
+
+                    <Text numberOfLines={1} style={styles.cardDescription}>
+                      {marker.step.address}
+                    </Text>
+
+                    {/* <TouchableOpacity
+                        style={styles.action1}
+                        onPress={toggleModal}
+                      >
+                        <Text style={styles.btnText}>Teklifi Al</Text>
+                      </TouchableOpacity> */}
+                  </View>
+                </View>
+              )
+            )
+          : null}
+      </Animated.ScrollView>
       <Modal isVisible={isModalVisible}>
-        <View
-          style={{
-            height: height / 2,
-            borderRadius: 20,
-            backgroundColor: "#ffffff",
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              marginVertical: 30,
-              alignItems: "center",
-            }}
-          >
+        <View style={styles.mdl}>
+          <View style={styles.modalHeader}>
             <TouchableOpacity onPress={toggleModal}>
               <AntDesign name="closecircleo" size={30} />
             </TouchableOpacity>
@@ -494,37 +486,22 @@ const AllCargoDetail = () => {
             <Text style={styles.btnText}>Teklifi Kabul Et</Text>
           </TouchableOpacity>
         </View>
-      </Modal> */}
-    </Layout>
+      </Modal>
+    </View>
+
+    //  </Layout>
   );
 };
 
 export default AllCargoDetail;
 
-const OffersDesciraption = ({ item }) => {
-  console.log(item);
-  return (
-    <View>
-      <Text
-        style={{
-          textAlign: "center",
-        }}
-      >
-        Step
-      </Text>
-      <View style={styles.actionSearch}>
-        <Text>{item.step.address}</Text>
-      </View>
-      <View style={styles.actionSearch}>
-        <Text>{item.town.townName}</Text>
-      </View>
-    </View>
-  );
-};
-
 const DriverItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity key={item.driver.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.driver.id.toString()}
+      onPress={() => onPress(item)}
+      style={styles.actionSearch}
+    >
       <Text>
         {item.driver.firstname} {item.driver.lastname}
       </Text>
@@ -534,173 +511,14 @@ const DriverItem = ({ item, onPress }) => {
 
 const VehicleItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity key={item.model.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.model.id.toString()}
+      onPress={() => onPress(item)}
+      style={styles.actionSearch}
+    >
       <Text>
         {item.model.modelName} {item.type.typeName}
       </Text>
     </TouchableOpacity>
   );
 };
-
-const renderItem = ({ item }) => {
-  return (
-    <View style={styles.slide}>
-      {/* <Image source={item.image} style={styles.image} /> */}
-      <View>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.text}>{item.text}</Text>
-      </View>
-    </View>
-  );
-};
-
-const keyExtractor = (item) => item.title;
-
-const renderNextButton = () => {
-  return (
-    <View style={styles.rightTextWrapper}>
-      <Text style={styles.rightText}>Next</Text>
-    </View>
-  );
-};
-
-//  const renderDoneButton = () => {
-//    return (
-//      <LinearGradient
-//        colors={["#A5C8FF", "#23286B"]}
-//        style={styles.linearGradient}
-//        start={{ x: 0, y: 0.5 }}
-//        end={{ x: 1, y: 0.5 }}
-//        style={styles.doneButtonWrapper}
-//      >
-//        <Text style={styles.doneButtonText}>Done</Text>
-//      </LinearGradient>
-//      // <View style={styles.doneButtonWrapper}>
-//      //   <Text style={styles.doneButtonText}>Done</Text>
-//      // </View>
-//    );
-//  };
-
-const renderPrevButton = () => {
-  return (
-    <View style={styles.leftTextWrapper}>
-      <Text style={styles.leftText}>Prev</Text>
-    </View>
-  );
-};
-
-const handleDone = () => {
-  props.handleDone();
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  searchBox: {
-    position: "absolute",
-    marginTop: Platform.OS === "ios" ? 40 : 20,
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    width: "90%",
-    alignSelf: "center",
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: "#ccc",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
-  },
-  chipsScrollView: {
-    position: "absolute",
-    top: Platform.OS === "ios" ? 90 : 80,
-    paddingHorizontal: 10,
-  },
-  chipsIcon: {
-    marginRight: 5,
-  },
-  chipsItem: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 8,
-    paddingHorizontal: 20,
-    marginHorizontal: 10,
-    height: 35,
-    shadowColor: "#ccc",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
-  },
-  scrollView: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingVertical: 10,
-  },
-  endPadding: {
-    paddingRight: width - CARD_WIDTH,
-  },
-  card: {
-    // padding: 10,
-    elevation: 2,
-    backgroundColor: "#FFF",
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    marginHorizontal: 10,
-    shadowColor: "#000",
-    shadowRadius: 5,
-    shadowOpacity: 0.3,
-    shadowOffset: { x: 2, y: -2 },
-    height: CARD_HEIGHT,
-    width: CARD_WIDTH,
-    overflow: "hidden",
-  },
-  cardImage: {
-    flex: 3,
-    width: "100%",
-    height: "100%",
-    alignSelf: "center",
-  },
-  textContent: {
-    flex: 2,
-    padding: 10,
-  },
-  cardtitle: {
-    fontSize: 12,
-    // marginTop: 5,
-    fontWeight: "bold",
-  },
-  cardDescription: {
-    fontSize: 12,
-    color: "#444",
-  },
-  markerWrap: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 50,
-    height: 50,
-  },
-  marker: {
-    width: 30,
-    height: 30,
-  },
-  button: {
-    alignItems: "center",
-    marginTop: 5,
-  },
-  signIn: {
-    width: "100%",
-    padding: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 3,
-  },
-  textSign: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-});
