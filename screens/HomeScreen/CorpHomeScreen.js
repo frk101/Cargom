@@ -58,76 +58,18 @@ export const dummyData = [
     img: require("../../assets/calendar.png"),
   },
 ];
-export const dummyData1 = [
-  {
-    code: "#F1F5FF",
-    name: "Haftalık, Aylık Ödeme Bilgisi",
-    subName: "1.247 ₺",
-    img: require("../../assets/card.png"),
-  },
-  {
-    code: "#FCF1FF",
-    name: "Bekleyen Teslimatlar",
-    subName: "12 Adet",
-    img: require("../../assets/box.png"),
-  },
-
-  {
-    code: "#F6FFF1",
-    name: "Haftalık, Aylık Teslim Edilen",
-    subName: "128 Adet",
-    img: require("../../assets/calendar.png"),
-  },
-];
-
-const wait = (timeout) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
 
 const CorpHomeScreen = () => {
   const dispatch = useDispatch();
-  const [refreshing, setRefreshing] = React.useState(false);
 
   const { shipperLoginResult } = useSelector((x) => x.shipper);
 
-  //  shipperLoginResult &&
-  //         shipperLoginResult.data &&
-  //         shipperLoginResult.data.shipper &&
-  //         shipperLoginResult.data.shipper.shipperType
-  // useEffect(() => {
-  //   dispatch(vehicleBrandsGetAll()).then((x) => {
-  //     console.log(x);
-  //   });
-  //   return () => {};
-  // }, []);
+  const { driverLoginResult } = useSelector((x) => x.driver);
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
   const navigation = useNavigation();
-
-  // useEffect(() => {
-  //   dispatch(driverCraete()).then((x) => {
-  //     console.log(x);
-  //   });
-  //   return () => {};
-  // }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-      {/* <Content
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={[COLORS.primary]}
-          />
-        }
-      > */}
       <View style={styles.menu}>
         <TouchableOpacity
           style={styles.opacitys}
@@ -153,50 +95,25 @@ const CorpHomeScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      {shipperLoginResult &&
-      shipperLoginResult.data &&
-      shipperLoginResult.data.shipper &&
-      shipperLoginResult.data.shipper.shipperType == 2 ? (
-        <FlatGrid
-          itemDimension={130}
-          data={dummyData}
-          style={styles.gridView}
-          spacing={10}
-          renderItem={({ item }) => (
-            <View
-              style={[styles.itemContainer, { backgroundColor: item.code }]}
-            >
-              <Image
-                source={item.img}
-                style={{ width: 50, height: 50 }}
-                resizeMode="contain"
-              />
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemCode}>{item.subName}</Text>
-            </View>
-          )}
-        />
-      ) : (
-        <FlatGrid
-          itemDimension={130}
-          data={dummyData1}
-          style={styles.gridView}
-          spacing={10}
-          renderItem={({ item }) => (
-            <View
-              style={[styles.itemContainer, { backgroundColor: item.code }]}
-            >
-              <Image
-                source={item.img}
-                style={{ width: 50, height: 50 }}
-                resizeMode="contain"
-              />
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemCode}>{item.subName}</Text>
-            </View>
-          )}
-        />
-      )}
+
+      <FlatGrid
+        itemDimension={130}
+        data={dummyData}
+        style={styles.gridView}
+        spacing={10}
+        renderItem={({ item }) => (
+          <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
+            <Image
+              source={item.img}
+              style={{ width: 50, height: 50 }}
+              resizeMode="contain"
+            />
+            <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.itemCode}>{item.subName}</Text>
+          </View>
+        )}
+      />
+
       {/* </Content> */}
     </SafeAreaView>
   );

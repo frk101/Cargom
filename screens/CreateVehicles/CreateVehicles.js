@@ -22,6 +22,7 @@ import { Content } from "native-base";
 import { Menu } from "react-native-paper";
 import FormErrorText from "../../components/FormErrorText";
 import { Notifier, NotifierComponents } from "react-native-notifier";
+import { CheckBox } from "react-native-elements";
 import styles from "./styles";
 
 const FormikSubmitToken = ({}) => {
@@ -145,7 +146,7 @@ const CreateVehicles = () => {
             VehicleModelId: null,
             VehicleModelText: "Model Seçiniz",
             Plate: "",
-            Desi: null,
+            Desi: "",
             ChangingPart: false,
           }}
           validationSchema={VehiclesScheme}
@@ -327,25 +328,18 @@ const CreateVehicles = () => {
               {errors.Plate && touched.Plate ? (
                 <FormErrorText>* {errors.Plate}</FormErrorText>
               ) : null}
+              <View style={styles.checkedAction}>
+                <CheckBox
+                  title="Aracınızda değişiklik var mı ?"
+                  checkedColor={COLORS.primary}
+                  onPress={() =>
+                    setFieldValue("ChangingPart", !values.ChangingPart, true)
+                  }
+                  checked={values.ChangingPart}
+                />
+              </View>
 
-              {!values.ChangingPart ? (
-                <View style={styles.actions}>
-                  <Text style={{ textAlign: "center" }}>
-                    Aracınızda Değişen Kısım Varmı ?
-                  </Text>
-                  <View style={styles.btnContainer}>
-                    <TouchableOpacity
-                      style={styles.btn}
-                      onPress={() => setFieldValue("ChangingPart", true, true)}
-                    >
-                      <Text style={styles.onay}>Var</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
-                      <Text style={styles.onay}>Yok</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ) : (
+              {!values.ChangingPart ? null : (
                 <>
                   <Text
                     style={[

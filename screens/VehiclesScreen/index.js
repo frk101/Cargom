@@ -46,6 +46,7 @@ const index = () => {
           <FlatList
             refreshControl={
               <RefreshControl
+                tintColor={COLORS.primary}
                 refreshing={vehiclesGetByShipperLoading}
                 onRefresh={_getVehiclesList}
               />
@@ -88,7 +89,7 @@ const RenderList = ({ item }) => {
         )}
       >
         <List.Item title={item.model.modelName} />
-        <List.Item title={item.model.desi} />
+        <List.Item title={item.vehicle.desi} />
         <List.Item title={item.type.typeName} />
         <List.Item title={item.vehicle.plate} />
       </List.Accordion>

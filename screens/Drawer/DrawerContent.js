@@ -17,6 +17,7 @@ import {
   MaterialCommunityIcons,
 } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Divider } from "react-native-elements";
 const { height, width } = Dimensions.get("screen");
 export function DrawerContent(props) {
   const navigation = useNavigation();
@@ -50,12 +51,16 @@ export function DrawerContent(props) {
               </View>
             </View>
           </View>
-
+          <Divider style={{ marginVertical: 20 }} />
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="home-outline" color={color} size={size} />
-              //   )}
+              // icon={({ color, size }) => (
+              //   <MaterialCommunityIcons
+              //     name="home-outline"
+              //     color={color}
+              //     size={size}
+              //   />
+              // )}
               label="Anasayfa"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("CorpHomeScreen")}
@@ -108,7 +113,6 @@ export function DrawerContent(props) {
               label="Ödemeler"
               labelStyle={styles.labels}
             />
-
             <DrawerItem
               label="Çıkış Yap"
               labelStyle={{ fontSize: 15, fontWeight: "bold" }}

@@ -10,6 +10,8 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
+
 import COLORS from "../../constans/colors";
 import { Modalize } from "react-native-modalize";
 import styles from "./styles";
@@ -17,6 +19,7 @@ const { width, height } = Dimensions.get("window");
 const SplashhScreen = () => {
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
+  const modalizeDriverRef = useRef(null);
 
   const onOpen = () => {
     modalizeRef.current?.open();
@@ -25,6 +28,12 @@ const SplashhScreen = () => {
     modalizeRef.current?.close();
   };
 
+  const onOpenDriver = () => {
+    modalizeDriverRef.current?.open();
+  };
+  const onCloseDriver = () => {
+    modalizeDriverRef.current?.close();
+  };
   return (
     <ImageBackground
       source={require("../../assets/SplashLogo.png")}
@@ -37,10 +46,7 @@ const SplashhScreen = () => {
             <Text style={styles.txt}>Kayıt Ol</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.btnGiris}
-            onPress={() => navigation.navigate("LoginScreen")}
-          >
+          <TouchableOpacity style={styles.btnGiris} onPress={onOpenDriver}>
             <Text style={styles.txt}>Giriş Yap</Text>
           </TouchableOpacity>
         </View>
@@ -71,6 +77,39 @@ const SplashhScreen = () => {
             }}
           >
             <Text style={styles.btnText}>KURUMSAL OLARAK KAYIT OL</Text>
+          </TouchableOpacity>
+        </View>
+      </Modalize>
+      <Modalize
+        ref={modalizeDriverRef}
+        snapPoint={350}
+        modalHeight={height * 0.5}
+      >
+        <View style={styles.modalContainer}>
+          <Image
+            source={require("../../assets/shipgeldiLogo-v03-1.png")}
+            style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
+          />
+          <Text style={styles.modalTxt}>
+            GİRİŞ YAPMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ
+          </Text>
+          <TouchableOpacity
+            onPress={onClose}
+            onPressIn={() => {
+              navigation.navigate("DriverLogin");
+            }}
+            style={styles.btnGonder}
+          >
+            <Text style={styles.btnText}>DRİVER OLARAK GİRİŞ YAP</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnGonder1}
+            onPress={onClose}
+            onPressIn={() => {
+              navigation.navigate("LoginScreen");
+            }}
+          >
+            <Text style={styles.btnText}>SHİPPER OLARAK GİRİŞ YAP</Text>
           </TouchableOpacity>
         </View>
       </Modalize>

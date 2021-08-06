@@ -89,6 +89,7 @@ const OffersScreeen = () => {
       <FlatList
         refreshControl={
           <RefreshControl
+            tintColor={COLORS.primary}
             refreshing={ordersGetAllPendingOffersLoading}
             onRefresh={_getOfferList}
           />

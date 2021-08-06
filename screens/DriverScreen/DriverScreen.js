@@ -39,6 +39,7 @@ const DriverScreen = () => {
           <FlatList
             refreshControl={
               <RefreshControl
+                tintColor={COLORS.primary}
                 refreshing={driverGetAllShipperLoading}
                 onRefresh={_getDriverList}
               />

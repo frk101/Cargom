@@ -28,14 +28,15 @@ import CreateVehicles from "../screens/CreateVehicles/CreateVehicles";
 import OffersDetailScreen from "../screens/OffersDetailScreen";
 import MyTaskShipperDetailScreen from "../screens/MyTaskShipperDetailSecreen";
 import BarCodeScanner from "../screens/BracodeScanner";
+import DriverLogin from "../screens/LoginDriver";
 const LoginStack = createStackNavigator();
 
 const LoginNavigator = () => {
   return (
     <LoginStack.Navigator headerMode="none">
-      {/* <LoginStack.Screen name="StepCargo" component={StepCargo} /> */}
       <LoginStack.Screen name="SplashScreen" component={SplashScreen} />
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
+      <LoginStack.Screen name="DriverLogin" component={DriverLogin} />
       <LoginStack.Screen name="Kurumsal" component={Kurumsal} />
       <LoginStack.Screen name="Bireysel" component={Bireysel} />
       <HomeStack.Screen name="OtpScreens" component={OtpScreens} />

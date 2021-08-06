@@ -4,11 +4,17 @@ const { width, height } = Dimensions.get("screen");
 
 export default StyleSheet.create({
   action: {
-    flexDirection: "row",
     marginTop: 5,
     borderColor: "#979797",
     padding: 10,
     borderWidth: 1,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  checkedAction: {
+    marginTop: 5,
+    padding: 10,
     marginHorizontal: 20,
     borderRadius: 10,
     alignItems: "center",

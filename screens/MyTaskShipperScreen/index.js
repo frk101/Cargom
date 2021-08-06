@@ -5,11 +5,16 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import COLORS from "../../constans/colors";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { FontAwesome5, FontAwesome } from "react-native-vector-icons";
+import {
+  FontAwesome5,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "react-native-vector-icons";
 import { ListItem } from "react-native-elements";
 import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
 import Layout from "../../components/Layout";
@@ -47,10 +52,17 @@ const index = () => {
       }
     );
   };
-
+  const { shipperOrdersGetAllMyOrdersLoading } = useSelector((x) => x.shipper);
   return (
-    <Layout title="Görevlerim" isBackIcon>
+    <Layout title="Görevlerim" isBackIcon right={<LayoutRight1 />}>
       <FlatList
+        refreshControl={
+          <RefreshControl
+            tintColor={COLORS.primary}
+            refreshing={shipperOrdersGetAllMyOrdersLoading}
+            onRefresh={_getShipperTask}
+          />
+        }
         data={dataList}
         keyExtractor={(item) => item.orderID.toString()}
         renderItem={({ item }) => <RenderList item={item} />}
@@ -99,6 +111,15 @@ const RenderList = ({ item }) => {
         <Text>Detayı Gör</Text>
       </TouchableOpacity> */}
     </View>
+  );
+};
+
+const LayoutRight1 = () => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate("BarCodeScanner")}>
+      <MaterialCommunityIcons name="qrcode-scan" size={20} />
+    </TouchableOpacity>
   );
 };
 export default index;

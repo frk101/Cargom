@@ -56,4 +56,13 @@ export default StyleSheet.create({
     fontSize: 18,
     color: COLORS.text,
   },
+  main: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  opacity: {
+    width: 50,
+    height: 50,
+  },
 });

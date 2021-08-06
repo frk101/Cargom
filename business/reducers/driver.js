@@ -11,6 +11,9 @@ import {
   DRIVER_ORDERS_GET_ALL_MY_ORDERS,
   DRIVER_ORDERS_GET_ALL_MY_ORDERS_SUCCESS,
   DRIVER_ORDERS_GET_ALL_MY_ORDERS_FAIL,
+  DRIVER_LOGIN,
+  DRIVER_LOGIN_SUCCESS,
+  DRIVER_LOGIN_FAIL,
 } from "../types/driver";
 
 const INITIAL_STATE = {
@@ -29,6 +32,10 @@ const INITIAL_STATE = {
   driverOrdersGetAllMyOrdersLoading: false,
   driverOrdersGetAllMyOrdersResult: {},
   driverOrdersGetAllMyOrdersFail: false,
+
+  driverLoginLoading: false,
+  driverLoginResult: {},
+  driverLoginFail: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -120,6 +127,29 @@ export default (state = INITIAL_STATE, action) => {
         driverOrdersGetAllMyOrdersResult: {},
         driverOrdersGetAllMyOrdersFail: true,
       };
+
+    case DRIVER_LOGIN:
+      return {
+        ...state,
+        driverLoginLoading: true,
+        driverLoginResult: {},
+        driverLoginFail: false,
+      };
+    case DRIVER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        driverLoginLoading: false,
+        driverLoginResult: action.payload.data,
+        driverLoginFail: false,
+      };
+    case DRIVER_LOGIN_FAIL:
+      return {
+        ...state,
+        driverLoginLoading: false,
+        driverLoginResult: {},
+        driverLoginFail: true,
+      };
+
     default:
       return { ...state };
   }
