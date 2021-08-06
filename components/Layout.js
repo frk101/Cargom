@@ -42,7 +42,7 @@ const Layout = ({
                 hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
               >
                 <MaterialIcons
-                  name="menu-open"
+                  name="menu"
                   style={{ paddingHorizontal: 10, color: "black" }}
                   size={27}
                   color={Colors.themeColor}

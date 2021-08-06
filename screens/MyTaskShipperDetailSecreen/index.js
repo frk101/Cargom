@@ -36,13 +36,6 @@ const MyTaskShipperDetailSecreen = () => {
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
 
-  const onOpen = () => {
-    modalizeRef.current?.open();
-  };
-  const onClose = () => {
-    modalizeRef.current?.close();
-  };
-
   const { shipperOrdersGetByIdResult, shipperOrdersGetByIdLoading } =
     useSelector((x) => x.shipper);
   useEffect(() => {
@@ -57,11 +50,11 @@ const MyTaskShipperDetailSecreen = () => {
   const { width, height } = Dimensions.get("window");
   const ASPECT_RATIO = width / height;
 
-  if (shipperOrdersGetByIdLoading) return <ActivityIndicator />;
+  // if (shipperOrdersGetByIdLoading) return <ActivityIndicator />;
   return (
     <Layout title="Görev Detay">
       {shipperOrdersGetByIdResult.data == undefined ? (
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={COLORS.primary} />
       ) : (
         <Container>
           <Content style={{ backgroundColor: "#F1F2F4" }}>
@@ -123,14 +116,20 @@ const MyTaskShipperDetailSecreen = () => {
             alwaysOpen={height * 0.1}
             modalHeight={height * 0.7}
             modalStyle={{
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
               borderWidth: 1,
               borderColor: COLORS.text,
             }}
             handlePosition="inside"
           >
-            <View style={{ width: width, height: height, marginTop: 5 }}>
+            <View
+              style={{
+                width: width,
+                height: height,
+                marginTop: 20,
+              }}
+            >
               <MapView
                 mapPadding={{
                   left: 50,

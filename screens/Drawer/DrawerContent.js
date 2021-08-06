@@ -54,45 +54,61 @@ export function DrawerContent(props) {
           <Divider style={{ marginVertical: 20 }} />
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-              // icon={({ color, size }) => (
-              //   <MaterialCommunityIcons
-              //     name="home-outline"
-              //     color={color}
-              //     size={size}
-              //   />
-              // )}
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="home-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Anasayfa"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("CorpHomeScreen")}
             />
             <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="home-outline" color={color} size={size} />
-              //   )}
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="home-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Sürücüler"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("DriverScreen")}
             />
             <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="account-outline" color={color} size={size} />
-              //   )}
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="home-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Araçlar"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("VehiclesScreen")}
             />
             <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="bookmark-outline" color={color} size={size} />
-              //   )}
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="home-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Teklifler"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("OffersScreeen")}
             />
             <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="settings-outline" color={color} size={size} />
-              //   )}
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="home-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Görevlerim"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("MyTaskScreen")}
@@ -107,15 +123,27 @@ export function DrawerContent(props) {
             /> */}
 
             <DrawerItem
-              //   icon={({ color, size }) => (
-              //     <Icon name="account-check-outline" color={color} size={size} />
-              //   )}
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="home-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Ödemeler"
               labelStyle={styles.labels}
             />
+            <Divider />
             <DrawerItem
+              icon={({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="exit-to-app"
+                  color={color}
+                  size={size}
+                />
+              )}
               label="Çıkış Yap"
-              labelStyle={{ fontSize: 15, fontWeight: "bold" }}
+              labelStyle={{ fontSize: 15, fontWeight: "bold", marginLeft: -20 }}
               onPress={() => navigation.navigate("SplashScreen")}
             />
           </Drawer.Section>
@@ -179,6 +207,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontSize: 20,
     fontWeight: "bold",
+    marginLeft: -20,
   },
   opacitys: {
     backgroundColor: "#ffffff",
