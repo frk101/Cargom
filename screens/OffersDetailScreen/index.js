@@ -1,31 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  FlatList,
-  TextInput,
-  Image,
-  Platform,
-  ScrollView,
-  Animated,
-  StyleSheet,
-} from "react-native";
+import { Text, View, Dimensions, TouchableOpacity, FlatList, TextInput, Image, Platform, ScrollView, Animated, StyleSheet } from "react-native";
 import { useRoute, useNavigation, useTheme } from "@react-navigation/native";
 
 import Modal from "react-native-modal";
 import { AntDesign } from "react-native-vector-icons";
 import COLORS from "../../constans/colors";
 
-import {
-  ordersGetPendingOfferDetail,
-  ordersAssignGroupDriver,
-} from "../../business/actions/driver";
-import {
-  driverGetByShipper,
-  vehiclesGetByShipper,
-} from "../../business/actions/shipper";
+import { ordersGetPendingOfferDetail, ordersAssignGroupDriver } from "../../business/actions/driver";
+import { driverGetByShipper, vehiclesGetByShipper } from "../../business/actions/shipper";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { Notifier, NotifierComponents } from "react-native-notifier";
@@ -39,15 +21,15 @@ const { width, height } = Dimensions.get("window");
 const CARD_WIDTH = width - 40;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const initialMapState = {
-  markers,
-  region: {
-    latitude: 22.62938671242907,
-    longitude: 88.4354486029795,
-    latitudeDelta: 0.04864195044303443,
-    longitudeDelta: 0.040142817690068,
-  },
-};
+// const initialMapState = {
+//   markers,
+//   region: {
+//     latitude: 22.62938671242907,
+//     longitude: 88.4354486029795,
+//     latitudeDelta: 0.04864195044303443,
+//     longitudeDelta: 0.040142817690068,
+//   },
+// };
 
 const AllCargoDetail = () => {
   const route = useRoute();
@@ -62,7 +44,7 @@ const AllCargoDetail = () => {
   let mapAnimation = new Animated.Value(0);
 
   const [isModalVisible, setModalVisible] = useState(false);
-  const [state, setState] = useState(initialMapState);
+  // const [state, setState] = useState(initialMapState);
 
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openDriver, setOpenDriver] = useState(false);
@@ -74,15 +56,8 @@ const AllCargoDetail = () => {
   const [vehicleSearch, setVehicleSearch] = useState("");
   const [vehicleList, setVehicleList] = useState([]);
 
-  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
-    useSelector((x) => x.driver);
-  const {
-    driverGetAllShipperResult,
-    driverGetAllShipperLoading,
-    vehiclesGetByShipperResult,
-    vehiclesGetByShipperLoading,
-    shipperLoginResult,
-  } = useSelector((x) => x.shipper);
+  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } = useSelector((x) => x.driver);
+  const { driverGetAllShipperResult, driverGetAllShipperLoading, vehiclesGetByShipperResult, vehiclesGetByShipperLoading, shipperLoginResult } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _handleGetOfferDetail();
@@ -93,9 +68,13 @@ const AllCargoDetail = () => {
 
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
+      if (ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps) {
+      } else {
+        return;
+      }
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= state.markers.length) {
-        index = state.markers.length - 1;
+      if (index >= ordersGetPendingOfferDetailResult.data.steps.length) {
+        index = ordersGetPendingOfferDetailResult.data.steps.length - 1;
       }
       if (index <= 0) {
         index = 0;
@@ -106,12 +85,16 @@ const AllCargoDetail = () => {
       const regionTimeout = setTimeout(() => {
         if (mapIndex !== index) {
           mapIndex = index;
-          const { coordinate } = state.markers[index];
+          const data = ordersGetPendingOfferDetailResult.data.steps[index].town;
+          const coordinate = {
+            latitude: parseFloat(marker.town.lat),
+            longitude: parseFloat(marker.town.lng),
+          };
           _map.current.animateToRegion(
             {
               ...coordinate,
-              latitudeDelta: state.region.latitudeDelta,
-              longitudeDelta: state.region.longitudeDelta,
+              latitudeDelta: coordinate.latitude,
+              longitudeDelta: coordinate.longitude,
             },
             350
           );
@@ -120,21 +103,21 @@ const AllCargoDetail = () => {
     });
   });
 
-  const interpolations = state.markers.map((marker, index) => {
-    const inputRange = [
-      (index - 1) * CARD_WIDTH,
-      index * CARD_WIDTH,
-      (index + 1) * CARD_WIDTH,
-    ];
+  // const interpolations = state.markers.map((marker, index) => {
+  //   const inputRange = [
+  //     (index - 1) * CARD_WIDTH,
+  //     index * CARD_WIDTH,
+  //     (index + 1) * CARD_WIDTH,
+  //   ];
 
-    const scale = mapAnimation.interpolate({
-      inputRange,
-      outputRange: [1, 1.5, 1],
-      extrapolate: "clamp",
-    });
+  //   const scale = mapAnimation.interpolate({
+  //     inputRange,
+  //     outputRange: [1, 1.5, 1],
+  //     extrapolate: "clamp",
+  //   });
 
-    return { scale };
-  });
+  //   return { scale };
+  // });
 
   const onMarkerPress = (mapEventData) => {
     const markerID = mapEventData._targetInst.return.key;
@@ -172,12 +155,7 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (driverGetAllShipperResult.data) {
         let searchDrivers = driverGetAllShipperResult.data.filter((x) => {
-          return (
-            x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) >
-              -1 ||
-            x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) >
-              -1
-          );
+          return x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
         });
         setDriverList(searchDrivers);
       }
@@ -197,10 +175,7 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (vehiclesGetByShipperResult.data) {
         let searchVehicles = vehiclesGetByShipperResult.data.filter((x) => {
-          return (
-            x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) >
-              -1 && x.vehicle.isApproved
-          );
+          return x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) > -1 && x.vehicle.isApproved;
         });
         setVehicleList(searchVehicles);
       }
@@ -264,43 +239,35 @@ const AllCargoDetail = () => {
     <View style={styles.container}>
       <MapView
         ref={_map}
-        initialRegion={state.region}
+        initialRegion={{
+          latitude: 22.62938671242907,
+          longitude: 88.4354486029795,
+          latitudeDelta: 0.04864195044303443,
+          longitudeDelta: 0.040142817690068,
+        }}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
         customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
       >
-        {ordersGetPendingOfferDetailResult &&
-        ordersGetPendingOfferDetailResult.data &&
-        ordersGetPendingOfferDetailResult.data.steps
-          ? ordersGetPendingOfferDetailResult.data.steps.map(
-              (marker, index) => {
-                // const scaleStyle = {
-                //   transform: [
-                //     {
-                //       scale: interpolations[index].scale,
-                //     },
-                //   ],
-                // };
-                const coordinate = {
-                  latitude: parseFloat(marker.town.lat),
-                  longitude: parseFloat(marker.town.lng),
-                };
-                return (
-                  <Marker
-                    key={index}
-                    coordinate={coordinate}
-                    onPress={(e) => onMarkerPress(e)}
-                    image={require("../../assets/Marker.png")}
-                  />
-                );
-              }
-            )
+        {ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
+          ? ordersGetPendingOfferDetailResult.data.steps.map((marker, index) => {
+              // const scaleStyle = {
+              //   transform: [
+              //     {
+              //       scale: interpolations[index].scale,
+              //     },
+              //   ],
+              // };
+              const coordinate = {
+                latitude: parseFloat(marker.town.lat),
+                longitude: parseFloat(marker.town.lng),
+              };
+              return <Marker key={index} coordinate={coordinate} onPress={(e) => onMarkerPress(e)} image={require("../../assets/Marker.png")} />;
+            })
           : null}
         <Polyline
           coordinates={
-            ordersGetPendingOfferDetailResult &&
-            ordersGetPendingOfferDetailResult.data &&
-            ordersGetPendingOfferDetailResult.data.steps
+            ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
               ? ordersGetPendingOfferDetailResult.data.steps.map((marker) => {
                   const coordinate = {
                     latitude: parseFloat(marker.town.lat),
@@ -318,10 +285,7 @@ const AllCargoDetail = () => {
       </MapView>
 
       <View style={styles.view}>
-        <TouchableOpacity
-          style={{ flex: 1, justifyContent: "center" }}
-          onPress={() => navigation.goBack()}
-        >
+        <TouchableOpacity style={{ flex: 1, justifyContent: "center" }} onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-circle" size={30} color={COLORS.text} />
         </TouchableOpacity>
 
@@ -354,8 +318,7 @@ const AllCargoDetail = () => {
           right: SPACING_FOR_CARD_INSET,
         }}
         contentContainerStyle={{
-          paddingHorizontal:
-            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
+          paddingHorizontal: Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
         }}
         onScroll={Animated.event(
           [
@@ -370,34 +333,30 @@ const AllCargoDetail = () => {
           { useNativeDriver: true }
         )}
       >
-        {ordersGetPendingOfferDetailResult &&
-        ordersGetPendingOfferDetailResult.data &&
-        ordersGetPendingOfferDetailResult.data.steps
-          ? ordersGetPendingOfferDetailResult.data.steps.map(
-              (marker, index) => (
-                <View style={styles.card} key={index}>
-                  <View style={styles.textContent}>
-                    <Text numberOfLines={1} style={styles.cardtitle}>
-                      Step {""}
-                      {marker.step.stepNumber}
-                    </Text>
+        {ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
+          ? ordersGetPendingOfferDetailResult.data.steps.map((marker, index) => (
+              <View style={styles.card} key={index}>
+                <View style={styles.textContent}>
+                  <Text numberOfLines={1} style={styles.cardtitle}>
+                    Step {""}
+                    {marker.step.stepNumber}
+                  </Text>
 
-                    <View style={styles.divider} />
+                  <View style={styles.divider} />
 
-                    <Text numberOfLines={1} style={styles.cardDescription}>
-                      {marker.step.address}
-                    </Text>
+                  <Text numberOfLines={1} style={styles.cardDescription}>
+                    {marker.step.address}
+                  </Text>
 
-                    {/* <TouchableOpacity
+                  {/* <TouchableOpacity
                         style={styles.action1}
                         onPress={toggleModal}
                       >
                         <Text style={styles.btnText}>Teklifi Al</Text>
                       </TouchableOpacity> */}
-                  </View>
                 </View>
-              )
-            )
+              </View>
+            ))
           : null}
       </Animated.ScrollView>
       <Modal isVisible={isModalVisible}>
@@ -407,10 +366,7 @@ const AllCargoDetail = () => {
               <AntDesign name="closecircleo" size={30} />
             </TouchableOpacity>
 
-            <Image
-              source={require("../../assets/shipgeldiLogo-v03-1.png")}
-              style={{ width: 200, resizeMode: "cover" }}
-            />
+            <Image source={require("../../assets/shipgeldiLogo-v03-1.png")} style={{ width: 200, resizeMode: "cover" }} />
           </View>
           <Text
             style={[
@@ -442,9 +398,7 @@ const AllCargoDetail = () => {
             keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
             data={openDriver && driverList}
-            renderItem={({ item }) => (
-              <DriverItem item={item} onPress={_handleChooseDriver} />
-            )}
+            renderItem={({ item }) => <DriverItem item={item} onPress={_handleChooseDriver} />}
           />
           <Text
             style={[
@@ -474,15 +428,10 @@ const AllCargoDetail = () => {
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={openVehicle && vehicleList}
-            renderItem={({ item }) => (
-              <VehicleItem item={item} onPress={_handleChooseVehicle} />
-            )}
+            renderItem={({ item }) => <VehicleItem item={item} onPress={_handleChooseVehicle} />}
           />
 
-          <TouchableOpacity
-            onPress={_handleApprovedContract}
-            style={styles.btnGonder}
-          >
+          <TouchableOpacity onPress={_handleApprovedContract} style={styles.btnGonder}>
             <Text style={styles.btnText}>Teklifi Kabul Et</Text>
           </TouchableOpacity>
         </View>
@@ -497,11 +446,7 @@ export default AllCargoDetail;
 
 const DriverItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity
-      key={item.driver.id.toString()}
-      onPress={() => onPress(item)}
-      style={styles.actionSearch}
-    >
+    <TouchableOpacity key={item.driver.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
       <Text>
         {item.driver.firstname} {item.driver.lastname}
       </Text>
@@ -511,11 +456,7 @@ const DriverItem = ({ item, onPress }) => {
 
 const VehicleItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity
-      key={item.model.id.toString()}
-      onPress={() => onPress(item)}
-      style={styles.actionSearch}
-    >
+    <TouchableOpacity key={item.model.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
       <Text>
         {item.model.modelName} {item.type.typeName}
       </Text>

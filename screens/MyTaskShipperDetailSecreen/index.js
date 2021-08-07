@@ -1,25 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  TouchableOpacity,
-  View,
-  Dimensions,
-  RefreshControl,
-  ScroolView,
-} from "react-native";
+import { StyleSheet, Text, ActivityIndicator, FlatList, TouchableOpacity, View, Dimensions, RefreshControl, Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-import { shipperOrdersgetById } from "../../business/actions/shipper";
+import { shipperOrdersgetById, shipperOrdersPıckup } from "../../business/actions/shipper";
 import { Container, Content } from "native-base";
-import {
-  MaterialCommunityIcons,
-  Feather,
-  Fontisto,
-  Ionicons,
-} from "react-native-vector-icons";
+import { MaterialCommunityIcons, Feather, Fontisto, Ionicons } from "react-native-vector-icons";
 import { Modalize } from "react-native-modalize";
 import Layout from "../../components/Layout";
 import { Divider } from "react-native-paper";
@@ -34,15 +19,74 @@ const MyTaskShipperDetailSecreen = () => {
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
 
-  const { shipperOrdersGetByIdResult, shipperOrdersGetByIdLoading } =
-    useSelector((x) => x.shipper);
+  const { shipperOrdersGetByIdResult, shipperOrdersGetByIdLoading } = useSelector((x) => x.shipper);
+  const { shipperLoginResult } = useSelector((x) => x.shipper);
+
   useEffect(() => {
     _getShipperTaskDetail();
     return () => {};
   }, [route.params.orderDetail.orderID]);
 
   const _getShipperTaskDetail = async () => {
-    dispatch(shipperOrdersgetById(route.params.orderDetail.orderID));
+    dispatch(shipperOrdersgetById(route.params.orderDetail.orderID)).then(({ payload: { data } }) => {
+      if (data && data.data && data.data.status == 10 && route.params.autoPickUp) {
+        Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
+          {
+            text: "İptal",
+            style: "cancel",
+          },
+          {
+            text: "Teslim al",
+            onPress: () => {
+              let shipperId = 0;
+              if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.shipper && shipperLoginResult.data.shipper) {
+                shipperId = shipperLoginResult.data.shipper.id;
+              }
+              dispatch(
+                shipperOrdersPıckup({
+                  OrderID: route.params.orderDetail.orderID,
+                  ShipperID: shipperId,
+                  qrcode: route.params.qrcode,
+                  //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
+                  // DriverID: data.data.driverid
+                })
+              );
+            },
+          },
+        ]);
+      }
+    });
+  };
+
+  const _handlePickUp = () => {
+    if (data && data.data && data.data.status == 10 && route.params.qrCodeScreen && autoPickUp) {
+      Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
+        {
+          text: "İptal",
+          style: "cancel",
+        },
+        {
+          text: "Teslim al",
+          onPress: () => {
+            let shipperId = 0;
+            if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.shipper && shipperLoginResult.data.shipper) {
+              shipperId = shipperLoginResult.data.shipper.id;
+            }
+            dispatch(
+              shipperOrdersPıckup({
+                OrderID: route.params.orderDetail.orderID,
+                ShipperID: shipperId,
+                qrcode: route.params.qrcode,
+                //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
+                // DriverID: data.data.driverid
+              })
+            );
+          },
+        },
+      ]);
+    } else if (data && data.data && data.data.status == 10) {
+      navigation.navigate("BarCodeScanner", { autoPickUp: true });
+    }
   };
 
   const { width, height } = Dimensions.get("window");
@@ -66,36 +110,33 @@ const MyTaskShipperDetailSecreen = () => {
                   fontSize: 20,
                 }}
               >
-                {shipperOrdersGetByIdResult &&
-                  shipperOrdersGetByIdResult.data.price}{" "}
-                ₺
+                {shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.price} ₺
               </Text>
-              <TouchableOpacity
-                style={{
-                  marginHorizontal: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#F1F2F4",
-                  padding: 10,
-                  borderRadius: 5,
-                  flexDirection: "row",
-                }}
-              >
-                <MaterialCommunityIcons
-                  name="truck-check"
-                  size={20}
-                  style={{ marginHorizontal: 10 }}
-                />
-                <Text
+              {shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.status && shipperOrdersGetByIdResult.data.status == 10 ? (
+                <TouchableOpacity
                   style={{
-                    fontWeight: "bold",
-                    fontSize: 20,
-                    color: COLORS.text,
+                    marginHorizontal: 5,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#F1F2F4",
+                    padding: 10,
+                    borderRadius: 5,
+                    flexDirection: "row",
                   }}
+                  onPress={_handlePickUp}
                 >
-                  Teslim Al
-                </Text>
-              </TouchableOpacity>
+                  <MaterialCommunityIcons name="truck-check" size={20} style={{ marginHorizontal: 10 }} />
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      color: COLORS.text,
+                    }}
+                  >
+                    Teslim Al
+                  </Text>
+                </TouchableOpacity>
+              ) : null}
             </View>
             <View style={styles.container}>
               <MaterialCommunityIcons name="tooltip-account" size={30} />
@@ -106,24 +147,15 @@ const MyTaskShipperDetailSecreen = () => {
                 <Text style={styles.baslik}>Ad Soyad</Text>
                 <Text style={styles.title}>
                   {" "}
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.firtname}{" "}
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.lastname}{" "}
+                  {shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.firtname} {shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.lastname}{" "}
                 </Text>
                 <Divider />
                 <Text style={styles.baslik}>Cep Telefonu</Text>
-                <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.phoneNumber}
-                </Text>
+                <Text style={styles.title}>{shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.phoneNumber}</Text>
 
                 <Divider />
                 <Text style={styles.baslik}>Adres</Text>
-                <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.endAddress}
-                </Text>
+                <Text style={styles.title}>{shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.endAddress}</Text>
                 <Divider />
               </View>
             </View>
@@ -135,17 +167,11 @@ const MyTaskShipperDetailSecreen = () => {
             <View style={styles.list}>
               <View style={{ marginHorizontal: 20 }}>
                 <Text style={styles.baslik}>Şirket Ünvanı</Text>
-                <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.sellerCompanyName}{" "}
-                </Text>
+                <Text style={styles.title}>{shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.sellerCompanyName} </Text>
                 <Divider />
 
                 <Text style={styles.baslik}>Adres</Text>
-                <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.startAddress}{" "}
-                </Text>
+                <Text style={styles.title}>{shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startAddress} </Text>
                 <Divider />
               </View>
             </View>
@@ -177,81 +203,43 @@ const MyTaskShipperDetailSecreen = () => {
                 provider={PROVIDER_GOOGLE}
                 style={StyleSheet.absoluteFillObject}
                 initialRegion={{
-                  latitude: parseFloat(
-                    shipperOrdersGetByIdResult &&
-                      shipperOrdersGetByIdResult.data.startLat
-                  ),
-                  longitude: parseFloat(
-                    shipperOrdersGetByIdResult &&
-                      shipperOrdersGetByIdResult.data.startLng
-                  ),
+                  latitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startLat),
+                  longitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startLng),
                   latitudeDelta: 0.01,
                   longitudeDelta: 0.01 * ASPECT_RATIO,
                 }}
               >
                 <Marker
                   coordinate={{
-                    latitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.startLat
-                    ),
-                    longitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.startLng
-                    ),
+                    latitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startLat),
+                    longitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startLng),
                   }}
                   title="Gönderici"
                 >
                   <View>
-                    <Fontisto
-                      name="map-marker-alt"
-                      size={30}
-                      style={{ color: COLORS.primary }}
-                    />
+                    <Fontisto name="map-marker-alt" size={30} style={{ color: COLORS.primary }} />
                   </View>
                 </Marker>
                 <Marker
                   coordinate={{
-                    latitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.endLat
-                    ),
-                    longitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.endLng
-                    ),
+                    latitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.endLat),
+                    longitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.endLng),
                   }}
                   title="Alıcı"
                 >
                   <View style={styles.marker}>
-                    <Fontisto
-                      name="map-marker-alt"
-                      size={30}
-                      style={{ color: COLORS.primary }}
-                    />
+                    <Fontisto name="map-marker-alt" size={30} style={{ color: COLORS.primary }} />
                   </View>
                 </Marker>
                 <Polyline
                   coordinates={[
                     {
-                      latitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.startLat
-                      ),
-                      longitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.startLng
-                      ),
+                      latitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startLat),
+                      longitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.startLng),
                     },
                     {
-                      latitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.endLat
-                      ),
-                      longitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.endLng
-                      ),
+                      latitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.endLat),
+                      longitude: parseFloat(shipperOrdersGetByIdResult && shipperOrdersGetByIdResult.data.endLng),
                     },
                   ]}
                   strokeColor="#2d3651"

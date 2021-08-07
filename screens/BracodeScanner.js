@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Alert,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { shipperOrdersGetOrdersIdByQrcode } from "../business/actions/shipper";
+import useStateWithCallback from "use-state-with-callback";
 
 const windowWidth = Dimensions.get("screen").width;
 const windowHeight = Dimensions.get("screen").height;
 
+let oncekiKarekod = "";
 const BracodeScanner = () => {
+  const route = useRoute();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [karekodOkunuyor, setKarekodOkunuyor] = useStateWithCallback(false, (newValue) => {
+    if (newValue) {
+      setTimeout(() => {
+        setKarekodOkunuyor(false);
+      }, 3000);
+    }
+  });
 
-  const {
-    shipperOrdersGetOrdersIdByQrCodeResult,
-    shipperOrdersGetOrdersIdByQrCodeLoading,
-  } = useSelector((x) => x.shipper);
+  const { shipperOrdersGetOrdersIdByQrCodeResult, shipperOrdersGetOrdersIdByQrCodeLoading } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     (async () => {
@@ -34,19 +34,24 @@ const BracodeScanner = () => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    if (setScanned == true) {
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    if (data && karekodOkunuyor === false && oncekiKarekod !== data) {
+      oncekiKarekod = data;
+      let qrCode = data;
+      setKarekodOkunuyor(true);
       dispatch(
         shipperOrdersGetOrdersIdByQrcode({
           qrcode: data,
         })
-      );
-    } else {
-      alert(`Tekrar Okunuz`);
-      setScanned(true);
+      ).then(({ payload: { data } }) => {
+        if (data && data.data) {
+          navigation.navigate("MyTaskShipperDetailScreen", { orderDetail: { orderID: data.data }, qrCodeScreen: true, qrcode: qrCode, autoPickUp: route.params.autoPickUp });
+        } else {
+          alert("data yok");
+        }
+      });
     }
   };
-  console.log(shipperOrdersGetOrdersIdByQrCodeResult);
+
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
@@ -59,10 +64,7 @@ const BracodeScanner = () => {
       {/* <LinearGradient style={styles.container} colors={["#f17915", "#f6b042"]}> */}
       {/* <StatusBar hidden /> */}
 
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={{ flex: 1 }}
-      />
+      <BarCodeScanner onBarCodeScanned={handleBarCodeScanned} style={{ flex: 1 }} />
 
       <View
         style={[
