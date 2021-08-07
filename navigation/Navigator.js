@@ -8,7 +8,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 ///Screens
 import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import LoginScreen from "../screens/Login/LoginScreen";
-import CorpHomeScreen from "../screens/HomeScreen/CorpHomeScreen";
+import CorpHomeScreen from "../screens/ShipperHomeScreen/CorpHomeScreen";
+import DriverHomeScreen from "../screens/DriverHomeScreen/index";
 import DriverScreen from "../screens/DriverScreen/DriverScreen";
 import OtpScreens from "../screens/OtpScreen/OtpScreens";
 import AllCargoScreen from "../screens/AllCargoScreen/AllCargoScreen";
@@ -27,8 +28,10 @@ import CreateDriver from "../screens/CreateDriver/createDriver";
 import CreateVehicles from "../screens/CreateVehicles/CreateVehicles";
 import OffersDetailScreen from "../screens/OffersDetailScreen";
 import MyTaskShipperDetailScreen from "../screens/MyTaskShipperDetailSecreen";
+import MyTaskDriverDetailScreen from "../screens/MyTaskDriverDetailScreen";
 import BarCodeScanner from "../screens/BracodeScanner";
 import DriverLogin from "../screens/LoginDriver";
+
 const LoginStack = createStackNavigator();
 
 const LoginNavigator = () => {
@@ -47,9 +50,6 @@ const LoginNavigator = () => {
 const HomeStack = createDrawerNavigator();
 
 const HomeNavigator = () => {
-  const dispatch = useDispatch();
-  const { shipperLoginResult } = useSelector((x) => x.shipper);
-
   return (
     <HomeStack.Navigator
       headerMode="none"
@@ -57,7 +57,7 @@ const HomeNavigator = () => {
       drawerStyle={{ width: "75%" }}
     >
       <HomeStack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
-      {/* <HomeNavigator.Screen name="DrawerScreen" component={DrawerScreen} /> */}
+
       <HomeStack.Screen name="DriverScreen" component={DriverScreen} />
       <HomeStack.Screen name="AllCargoScreen" component={AllCargoScreen} />
       <HomeStack.Screen name="AllCargoDetail" component={AllCargoDetail} />
@@ -95,6 +95,20 @@ const HomeNavigator = () => {
   );
 };
 
+const DriverHome = createStackNavigator();
+
+const DriverHomeNavigator = () => {
+  return (
+    <DriverHome.Navigator headerMode="none">
+      <DriverHome.Screen name="DriverHomeScreen" component={DriverHomeScreen} />
+      <DriverHome.Screen
+        name="MyTaskDriverDetailScreen"
+        component={MyTaskDriverDetailScreen}
+      />
+    </DriverHome.Navigator>
+  );
+};
+
 const Stack = createStackNavigator();
 
 export default function Navigator() {
@@ -106,19 +120,8 @@ export default function Navigator() {
       >
         <Stack.Screen name="LoginScreen" component={LoginNavigator} />
         <Stack.Screen name="MainScreen" component={HomeNavigator} />
+        <Stack.Screen name="MainDriverScreen" component={DriverHomeNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-// const Drawer = createDrawerNavigator();
-
-// const DrawerScreen = () => {
-//   return (
-//     <Drawer.Navigator
-//       drawerContent={(props) => <DrawerContent {...props} />}
-//       drawerStyle={{ width: "75%" }}
-//     >
-//       <Drawer.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
-//     </Drawer.Navigator>
-//   );
-// };

@@ -14,6 +14,9 @@ import {
   DRIVER_LOGIN,
   DRIVER_LOGIN_SUCCESS,
   DRIVER_LOGIN_FAIL,
+  DRIVER_ORDERS_GET_BY_ID,
+  DRIVER_ORDERS_GET_BY_ID_SUCCESS,
+  DRIVER_ORDERS_GET_BY_ID_FAIL,
 } from "../types/driver";
 
 const INITIAL_STATE = {
@@ -36,6 +39,10 @@ const INITIAL_STATE = {
   driverLoginLoading: false,
   driverLoginResult: {},
   driverLoginFail: false,
+
+  driverOrdersGetByIdLoading: false,
+  driverOrdersGetByIdResult: {},
+  driverOrdersGetByIdFail: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -150,6 +157,27 @@ export default (state = INITIAL_STATE, action) => {
         driverLoginFail: true,
       };
 
+    case DRIVER_ORDERS_GET_BY_ID:
+      return {
+        ...state,
+        driverOrdersGetByIdLoading: true,
+        driverOrdersGetByIdResult: {},
+        driverOrdersGetByIdFail: false,
+      };
+    case DRIVER_ORDERS_GET_BY_ID_SUCCESS:
+      return {
+        ...state,
+        driverOrdersGetByIdLoading: false,
+        driverOrdersGetByIdResult: action.payload.data,
+        driverOrdersGetByIdFail: false,
+      };
+    case DRIVER_ORDERS_GET_BY_ID_FAIL:
+      return {
+        ...state,
+        driverOrdersGetByIdLoading: false,
+        driverOrdersGetByIdResult: {},
+        driverOrdersGetByIdFail: true,
+      };
     default:
       return { ...state };
   }

@@ -1,101 +1,186 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Image,
   FlatList,
-  ActivityIndicator,
+  TouchableOpacity,
+  RefreshControl,
+  Image,
+  SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import COLORS from "../../constans/colors";
-import { ListItem } from "react-native-elements";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import {
+  FontAwesome5,
+  FontAwesome,
+  MaterialCommunityIcons,
+  Ionicons,
+} from "react-native-vector-icons";
+
+import { ListItem, Divider } from "react-native-elements";
 import Layout from "../../components/Layout";
 import { driverOrdersGetAllMyOrders } from "../../business/actions/driver";
 import styles from "./styles";
 
 const MyTaskScreen = () => {
+  const isFocus = useIsFocused();
+  const pageNumber = useRef(-1);
   const navigation = useNavigation();
-  const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const [dataList, setDataList] = useState([]);
 
-  // const {
-  //   driverOrdersGetAllMyOrdersResult,
-  //   driverOrdersGetAllMyOrdersLoading,
-  // } = useSelector((x) => x.driver);
+  useEffect(() => {
+    if (!isFocus) {
+      pageNumber.current = -1;
+      setDataList([]);
+    } else {
+      _getDriverTask();
+    }
+    return () => {};
+  }, [isFocus]);
 
-  // useEffect(() => {
-  //   _getShipperTask();
-  //   return () => {};
-  // }, []);
-
-  // const _getShipperTask = async () => {
-  //   dispatch(driverOrdersGetAllMyOrders(0)).then((x) => {
-  //     console.log(x);
-  //   });
-  // };
+  const _getDriverTask = async () => {
+    const nextPage = pageNumber.current + 1;
+    pageNumber.current = nextPage;
+    dispatch(driverOrdersGetAllMyOrders(nextPage)).then(
+      ({ payload: { data } }) => {
+        if (
+          data &&
+          data.data &&
+          data.data.length != undefined &&
+          data.data.length > 0
+        ) {
+          setDataList([...dataList, ...data.data]);
+        }
+      }
+    );
+  };
+  const { driverOrdersGetAllMyOrdersLoading } = useSelector((x) => x.driver);
 
   return (
-    <Layout isBackIcon title="Görevlerim">
-      <Text>Driver</Text>
-
-      {/* <FlatList
-        data={driverOrdersGetAllMyOrdersResult}
-        keyExtractor={(item, index) => index.toString()}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+      <View style={styles.menu}>
+        <View></View>
+        <Image
+          source={require("../../assets/shipgeldiLogo-v03-1.png")}
+          style={{ width: 140, resizeMode: "contain" }}
+        />
+        <TouchableOpacity>
+          <MaterialCommunityIcons name="qrcode-scan" size={20} />
+        </TouchableOpacity>
+      </View>
+      <Divider />
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            tintColor={COLORS.primary}
+            refreshing={driverOrdersGetAllMyOrdersLoading}
+            onRefresh={_getDriverTask}
+          />
+        }
+        data={dataList}
+        keyExtractor={(item) => item.orderID.toString()}
         renderItem={({ item }) => <RenderList item={item} />}
-      /> */}
-    </Layout>
-  );
-};
-const renderItem = ({ item }) => {
-  return (
-    <View style={styles.itemWrapperStyle}>
-      <Text>dsasdasa</Text>
-      {/* <Image
-        style={styles.itemImageStyle}
-        source={{ uri: item.picture.large }}
+        onEndReached={_getDriverTask}
       />
-      <View style={styles.contentWrapperStyle}>
-        <Text
-          style={styles.txtNameStyle}
-        >{`${item.name.title} ${item.name.first} ${item.name.last}`}</Text>
-        <Text style={styles.txtEmailStyle}>{item.email}</Text>
-      </View> */}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const RenderList = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.listContainer}
-      onPress={() => navigation.navigate("CreateDriver", item)}
-    >
-      <ListItem bottomDivider>
-        {/* {item.driver.isApproved ? (
-          item.driver.gender == true ? (
-            <Fontisto name="male" color={COLORS.gray} size={30} />
-          ) : (
-            <Fontisto name="female" color={COLORS.gray} size={30} />
-          )
-        ) : (
-          <AntDesign name="hourglass" size={24} color={COLORS.primary} />
-        )} */}
+    <View>
+      <TouchableOpacity
+        style={styles.listGrupContainer}
+        onPress={() =>
+          navigation.navigate("MyTaskDriverDetailScreen", {
+            orderDetail: item,
+          })
+        }
+      >
+        <ListItem bottomDivider>
+          <View>
+            <View style={styles.locationContainer}>
+              <Ionicons name="ios-location" size={24} color={COLORS.primary} />
+              <Text style={{ fontWeight: "bold" }}>
+                {" "}
+                Çıkış :{" "}
+                <Text style={{ color: COLORS.gray }}>
+                  {item.startAddress}
+                </Text>{" "}
+              </Text>
+            </View>
+            <Ionicons
+              name="ios-ellipsis-vertical-outline"
+              size={24}
+              color={COLORS.primary}
+            />
+            <View style={styles.address}>
+              <Ionicons
+                name="locate-outline"
+                size={24}
+                color={COLORS.primary}
+              />
+              <Text style={styles.txt}>
+                {" "}
+                Varış :{" "}
+                <Text style={{ color: COLORS.gray }}>{item.endAddress}</Text>
+              </Text>
+            </View>
+          </View>
 
-        <ListItem.Content>
-          <ListItem.Title>
-            {/* {item.driver.firstname} {item.driver.lastname}{" "} */}
-            {/* {item.driver.isApproved ? "Onaylı" : "Onaysız"} */}
-          </ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
-    </TouchableOpacity>
+          <ListItem.Content>
+            <Text></Text>
+          </ListItem.Content>
+          <View style={styles.durumContainer}>
+            <View
+              style={[
+                styles.durumColor,
+                {
+                  backgroundColor:
+                    item.status === 20
+                      ? "#0866C6"
+                      : item.status === 30
+                      ? "#F49917"
+                      : item.status === 40
+                      ? "#23BF08"
+                      : item.status === 50
+                      ? "#DC3545"
+                      : "#23BF08",
+
+                  borderColor:
+                    item.status === 20
+                      ? "#DC3545"
+                      : item.status === 30
+                      ? "#F49917"
+                      : item.status === 40
+                      ? "#6c757d"
+                      : item.status === 50
+                      ? "#0866C6"
+                      : "#23BF08",
+                },
+              ]}
+            >
+              <Text style={styles.durum}>
+                {item.status === 20
+                  ? "Bekliyor"
+                  : item.status === 30
+                  ? "Yolda"
+                  : item.status === 40
+                  ? "Teslim"
+                  : item.status === 50
+                  ? "İptal"
+                  : "Boşta"}
+              </Text>
+            </View>
+            {/* <ListItem.Title style={styles.price}>{item.price} ₺</ListItem.Title> */}
+          </View>
+        </ListItem>
+      </TouchableOpacity>
+    </View>
   );
 };
 export default MyTaskScreen;

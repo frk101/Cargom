@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-import { shipperOrdersgetById } from "../../business/actions/shipper";
+import { driverOrdersGetById } from "../../business/actions/driver";
 import { Container, Content } from "native-base";
 import {
   MaterialCommunityIcons,
@@ -28,75 +28,33 @@ import COLORS from "../../constans/colors";
 import styles from "./styles";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 
-const MyTaskShipperDetailSecreen = () => {
+const MyTaskDriverDetailScreen = () => {
   const dispatch = useDispatch();
   const route = useRoute();
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
 
-  const { shipperOrdersGetByIdResult, shipperOrdersGetByIdLoading } =
-    useSelector((x) => x.shipper);
+  const { driverOrdersGetByIdResult, driverOrdersGetByIdLoading } = useSelector(
+    (x) => x.driver
+  );
   useEffect(() => {
-    _getShipperTaskDetail();
+    _getDriverTaskDetail();
     return () => {};
   }, [route.params.orderDetail.orderID]);
 
-  const _getShipperTaskDetail = async () => {
-    dispatch(shipperOrdersgetById(route.params.orderDetail.orderID));
+  const _getDriverTaskDetail = async () => {
+    dispatch(driverOrdersGetById(route.params.orderDetail.orderID));
   };
 
   const { width, height } = Dimensions.get("window");
   const ASPECT_RATIO = width / height;
-
-  // if (shipperOrdersGetByIdLoading) return <ActivityIndicator />;
   return (
     <Layout title="Görev Detay">
-      {shipperOrdersGetByIdResult.data == undefined ? (
+      {driverOrdersGetByIdResult.data == undefined ? (
         <ActivityIndicator size="large" color={COLORS.primary} />
       ) : (
         <Container>
           <Content style={{ backgroundColor: "#F1F2F4" }}>
-            <View style={styles.listPrice}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  marginHorizontal: 5,
-                  color: COLORS.text,
-                  fontSize: 20,
-                }}
-              >
-                {shipperOrdersGetByIdResult &&
-                  shipperOrdersGetByIdResult.data.price}{" "}
-                ₺
-              </Text>
-              <TouchableOpacity
-                style={{
-                  marginHorizontal: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#F1F2F4",
-                  padding: 10,
-                  borderRadius: 5,
-                  flexDirection: "row",
-                }}
-              >
-                <MaterialCommunityIcons
-                  name="truck-check"
-                  size={20}
-                  style={{ marginHorizontal: 10 }}
-                />
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 20,
-                    color: COLORS.text,
-                  }}
-                >
-                  Teslim Al
-                </Text>
-              </TouchableOpacity>
-            </View>
             <View style={styles.container}>
               <MaterialCommunityIcons name="tooltip-account" size={30} />
               <Text style={styles.txtBaslik}>Alıcı Bilgileri</Text>
@@ -106,23 +64,23 @@ const MyTaskShipperDetailSecreen = () => {
                 <Text style={styles.baslik}>Ad Soyad</Text>
                 <Text style={styles.title}>
                   {" "}
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.firtname}{" "}
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.lastname}{" "}
+                  {driverOrdersGetByIdResult &&
+                    driverOrdersGetByIdResult.data.firtname}{" "}
+                  {driverOrdersGetByIdResult &&
+                    driverOrdersGetByIdResult.data.lastname}{" "}
                 </Text>
                 <Divider />
                 <Text style={styles.baslik}>Cep Telefonu</Text>
                 <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.phoneNumber}
+                  {driverOrdersGetByIdResult &&
+                    driverOrdersGetByIdResult.data.phoneNumber}
                 </Text>
 
                 <Divider />
                 <Text style={styles.baslik}>Adres</Text>
                 <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.endAddress}
+                  {driverOrdersGetByIdResult &&
+                    driverOrdersGetByIdResult.data.endAddress}
                 </Text>
                 <Divider />
               </View>
@@ -136,15 +94,15 @@ const MyTaskShipperDetailSecreen = () => {
               <View style={{ marginHorizontal: 20 }}>
                 <Text style={styles.baslik}>Şirket Ünvanı</Text>
                 <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.sellerCompanyName}{" "}
+                  {driverOrdersGetByIdResult &&
+                    driverOrdersGetByIdResult.data.sellerCompanyName}{" "}
                 </Text>
                 <Divider />
 
                 <Text style={styles.baslik}>Adres</Text>
                 <Text style={styles.title}>
-                  {shipperOrdersGetByIdResult &&
-                    shipperOrdersGetByIdResult.data.startAddress}{" "}
+                  {driverOrdersGetByIdResult &&
+                    driverOrdersGetByIdResult.data.startAddress}{" "}
                 </Text>
                 <Divider />
               </View>
@@ -178,12 +136,12 @@ const MyTaskShipperDetailSecreen = () => {
                 style={StyleSheet.absoluteFillObject}
                 initialRegion={{
                   latitude: parseFloat(
-                    shipperOrdersGetByIdResult &&
-                      shipperOrdersGetByIdResult.data.startLat
+                    driverOrdersGetByIdResult &&
+                      driverOrdersGetByIdResult.data.startLat
                   ),
                   longitude: parseFloat(
-                    shipperOrdersGetByIdResult &&
-                      shipperOrdersGetByIdResult.data.startLng
+                    driverOrdersGetByIdResult &&
+                      driverOrdersGetByIdResult.data.startLng
                   ),
                   latitudeDelta: 0.01,
                   longitudeDelta: 0.01 * ASPECT_RATIO,
@@ -192,12 +150,12 @@ const MyTaskShipperDetailSecreen = () => {
                 <Marker
                   coordinate={{
                     latitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.startLat
+                      driverOrdersGetByIdResult &&
+                        driverOrdersGetByIdResult.data.startLat
                     ),
                     longitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.startLng
+                      driverOrdersGetByIdResult &&
+                        driverOrdersGetByIdResult.data.startLng
                     ),
                   }}
                   title="Gönderici"
@@ -213,12 +171,12 @@ const MyTaskShipperDetailSecreen = () => {
                 <Marker
                   coordinate={{
                     latitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.endLat
+                      driverOrdersGetByIdResult &&
+                        driverOrdersGetByIdResult.data.endLat
                     ),
                     longitude: parseFloat(
-                      shipperOrdersGetByIdResult &&
-                        shipperOrdersGetByIdResult.data.endLng
+                      driverOrdersGetByIdResult &&
+                        driverOrdersGetByIdResult.data.endLng
                     ),
                   }}
                   title="Alıcı"
@@ -235,22 +193,22 @@ const MyTaskShipperDetailSecreen = () => {
                   coordinates={[
                     {
                       latitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.startLat
+                        driverOrdersGetByIdResult &&
+                          driverOrdersGetByIdResult.data.startLat
                       ),
                       longitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.startLng
+                        driverOrdersGetByIdResult &&
+                          driverOrdersGetByIdResult.data.startLng
                       ),
                     },
                     {
                       latitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.endLat
+                        driverOrdersGetByIdResult &&
+                          driverOrdersGetByIdResult.data.endLat
                       ),
                       longitude: parseFloat(
-                        shipperOrdersGetByIdResult &&
-                          shipperOrdersGetByIdResult.data.endLng
+                        driverOrdersGetByIdResult &&
+                          driverOrdersGetByIdResult.data.endLng
                       ),
                     },
                   ]}
@@ -260,19 +218,6 @@ const MyTaskShipperDetailSecreen = () => {
                   lineDashPattern={[40, 40]}
                 />
               </MapView>
-              <TouchableOpacity
-                style={{
-                  margin: 20,
-                  backgroundColor: COLORS.text,
-                  width: 100,
-                  height: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: 20,
-                }}
-              >
-                <Text style={{ color: "#fff" }}>YoL Tarifi Al</Text>
-              </TouchableOpacity>
             </View>
           </Modalize>
         </Container>
@@ -281,4 +226,4 @@ const MyTaskShipperDetailSecreen = () => {
   );
 };
 
-export default MyTaskShipperDetailSecreen;
+export default MyTaskDriverDetailScreen;

@@ -9,6 +9,8 @@ import {
   DRIVER_ORDERS_GET_ALL_MY_ORDERS_URL,
   DRIVER_LOGIN,
   DRIVER_LOGIN_URL,
+  DRIVER_ORDERS_GET_BY_ID,
+  DRIVER_ORDERS_GET_BY_ID_URL,
 } from "../types/driver";
 
 export function ordersGetAllPendingOffers(params) {
@@ -68,6 +70,16 @@ export function driverLogin(userModel) {
         method: "POST",
         url: DRIVER_LOGIN_URL,
         data: userModel,
+      },
+    },
+  };
+}
+export function driverOrdersGetById(orderId) {
+  return {
+    type: DRIVER_ORDERS_GET_BY_ID,
+    payload: {
+      request: {
+        url: `${DRIVER_ORDERS_GET_BY_ID_URL}/${orderId}`,
       },
     },
   };

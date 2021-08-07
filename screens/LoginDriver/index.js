@@ -40,7 +40,7 @@ const LoginScreen = () => {
         } catch (e) {
           // saving error
         }
-        navigation.navigate("MainScreen");
+        navigation.navigate("MainDriverScreen");
       } else {
         let message = "Giriş işlemi sırasında bir hata oluştu.";
         if (data.message) {

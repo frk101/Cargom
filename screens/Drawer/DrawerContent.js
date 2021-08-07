@@ -143,7 +143,11 @@ export function DrawerContent(props) {
                 />
               )}
               label="Çıkış Yap"
-              labelStyle={{ fontSize: 15, fontWeight: "bold", marginLeft: -20 }}
+              labelStyle={{
+                fontSize: 15,
+                fontWeight: "bold",
+                marginLeft: -20,
+              }}
               onPress={() => navigation.navigate("SplashScreen")}
             />
           </Drawer.Section>

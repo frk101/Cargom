@@ -29,6 +29,9 @@ import {
   SHIPPER_ORDERS_PICKUP,
   SHIPPER_ORDERS_PICKUP_SUCCESS,
   SHIPPER_ORDERS_PICKUP_FAIL,
+  SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE,
+  SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_SUCCESS,
+  SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_FAIL,
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -62,6 +65,9 @@ const INITIAL_STATE = {
   shipperOrdersPickupLoading: false,
   shipperOrdersPickupResult: {},
   shipperOrdersPickupFail: false,
+  shipperOrdersGetOrdersIdByQrCodeLoading: false,
+  shipperOrdersGetOrdersIdByQrCodeResult: {},
+  shipperOrdersGetOrdersIdByQrCodeResult: false,
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -287,6 +293,28 @@ export default (state = INITIAL_STATE, action) => {
         shipperOrdersPickupLoading: false,
         shipperOrdersPickupResult: {},
         shipperOrdersPickupFail: true,
+      };
+
+    case SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE:
+      return {
+        ...state,
+        shipperOrdersGetOrdersIdByQrCodeLoading: true,
+        shipperOrdersGetOrdersIdByQrCodeResult: {},
+        shipperOrdersGetOrdersIdByQrCodeResult: false,
+      };
+    case SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_SUCCESS:
+      return {
+        ...state,
+        shipperOrdersGetOrdersIdByQrCodeLoading: false,
+        shipperOrdersGetOrdersIdByQrCodeResult: action.payload.data,
+        shipperOrdersGetOrdersIdByQrCodeResult: false,
+      };
+    case SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_FAIL:
+      return {
+        ...state,
+        shipperOrdersGetOrdersIdByQrCodeLoading: false,
+        shipperOrdersGetOrdersIdByQrCodeResult: {},
+        shipperOrdersGetOrdersIdByQrCodeResult: true,
       };
     default:
       return { ...state };

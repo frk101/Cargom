@@ -45,10 +45,9 @@ export default StyleSheet.create({
     flex: 1,
   },
   menu: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
     marginHorizontal: 15,
   },
   opacitys: {
@@ -107,43 +106,5 @@ export default StyleSheet.create({
   opacity: {
     width: 50,
     height: 50,
-  },
-  listGrupContainer: {
-    marginVertical: 10,
-    marginHorizontal: 10,
-    backgroundColor: "#ffffff",
-    // paddingBottom: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  durum: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  locationContainer: { flexDirection: "row", alignItems: "center" },
-  address: { flexDirection: "row", alignItems: "center" },
-  txt: { textAlign: "center", fontWeight: "bold" },
-  durumContainer: { justifyContent: "center", alignItems: "center" },
-  durumColor: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 90,
-    height: 50,
-    // padding: 10,
-    marginBottom: 5,
-    borderRadius: 5,
-  },
-  price: {
-    color: COLORS.primary,
-    fontWeight: "bold",
-    textAlign: "center",
   },
 });

@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-import { shipperOrdersPıckup } from "../business/actions/shipper";
-import { TouchableOpacity } from "react-native";
+import { shipperOrdersGetOrdersIdByQrcode } from "../business/actions/shipper";
 
 const windowWidth = Dimensions.get("screen").width;
 const windowHeight = Dimensions.get("screen").height;
@@ -15,9 +21,10 @@ const BracodeScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
-  // const { shipperOrdersPickupLoading, shipperOrdersPickupResult } = useSelector(
-  //   (x) => x.shipper
-  // );
+  const {
+    shipperOrdersGetOrdersIdByQrCodeResult,
+    shipperOrdersGetOrdersIdByQrCodeLoading,
+  } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     (async () => {
@@ -27,25 +34,25 @@ const BracodeScanner = () => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    if (setScanned == true) {
+      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      dispatch(
+        shipperOrdersGetOrdersIdByQrcode({
+          qrcode: data,
+        })
+      );
+    } else {
+      alert(`Tekrar Okunuz`);
+      setScanned(true);
+    }
   };
-
+  console.log(shipperOrdersGetOrdersIdByQrCodeResult);
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  // useEffect(() => {
-  //   _getPickup();
-  //   return () => {};
-  // }, []);
-
-  // const _getPickup = async () => {
-  //   dispatch(shipperOrdersPıckup());
-  // };
 
   return (
     <>

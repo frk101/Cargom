@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { driverCraete } from "../../business/actions/general";
 import styles from "./styles";
 import { Content } from "native-base";
+import { BottomNavigation } from "react-native-paper";
 
 export const dummyData = [
   {
@@ -60,13 +61,8 @@ export const dummyData = [
 ];
 
 const CorpHomeScreen = () => {
-  const dispatch = useDispatch();
-
-  const { shipperLoginResult } = useSelector((x) => x.shipper);
-
-  const { driverLoginResult } = useSelector((x) => x.driver);
-
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>

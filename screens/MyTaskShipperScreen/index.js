@@ -14,6 +14,7 @@ import {
   FontAwesome5,
   FontAwesome,
   MaterialCommunityIcons,
+  Ionicons,
 } from "react-native-vector-icons";
 import { ListItem } from "react-native-elements";
 import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
@@ -85,31 +86,84 @@ const RenderList = ({ item }) => {
         }
       >
         <ListItem bottomDivider>
-          <FontAwesome5 name="box-open" size={24} color={COLORS.primary} />
+          <View>
+            <View style={styles.locationContainer}>
+              <Ionicons name="ios-location" size={24} color={COLORS.primary} />
+              <Text style={{ fontWeight: "bold" }}>
+                {" "}
+                Çıkış :{" "}
+                <Text style={{ color: COLORS.gray }}>
+                  {item.startAddress}
+                </Text>{" "}
+              </Text>
+            </View>
+            <Ionicons
+              name="ios-ellipsis-vertical-outline"
+              size={24}
+              color={COLORS.primary}
+            />
+            <View style={styles.address}>
+              <Ionicons
+                name="locate-outline"
+                size={24}
+                color={COLORS.primary}
+              />
+              <Text style={styles.txt}>
+                {" "}
+                Varış :{" "}
+                <Text style={{ color: COLORS.gray }}>{item.endAddress}</Text>
+              </Text>
+            </View>
+          </View>
+
           <ListItem.Content>
-            <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
-              {item.startAddress}
-            </ListItem.Title>
-            <ListItem.Subtitle>{item.endAddress}</ListItem.Subtitle>
-            <ListItem.Title style={{ color: COLORS.text }}>
-              {item.orderNumber}
-            </ListItem.Title>
+            <Text></Text>
           </ListItem.Content>
-          <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
-            {item.price} ₺
-          </ListItem.Title>
+          <View style={styles.durumContainer}>
+            <View
+              style={[
+                styles.durumColor,
+                {
+                  backgroundColor:
+                    item.status === 20
+                      ? "#0866C6"
+                      : item.status === 30
+                      ? "#F49917"
+                      : item.status === 40
+                      ? "#23BF08"
+                      : item.status === 50
+                      ? "#DC3545"
+                      : "#23BF08",
+
+                  borderColor:
+                    item.status === 20
+                      ? "#DC3545"
+                      : item.statusy === 30
+                      ? "#F49917"
+                      : item.status === 40
+                      ? "#6c757d"
+                      : item.status === 50
+                      ? "#0866C6"
+                      : "#23BF08",
+                },
+              ]}
+            >
+              <Text style={styles.durum}>
+                {item.status === 20
+                  ? "Bekliyor"
+                  : item.status === 30
+                  ? "Yolda"
+                  : item.status === 40
+                  ? "Teslim"
+                  : item.status === 50
+                  ? "İptal"
+                  : "Boşta"}
+              </Text>
+            </View>
+            <ListItem.Title style={styles.price}>{item.price} ₺</ListItem.Title>
+          </View>
         </ListItem>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("MyTaskShipperDetailScreen", {
-            orderDetail: item,
-          })
-        }
-      >
-        <Text>Detayı Gör</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
