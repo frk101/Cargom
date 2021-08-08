@@ -4,6 +4,8 @@ import {
   TouchableOpacity,
   Modal,
   RefreshControl,
+  View,
+  Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
@@ -11,7 +13,13 @@ import { ListItem } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Content, Footer, FooterTab, Button } from "native-base";
 
-import { FontAwesome5, FontAwesome } from "react-native-vector-icons";
+import {
+  FontAwesome5,
+  FontAwesome,
+  MaterialCommunityIcons,
+  Ionicons,
+  AntDesign,
+} from "react-native-vector-icons";
 import { ordersGetAllPendingOffers } from "../../business/actions/driver";
 import Layout from "../../components/Layout";
 import Filter from "../../components/Filter";
@@ -45,47 +53,6 @@ const OffersScreeen = () => {
       isBackIcon
       right={<LayoutRight1 setOpenModal={setOpenModal} />}
     >
-      {/* <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[
-            aktifKey
-              ? { backgroundColor: COLORS.primary }
-              : { backgroundColor: "#ffffff" },
-            styles.leftButton,
-          ]}
-          onPress={() => PressData(true)}
-        >
-          <View style={{ alignSelf: "center" }}>
-            <Text
-              style={[
-                aktifKey ? { color: "#ffffff" } : { color: COLORS.primary },
-                styles.leftText,
-              ]}
-            >
-              Grup
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            aktifKey
-              ? { backgroundColor: "#ffffff" }
-              : { backgroundColor: COLORS.primary },
-            styles.rightButton,
-          ]}
-          onPress={() => PressData(false)}
-        >
-          <Text
-            style={[
-              aktifKey ? { color: COLORS.primary } : { color: "#ffffff" },
-              styles.textColor,
-            ]}
-          >
-            Tüm
-          </Text>
-        </TouchableOpacity>
-      </View> */}
-      {/* <Content> */}
       <FlatList
         refreshControl={
           <RefreshControl
@@ -132,52 +99,65 @@ const GrupCargo = ({ item }) => {
       }
     >
       <ListItem bottomDivider>
-        <FontAwesome5
-          name="box-open"
-          size={24}
-          color={item.group.isPriorityOffer ? COLORS.primary : "#8F9BB3"}
-        />
+        <View>
+          <View style={styles.locationContainer}>
+            <Ionicons name="ios-location" size={24} color={COLORS.primary} />
+            <Text style={{ fontWeight: "bold" }}>
+              {" "}
+              Çıkış :{" "}
+              <Text style={{ color: COLORS.gray }}>
+                {item.group.startAddress}
+              </Text>{" "}
+            </Text>
+          </View>
+          <Ionicons
+            name="ios-ellipsis-vertical-outline"
+            size={24}
+            color={COLORS.primary}
+          />
+          <View style={styles.address}>
+            <Ionicons name="locate-outline" size={24} color={COLORS.primary} />
+            <Text style={styles.txt}>
+              {" "}
+              Varış :{" "}
+              <Text style={{ color: COLORS.gray }}>
+                {" "}
+                {item.group.endAddress}
+              </Text>
+            </Text>
+          </View>
+          <View style={[styles.address, { marginTop: 10, marginLeft: 5 }]}>
+            <MaterialCommunityIcons name="highway" size={15} color="#404040" />
+            <Text style={[styles.txt, { marginLeft: 5 }]}>
+              <Text style={{ color: COLORS.gray, fontSize: 11 }}>
+                {" "}
+                {item.group.distance / 1000} KM
+              </Text>
+            </Text>
+          </View>
+        </View>
         <ListItem.Content>
-          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
-            {item.group.startAddress}
-          </ListItem.Title>
-          <ListItem.Subtitle>{item.group.endAddress}</ListItem.Subtitle>
-          <ListItem.Title style={{ color: COLORS.text }}>
-            {item.group.distance / 1000} Km
-          </ListItem.Title>
+          <Text></Text>
         </ListItem.Content>
-        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
-          {item.group.price} ₺
-        </ListItem.Title>
-      </ListItem>
-    </TouchableOpacity>
-  );
-};
-const AllCargo = ({ item }) => {
-  const navigation = useNavigation();
 
-  return (
-    <TouchableOpacity
-      style={styles.listContainer}
-      onPress={() => navigation.navigate("OffersDetailScreen", item)}
-    >
-      <ListItem bottomDivider>
-        <FontAwesome5 name={item.icon} size={24} color={item.color} />
-        <ListItem.Content>
-          <ListItem.Title style={{ color: COLORS.text, fontWeight: "bold" }}>
-            {item.name}
+        <View style={styles.durumContainer}>
+          {item.group.isPriorityOffer == true ? (
+            <View style={[styles.durumColor]}>
+              <Text style={styles.durum}>
+                <AntDesign name="star" size={18} /> Avantajlı
+              </Text>
+            </View>
+          ) : null}
+
+          <ListItem.Title style={styles.price}>
+            {item.group.price} ₺
           </ListItem.Title>
-          <ListItem.Title style={{ color: COLORS.text }}>
-            {item.km}
-          </ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Title style={{ color: COLORS.primary, fontWeight: "bold" }}>
-          {item.ücret}
-        </ListItem.Title>
+        </View>
       </ListItem>
     </TouchableOpacity>
   );
 };
+
 const LayoutRight1 = ({ setOpenModal }) => {
   const navigation = useNavigation();
 

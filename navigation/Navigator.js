@@ -102,9 +102,10 @@ const DriverHomeNavigator = () => {
     <DriverHome.Navigator headerMode="none">
       <DriverHome.Screen name="DriverHomeScreen" component={DriverHomeScreen} />
       <DriverHome.Screen
-        name="MyTaskDriverDetailScreen"
-        component={MyTaskDriverDetailScreen}
+        name="MyTaskShipperDetailScreen"
+        component={MyTaskShipperDetailScreen}
       />
+      <DriverHome.Screen name="BarCodeScanner" component={BarCodeScanner} />
     </DriverHome.Navigator>
   );
 };

@@ -45,7 +45,7 @@ const MyTaskDriverDetailScreen = () => {
   const _getDriverTaskDetail = async () => {
     dispatch(driverOrdersGetById(route.params.orderDetail.orderID));
   };
-
+  console.log(driverOrdersGetByIdResult);
   const { width, height } = Dimensions.get("window");
   const ASPECT_RATIO = width / height;
   return (

@@ -1,13 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Text, View, Dimensions, TouchableOpacity, FlatList, TextInput, Image, Platform, ScrollView, Animated, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+  Image,
+  Platform,
+  ScrollView,
+  Animated,
+  StyleSheet,
+} from "react-native";
 import { useRoute, useNavigation, useTheme } from "@react-navigation/native";
 
 import Modal from "react-native-modal";
 import { AntDesign } from "react-native-vector-icons";
 import COLORS from "../../constans/colors";
 
-import { ordersGetPendingOfferDetail, ordersAssignGroupDriver } from "../../business/actions/driver";
-import { driverGetByShipper, vehiclesGetByShipper } from "../../business/actions/shipper";
+import {
+  ordersGetPendingOfferDetail,
+  ordersAssignGroupDriver,
+} from "../../business/actions/driver";
+import {
+  driverGetByShipper,
+  vehiclesGetByShipper,
+} from "../../business/actions/shipper";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { Notifier, NotifierComponents } from "react-native-notifier";
@@ -56,8 +74,15 @@ const AllCargoDetail = () => {
   const [vehicleSearch, setVehicleSearch] = useState("");
   const [vehicleList, setVehicleList] = useState([]);
 
-  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } = useSelector((x) => x.driver);
-  const { driverGetAllShipperResult, driverGetAllShipperLoading, vehiclesGetByShipperResult, vehiclesGetByShipperLoading, shipperLoginResult } = useSelector((x) => x.shipper);
+  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
+    useSelector((x) => x.driver);
+  const {
+    driverGetAllShipperResult,
+    driverGetAllShipperLoading,
+    vehiclesGetByShipperResult,
+    vehiclesGetByShipperLoading,
+    shipperLoginResult,
+  } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     _handleGetOfferDetail();
@@ -68,7 +93,11 @@ const AllCargoDetail = () => {
 
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
-      if (ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps) {
+      if (
+        ordersGetPendingOfferDetailResult &&
+        ordersGetPendingOfferDetailResult.data &&
+        ordersGetPendingOfferDetailResult.data.steps
+      ) {
       } else {
         return;
       }
@@ -155,7 +184,12 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (driverGetAllShipperResult.data) {
         let searchDrivers = driverGetAllShipperResult.data.filter((x) => {
-          return x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 || x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+          return (
+            x.driver.firstname.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1 ||
+            x.driver.lastname.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1
+          );
         });
         setDriverList(searchDrivers);
       }
@@ -175,7 +209,10 @@ const AllCargoDetail = () => {
     if (searchText) {
       if (vehiclesGetByShipperResult.data) {
         let searchVehicles = vehiclesGetByShipperResult.data.filter((x) => {
-          return x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) > -1 && x.vehicle.isApproved;
+          return (
+            x.model.modelName.toLowerCase().indexOf(searchText.toLowerCase()) >
+              -1 && x.vehicle.isApproved
+          );
         });
         setVehicleList(searchVehicles);
       }
@@ -249,25 +286,38 @@ const AllCargoDetail = () => {
         provider={PROVIDER_GOOGLE}
         customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
       >
-        {ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
-          ? ordersGetPendingOfferDetailResult.data.steps.map((marker, index) => {
-              // const scaleStyle = {
-              //   transform: [
-              //     {
-              //       scale: interpolations[index].scale,
-              //     },
-              //   ],
-              // };
-              const coordinate = {
-                latitude: parseFloat(marker.town.lat),
-                longitude: parseFloat(marker.town.lng),
-              };
-              return <Marker key={index} coordinate={coordinate} onPress={(e) => onMarkerPress(e)} image={require("../../assets/Marker.png")} />;
-            })
+        {ordersGetPendingOfferDetailResult &&
+        ordersGetPendingOfferDetailResult.data &&
+        ordersGetPendingOfferDetailResult.data.steps
+          ? ordersGetPendingOfferDetailResult.data.steps.map(
+              (marker, index) => {
+                // const scaleStyle = {
+                //   transform: [
+                //     {
+                //       scale: interpolations[index].scale,
+                //     },
+                //   ],
+                // };
+                const coordinate = {
+                  latitude: parseFloat(marker.town.lat),
+                  longitude: parseFloat(marker.town.lng),
+                };
+                return (
+                  <Marker
+                    key={index}
+                    coordinate={coordinate}
+                    onPress={(e) => onMarkerPress(e)}
+                    image={require("../../assets/Marker.png")}
+                  />
+                );
+              }
+            )
           : null}
         <Polyline
           coordinates={
-            ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
+            ordersGetPendingOfferDetailResult &&
+            ordersGetPendingOfferDetailResult.data &&
+            ordersGetPendingOfferDetailResult.data.steps
               ? ordersGetPendingOfferDetailResult.data.steps.map((marker) => {
                   const coordinate = {
                     latitude: parseFloat(marker.town.lat),
@@ -285,15 +335,29 @@ const AllCargoDetail = () => {
       </MapView>
 
       <View style={styles.view}>
-        <TouchableOpacity style={{ flex: 1, justifyContent: "center" }} onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={{ flex: 1, justifyContent: "center" }}
+          onPress={() => navigation.goBack()}
+        >
           <Ionicons name="arrow-back-circle" size={30} color={COLORS.text} />
         </TouchableOpacity>
-
+      </View>
+      <View style={styles.views}>
+        <View style={styles.btnDetail}>
+          <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
+            {ordersGetPendingOfferDetailResult &&
+              ordersGetPendingOfferDetailResult.data &&
+              ordersGetPendingOfferDetailResult.data.group &&
+              ordersGetPendingOfferDetailResult.data.group.price}{" "}
+            ₺
+          </Text>
+        </View>
         <TouchableOpacity onPress={toggleModal} style={styles.openModal}>
+          <AntDesign name="checkcircle" color="#fff" size={20} />
           <Text style={styles.offer}>Teklifi Kabul Et</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.price}>
+      {/* <View style={styles.price}>
         <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
           {ordersGetPendingOfferDetailResult &&
             ordersGetPendingOfferDetailResult.data &&
@@ -301,7 +365,7 @@ const AllCargoDetail = () => {
             ordersGetPendingOfferDetailResult.data.group.price}{" "}
           ₺
         </Text>
-      </View>
+      </View> */}
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
@@ -318,7 +382,8 @@ const AllCargoDetail = () => {
           right: SPACING_FOR_CARD_INSET,
         }}
         contentContainerStyle={{
-          paddingHorizontal: Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
+          paddingHorizontal:
+            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
         }}
         onScroll={Animated.event(
           [
@@ -333,30 +398,34 @@ const AllCargoDetail = () => {
           { useNativeDriver: true }
         )}
       >
-        {ordersGetPendingOfferDetailResult && ordersGetPendingOfferDetailResult.data && ordersGetPendingOfferDetailResult.data.steps
-          ? ordersGetPendingOfferDetailResult.data.steps.map((marker, index) => (
-              <View style={styles.card} key={index}>
-                <View style={styles.textContent}>
-                  <Text numberOfLines={1} style={styles.cardtitle}>
-                    Step {""}
-                    {marker.step.stepNumber}
-                  </Text>
+        {ordersGetPendingOfferDetailResult &&
+        ordersGetPendingOfferDetailResult.data &&
+        ordersGetPendingOfferDetailResult.data.steps
+          ? ordersGetPendingOfferDetailResult.data.steps.map(
+              (marker, index) => (
+                <View style={styles.card} key={index}>
+                  <View style={styles.textContent}>
+                    <Text numberOfLines={1} style={styles.cardtitle}>
+                      Step {""}
+                      {marker.step.stepNumber}
+                    </Text>
 
-                  <View style={styles.divider} />
+                    <View style={styles.divider} />
 
-                  <Text numberOfLines={1} style={styles.cardDescription}>
-                    {marker.step.address}
-                  </Text>
+                    <Text numberOfLines={1} style={styles.cardDescription}>
+                      {marker.step.address}
+                    </Text>
 
-                  {/* <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={styles.action1}
                         onPress={toggleModal}
                       >
                         <Text style={styles.btnText}>Teklifi Al</Text>
                       </TouchableOpacity> */}
+                  </View>
                 </View>
-              </View>
-            ))
+              )
+            )
           : null}
       </Animated.ScrollView>
       <Modal isVisible={isModalVisible}>
@@ -366,7 +435,10 @@ const AllCargoDetail = () => {
               <AntDesign name="closecircleo" size={30} />
             </TouchableOpacity>
 
-            <Image source={require("../../assets/shipgeldiLogo-v03-1.png")} style={{ width: 200, resizeMode: "cover" }} />
+            <Image
+              source={require("../../assets/shipgeldiLogo-v03-1.png")}
+              style={{ width: 200, resizeMode: "cover" }}
+            />
           </View>
           <Text
             style={[
@@ -398,7 +470,9 @@ const AllCargoDetail = () => {
             keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
             data={openDriver && driverList}
-            renderItem={({ item }) => <DriverItem item={item} onPress={_handleChooseDriver} />}
+            renderItem={({ item }) => (
+              <DriverItem item={item} onPress={_handleChooseDriver} />
+            )}
           />
           <Text
             style={[
@@ -428,10 +502,15 @@ const AllCargoDetail = () => {
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={openVehicle && vehicleList}
-            renderItem={({ item }) => <VehicleItem item={item} onPress={_handleChooseVehicle} />}
+            renderItem={({ item }) => (
+              <VehicleItem item={item} onPress={_handleChooseVehicle} />
+            )}
           />
 
-          <TouchableOpacity onPress={_handleApprovedContract} style={styles.btnGonder}>
+          <TouchableOpacity
+            onPress={_handleApprovedContract}
+            style={styles.btnGonder}
+          >
             <Text style={styles.btnText}>Teklifi Kabul Et</Text>
           </TouchableOpacity>
         </View>
@@ -446,7 +525,11 @@ export default AllCargoDetail;
 
 const DriverItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity key={item.driver.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.driver.id.toString()}
+      onPress={() => onPress(item)}
+      style={styles.actionSearch}
+    >
       <Text>
         {item.driver.firstname} {item.driver.lastname}
       </Text>
@@ -456,7 +539,11 @@ const DriverItem = ({ item, onPress }) => {
 
 const VehicleItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity key={item.model.id.toString()} onPress={() => onPress(item)} style={styles.actionSearch}>
+    <TouchableOpacity
+      key={item.model.id.toString()}
+      onPress={() => onPress(item)}
+      style={styles.actionSearch}
+    >
       <Text>
         {item.model.modelName} {item.type.typeName}
       </Text>

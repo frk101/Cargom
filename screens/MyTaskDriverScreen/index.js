@@ -67,7 +67,11 @@ const MyTaskScreen = () => {
           source={require("../../assets/shipgeldiLogo-v03-1.png")}
           style={{ width: 140, resizeMode: "contain" }}
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("BarCodeScanner", { autoPickUp: false })
+          }
+        >
           <MaterialCommunityIcons name="qrcode-scan" size={20} />
         </TouchableOpacity>
       </View>
@@ -96,8 +100,9 @@ const RenderList = ({ item }) => {
       <TouchableOpacity
         style={styles.listGrupContainer}
         onPress={() =>
-          navigation.navigate("MyTaskDriverDetailScreen", {
+          navigation.navigate("MyTaskShipperDetailScreen", {
             orderDetail: item,
+            qrCodeScreen: false,
           })
         }
       >

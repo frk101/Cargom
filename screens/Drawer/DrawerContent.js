@@ -22,6 +22,7 @@ const { height, width } = Dimensions.get("screen");
 export function DrawerContent(props) {
   const navigation = useNavigation();
   const { shipperLoginResult } = useSelector((x) => x.shipper);
+  const { driverLoginResult } = useSelector((x) => x.driver);
 
   return (
     <View style={{ flex: 1 }}>
@@ -52,6 +53,7 @@ export function DrawerContent(props) {
             </View>
           </View>
           <Divider style={{ marginVertical: 20 }} />
+
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (

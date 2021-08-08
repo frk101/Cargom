@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import COLORS from "../../constans/colors";
 import { Container, Content } from "native-base";
@@ -31,7 +31,7 @@ const LoginScreen = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  const { shipperLoginResult } = useSelector((x) => x.shipper);
   const _handleLogin = (values) => {
     dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
       if (data.status) {
@@ -57,6 +57,7 @@ const LoginScreen = () => {
       }
     });
   };
+
   return (
     <Container>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -76,7 +77,7 @@ const LoginScreen = () => {
           <Text
             style={{ fontSize: 30, fontWeight: "bold", color: COLORS.text }}
           >
-            Tekrar Hoş Geldiniz
+            Hoş Geldiniz
           </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate("RegisterScreen")}

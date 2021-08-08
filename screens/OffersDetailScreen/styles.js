@@ -14,10 +14,13 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   openModal: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: "#23BF08",
     padding: 10,
     borderRadius: 10,
     flex: 3,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
   price: {
     position: "absolute",
@@ -206,6 +209,17 @@ export default StyleSheet.create({
     alignSelf: "center",
     padding: 10,
   },
+  views: {
+    flexDirection: "row",
+    position: "absolute",
+    justifyContent: "space-between",
+    bottom: CARD_HEIGHT + 30,
+    right: 20,
+    position: "absolute",
+    width: "90%",
+    alignSelf: "center",
+    padding: 10,
+  },
   searchBox: {
     flexDirection: "row",
     position: "absolute",
@@ -330,5 +344,11 @@ export default StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     alignItems: "center",
+  },
+  btnDetail: {
+    backgroundColor: COLORS.primary,
+    padding: 20,
+    marginRight: 20,
+    borderRadius: 10,
   },
 });

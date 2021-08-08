@@ -58,7 +58,7 @@ const SplashhScreen = () => {
             style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
           />
           <Text style={styles.modalTxt}>
-            KAYIT OLMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ
+            {/* KAYIT OLMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ */}
           </Text>
           <TouchableOpacity
             onPress={onClose}
@@ -91,7 +91,7 @@ const SplashhScreen = () => {
             style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
           />
           <Text style={styles.modalTxt}>
-            GİRİŞ YAPMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ
+            {/* GİRİŞ YAPMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ */}
           </Text>
           <TouchableOpacity
             onPress={onClose}
@@ -100,7 +100,7 @@ const SplashhScreen = () => {
             }}
             style={styles.btnGonder}
           >
-            <Text style={styles.btnText}>DRİVER OLARAK GİRİŞ YAP</Text>
+            <Text style={styles.btnText}>Sürücü Olarak Giriş Yap</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btnGonder1}
@@ -109,7 +109,7 @@ const SplashhScreen = () => {
               navigation.navigate("LoginScreen");
             }}
           >
-            <Text style={styles.btnText}>SHİPPER OLARAK GİRİŞ YAP</Text>
+            <Text style={styles.btnText}>Taşıyıcı Olarak Giriş Yap</Text>
           </TouchableOpacity>
         </View>
       </Modalize>

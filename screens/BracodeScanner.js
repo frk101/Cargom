@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
+import {
+  useNavigation,
+  useIsFocused,
+  useRoute,
+} from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { shipperOrdersGetOrdersIdByQrcode } from "../business/actions/shipper";
 import useStateWithCallback from "use-state-with-callback";
@@ -16,15 +27,21 @@ const BracodeScanner = () => {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [karekodOkunuyor, setKarekodOkunuyor] = useStateWithCallback(false, (newValue) => {
-    if (newValue) {
-      setTimeout(() => {
-        setKarekodOkunuyor(false);
-      }, 3000);
+  const [karekodOkunuyor, setKarekodOkunuyor] = useStateWithCallback(
+    false,
+    (newValue) => {
+      if (newValue) {
+        setTimeout(() => {
+          setKarekodOkunuyor(false);
+        }, 3000);
+      }
     }
-  });
+  );
 
-  const { shipperOrdersGetOrdersIdByQrCodeResult, shipperOrdersGetOrdersIdByQrCodeLoading } = useSelector((x) => x.shipper);
+  const {
+    shipperOrdersGetOrdersIdByQrCodeResult,
+    shipperOrdersGetOrdersIdByQrCodeLoading,
+  } = useSelector((x) => x.shipper);
 
   useEffect(() => {
     (async () => {
@@ -44,9 +61,14 @@ const BracodeScanner = () => {
         })
       ).then(({ payload: { data } }) => {
         if (data && data.data) {
-          navigation.navigate("MyTaskShipperDetailScreen", { orderDetail: { orderID: data.data }, qrCodeScreen: true, qrcode: qrCode, autoPickUp: route.params.autoPickUp });
+          navigation.navigate("MyTaskShipperDetailScreen", {
+            orderDetail: { orderID: data.data },
+            qrCodeScreen: true,
+            qrcode: qrCode,
+            autoPickUp: route.params.autoPickUp,
+          });
         } else {
-          alert("data yok");
+          alert("Ürün Bulunamadı");
         }
       });
     }
@@ -64,7 +86,10 @@ const BracodeScanner = () => {
       {/* <LinearGradient style={styles.container} colors={["#f17915", "#f6b042"]}> */}
       {/* <StatusBar hidden /> */}
 
-      <BarCodeScanner onBarCodeScanned={handleBarCodeScanned} style={{ flex: 1 }} />
+      <BarCodeScanner
+        onBarCodeScanned={handleBarCodeScanned}
+        style={{ flex: 1 }}
+      />
 
       <View
         style={[

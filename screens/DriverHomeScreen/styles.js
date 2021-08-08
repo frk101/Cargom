@@ -45,9 +45,10 @@ export default StyleSheet.create({
     flex: 1,
   },
   menu: {
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 40,
     marginHorizontal: 15,
   },
   opacitys: {
