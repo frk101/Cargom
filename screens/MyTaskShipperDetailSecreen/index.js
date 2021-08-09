@@ -191,11 +191,14 @@ const MyTaskShipperDetailSecreen = () => {
             contentContainerStyle={{ paddingBottom: 70 }}
           >
             <View style={styles.listPrice}>
-              <Text style={styles.detailPrice}>
-                {shipperOrdersGetByIdResult &&
-                  shipperOrdersGetByIdResult.data.price}{" "}
-                ₺
-              </Text>
+              {shipperLoginResult.data &&
+              shipperLoginResult.data.userType == 1 ? (
+                <Text style={styles.detailPrice}>
+                  {shipperOrdersGetByIdResult &&
+                    shipperOrdersGetByIdResult.data.price}{" "}
+                  ₺
+                </Text>
+              ) : null}
 
               {shipperOrdersGetByIdResult &&
               shipperOrdersGetByIdResult.data.status &&

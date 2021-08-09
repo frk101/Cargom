@@ -61,68 +61,6 @@ const SplashhScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Modalize ref={modalizeRef} snapPoint={350} modalHeight={height * 0.5}>
-        <View style={styles.modalContainer}>
-          <Image
-            source={require("../../assets/shipgeldiLogo-v03-1.png")}
-            style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
-          />
-          <Text style={styles.modalTxt}>
-          
-          </Text>
-          <TouchableOpacity
-            onPress={onClose}
-            onPressIn={() => {
-              navigation.navigate("Bireysel");
-            }}
-            style={styles.btnGonder}
-          >
-            <Text style={styles.btnText}>BİREYSEL OLARAK KAYIT OL</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnGonder1}
-            onPress={onClose}
-            onPressIn={() => {
-              navigation.navigate("Kurumsal");
-            }}
-          >
-            <Text style={styles.btnText}>KURUMSAL OLARAK KAYIT OL</Text>
-          </TouchableOpacity>
-        </View>
-      </Modalize> */}
-      {/* <Modalize
-        ref={modalizeDriverRef}
-        snapPoint={350}
-        modalHeight={height * 0.5}
-      >
-        <View style={styles.modalContainer}>
-          <Image
-            source={require("../../assets/shipgeldiLogo-v03-1.png")}
-            style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
-          />
-          <Text style={styles.modalTxt}>
-           
-          </Text>
-          <TouchableOpacity
-            onPress={onClose}
-            onPressIn={() => {
-              navigation.navigate("DriverLogin");
-            }}
-            style={styles.btnGonder}
-          >
-            <Text style={styles.btnText}>Sürücü Olarak Giriş Yap</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnGonder1}
-            onPress={onClose}
-            onPressIn={() => {
-              navigation.navigate("LoginScreen");
-            }}
-          >
-            <Text style={styles.btnText}>Taşıyıcı Olarak Giriş Yap</Text>
-          </TouchableOpacity>
-        </View>
-      </Modalize> */}
     </ImageBackground>
   );
 };

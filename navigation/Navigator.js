@@ -113,6 +113,7 @@ const DriverHomeNavigator = () => {
 const Stack = createStackNavigator();
 
 export default function Navigator() {
+  const { shipperLoginResult } = useSelector((x) => x.shipper);
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -120,8 +121,11 @@ export default function Navigator() {
         screenOptions={{ gestureEnabled: false }}
       >
         <Stack.Screen name="LoginScreen" component={LoginNavigator} />
-        <Stack.Screen name="MainScreen" component={HomeNavigator} />
-        <Stack.Screen name="MainDriverScreen" component={DriverHomeNavigator} />
+        {shipperLoginResult.data && shipperLoginResult.data.userType == 1 ? (
+          <Stack.Screen name="MainScreen" component={HomeNavigator} />
+        ) : (
+          <Stack.Screen name="MainScreen" component={DriverHomeNavigator} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
