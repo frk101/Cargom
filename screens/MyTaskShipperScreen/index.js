@@ -285,7 +285,10 @@ const LayoutRight1 = () => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("BarCodeScanner", { autoPickUp: false })
+        navigation.navigate("BarCodeScanner", {
+          autoPickUp: false,
+          qrCodeScreen: false,
+        })
       }
     >
       <MaterialCommunityIcons name="qrcode-scan" size={20} />

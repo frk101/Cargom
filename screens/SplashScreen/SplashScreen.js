@@ -42,23 +42,33 @@ const SplashhScreen = () => {
     >
       <View style={styles.btnContainer}>
         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-          <TouchableOpacity style={styles.btnKayit} onPress={onOpen}>
+          <TouchableOpacity
+            style={styles.btnKayit}
+            onPressIn={() => {
+              navigation.navigate("Kurumsal");
+            }}
+          >
             <Text style={styles.txt}>Kayıt Ol</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnGiris} onPress={onOpenDriver}>
+          <TouchableOpacity
+            style={styles.btnGiris}
+            onPressIn={() => {
+              navigation.navigate("LoginScreen");
+            }}
+          >
             <Text style={styles.txt}>Giriş Yap</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <Modalize ref={modalizeRef} snapPoint={350} modalHeight={height * 0.5}>
+      {/* <Modalize ref={modalizeRef} snapPoint={350} modalHeight={height * 0.5}>
         <View style={styles.modalContainer}>
           <Image
             source={require("../../assets/shipgeldiLogo-v03-1.png")}
             style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
           />
           <Text style={styles.modalTxt}>
-            {/* KAYIT OLMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ */}
+          
           </Text>
           <TouchableOpacity
             onPress={onClose}
@@ -79,8 +89,8 @@ const SplashhScreen = () => {
             <Text style={styles.btnText}>KURUMSAL OLARAK KAYIT OL</Text>
           </TouchableOpacity>
         </View>
-      </Modalize>
-      <Modalize
+      </Modalize> */}
+      {/* <Modalize
         ref={modalizeDriverRef}
         snapPoint={350}
         modalHeight={height * 0.5}
@@ -91,7 +101,7 @@ const SplashhScreen = () => {
             style={{ width: 200, resizeMode: "cover", marginVertical: 20 }}
           />
           <Text style={styles.modalTxt}>
-            {/* GİRİŞ YAPMAK İÇİN BİR{"\n "}SEÇENEĞİ SEÇİNİZ */}
+           
           </Text>
           <TouchableOpacity
             onPress={onClose}
@@ -112,7 +122,7 @@ const SplashhScreen = () => {
             <Text style={styles.btnText}>Taşıyıcı Olarak Giriş Yap</Text>
           </TouchableOpacity>
         </View>
-      </Modalize>
+      </Modalize> */}
     </ImageBackground>
   );
 };

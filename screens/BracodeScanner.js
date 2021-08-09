@@ -68,7 +68,7 @@ const BracodeScanner = () => {
             autoPickUp: route.params.autoPickUp,
           });
         } else {
-          alert("Ürün Bulunamadı");
+          alert("Görev Bulunamadı");
         }
       });
     }

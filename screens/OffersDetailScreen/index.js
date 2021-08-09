@@ -15,7 +15,13 @@ import {
 import { useRoute, useNavigation, useTheme } from "@react-navigation/native";
 
 import Modal from "react-native-modal";
-import { AntDesign } from "react-native-vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  MaterialCommunityIcons,
+  Ionicons,
+  SimpleLineIcons,
+} from "react-native-vector-icons";
 import COLORS from "../../constans/colors";
 
 import {
@@ -31,8 +37,10 @@ import Layout from "../../components/Layout";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import styles from "./styles";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
+import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
+import { Divider } from "react-native-elements";
 
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Content } from "native-base";
 
 const { width, height } = Dimensions.get("window");
 
@@ -63,7 +71,7 @@ const AllCargoDetail = () => {
 
   const [isModalVisible, setModalVisible] = useState(false);
   // const [state, setState] = useState(initialMapState);
-
+  const [currentPage, setCurrentPage] = useState(0);
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openDriver, setOpenDriver] = useState(false);
   const [driverSearch, setDriverSearch] = useState("");
@@ -90,74 +98,6 @@ const AllCargoDetail = () => {
     _getVehiclesList();
     return () => {};
   }, [route.params.id]);
-
-  // useEffect(() => {
-  //   mapAnimation.addListener(({ value }) => {
-  //     if (
-  //       ordersGetPendingOfferDetailResult &&
-  //       ordersGetPendingOfferDetailResult.data &&
-  //       ordersGetPendingOfferDetailResult.data.steps
-  //     ) {
-  //     } else {
-  //       return;
-  //     }
-  //     let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-  //     if (index >= ordersGetPendingOfferDetailResult.data.steps.length) {
-  //       index = ordersGetPendingOfferDetailResult.data.steps.length - 1;
-  //     }
-  //     if (index <= 0) {
-  //       index = 0;
-  //     }
-
-  //     clearTimeout(regionTimeout);
-
-  //     const regionTimeout = setTimeout(() => {
-  //       if (mapIndex !== index) {
-  //         mapIndex = index;
-  //         const data = ordersGetPendingOfferDetailResult.data.steps[index].town;
-  //         const coordinate = {
-  //           latitude: parseFloat(marker.town.lat),
-  //           longitude: parseFloat(marker.town.lng),
-  //         };
-  //         _map.current.animateToRegion(
-  //           {
-  //             ...coordinate,
-  //             latitudeDelta: coordinate.latitude,
-  //             longitudeDelta: coordinate.longitude,
-  //           },
-  //           350
-  //         );
-  //       }
-  //     }, 10);
-  //   });
-  // });
-
-  // const interpolations = state.markers.map((marker, index) => {
-  //   const inputRange = [
-  //     (index - 1) * CARD_WIDTH,
-  //     index * CARD_WIDTH,
-  //     (index + 1) * CARD_WIDTH,
-  //   ];
-
-  //   const scale = mapAnimation.interpolate({
-  //     inputRange,
-  //     outputRange: [1, 1.5, 1],
-  //     extrapolate: "clamp",
-  //   });
-
-  //   return { scale };
-  // });
-
-  // const onMarkerPress = (mapEventData) => {
-  //   const markerID = mapEventData._targetInst.return.key;
-
-  //   let x = markerID * CARD_WIDTH + markerID * 20;
-  //   if (Platform.OS === "ios") {
-  //     x = x - SPACING_FOR_CARD_INSET;
-  //   }
-
-  //   _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
-  // };
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -266,11 +206,13 @@ const AllCargoDetail = () => {
       OrderGroupID: route.params.id,
       VehicleID: selectedVehicle.vehicle.id,
     };
-    // dispatch(ordersAssignGroupDriver(model)).then((x) => {
-    //   console.log(x);
-    // });
+    dispatch(ordersAssignGroupDriver(model));
   };
+  // console.log(
+  //   ordersGetPendingOfferDetailResult &&
+  //     ordersGetPendingOfferDetailResult.data
 
+  // );
   return (
     // <Layout title="Teklif Detay" isBackIcon>
     <View style={styles.container}>
@@ -334,7 +276,7 @@ const AllCargoDetail = () => {
           </TouchableOpacity>
         </View>
       </View>
-
+      {/* 
       <View style={styles.view}>
         <TouchableOpacity
           style={{ flex: 1, justifyContent: "center" }}
@@ -342,7 +284,7 @@ const AllCargoDetail = () => {
         >
           <Ionicons name="arrow-back-circle" size={30} color={COLORS.text} />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={styles.views}>
         <View style={styles.btnDetail}>
           <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
@@ -358,78 +300,89 @@ const AllCargoDetail = () => {
           <Text style={styles.offer}>Teklifi Kabul Et</Text>
         </TouchableOpacity>
       </View>
+      <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <View style={{ padding: 20 }}>
+          <View style={styles.row}>
+            <Ionicons name="ios-location" size={24} color="#404040" />
+            <Text style={styles.txtes}>
+              {" "}
+              :{" "}
+              {ordersGetPendingOfferDetailResult &&
+                ordersGetPendingOfferDetailResult.data &&
+                ordersGetPendingOfferDetailResult.data.group &&
+                ordersGetPendingOfferDetailResult.data.group.startAddress}{" "}
+            </Text>
+          </View>
 
-      {/* <View style={styles.price}>
-        <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
-          {ordersGetPendingOfferDetailResult &&
-            ordersGetPendingOfferDetailResult.data &&
-            ordersGetPendingOfferDetailResult.data.group &&
-            ordersGetPendingOfferDetailResult.data.group.price}{" "}
-          ₺
-        </Text>
-      </View> */}
-      {/* <Animated.ScrollView
-        ref={_scrollView}
-        horizontal
-        pagingEnabled
-        scrollEventThrottle={1}
-        showsHorizontalScrollIndicator={false}
-        snapToInterval={CARD_WIDTH + 20}
-        snapToAlignment="center"
-        style={styles.scrollView}
-        contentInset={{
-          top: 0,
-          left: SPACING_FOR_CARD_INSET,
-          bottom: 0,
-          right: SPACING_FOR_CARD_INSET,
-        }}
-        contentContainerStyle={{z
-          paddingHorizontal:
-            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
-        }}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: mapAnimation,
-                },
-              },
-            },
-          ],
-          { useNativeDriver: true }
-        )}
-      >
-        {ordersGetPendingOfferDetailResult &&
-        ordersGetPendingOfferDetailResult.data &&
-        ordersGetPendingOfferDetailResult.data.steps
-          ? ordersGetPendingOfferDetailResult.data.steps.map(
-              (marker, index) => (
-                <View style={styles.card} key={index}>
-                  <View style={styles.textContent}>
-                    <Text numberOfLines={1} style={styles.cardtitle}>
-                      Step {""}
-                      {marker.step.stepNumber}
-                    </Text>
+          <View style={styles.row}>
+            <Ionicons name="locate-outline" size={24} color="#404040" />
+            <Text style={styles.txtes}>
+              {" "}
+              :{" "}
+              {ordersGetPendingOfferDetailResult &&
+                ordersGetPendingOfferDetailResult.data &&
+                ordersGetPendingOfferDetailResult.data.group &&
+                ordersGetPendingOfferDetailResult.data.group.endAddress}{" "}
+            </Text>
+          </View>
 
-                    <View style={styles.divider} />
+          <View style={styles.row}>
+            <Ionicons name="pricetag" size={20} color="#404040" />
+            <Text style={styles.txtes}>
+              {" "}
+              :{" "}
+              {ordersGetPendingOfferDetailResult &&
+                ordersGetPendingOfferDetailResult.data &&
+                ordersGetPendingOfferDetailResult.data.group &&
+                ordersGetPendingOfferDetailResult.data.group.price}
+            </Text>
+          </View>
 
-                    <Text numberOfLines={1} style={styles.cardDescription}>
-                      {marker.step.address}
-                    </Text> */}
+          <View style={styles.row}>
+            <MaterialCommunityIcons name="highway" size={20} color="#404040" />
+            <Text style={styles.txtes}>
+              {" "}
+              :{" "}
+              {ordersGetPendingOfferDetailResult &&
+                ordersGetPendingOfferDetailResult.data &&
+                ordersGetPendingOfferDetailResult.data.group &&
+                ordersGetPendingOfferDetailResult.data.group.distance /
+                  1000}{" "}
+              km
+            </Text>
+          </View>
+        </View>
+        <Divider />
+        <Content style={{ marginTop: 20 }}>
+          <FlatList
+            scrollEnabled={false}
+            renderItem={(item) => <RenderList item={item} />}
+            data={
+              ordersGetPendingOfferDetailResult &&
+              ordersGetPendingOfferDetailResult.data &&
+              ordersGetPendingOfferDetailResult.data.steps
+            }
+          />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <AntDesign
+              name="checkcircle"
+              color="#23BF08"
+              size={25}
+              style={{ margin: 5 }}
+            />
+            <Text style={{ fontSize: 15, fontWeight: "bold", color: "red" }}>
+              Tamamlandı !
+            </Text>
+            <SimpleLineIcons
+              name="emotsmile"
+              size={23}
+              color="#404040"
+              style={{ marginLeft: 5 }}
+            />
+          </View>
+        </Content>
+      </View>
 
-      {/* <TouchableOpacity
-                        style={styles.action1}
-                        onPress={toggleModal}
-                      >
-                        <Text style={styles.btnText}>Teklifi Al</Text>
-                      </TouchableOpacity> */}
-      {/* </View>
-                </View>
-              )
-            )
-          : null}
-      </Animated.ScrollView> */}
       <Modal isVisible={isModalVisible}>
         <View style={styles.mdl}>
           <View style={styles.modalHeader}>
@@ -550,5 +503,44 @@ const VehicleItem = ({ item, onPress }) => {
         {item.model.modelName} {item.type.typeName}
       </Text>
     </TouchableOpacity>
+  );
+};
+
+const RenderList = ({ item }) => {
+  return (
+    <View style={{ flex: 1, justifyContent: "center" }}>
+      <View style={{ flexDirection: "row" }}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View
+            style={{
+              width: 25,
+              height: 25,
+              borderRadius: 25,
+              justifyContent: "center",
+              alignItems: "center",
+              borderWidth: 2,
+              borderColor: COLORS.text,
+              margin: 5,
+            }}
+          >
+            <Text>{item.index + 1}</Text>
+          </View>
+          <Entypo name="dots-three-vertical" style={{ alignSelf: "center" }} />
+        </View>
+        <View style={{ margin: 5, alignItems: "center" }}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 15,
+              color: COLORS.text,
+              fontWeight: "bold",
+              marginTop: 3,
+            }}
+          >
+            {item.item.step.address}
+          </Text>
+        </View>
+      </View>
+    </View>
   );
 };

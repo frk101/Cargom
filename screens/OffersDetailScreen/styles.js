@@ -15,12 +15,13 @@ export default StyleSheet.create({
   },
   openModal: {
     backgroundColor: "#23BF08",
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
     flex: 3,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+    marginHorizontal: 20,
   },
   price: {
     position: "absolute",
@@ -347,8 +348,23 @@ export default StyleSheet.create({
   },
   btnDetail: {
     backgroundColor: COLORS.primary,
-    padding: 20,
+    padding: 10,
     marginRight: 20,
     borderRadius: 10,
+  },
+  txtBaslik: {
+    fontWeight: "bold",
+    fontSize: 17,
+    color: COLORS.text,
+  },
+  txtes: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: COLORS.gray,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 5,
   },
 });
