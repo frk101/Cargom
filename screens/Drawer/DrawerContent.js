@@ -15,6 +15,9 @@ import {
   Feather,
   AntDesign,
   MaterialCommunityIcons,
+  FontAwesome,
+  Entypo,
+  FontAwesome5,
 } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from "react-native-elements";
@@ -57,11 +60,7 @@ export function DrawerContent(props) {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="home-outline"
-                  color={color}
-                  size={size}
-                />
+                <FontAwesome5 name="home" color={color} size={size} />
               )}
               label="Anasayfa"
               labelStyle={styles.labels}
@@ -69,8 +68,8 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="home-outline"
+                <FontAwesome
+                  name="drivers-license-o"
                   color={color}
                   size={size}
                 />
@@ -82,7 +81,7 @@ export function DrawerContent(props) {
             <DrawerItem
               icon={({ color, size }) => (
                 <MaterialCommunityIcons
-                  name="home-outline"
+                  name="car-multiple"
                   color={color}
                   size={size}
                 />
@@ -93,11 +92,7 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="home-outline"
-                  color={color}
-                  size={size}
-                />
+                <AntDesign name="tags" color={color} size={size} />
               )}
               label="Teklifler"
               labelStyle={styles.labels}
@@ -105,32 +100,16 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="home-outline"
-                  color={color}
-                  size={size}
-                />
+                <FontAwesome5 name="tasks" color={color} size={size} />
               )}
               label="Görevlerim"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("MyTaskScreen")}
             />
-            {/* <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon name="account-check-outline" color={color} size={size} />
-                )}
-              label="Tüm Kargolar"
-              labelStyle={styles.labels}
-              onPress={() => navigation.navigate("AllCargoScreen")}
-            /> */}
 
             <DrawerItem
               icon={({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="home-outline"
-                  color={color}
-                  size={size}
-                />
+                <Entypo name="wallet" color={color} size={size} />
               )}
               label="Ödemeler"
               labelStyle={styles.labels}

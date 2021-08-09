@@ -2,8 +2,8 @@ import COLORS from "../../constans/colors";
 import { StyleSheet, Dimensions, Platform } from "react-native";
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = 200;
-const CARD_WIDTH = width - 40;
+const CARD_HEIGHT = height * 0.6;
+const CARD_WIDTH = width - 60;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 export default StyleSheet.create({
@@ -213,7 +213,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     position: "absolute",
     justifyContent: "space-between",
-    bottom: CARD_HEIGHT + 30,
+    bottom: CARD_HEIGHT,
     right: 20,
     position: "absolute",
     width: "90%",

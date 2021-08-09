@@ -46,7 +46,7 @@ export default StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: COLORS.gray,
+    borderColor: COLORS.lightGray,
     alignItems: "center",
   },
   docText: {

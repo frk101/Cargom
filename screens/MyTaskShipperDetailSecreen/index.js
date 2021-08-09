@@ -92,45 +92,49 @@ const MyTaskShipperDetailSecreen = () => {
   };
 
   const _handlePickUp = async () => {
-    if (
-      data &&
-      data.data &&
-      data.data.status == 20 &&
-      route.params.qrCodeScreen &&
-      autoPickUp
-    ) {
-      Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
-        {
-          text: "İptal",
-          style: "cancel",
-        },
-        {
-          text: "Teslim al",
-          onPress: () => {
-            let shipperId = 0;
-            if (
-              shipperLoginResult &&
-              shipperLoginResult.data &&
-              shipperLoginResult.data.shipper &&
-              shipperLoginResult.data.shipper
-            ) {
-              shipperId = shipperLoginResult.data.shipper.id;
-            }
-            dispatch(
-              shipperOrdersPıckup({
-                OrderID: route.params.orderDetail.orderID,
-                ShipperID: shipperId,
-                qrcode: route.params.qrcode,
-                //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
-                DriverID: data.data.driverID,
-              })
-            );
-          },
-        },
-      ]);
-    } else if (data && data.data && data.data.status == 20) {
-      navigation.navigate("BarCodeScanner", { autoPickUp: true });
-    }
+    dispatch(shipperOrdersgetById(route.params.orderDetail.orderID)).then(
+      ({ payload: { data } }) => {
+        if (
+          data &&
+          data.data &&
+          data.data.status == 20 &&
+          route.params.qrCodeScreen &&
+          autoPickUp
+        ) {
+          Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
+            {
+              text: "İptal",
+              style: "cancel",
+            },
+            {
+              text: "Teslim al",
+              onPress: () => {
+                let shipperId = 0;
+                if (
+                  shipperLoginResult &&
+                  shipperLoginResult.data &&
+                  shipperLoginResult.data.shipper &&
+                  shipperLoginResult.data.shipper
+                ) {
+                  shipperId = shipperLoginResult.data.shipper.id;
+                }
+                dispatch(
+                  shipperOrdersPıckup({
+                    OrderID: route.params.orderDetail.orderID,
+                    ShipperID: shipperId,
+                    qrcode: route.params.qrcode,
+                    //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
+                    DriverID: data.data.driverID,
+                  })
+                );
+              },
+            },
+          ]);
+        } else if (data && data.data && data.data.status == 20) {
+          navigation.navigate("BarCodeScanner", { autoPickUp: true });
+        }
+      }
+    );
   };
 
   const { width, height } = Dimensions.get("window");

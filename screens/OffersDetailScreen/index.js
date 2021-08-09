@@ -31,14 +31,14 @@ import Layout from "../../components/Layout";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import styles from "./styles";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import { markers, mapDarkStyle, mapStandardStyle } from "../../data/mapData";
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const { width, height } = Dimensions.get("window");
 
 const CARD_WIDTH = width - 40;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
-
+const ASPECT_RATIO = width / height;
 // const initialMapState = {
 //   markers,
 //   region: {
@@ -91,46 +91,46 @@ const AllCargoDetail = () => {
     return () => {};
   }, [route.params.id]);
 
-  useEffect(() => {
-    mapAnimation.addListener(({ value }) => {
-      if (
-        ordersGetPendingOfferDetailResult &&
-        ordersGetPendingOfferDetailResult.data &&
-        ordersGetPendingOfferDetailResult.data.steps
-      ) {
-      } else {
-        return;
-      }
-      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= ordersGetPendingOfferDetailResult.data.steps.length) {
-        index = ordersGetPendingOfferDetailResult.data.steps.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
+  // useEffect(() => {
+  //   mapAnimation.addListener(({ value }) => {
+  //     if (
+  //       ordersGetPendingOfferDetailResult &&
+  //       ordersGetPendingOfferDetailResult.data &&
+  //       ordersGetPendingOfferDetailResult.data.steps
+  //     ) {
+  //     } else {
+  //       return;
+  //     }
+  //     let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+  //     if (index >= ordersGetPendingOfferDetailResult.data.steps.length) {
+  //       index = ordersGetPendingOfferDetailResult.data.steps.length - 1;
+  //     }
+  //     if (index <= 0) {
+  //       index = 0;
+  //     }
 
-      clearTimeout(regionTimeout);
+  //     clearTimeout(regionTimeout);
 
-      const regionTimeout = setTimeout(() => {
-        if (mapIndex !== index) {
-          mapIndex = index;
-          const data = ordersGetPendingOfferDetailResult.data.steps[index].town;
-          const coordinate = {
-            latitude: parseFloat(marker.town.lat),
-            longitude: parseFloat(marker.town.lng),
-          };
-          _map.current.animateToRegion(
-            {
-              ...coordinate,
-              latitudeDelta: coordinate.latitude,
-              longitudeDelta: coordinate.longitude,
-            },
-            350
-          );
-        }
-      }, 10);
-    });
-  });
+  //     const regionTimeout = setTimeout(() => {
+  //       if (mapIndex !== index) {
+  //         mapIndex = index;
+  //         const data = ordersGetPendingOfferDetailResult.data.steps[index].town;
+  //         const coordinate = {
+  //           latitude: parseFloat(marker.town.lat),
+  //           longitude: parseFloat(marker.town.lng),
+  //         };
+  //         _map.current.animateToRegion(
+  //           {
+  //             ...coordinate,
+  //             latitudeDelta: coordinate.latitude,
+  //             longitudeDelta: coordinate.longitude,
+  //           },
+  //           350
+  //         );
+  //       }
+  //     }, 10);
+  //   });
+  // });
 
   // const interpolations = state.markers.map((marker, index) => {
   //   const inputRange = [
@@ -148,16 +148,16 @@ const AllCargoDetail = () => {
   //   return { scale };
   // });
 
-  const onMarkerPress = (mapEventData) => {
-    const markerID = mapEventData._targetInst.return.key;
+  // const onMarkerPress = (mapEventData) => {
+  //   const markerID = mapEventData._targetInst.return.key;
 
-    let x = markerID * CARD_WIDTH + markerID * 20;
-    if (Platform.OS === "ios") {
-      x = x - SPACING_FOR_CARD_INSET;
-    }
+  //   let x = markerID * CARD_WIDTH + markerID * 20;
+  //   if (Platform.OS === "ios") {
+  //     x = x - SPACING_FOR_CARD_INSET;
+  //   }
 
-    _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
-  };
+  //   _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
+  // };
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -274,65 +274,66 @@ const AllCargoDetail = () => {
   return (
     // <Layout title="Teklif Detay" isBackIcon>
     <View style={styles.container}>
-      <MapView
-        ref={_map}
-        initialRegion={{
-          latitude: 22.62938671242907,
-          longitude: 88.4354486029795,
-          latitudeDelta: 0.04864195044303443,
-          longitudeDelta: 0.040142817690068,
-        }}
-        style={styles.container}
-        provider={PROVIDER_GOOGLE}
-        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
-      >
-        {ordersGetPendingOfferDetailResult &&
-        ordersGetPendingOfferDetailResult.data &&
-        ordersGetPendingOfferDetailResult.data.steps
-          ? ordersGetPendingOfferDetailResult.data.steps.map(
-              (marker, index) => {
-                // const scaleStyle = {
-                //   transform: [
-                //     {
-                //       scale: interpolations[index].scale,
-                //     },
-                //   ],
-                // };
-                const coordinate = {
-                  latitude: parseFloat(marker.town.lat),
-                  longitude: parseFloat(marker.town.lng),
-                };
-                return (
-                  <Marker
-                    key={index}
-                    coordinate={coordinate}
-                    onPress={(e) => onMarkerPress(e)}
-                    image={require("../../assets/Marker.png")}
-                  />
-                );
-              }
-            )
-          : null}
-        <Polyline
-          coordinates={
-            ordersGetPendingOfferDetailResult &&
-            ordersGetPendingOfferDetailResult.data &&
-            ordersGetPendingOfferDetailResult.data.steps
-              ? ordersGetPendingOfferDetailResult.data.steps.map((marker) => {
+      <View style={{ height: height * 0.4 }}>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={StyleSheet.absoluteFillObject}
+          initialRegion={{
+            latitude: 41.0054958,
+            longitude: 28.8720979,
+            latitudeDelta: 0.3,
+            longitudeDelta: 0.2 * ASPECT_RATIO,
+          }}
+        >
+          {ordersGetPendingOfferDetailResult &&
+          ordersGetPendingOfferDetailResult.data &&
+          ordersGetPendingOfferDetailResult.data.steps
+            ? ordersGetPendingOfferDetailResult.data.steps.map(
+                (marker, index) => {
                   const coordinate = {
                     latitude: parseFloat(marker.town.lat),
                     longitude: parseFloat(marker.town.lng),
                   };
-                  return coordinate;
-                })
-              : []
-          }
-          strokeColor="#171797"
-          lineJoin="miter"
-          strokeWidth={3}
-          lineDashPattern={[13, 13]}
-        />
-      </MapView>
+                  return (
+                    <Marker
+                      key={index}
+                      coordinate={coordinate}
+                      onPress={(e) => onMarkerPress(e)}
+                      image={require("../../assets/Marker.png")}
+                    />
+                  );
+                }
+              )
+            : null}
+          <Polyline
+            coordinates={
+              ordersGetPendingOfferDetailResult &&
+              ordersGetPendingOfferDetailResult.data &&
+              ordersGetPendingOfferDetailResult.data.steps
+                ? ordersGetPendingOfferDetailResult.data.steps.map((marker) => {
+                    const coordinate = {
+                      latitude: parseFloat(marker.town.lat),
+                      longitude: parseFloat(marker.town.lng),
+                    };
+                    return coordinate;
+                  })
+                : []
+            }
+            strokeColor="#171797"
+            lineJoin="miter"
+            strokeWidth={3}
+            lineDashPattern={[13, 13]}
+          />
+        </MapView>
+        <View style={styles.view}>
+          <TouchableOpacity
+            style={{ flex: 1, justifyContent: "center" }}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name="arrow-back-circle" size={30} color={COLORS.text} />
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <View style={styles.view}>
         <TouchableOpacity
@@ -357,6 +358,7 @@ const AllCargoDetail = () => {
           <Text style={styles.offer}>Teklifi Kabul Et</Text>
         </TouchableOpacity>
       </View>
+
       {/* <View style={styles.price}>
         <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
           {ordersGetPendingOfferDetailResult &&
@@ -366,7 +368,7 @@ const AllCargoDetail = () => {
           ₺
         </Text>
       </View> */}
-      <Animated.ScrollView
+      {/* <Animated.ScrollView
         ref={_scrollView}
         horizontal
         pagingEnabled
@@ -381,7 +383,7 @@ const AllCargoDetail = () => {
           bottom: 0,
           right: SPACING_FOR_CARD_INSET,
         }}
-        contentContainerStyle={{
+        contentContainerStyle={{z
           paddingHorizontal:
             Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
         }}
@@ -414,20 +416,20 @@ const AllCargoDetail = () => {
 
                     <Text numberOfLines={1} style={styles.cardDescription}>
                       {marker.step.address}
-                    </Text>
+                    </Text> */}
 
-                    {/* <TouchableOpacity
+      {/* <TouchableOpacity
                         style={styles.action1}
                         onPress={toggleModal}
                       >
                         <Text style={styles.btnText}>Teklifi Al</Text>
                       </TouchableOpacity> */}
-                  </View>
+      {/* </View>
                 </View>
               )
             )
           : null}
-      </Animated.ScrollView>
+      </Animated.ScrollView> */}
       <Modal isVisible={isModalVisible}>
         <View style={styles.mdl}>
           <View style={styles.modalHeader}>

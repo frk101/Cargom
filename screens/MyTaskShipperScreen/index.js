@@ -89,6 +89,7 @@ const index = () => {
     );
   };
   const { shipperOrdersGetAllMyOrdersLoading } = useSelector((x) => x.shipper);
+
   return (
     <Layout title="Görevlerim" isBackIcon right={<LayoutRight1 />}>
       <ScrollView
