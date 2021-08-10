@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   shipperOrdersgetById,
   shipperOrdersPıckup,
+  shipperOrdersDelivery,
 } from "../../business/actions/shipper";
 import { Container, Content } from "native-base";
 import {
@@ -33,6 +34,8 @@ import COLORS from "../../constans/colors";
 import styles from "./styles";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 
+const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / height;
 const MyTaskShipperDetailSecreen = () => {
   const dispatch = useDispatch();
   const route = useRoute();
@@ -50,46 +53,6 @@ const MyTaskShipperDetailSecreen = () => {
 
   const _getShipperTaskDetail = async () => {
     dispatch(shipperOrdersgetById(route.params.orderDetail.orderID));
-    // .then(
-    //   ({ payload: { data } }) => {
-    //     if (
-    //       data &&
-    //       data.data &&
-    //       data.data.status == 20 &&
-    //       route.params.qrCodeScreen
-    //     ) {
-    //       Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
-    //         {
-    //           text: "İptal",
-    //           style: "cancel",
-    //         },
-    //         {
-    //           text: "Teslim al",
-    //           onPress: () => {
-    //             let shipperId = 0;
-    //             if (
-    //               shipperLoginResult &&
-    //               shipperLoginResult.data &&
-    //               shipperLoginResult.data.shipper &&
-    //               shipperLoginResult.data.shipper
-    //             ) {
-    //               shipperId = shipperLoginResult.data.shipper.id;
-    //             }
-    //             dispatch(
-    //               shipperOrdersPıckup({
-    //                 OrderID: route.params.orderDetail.orderID,
-    //                 ShipperID: shipperId,
-    //                 qrcode: route.params.qrcode,
-    //                 //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
-    //                 DriverID: data.data.driverID,
-    //               })
-    //             );
-    //           },
-    //         },
-    //       ]);
-    //     }
-    //   }
-    // );
   };
 
   const _handlePickUp = async () => {
@@ -116,70 +79,61 @@ const MyTaskShipperDetailSecreen = () => {
                 OrderID: route.params.orderDetail.orderID,
                 ShipperID: shipperId,
                 qrcode: route.params.qrcode,
-                //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
+
                 DriverID: shipperOrdersGetByIdResult.data.driverID,
               })
             ).then(({ payload: { data } }) => {
               if (data.status) {
                 navigation.navigate("MyTaskScreen");
               }
-              // console.log(data);
             });
           },
         },
       ]);
     } else {
-      navigation.navigate("BarCodeScanner", { autoPickUp: true });
+      navigation.navigate("QrCodeScreen", { autoPickUp: true });
     }
-    // dispatch(shipperOrdersgetById(route.params.orderDetail.orderID)).then(
-    //   ({ payload: { data } }) => {
-    //     if (
-    //       data &&
-    //       data.data &&
-    //       data.data.status == 20 &&
-    //       route.params.qrCodeScreen &&
-    //       route.params.autoPickUp
-    //     ) {
-    //       Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
-    //         {
-    //           text: "İptal",
-    //           style: "cancel",
-    //         },
-    //         {
-    //           text: "Teslim al",
-    //           onPress: () => {
-    //             let shipperId = 0;
-    //             if (
-    //               shipperLoginResult &&
-    //               shipperLoginResult.data &&
-    //               shipperLoginResult.data.shipper &&
-    //               shipperLoginResult.data.shipper
-    //             ) {
-    //               shipperId = shipperLoginResult.data.shipper.id;
-    //             }
-    //             dispatch(
-    //               shipperOrdersPıckup({
-    //                 OrderID: route.params.orderDetail.orderID,
-    //                 ShipperID: shipperId,
-    //                 qrcode: route.params.qrcode,
-    //                 //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
-    //                 DriverID: data.data.driverID,
-    //               })
-    //             );
-    //           },
-    //         },
-    //       ]);
-    //     } else if (data && data.data && data.data.status == 20) {
-    //       navigation.navigate("BarCodeScanner", { autoPickUp: true });
-    //     }
-    //   }
-    // );
   };
 
-  const { width, height } = Dimensions.get("window");
-  const ASPECT_RATIO = width / height;
-
-  // if (shipperOrdersGetByIdLoading) return <ActivityIndicator />;
+  const _handleDelivery = async () => {
+    if (route.params.qrCodeScreen) {
+      Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
+        {
+          text: "İptal",
+          style: "cancel",
+        },
+        {
+          text: "Teslim al",
+          onPress: () => {
+            let shipperId = 0;
+            if (
+              shipperLoginResult &&
+              shipperLoginResult.data &&
+              shipperLoginResult.data.shipper &&
+              shipperLoginResult.data.shipper
+            ) {
+              shipperId = shipperLoginResult.data.shipper.id;
+            }
+            dispatch(
+              shipperOrdersDelivery({
+                OrderID: route.params.orderDetail.orderID,
+                ShipperID: shipperId,
+                qrcode: route.params.qrcode,
+                DriverID: shipperOrdersGetByIdResult.data.driverID,
+                DeliveryCode: "",
+              })
+            ).then(({ payload: { data } }) => {
+              if (data.status) {
+                navigation.navigate("MyTaskScreen");
+              }
+            });
+          },
+        },
+      ]);
+    } else {
+      navigation.navigate("QrCodeScreen", { autoPickUp: true });
+    }
+  };
   return (
     <Layout title="Görev Detay">
       {shipperOrdersGetByIdResult.data == undefined ? (
@@ -220,7 +174,7 @@ const MyTaskShipperDetailSecreen = () => {
                 shipperOrdersGetByIdResult.data.status == 30 ? (
                 <TouchableOpacity
                   style={styles.btnTeslim}
-                  // onPress={_handlePickUp}
+                  onPress={_handleDelivery}
                 >
                   <Octicons
                     name="package"

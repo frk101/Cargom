@@ -116,6 +116,7 @@ const index = () => {
             selected={filter === selected}
             data={filter}
             callback={callback}
+            key={filter.id}
           />
         ))}
       </ScrollView>
@@ -285,7 +286,7 @@ const LayoutRight1 = () => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("BarCodeScanner", {
+        navigation.navigate("QrCodeScreen", {
           autoPickUp: false,
           qrCodeScreen: false,
         })

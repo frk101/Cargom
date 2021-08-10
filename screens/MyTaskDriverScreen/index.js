@@ -69,7 +69,10 @@ const MyTaskScreen = () => {
         />
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate("BarCodeScanner", { autoPickUp: false })
+            navigation.navigate("QrCodeScreen", {
+              autoPickUp: false,
+              qrCodeScreen: false,
+            })
           }
         >
           <MaterialCommunityIcons name="qrcode-scan" size={20} />

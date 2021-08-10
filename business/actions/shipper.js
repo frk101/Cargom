@@ -21,6 +21,8 @@ import {
   SHIPPER_ORDERS_PICKUP,
   SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE,
   SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_URL,
+  SHIPPER_ORDERS_DELIVERY,
+  SHIPPER_ORDERS_DELIVERY_URL,
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -160,6 +162,19 @@ export function shipperOrdersGetOrdersIdByQrcode(userModel) {
       request: {
         method: "POST",
         url: SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_URL,
+        data: userModel,
+      },
+    },
+  };
+}
+
+export function shipperOrdersDelivery(userModel) {
+  return {
+    type: SHIPPER_ORDERS_DELIVERY,
+    payload: {
+      request: {
+        method: "POST",
+        url: SHIPPER_ORDERS_DELIVERY_URL,
         data: userModel,
       },
     },

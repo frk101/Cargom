@@ -31,6 +31,7 @@ import MyTaskShipperDetailScreen from "../screens/MyTaskShipperDetailSecreen";
 import MyTaskDriverDetailScreen from "../screens/MyTaskDriverDetailScreen";
 import BarCodeScanner from "../screens/BracodeScanner";
 import DriverLogin from "../screens/LoginDriver";
+import QrCodeScreen from "../screens/QrCode";
 
 const LoginStack = createStackNavigator();
 
@@ -68,19 +69,13 @@ const HomeNavigator = () => {
         component={ProfileEditScreen}
       />
       <HomeStack.Screen name="OffersScreeen" component={OffersScreeen} />
-      {/* {shipperLoginResult &&
-      shipperLoginResult.data &&
-      shipperLoginResult.data.shipper &&
-      shipperLoginResult.data.shipper.shipperType == 2 ? (
-        <HomeStack.Screen name="MyTaskScreen" component={MyTaskShipperScreen} />
-      ) : (
-        <HomeStack.Screen name="MyTaskScreen" component={MyTaskDriverScreen} />
-      )} */}
+
       <HomeStack.Screen name="MyTaskScreen" component={MyTaskShipperScreen} />
       <HomeStack.Screen
         name="MyTaskShipperDetailScreen"
         component={MyTaskShipperDetailScreen}
       />
+      <HomeStack.Screen name="QrCodeScreen" component={QrCodeScreen} />
       <HomeStack.Screen name="BarCodeScanner" component={BarCodeScanner} />
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="CreateDriver" component={CreateDriver} />
@@ -105,6 +100,7 @@ const DriverHomeNavigator = () => {
         name="MyTaskShipperDetailScreen"
         component={MyTaskShipperDetailScreen}
       />
+      <DriverHome.Screen name="QrCodeScreen" component={QrCodeScreen} />
       <DriverHome.Screen name="BarCodeScanner" component={BarCodeScanner} />
     </DriverHome.Navigator>
   );

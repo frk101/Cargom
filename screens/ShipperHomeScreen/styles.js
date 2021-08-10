@@ -1,5 +1,7 @@
 import COLORS from "../../constans/colors";
 import { StyleSheet, Dimensions, Platform } from "react-native";
+
+const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   menu: {
     flexDirection: "row",
@@ -64,5 +66,32 @@ export default StyleSheet.create({
   opacity: {
     width: 50,
     height: 50,
+  },
+  modalBottomImage: {
+    width: 139,
+    height: 145,
+    resizeMode: "contain",
+  },
+  bottomModalTextContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    marginHorizontal: 10,
+    borderRadius: 10,
+  },
+  bossText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  bossName: {
+    color: "#807272",
+    fontSize: 12,
+    marginBottom: 10,
+  },
+  popUpPolygon: {
+    marginLeft: width / 4,
+  },
+  bossTextContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

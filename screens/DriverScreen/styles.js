@@ -77,6 +77,10 @@ export default StyleSheet.create({
     borderRadius: 40,
     marginBottom: 20,
   },
+  view: {
+    margin: 0,
+    justifyContent: "flex-end",
+  },
   docView: {
     marginVertical: 10,
     flexDirection: "row",
@@ -118,5 +122,28 @@ export default StyleSheet.create({
   error: {
     color: "red",
     fontSize: 12,
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 60,
+    marginHorizontal: 30,
+  },
+  modaltxtContainer: {
+    flex: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modaltxt: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalRds: {
+    flex: 1,
+    backgroundColor: "#F1F2F4",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
 });

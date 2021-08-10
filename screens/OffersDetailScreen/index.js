@@ -62,16 +62,9 @@ const AllCargoDetail = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const modalizeRef = useRef(null);
-  const _map = React.useRef(null);
-  const _scrollView = React.useRef(null);
-  const mapRef = useRef(null);
-  const theme = useTheme();
-  let mapIndex = 0;
-  let mapAnimation = new Animated.Value(0);
 
   const [isModalVisible, setModalVisible] = useState(false);
-  // const [state, setState] = useState(initialMapState);
-  const [currentPage, setCurrentPage] = useState(0);
+
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [openDriver, setOpenDriver] = useState(false);
   const [driverSearch, setDriverSearch] = useState("");
@@ -101,10 +94,6 @@ const AllCargoDetail = () => {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-  };
-
-  const onOpen = () => {
-    modalizeRef.current?.open();
   };
 
   const _handleGetOfferDetail = () => {
@@ -191,6 +180,7 @@ const AllCargoDetail = () => {
       return;
     } else {
       setModalVisible(false);
+      navigation.goBack();
       Notifier.showNotification({
         title: "HARİKA",
         description: "Görevlerim Sayfasından Görevinize Bakabilirsiniz",
@@ -206,7 +196,9 @@ const AllCargoDetail = () => {
       OrderGroupID: route.params.id,
       VehicleID: selectedVehicle.vehicle.id,
     };
-    dispatch(ordersAssignGroupDriver(model));
+    dispatch(ordersAssignGroupDriver(model)).then((x) => {
+      // console.log(x);
+    });
   };
   // console.log(
   //   ordersGetPendingOfferDetailResult &&
@@ -262,7 +254,7 @@ const AllCargoDetail = () => {
                 : []
             }
             strokeColor="#171797"
-            lineJoin="miter"
+            lineJoin="round"
             strokeWidth={3}
             lineDashPattern={[13, 13]}
           />
@@ -276,15 +268,7 @@ const AllCargoDetail = () => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* 
-      <View style={styles.view}>
-        <TouchableOpacity
-          style={{ flex: 1, justifyContent: "center" }}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back-circle" size={30} color={COLORS.text} />
-        </TouchableOpacity>
-      </View> */}
+
       <View style={styles.views}>
         <View style={styles.btnDetail}>
           <Text style={{ fontWeight: "bold", fontSize: 15, color: "#fff" }}>
