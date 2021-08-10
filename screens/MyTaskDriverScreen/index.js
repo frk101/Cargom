@@ -69,7 +69,7 @@ const MyTaskScreen = () => {
         />
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate("QrCodeScreen", {
+            navigation.navigate("BarCodeScanner", {
               autoPickUp: false,
               qrCodeScreen: false,
             })

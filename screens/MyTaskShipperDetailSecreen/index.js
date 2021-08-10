@@ -79,7 +79,7 @@ const MyTaskShipperDetailSecreen = () => {
                 OrderID: route.params.orderDetail.orderID,
                 ShipperID: shipperId,
                 qrcode: route.params.qrcode,
-
+                //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
                 DriverID: shipperOrdersGetByIdResult.data.driverID,
               })
             ).then(({ payload: { data } }) => {
@@ -91,49 +91,10 @@ const MyTaskShipperDetailSecreen = () => {
         },
       ]);
     } else {
-      navigation.navigate("QrCodeScreen", { autoPickUp: true });
+      navigation.navigate("BarCodeScanner", { autoPickUp: true });
     }
   };
 
-  const _handleDelivery = async () => {
-    if (route.params.qrCodeScreen) {
-      Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
-        {
-          text: "İptal",
-          style: "cancel",
-        },
-        {
-          text: "Teslim al",
-          onPress: () => {
-            let shipperId = 0;
-            if (
-              shipperLoginResult &&
-              shipperLoginResult.data &&
-              shipperLoginResult.data.shipper &&
-              shipperLoginResult.data.shipper
-            ) {
-              shipperId = shipperLoginResult.data.shipper.id;
-            }
-            dispatch(
-              shipperOrdersDelivery({
-                OrderID: route.params.orderDetail.orderID,
-                ShipperID: shipperId,
-                qrcode: route.params.qrcode,
-                DriverID: shipperOrdersGetByIdResult.data.driverID,
-                DeliveryCode: "",
-              })
-            ).then(({ payload: { data } }) => {
-              if (data.status) {
-                navigation.navigate("MyTaskScreen");
-              }
-            });
-          },
-        },
-      ]);
-    } else {
-      navigation.navigate("QrCodeScreen", { autoPickUp: true });
-    }
-  };
   return (
     <Layout title="Görev Detay">
       {shipperOrdersGetByIdResult.data == undefined ? (
@@ -174,7 +135,7 @@ const MyTaskShipperDetailSecreen = () => {
                 shipperOrdersGetByIdResult.data.status == 30 ? (
                 <TouchableOpacity
                   style={styles.btnTeslim}
-                  onPress={_handleDelivery}
+                  // onPress={_handleDelivery}
                 >
                   <Octicons
                     name="package"
