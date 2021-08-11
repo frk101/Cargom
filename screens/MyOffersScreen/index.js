@@ -55,7 +55,7 @@ return(
 )
 }
 const RenderList = ({ item }) => {
-    console.log(item)
+    
     return (
       <TouchableOpacity
         style={styles.listGrupContainer}
