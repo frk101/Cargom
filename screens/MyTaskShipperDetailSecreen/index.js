@@ -34,7 +34,6 @@ const MyTaskShipperDetailSecreen = () => {
   const _getShipperTaskDetail = async () => {
     dispatch(shipperOrdersgetById(route.params.orderDetail.orderID));
   };
-
   const _handlePickUp = async () => {
     if (route.params.qrCodeScreen) {
       Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
@@ -48,6 +47,8 @@ const MyTaskShipperDetailSecreen = () => {
             let shipperId = 0;
             if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.shipper && shipperLoginResult.data.shipper) {
               shipperId = shipperLoginResult.data.shipper.id;
+            } else if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.driver && shipperLoginResult.data.driver) {
+              shipperId = shipperLoginResult.data.driver.id;
             }
             dispatch(
               shipperOrdersPıckup({
@@ -86,6 +87,8 @@ const MyTaskShipperDetailSecreen = () => {
       let shipperId = 0;
       if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.shipper && shipperLoginResult.data.shipper) {
         shipperId = shipperLoginResult.data.shipper.id;
+      } else if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.driver && shipperLoginResult.data.driver) {
+        shipperId = shipperLoginResult.data.driver.id;
       }
       dispatch(
         shipperOrdersDelivery({
