@@ -23,6 +23,8 @@ import {
   SHIPPER_ORDERS_GET_ORDERS_ID_BY_QRCODE_URL,
   SHIPPER_ORDERS_DELIVERY,
   SHIPPER_ORDERS_DELIVERY_URL,
+  SHIPPER_ORDERS_GET_MY_OFFERS,
+  SHIPPER_ORDERS_GET_MY_OFFERS_URL
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -176,6 +178,18 @@ export function shipperOrdersDelivery(userModel) {
         method: "POST",
         url: SHIPPER_ORDERS_DELIVERY_URL,
         data: userModel,
+      },
+    },
+  };
+}
+
+
+export function shipperOrdersGetMyOffers() {
+  return {
+    type: SHIPPER_ORDERS_GET_MY_OFFERS,
+    payload: {
+      request: {
+        url: SHIPPER_ORDERS_GET_MY_OFFERS_URL,
       },
     },
   };

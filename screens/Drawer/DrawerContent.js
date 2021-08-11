@@ -10,9 +10,9 @@ import { Title, Caption, Drawer } from "react-native-paper";
 import COLORS from "../../constans/colors";
 import { useSelector } from "react-redux";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Avatar } from "react-native-elements";
+
 import {
-  Feather,
+  
   AntDesign,
   MaterialCommunityIcons,
   FontAwesome,
@@ -102,7 +102,18 @@ export function DrawerContent(props) {
               icon={({ color, size }) => (
                 <FontAwesome5 name="tasks" color={color} size={size} />
               )}
+              
               label="Görevlerim"
+              onPress={() => navigation.navigate("MyOffersScreeen")}
+              labelStyle={styles.labels}
+              
+            />
+
+            <DrawerItem
+              icon={({ color, size }) => (
+                <FontAwesome5 name="tasks" color={color} size={size} />
+              )}
+              label="Kargolarım"
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("MyTaskScreen")}
             />

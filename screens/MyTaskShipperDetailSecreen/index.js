@@ -19,6 +19,7 @@ import {
   shipperOrdersPıckup,
   shipperOrdersDelivery,
 } from "../../business/actions/shipper";
+import * as Linking from 'expo-linking';
 import { Container, Content } from "native-base";
 import {
   MaterialCommunityIcons,
@@ -517,6 +518,8 @@ const MyTaskShipperDetailSecreen = () => {
                 />
               </MapView>
               <TouchableOpacity
+            //  onPress={() => Linking.openURL(shipperOrdersGetByIdResult &&
+            //   shipperOrdersGetByIdResult.data.startLat)}
                 style={{
                   margin: 10,
                   backgroundColor: COLORS.text,

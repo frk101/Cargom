@@ -86,7 +86,7 @@ const index = () => {
 };
 
 const RenderList = ({ item }) => {
-  console.log(item.vehicle.status);
+  // console.log(item.vehicle.status);
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
