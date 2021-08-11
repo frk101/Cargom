@@ -28,7 +28,7 @@ import CreateDriver from "../screens/CreateDriver/createDriver";
 import CreateVehicles from "../screens/CreateVehicles/CreateVehicles";
 import OffersDetailScreen from "../screens/OffersDetailScreen";
 import MyTaskShipperDetailScreen from "../screens/MyTaskShipperDetailSecreen";
-import MyTaskDriverDetailScreen from "../screens/MyTaskDriverDetailScreen";
+
 import BarCodeScanner from "../screens/BracodeScanner";
 import DriverLogin from "../screens/LoginDriver";
 import QrCodeScreen from "../screens/QrCode";
@@ -86,6 +86,7 @@ const HomeNavigator = () => {
       />
 
       <HomeStack.Screen name="StepCargo" component={StepCargo} />
+      {/* <HomeStack.Screen name="DriverHomeScreen" component={DriverHomeScreen} /> */}
     </HomeStack.Navigator>
   );
 };
@@ -100,7 +101,10 @@ const DriverHomeNavigator = () => {
         name="MyTaskShipperDetailScreen"
         component={MyTaskShipperDetailScreen}
       />
-      <DriverHome.Screen name="QrCodeScreen" component={QrCodeScreen} />
+      <DriverHome.Screen
+        name="MyTaskDriverScreen"
+        component={MyTaskDriverScreen}
+      />
       <DriverHome.Screen name="BarCodeScanner" component={BarCodeScanner} />
     </DriverHome.Navigator>
   );
