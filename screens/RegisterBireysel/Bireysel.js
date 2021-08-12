@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik,useFormikContext } from "formik";
 import {
   StyleSheet,
   Text,
@@ -22,23 +22,26 @@ import RegisterScheme from "../../ValidationScheme/RegisterScheme";
 import { CheckBox } from "react-native-elements";
 import styles from "./styles";
 
+
 const Bireysel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();  
+  
   const _handleRegister = (values) => {
+  
     values.phone = values.phone
       .replace("(", "")
       .replace(")", "")
       .replace("-", "")
       .replace(/\s/g, "")
       .trim();
-      values.shipperType = 2;
-      
-      values.ipAddress = "127.0.0.2";
+      values.shipperType = 1;
+      values.ipAddress = "127.0.0.1";
+      values.taxNumber=parseFloat(values.taxNumber)
     dispatch(shipperRegisterBeginRequest(values)).then(
       ({ payload: { data } }) => {
-       
-        if (data.status) {
+        
+        if (data.data.status) {
           navigation.navigate("OtpScreens", values);
         } else {
           let message = "Kayıt işlemi sırasında bir hata oluştu.";
@@ -250,7 +253,7 @@ const Bireysel = () => {
                 </Text>
                 <View style={styles.action}>
                   <TextInput
-                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholder="Vergi Dairesi Giriniz"
                     placeholderTextColor="#666666"
                     keyboardType="email-address"
                     style={[
@@ -280,7 +283,7 @@ const Bireysel = () => {
                 </Text>
                 <View style={styles.action}>
                   <TextInput
-                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholder="Vergi Unvanınızı Giriniz"
                     placeholderTextColor="#666666"
                     keyboardType='number-pad'
                     style={[

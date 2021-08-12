@@ -30,7 +30,7 @@ import OffersDetailScreen from "../screens/OffersDetailScreen";
 import MyTaskShipperDetailScreen from "../screens/MyTaskShipperDetailSecreen";
 import MyOffersScreeen from "../screens/MyOffersScreen";
 import MyOfferDetailScreeen from "../screens/MyOffersDetailScreens";
-
+import PaymentScreen from '../screens/PaymentsScreen'
 import BarCodeScanner from "../screens/BracodeScanner";
 import DriverLogin from "../screens/LoginDriver";
 import QrCodeScreen from "../screens/QrCode";
@@ -84,6 +84,7 @@ const HomeNavigator = () => {
       <HomeStack.Screen name="VehiclesScreen" component={VehiclesScreen} />
       <HomeStack.Screen name="CreateDriver" component={CreateDriver} />
       <HomeStack.Screen name="CreateVehicles" component={CreateVehicles} />
+      <HomeStack.Screen name="PaymentScreen" component={PaymentScreen} />
       <HomeStack.Screen
         name="OffersDetailScreen"
         component={OffersDetailScreen}
@@ -110,6 +111,8 @@ const DriverHomeNavigator = () => {
         name="MyTaskDriverScreen"
         component={MyTaskDriverScreen}
       />
+      <DriverHome.Screen name="MyOffersScreeen" component={MyOffersScreeen}/>
+      <DriverHome.Screen name="MyOfferDetailScreeen" component={MyOfferDetailScreeen}/>
       <DriverHome.Screen name="BarCodeScanner" component={BarCodeScanner} />
     </DriverHome.Navigator>
   );

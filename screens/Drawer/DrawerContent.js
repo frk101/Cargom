@@ -102,13 +102,10 @@ export function DrawerContent(props) {
               icon={({ color, size }) => (
                 <FontAwesome5 name="tasks" color={color} size={size} />
               )}
-              
               label="Görevlerim"
               onPress={() => navigation.navigate("MyOffersScreeen")}
               labelStyle={styles.labels}
-              
             />
-
             <DrawerItem
               icon={({ color, size }) => (
                 <MaterialCommunityIcons name="package-variant" color={color} size={size} />
@@ -117,11 +114,11 @@ export function DrawerContent(props) {
               labelStyle={styles.labels}
               onPress={() => navigation.navigate("MyTaskScreen")}
             />
-
             <DrawerItem
               icon={({ color, size }) => (
                 <Entypo name="wallet" color={color} size={size} />
               )}
+              onPress={() => navigation.navigate("PaymentScreen")}
               label="Ödemeler"
               labelStyle={styles.labels}
             />

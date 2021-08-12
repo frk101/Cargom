@@ -15,7 +15,6 @@ import { vehiclesGetByShipper } from "../../business/actions/shipper";
 import { useNavigation } from "@react-navigation/native";
 
 import {
-  FontAwesome5,
   Ionicons,
   AntDesign,
   MaterialCommunityIcons,
@@ -86,7 +85,7 @@ const index = () => {
 };
 
 const RenderList = ({ item }) => {
-  // console.log(item.vehicle.status);
+  
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -160,6 +159,7 @@ const RenderList = ({ item }) => {
       <Modal
         isVisible={isModalVisible}
         swipeDirection={["down"]}
+        onSwipeComplete={() => setModalVisible(false)}
         style={styles.view}
         backdropColor={
           item.vehicle.status === 20
@@ -246,7 +246,7 @@ const RenderList = ({ item }) => {
                         color={COLORS.primary}
                       />
                       <Text style={styles.docText}>Fotoğraf</Text>
-                      {/*  */}
+                     
                     </View>
                   </View>
                 </View>

@@ -19,7 +19,7 @@ import { driverGetByShipper } from "../../business/actions/shipper";
 
 import Modal from "react-native-modal";
 import moment from "moment";
-import { Content } from "native-base";
+import { Content } from "native-base";                                 
 
 const { width, height } = Dimensions.get("window");
 const DriverScreen = () => {
@@ -49,9 +49,9 @@ const DriverScreen = () => {
     <Layout isBackIcon title="Sürücüler">
       <View style={{ flex: 1 }}>
         {driverGetAllShipperResult.data == "" ? (
-          <Text style={{ justifyContent: "center", alignItems: "center" }}>
-            Sürücünüz Bulunmamaktadır
-          </Text>
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}> <Text style={{ justifyContent: "center", alignItems: "center" }}>
+          Sürücünüz Bulunmamaktadır
+        </Text></View>     
         ) : (
           <FlatList
             refreshControl={
@@ -150,6 +150,7 @@ const RenderList = ({ item }) => {
         isVisible={isModalVisible}
         swipeDirection={["down"]}
         style={styles.view}
+        onSwipeComplete={() => setModalVisible(false)}
         backdropColor={
           item.driver.status === 20
             ? "#F49917"

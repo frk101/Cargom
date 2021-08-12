@@ -42,6 +42,7 @@ import { Divider } from "react-native-elements";
 
 
 import { Content } from "native-base";
+import { ActivityIndicator } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -76,7 +77,7 @@ const AllCargoDetail = () => {
   const [vehicleSearch, setVehicleSearch] = useState("");
   const [vehicleList, setVehicleList] = useState([]);
 
-  const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
+  const { ordersGetPendingOfferDetailResult, ordersGetPendingOfferDetailLoading } =
     useSelector((x) => x.driver);
 
     
@@ -211,9 +212,10 @@ const AllCargoDetail = () => {
 
   // );
   return (
-    // <Layout title="Teklif Detay" isBackIcon>
-    
+    <>
+       {ordersGetPendingOfferDetailLoading ? <ActivityIndicator/> :
     <View style={styles.container}>
+   
       <View style={{ height: height * 0.4 }}>
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -474,8 +476,8 @@ const AllCargoDetail = () => {
         </View>
       </Modal>
     </View>
-
-    //  </Layout>
+}
+      </>
   );
 };
 

@@ -11,6 +11,7 @@ import { ordersGetAllPendingOffers } from "../business/actions/driver";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import {AntDesign} from 'react-native-vector-icons'
+import { SearchBar } from 'react-native-elements';
 
 const Filter = ({ setOpenModal }) => {
   const dispatch = useDispatch();
@@ -74,8 +75,8 @@ const Filter = ({ setOpenModal }) => {
       dispatch(ordersGetAllPendingOffers(searchParams)).then(
         ({ payload: { data } }) => {
           if (data.length == undefined || data.length == 0) {
-            setOpenModal(false);
-            alert("Sonuç bulunamadı.");
+            
+            alert("Mevcut filtreleme yoktur !");
             Notifier.showNotification({
               title: "UYARI",
               description: "sss",
@@ -121,6 +122,7 @@ const Filter = ({ setOpenModal }) => {
             value={originTownSearch}
             onChangeText={(text) => _handleSearchOriginTown(text)}
           />
+          {selectedOriginTown ? <TouchableOpacity onPress={(text)=>_handleSearchOriginTown(text)}><AntDesign name='closecircle' size={20}/></TouchableOpacity> : <AntDesign name='search1' size={20}/>}
         </View>
         <FlatList
           keyExtractor={(item, index) => index.toString()}
@@ -161,8 +163,8 @@ const Filter = ({ setOpenModal }) => {
             onChangeText={(text) => _handleSearchDestinationTown(text)}
           />
 
-
-          <AntDesign name='closecircle' size={20}/>
+{selectedDestinationTown ? <TouchableOpacity onPress={(text)=>_handleSearchDestinationTown(text)}><AntDesign name='closecircle' size={20}/></TouchableOpacity> : <AntDesign name='search1' size={20}/>}
+         
         </View>
         <FlatList
           keyExtractor={(item, index) => index.toString()}
@@ -195,16 +197,18 @@ const Filter = ({ setOpenModal }) => {
         >
           <RangeSlider
             min={0}
-            max={100}
+            max={1000}
             fromValueOnChange={(value) => setFormPrice(value)}
             toValueOnChange={(value) => setToPrice(value)}
-            initialFromValue={11}
+            initialFromValue={0}
             knobColor={COLORS.primary}
             valueLabelsBackgroundColor="black"
             inRangeBarColor={COLORS.primary}
             outOfRangeBarColor="gray"
           />
+
         </View>
+        
       </Content>
       <Footer>
         <FooterTab style={{ backgroundColor: COLORS.primary }}>

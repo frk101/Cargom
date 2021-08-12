@@ -125,7 +125,7 @@ export default StyleSheet.create({
   },
   durum: {
     color: "#fff",
-    fontWeight: "bold",
+    fontWeight: '300',
     textAlign: "center",
   },
   locationContainer: { flexDirection: "row", alignItems: "center" },
@@ -135,9 +135,9 @@ export default StyleSheet.create({
   durumColor: {
     justifyContent: "center",
     alignItems: "center",
-    width: 90,
+    width: 60,
     height: 50,
-    // padding: 10,
+   
     marginBottom: 5,
     borderRadius: 5,
   },

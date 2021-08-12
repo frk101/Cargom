@@ -21,6 +21,7 @@ import { ListItem } from "react-native-elements";
 import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
 import Layout from "../../components/Layout";
 import styles from "./styles";
+import { Content } from "native-base";
 
 const myData = [
   {
@@ -89,9 +90,16 @@ const index = () => {
     );
   };
   const { shipperOrdersGetAllMyOrdersLoading } = useSelector((x) => x.shipper);
-
+  // 
   return (
     <Layout title="Kargolarım" isBackIcon right={<LayoutRight1 />}>
+      <Content    refreshControl={
+    <RefreshControl
+      tintColor={COLORS.primary}
+      refreshing={shipperOrdersGetAllMyOrdersLoading}
+      onRefresh={_getShipperTask}
+    />
+  }>
       <ScrollView
         horizontal
         scrollEventThrottle={1}
@@ -122,18 +130,14 @@ const index = () => {
       </ScrollView>
       <FlatList
         style={{ marginTop: 10 }}
-        refreshControl={
-          <RefreshControl
-            tintColor={COLORS.primary}
-            refreshing={shipperOrdersGetAllMyOrdersLoading}
-            onRefresh={_getShipperTask}
-          />
-        }
+     scrollEnabled={false}
         data={dataList}
         keyExtractor={(item) => item.orderID.toString()}
         renderItem={({ item }) => <RenderList item={item} />}
         onEndReached={_getShipperTask}
       />
+      </Content>
+     
     </Layout>
   );
 };

@@ -19,7 +19,11 @@ import * as Yup from "yup";
 import FormErrorText from "../../components/FormErrorText";
 import { shipperRegisterBeginRequest } from "../../business/actions/shipper";
 import { Notifier, NotifierComponents } from "react-native-notifier";
+import { CheckBox } from "react-native-elements";
+
+
 import styles from "./styles";
+
 const RegisterScheme = Yup.object().shape({
   firstName: Yup.string()
     .min(1, "Boş geçilemez!")
@@ -33,15 +37,17 @@ const RegisterScheme = Yup.object().shape({
     .min(15, "Boş geçilemez!")
     .max(50, "Hatalı giriş yaptınız!")
     .required("Boş geçilemez"),
-  companyName: Yup.string()
-    .min(1, "Boş geçilemez!")
-    .max(250, "Hatalı giriş yaptınız!")
-    .required("Boş geçilemez"),
+  // companyName: Yup.string()
+  //   .min(1, "Boş geçilemez!")
+  //   .max(250, "Hatalı giriş yaptınız!")
+  //   .required("Boş geçilemez"),
 });
 const Kurumsal = () => {
+  
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const _handleRegister = (values) => {
+    
     values.phone = values.phone
       .replace("(", "")
       .replace(")", "")
@@ -50,12 +56,14 @@ const Kurumsal = () => {
       .trim();
     values.shipperType = 2;
     values.ipAddress = "127.0.0.1";
+    values.taxNumber=parseFloat(values.taxNumber)
     dispatch(shipperRegisterBeginRequest(values)).then(
       ({ payload: { data } }) => {
         if (data.status) {
+          console.log(data.status)
           navigation.navigate("OtpScreens", values);
         } else {
-          let message = "Kayıt işlemi sırasında bir hata oluştu.";
+          let message = "Kayıt işlemi sırasında bir hata oluştu."
           if (data.message) {
             message += data.message;
           }
@@ -102,6 +110,9 @@ const Kurumsal = () => {
               lastName: "",
               phone: "",
               companyName: "",
+              isTaxPlayer: false,
+             taxOffice:"",
+             taxNumber:""
             }}
             onSubmit={(values) => _handleRegister(values)}
             validationSchema={RegisterScheme}
@@ -109,6 +120,7 @@ const Kurumsal = () => {
             {({
               handleChange,
               handleBlur,
+              setFieldValue,
               handleSubmit,
               values,
               errors,
@@ -142,9 +154,7 @@ const Kurumsal = () => {
                     value={values.firstName}
                   />
                 </View>
-                {errors.firstName && touched.firstName ? (
-                  <FormErrorText>* {errors.firstName}</FormErrorText>
-                ) : null}
+                
                 <Text
                   style={[
                     styles.text_footer,
@@ -172,10 +182,8 @@ const Kurumsal = () => {
                     value={values.lastName}
                   />
                 </View>
-                {errors.lastName && touched.lastName ? (
-                  <FormErrorText>* {errors.lastName}</FormErrorText>
-                ) : null}
-                <Text
+                
+                {/* <Text
                   style={[
                     styles.text_footer,
                     {
@@ -204,7 +212,7 @@ const Kurumsal = () => {
                 </View>
                 {errors.companyName && touched.companyName ? (
                   <FormErrorText>* {errors.companyName}</FormErrorText>
-                ) : null}
+                ) : null} */}
                 <Text
                   style={[
                     styles.text_footer,
@@ -237,10 +245,107 @@ const Kurumsal = () => {
                     value={values.phone}
                   />
                 </View>
-                {errors.phone && touched.phone ? (
-                  <FormErrorText>* {errors.phone}</FormErrorText>
-                ) : null}
-
+                
+                 <View style={styles.checkedAction}>
+                <CheckBox
+                  title="Vergi Mükellefiyim"
+                  checkedColor={COLORS.primary}
+                  onPress={() =>
+                    handleChange("isTaxPlayer", !values.isTaxPlayer, true)
+                  }
+                  checked={values.isTaxPlayer}
+                 
+                />
+                </View>
+                {!values.isTaxPlayer ? null : (
+               <View>
+                   <Text
+                  style={[
+                    styles.text_footer,
+                    {
+                      color: COLORS.text,
+                      marginTop: 35,
+                    },
+                  ]}
+                >
+                  Şirket Unvanı
+                </Text>
+                <View style={styles.action}>
+                  <TextInput
+                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholderTextColor="#666666"
+                    keyboardType="email-address"
+                    style={[
+                      styles.textInput,
+                      {
+                        color: COLORS.text,
+                      },
+                    ]}
+                    onChangeText={handleChange("companyName")}
+                    onBlur={handleBlur("companyName")}
+                    value={values.companyName}
+                  />
+                </View>
+                
+                 <Text
+                  style={[
+                    styles.text_footer,
+                    {
+                      color: COLORS.text,
+                      marginTop: 35,
+                    },
+                  ]}
+                >
+                  Vergi Dairesi
+                </Text>
+                <View style={styles.action}>
+                  <TextInput
+                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholderTextColor="#666666"
+                    keyboardType="email-address"
+                    style={[
+                      styles.textInput,
+                      {
+                        color: COLORS.text,
+                      },
+                    ]}
+                    onChangeText={handleChange("taxOffice")}
+                    onBlur={handleBlur("taxOffice")}
+                    value={values.taxOffice}
+                  />
+                </View>
+               
+                        <Text
+                  style={[
+                    styles.text_footer,
+                    {
+                      color: COLORS.text,
+                      marginTop: 35,
+                    },
+                  ]}
+                >
+                  Vergi Numarası
+                </Text>
+                <View style={styles.action}>
+                  <TextInput
+                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholderTextColor="#666666"
+                    keyboardType='number-pad'
+                    style={[
+                      styles.textInput,
+                      {
+                        color: COLORS.text,
+                      },
+                    ]}
+                    onChangeText={handleChange("taxNumber")}
+                    onBlur={handleBlur("taxNumber")}
+                    value={values.taxNumber}
+                  />
+                </View>
+              
+              
+               </View>
+               )}
                 <TouchableOpacity
                   onPress={handleSubmit}
                   style={styles.btnGonder}
