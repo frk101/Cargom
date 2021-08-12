@@ -28,6 +28,7 @@ import {
   Ionicons,
   Octicons,
   AntDesign,
+  MaterialIcons
 } from "react-native-vector-icons";
 import { Modalize } from "react-native-modalize";
 import Layout from "../../components/Layout";
@@ -151,6 +152,20 @@ const MyTaskShipperDetailSecreen = () => {
     }
   };
 
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Emin misiniz ?",
+      "Santral sizi ve alıcıyı bağlayacaktır, emin misiniz ?",
+      [
+        {
+          text: "İptal",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Evet", onPress: () => console.log("OK Pressed") }
+      ]
+    );
   return (
     <Layout title="Görev Detay">
       {shipperOrdersGetByIdResult.data == undefined ? (
@@ -347,10 +362,19 @@ const MyTaskShipperDetailSecreen = () => {
                 </Text>
                 <Divider />
                 <Text style={styles.baslik}>Cep Telefonu</Text>
+                <View style={{flexDirection:"row",justifyContent: "space-between"}} >
+                 
                 <Text style={styles.title}>
                   {shipperOrdersGetByIdResult &&
                     shipperOrdersGetByIdResult.data.phoneNumber}
                 </Text>
+                <TouchableOpacity style={{justifyContent:"center",alignItems:"center"}} onPress={createTwoButtonAlert}>
+                <MaterialIcons name='phone-forwarded' size={20} color="#00ACEE"/>
+                </TouchableOpacity>
+               
+                  </View>
+
+                
 
                 <Divider />
                 <Text style={styles.baslik}>Adres</Text>
@@ -523,7 +547,7 @@ const MyTaskShipperDetailSecreen = () => {
                 style={{
                   margin: 10,
                   backgroundColor: COLORS.text,
-                  width: 70,
+                  width: 100,
                   height: 50,
                   justifyContent: "center",
                   alignItems: "center",

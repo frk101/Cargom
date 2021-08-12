@@ -105,13 +105,17 @@ const RenderList = ({ item }) => {
           >
             <View>
               <View style={styles.iconModel}>
-                <FontAwesome5 name="car-side" />
-                <Text style={{ marginLeft: 10, color: COLORS.text }}>
+              <MaterialCommunityIcons
+                    name="card-account-details-star"
+                    size={20}
+                  />
+                <Text style={{ marginLeft: 10, color: COLORS.text,fontWeight: 'bold', }}>
                   {item.vehicle.plate}
                 </Text>
               </View>
               <View style={styles.modelNames}>
-                <Text style={{ marginRight: 5 }}>{item.brand.brandName}</Text>
+              <MaterialCommunityIcons name="car-info" size={20} />
+                <Text style={{ marginRight: 5 }}>  {item.brand.brandName}</Text>
                 <Text>{item.model.modelName}</Text>
               </View>
             </View>
@@ -140,7 +144,7 @@ const RenderList = ({ item }) => {
                 {item.vehicle.status === 20
                   ? "İnceleniyor"
                   : item.vehicle.status === 30
-                  ? "Aktif"
+                  ? "Onaylı"
                   : item.vehicle.status === 40
                   ? "Reddedildi"
                   : item.vehicle.status === 50
@@ -207,7 +211,7 @@ const RenderList = ({ item }) => {
                     name="card-account-details-star"
                     size={20}
                   />
-                  <Text style={styles.subtitle}> {item.vehicle.plate}</Text>
+                  <Text style={styles.subtitle}>{item.vehicle.plate}</Text>
                 </View>
                 <View style={styles.container}>
                   <Text style={styles.title}>
@@ -221,7 +225,7 @@ const RenderList = ({ item }) => {
                     size={20}
                     color={COLORS.text}
                   />
-                  <Text style={styles.documents}>Dökümanlar</Text>
+                  <Text style={styles.documents}>Dokümanlar</Text>
                 </View>
                 <View tyle={styles.container}>
                   <View style={{ backgroundColor: "#fff", paddingBottom: 20 }}>

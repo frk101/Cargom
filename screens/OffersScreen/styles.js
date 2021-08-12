@@ -118,15 +118,15 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   actionSearch: {
-    flexDirection: "row",
+    
     marginTop: 5,
-    justifyContent: "space-around",
-    borderColor: "#979797",
+   
+    borderBottomColor: "#979797",
     padding: 13,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginHorizontal: 20,
-    borderRadius: 10,
-    alignItems: "center",
+    
+    
   },
   actiond: {
     flexDirection: "row",

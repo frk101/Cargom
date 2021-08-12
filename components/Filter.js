@@ -10,6 +10,7 @@ import { addressSearchByKeword } from "../business/actions/general";
 import { ordersGetAllPendingOffers } from "../business/actions/driver";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native";
+import {AntDesign} from 'react-native-vector-icons'
 
 const Filter = ({ setOpenModal }) => {
   const dispatch = useDispatch();
@@ -74,15 +75,15 @@ const Filter = ({ setOpenModal }) => {
         ({ payload: { data } }) => {
           if (data.length == undefined || data.length == 0) {
             setOpenModal(false);
-            // alert("Sonuç bulunamadı.");
-            // Notifier.showNotification({
-            //   title: "UYARI",
-            //   description: "sss",
-            //   Component: NotifierComponents.Alert,
-            //   componentProps: {
-            //     alertType: "error",
-            //   },
-            // });
+            alert("Sonuç bulunamadı.");
+            Notifier.showNotification({
+              title: "UYARI",
+              description: "sss",
+              Component: NotifierComponents.Alert,
+              componentProps: {
+                alertType: "error",
+              },
+            });
           } else {
             setOpenModal(false);
           }
@@ -125,10 +126,13 @@ const Filter = ({ setOpenModal }) => {
           keyExtractor={(item, index) => index.toString()}
           data={openOriginTown && addressSearchByKewordResult.data}
           renderItem={({ item }) => (
-            <OriginTown
+            
+                <OriginTown
               item={item}
               _handleChooseOriginTown={_handleChooseOriginTown}
             />
+          
+          
           )}
         />
         <Text
@@ -156,6 +160,9 @@ const Filter = ({ setOpenModal }) => {
             value={DestinationTownSearch}
             onChangeText={(text) => _handleSearchDestinationTown(text)}
           />
+
+
+          <AntDesign name='closecircle' size={20}/>
         </View>
         <FlatList
           keyExtractor={(item, index) => index.toString()}
@@ -187,8 +194,8 @@ const Filter = ({ setOpenModal }) => {
           }}
         >
           <RangeSlider
-            min={""}
-            max={""}
+            min={0}
+            max={100}
             fromValueOnChange={(value) => setFormPrice(value)}
             toValueOnChange={(value) => setToPrice(value)}
             initialFromValue={11}
@@ -231,6 +238,7 @@ const HeadersModal = ({ setOpenModal }) => {
 
 const OriginTown = ({ item, _handleChooseOriginTown }) => {
   return (
+    
     <TouchableOpacity
       key={item.id.toString()}
       onPress={() => _handleChooseOriginTown(item)}

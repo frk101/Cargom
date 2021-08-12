@@ -350,11 +350,11 @@ const CreateVehicles = () => {
                       },
                     ]}
                   >
-                    Desi
+                    Hacim
                   </Text>
                   <View style={styles.action}>
                     <TextInput
-                      placeholder="Desi giriniz"
+                      placeholder="Hacim giriniz"
                       placeholderTextColor="#666666"
                       keyboardType="numeric"
                       style={[

@@ -133,7 +133,7 @@ const RenderList = ({ item }) => {
                 {item.driver.status === 20
                   ? "İnceleniyor"
                   : item.driver.status === 30
-                  ? "Aktif"
+                  ? "Onaylı"
                   : item.driver.status === 40
                   ? "Reddedildi"
                   : item.driver.status === 50
@@ -192,7 +192,7 @@ const RenderList = ({ item }) => {
               <View style={{ marginHorizontal: 20 }}>
                 <View style={styles.listes}>
                   <Text style={styles.baslik}>
-                    Adı Soyadı :{" "}
+                    Ad Soyad :{" "}
                     <Text style={styles.title}>
                       {item.driver.firstname} {item.driver.lastname}
                     </Text>
@@ -200,7 +200,7 @@ const RenderList = ({ item }) => {
                 </View>
                 <View style={styles.listes}>
                   <Text style={styles.baslik}>
-                    mail :{" "}
+                    E-posta :{" "}
                     <Text style={styles.title}>
                       {" "}
                       {item.driver.emailAddress}
@@ -226,7 +226,7 @@ const RenderList = ({ item }) => {
                 </View>
                 <View style={styles.listes}>
                   <Text style={styles.baslik}>
-                    Telefon Numarası:{" "}
+                    Telefon :{" "}
                     <Text style={styles.title}>{item.driver.phoneNumber}</Text>
                   </Text>
                 </View>
@@ -236,7 +236,7 @@ const RenderList = ({ item }) => {
                     size={20}
                     color={COLORS.text}
                   />
-                  <Text style={styles.documents}>Dökümanlar</Text>
+                  <Text style={styles.documents}>Dokümanlar</Text>
                 </View>
                 <View style={{ backgroundColor: "#fff", paddingBottom: 20 }}>
                   <View style={styles.docItemsUpload}>

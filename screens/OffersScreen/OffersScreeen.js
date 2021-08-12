@@ -132,7 +132,7 @@ const GrupCargo = ({ item }) => {
             <Text style={[styles.txt, { marginLeft: 5 }]}>
               <Text style={{ color: COLORS.gray, fontSize: 11 }}>
                 {" "}
-                {item.group.distance / 1000} KM
+                {(item.group.distance / 1000).toFixed(1)} KM
               </Text>
             </Text>
           </View>

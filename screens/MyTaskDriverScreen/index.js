@@ -77,7 +77,7 @@ const RenderList = ({ item }) => {
         style={styles.listGrupContainer}
         onPress={() =>
           navigation.navigate("MyTaskShipperDetailScreen", {
-            orderDetail: false,
+            orderDetail: item,
             qrCodeScreen: false,
           })
         }

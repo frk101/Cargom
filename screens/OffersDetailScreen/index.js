@@ -203,6 +203,8 @@ const AllCargoDetail = () => {
       // console.log(x);
     });
   };
+
+  console.log(shipperLoginResult)
   // console.log(
   //   ordersGetPendingOfferDetailResult &&
   //     ordersGetPendingOfferDetailResult.data
@@ -210,6 +212,7 @@ const AllCargoDetail = () => {
   // );
   return (
     // <Layout title="Teklif Detay" isBackIcon>
+    
     <View style={styles.container}>
       <View style={{ height: height * 0.4 }}>
         <MapView
@@ -282,10 +285,20 @@ const AllCargoDetail = () => {
             ₺
           </Text>
         </View>
+        {shipperLoginResult&&shipperLoginResult.data&&shipperLoginResult.data.shipper&&shipperLoginResult.data.shipper.status == 30 ?
         <TouchableOpacity onPress={toggleModal} style={styles.openModal}>
           <AntDesign name="checkcircle" color="#fff" size={20} />
           <Text style={styles.offer}>Teklifi Kabul Et</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>: 
+         <TouchableOpacity
+            onPress={()=>navigation.navigate("ProfileEditScreen")}
+            style={styles.openModal}
+          >
+            <Text style={styles.btnText}>Teklifi Kabul Et</Text>
+          </TouchableOpacity>} 
+        
+
+      
       </View>
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <View style={{ padding: 20 }}>
@@ -321,7 +334,7 @@ const AllCargoDetail = () => {
               {ordersGetPendingOfferDetailResult &&
                 ordersGetPendingOfferDetailResult.data &&
                 ordersGetPendingOfferDetailResult.data.group &&
-                ordersGetPendingOfferDetailResult.data.group.price}
+                ordersGetPendingOfferDetailResult.data.group.price } ₺
             </Text>
           </View>
 
@@ -333,8 +346,8 @@ const AllCargoDetail = () => {
               {ordersGetPendingOfferDetailResult &&
                 ordersGetPendingOfferDetailResult.data &&
                 ordersGetPendingOfferDetailResult.data.group &&
-                ordersGetPendingOfferDetailResult.data.group.distance /
-                  1000}{" "}
+                (ordersGetPendingOfferDetailResult.data.group.distance /
+                  1000).toFixed(1)} {" "}
               km
             </Text>
           </View>
@@ -449,13 +462,15 @@ const AllCargoDetail = () => {
               <VehicleItem item={item} onPress={_handleChooseVehicle} />
             )}
           />
-
-          <TouchableOpacity
+<TouchableOpacity
             onPress={_handleApprovedContract}
             style={styles.btnGonder}
           >
             <Text style={styles.btnText}>Teklifi Kabul Et</Text>
           </TouchableOpacity>
+         
+        
+          
         </View>
       </Modal>
     </View>

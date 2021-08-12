@@ -166,11 +166,11 @@ const CreateDriver = () => {
                   },
                 ]}
               >
-                E-mail
+                E-posta
               </Text>
               <View style={styles.action}>
                 <TextInput
-                  placeholder="E-mail Adresinizi giriniz"
+                  placeholder="E-posta adresini giriniz"
                   placeholderTextColor="#666666"
                   keyboardType="email-address"
                   style={[
@@ -206,7 +206,7 @@ const CreateDriver = () => {
                 </View>
 
                 <TextInputMask
-                  placeholder="Telefon Numaranızı Giriniz"
+                  placeholder="Telefon numarasını giriniz"
                   placeholderTextColor="#666666"
                   style={styles.textInput}
                   type={"cel-phone"}
@@ -237,7 +237,7 @@ const CreateDriver = () => {
               </Text>
               <View style={styles.action}>
                 <TextInput
-                  placeholder="Adınızı giriniz"
+                  placeholder="Adını giriniz"
                   placeholderTextColor="#666666"
                   keyboardType="email-address"
                   style={[
@@ -267,7 +267,7 @@ const CreateDriver = () => {
               </Text>
               <View style={styles.action}>
                 <TextInput
-                  placeholder="Soyadınızı giriniz"
+                  placeholder="Soyadını giriniz"
                   placeholderTextColor="#666666"
                   keyboardType="email-address"
                   style={[
@@ -293,11 +293,11 @@ const CreateDriver = () => {
                   },
                 ]}
               >
-                Tc
+                TC Kimlik Numarası
               </Text>
               <View style={styles.action}>
                 <TextInput
-                  placeholder="Tc Kimlik Numaranızı Giriniz"
+                  placeholder="TC kimlik numarasını giriniz"
                   placeholderTextColor="#666666"
                   keyboardType="phone-pad"
                   maxLength={11}

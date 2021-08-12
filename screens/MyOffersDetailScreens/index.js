@@ -61,7 +61,7 @@ const index = () => {
   };
 
 
-    console.log(shipperOrdersGetMyOfferDetailResult)
+    
   
   
     return (
@@ -90,8 +90,8 @@ const index = () => {
                     <Marker
                       key={index}
                       coordinate={coordinate}
-                      onPress={(e) => onMarkerPress(e)}
-                      image={require("../../assets/Marker.png")}
+                      
+                    //   image={require("../../assets/Marker.png")}
                     />
                   );
                 }
@@ -173,7 +173,7 @@ const index = () => {
               {shipperOrdersGetMyOfferDetailResult &&
                 shipperOrdersGetMyOfferDetailResult.data &&
                 shipperOrdersGetMyOfferDetailResult.data.group &&
-                shipperOrdersGetMyOfferDetailResult.data.group.price}
+                shipperOrdersGetMyOfferDetailResult.data.group.price} ₺
             </Text>
           </View>
 
@@ -241,14 +241,15 @@ const RenderList = ({ item }) => {
     
     const navigation = useNavigation();
     return (
+        <TouchableOpacity onPress={() =>
+            navigation.navigate("MyTaskShipperDetailScreen", {
+              orderDetail: item.item.step,
+              
+            })
+          }>
       <View style={{ flex: 1, justifyContent: "center" }}>
         <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={() =>
-          navigation.navigate("MyTaskShipperDetailScreen", {
-            orderDetail: item.item.step,
-            
-          })
-        }>
+           
             <View style={{ justifyContent: "center", alignItems: "center" }}>
             <View
               style={{
@@ -281,7 +282,7 @@ const RenderList = ({ item }) => {
             </View>
             <Entypo name="dots-three-vertical" style={{ alignSelf: "center" }} />
           </View>
-            </TouchableOpacity>
+            
          
           <View style={{ margin: 5, alignItems: "center" }}>
             <Text
@@ -298,6 +299,7 @@ const RenderList = ({ item }) => {
           </View>
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 export default index

@@ -59,7 +59,7 @@ const HomeNavigator = () => {
       drawerContent={(props) => <DrawerContent {...props} />}
       drawerStyle={{ width: "75%" }}
     >
-      <HomeStack.Screen name="CorpHomeScreen" component={CorpHomeScreen} />
+      <HomeStack.Screen name="CorpHomeScreen" component={CorpHomeScreen}  />
 
       <HomeStack.Screen name="DriverScreen" component={DriverScreen} />
       <HomeStack.Screen name="AllCargoScreen" component={AllCargoScreen} />

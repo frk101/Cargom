@@ -163,6 +163,11 @@ export default StyleSheet.create({
   durumContainer: {
     justifyContent:'center',
     alignItems:'center',
+    borderWidth:1,
+    borderColor:'black',
+    padding:5,
+    borderRadius:10,
+    backgroundColor:COLORS.text
    
    
    
@@ -179,10 +184,10 @@ export default StyleSheet.create({
     // backgroundColor: "red",
   },
   price: {
-    fontSize: 20,
-    marginTop: 10,
+    fontSize: 15,
+    
     color: COLORS.primary,
     fontWeight: "bold",
-    textAlign: "right",
+    textAlign: "center",
   },
 });

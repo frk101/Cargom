@@ -19,6 +19,7 @@ import {
     MaterialCommunityIcons,
     Ionicons,
     AntDesign,
+    Entypo
   } from "react-native-vector-icons";
   import styles from "./styles";
 
@@ -95,10 +96,17 @@ const RenderList = ({ item }) => {
             </View>
             <View style={[styles.address, { marginTop: 10, marginLeft: 5 }]}>
               <MaterialCommunityIcons name="highway" size={15} color="#404040" />
-              <Text style={[styles.txt, { marginLeft: 5 }]}>
+              <Text style={[styles.txt, { marginLeft: 3}]}>
                 <Text style={{ color: COLORS.gray, fontSize: 11 }}>
                   {" "}
-                  {item.distance / 10000} Km 
+                  {(item.distance / 10000).toFixed(1)} Km 
+                </Text>
+              </Text>
+              <Entypo name="wallet" color="#404040" size={15}  style={{marginLeft:10}}/>
+              <Text style={[styles.txt, { marginLeft: 3 }]}>
+                <Text style={{ color: COLORS.gray, fontSize: 11 }}>
+                  {" "}
+                  {item.price} ₺
                 </Text>
               </Text>
             </View>
@@ -108,8 +116,6 @@ const RenderList = ({ item }) => {
           </ListItem.Content>
   
           <View style={styles.durumContainer}>
-            
-  
             <ListItem.Title style={styles.price}>
             {item.complatedSteps} / {item.totalSteps}
             </ListItem.Title>

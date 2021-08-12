@@ -37,7 +37,7 @@ const Bireysel = () => {
       values.ipAddress = "127.0.0.2";
     dispatch(shipperRegisterBeginRequest(values)).then(
       ({ payload: { data } }) => {
-        console.log
+       
         if (data.status) {
           navigation.navigate("OtpScreens", values);
         } else {

@@ -98,7 +98,12 @@ export default StyleSheet.create({
   },
   subtitle: {
     color: COLORS.gray,
-    fontWeight: "700",
+    fontWeight: "500",
+    marginLeft: 5,
+  },
+  subtitles: {
+    color: COLORS.text,
+    fontWeight: "bold",
     marginLeft: 5,
   },
   container: {
