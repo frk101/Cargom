@@ -208,7 +208,7 @@ const Filter = ({ setOpenModal }) => {
           />
 
         </View>
-        
+
       </Content>
       <Footer>
         <FooterTab style={{ backgroundColor: COLORS.primary }}>
