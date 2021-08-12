@@ -37,8 +37,9 @@ import Layout from "../../components/Layout";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import styles from "./styles";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
+
 import { Divider } from "react-native-elements";
+
 
 import { Content } from "native-base";
 
@@ -77,6 +78,8 @@ const AllCargoDetail = () => {
 
   const { ordersGetPendingOfferDetailResult, ordersAssignGroupDriverResult } =
     useSelector((x) => x.driver);
+
+    
   const {
     driverGetAllShipperResult,
     driverGetAllShipperLoading,
@@ -367,7 +370,7 @@ const AllCargoDetail = () => {
         </Content>
       </View>
 
-      <Modal isVisible={isModalVisible}>
+      <Modal isVisible={isModalVisible} >
         <View style={styles.mdl}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={toggleModal}>
@@ -391,6 +394,7 @@ const AllCargoDetail = () => {
             Sürücü
           </Text>
           <View style={styles.action}>
+         
             <TextInput
               placeholder={selectedDriver ? "" : "Sürücü Seçiniz"}
               placeholderTextColor="#666666"

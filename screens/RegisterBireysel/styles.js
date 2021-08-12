@@ -58,5 +58,12 @@ export default StyleSheet.create({
     height: 48,
     justifyContent: "center",
     alignItems: "center",
+  }, checkedAction: {
+    marginTop: 5,
+    padding: 10,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

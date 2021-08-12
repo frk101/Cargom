@@ -91,6 +91,7 @@ const OffersScreeen = () => {
 
 const GrupCargo = ({ item }) => {
   const navigation = useNavigation();
+  
   return (
     <TouchableOpacity
       style={styles.listGrupContainer}

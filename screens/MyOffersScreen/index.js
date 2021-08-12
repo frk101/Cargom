@@ -12,6 +12,7 @@ import { shipperOrdersGetMyOffers } from "../../business/actions/shipper";
 import COLORS from "../../constans/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { ListItem } from "react-native-elements";
+import { useRoute, useNavigation, useTheme } from "@react-navigation/native";
 import {
     FontAwesome5,
     FontAwesome,
@@ -55,10 +56,14 @@ return(
 )
 }
 const RenderList = ({ item }) => {
-    
+
+  const navigation = useNavigation();
     return (
       <TouchableOpacity
         style={styles.listGrupContainer}
+        onPress={() =>
+          navigation.navigate("MyOfferDetailScreeen", { id: item.id })
+        }
       >
         <ListItem bottomDivider>
           <View>

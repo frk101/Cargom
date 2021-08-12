@@ -38,6 +38,9 @@ import {
   SHIPPER_ORDERS_GET_MY_OFFERS,
   SHIPPER_ORDERS_GET_MY_OFFERS_SUCCESS,
   SHIPPER_ORDERS_GET_MY_OFFERS_FAIL,
+  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL,
+  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_SUCCESS,
+  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_FAIL
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -79,7 +82,12 @@ const INITIAL_STATE = {
   shipperOrdersDeliveryFail: false,
   shipperOrdersGetMyOrdersLoading:false,
   shipperOrdersGetMyOrdersResult:{},
-  shipperOrdersGetMyOrdersFail:false
+  shipperOrdersGetMyOrdersFail:false,
+
+
+  shipperOrdersGetMyOfferDetailLoading:false,
+  shipperOrdersGetMyOfferDetailResult:{},
+  shipperOrdersGetMyOfferDetailFail:false
 
 };
 export default (state = INITIAL_STATE, action) => {
@@ -375,6 +383,32 @@ export default (state = INITIAL_STATE, action) => {
         shipperOrdersGetMyOrdersResult:{},
         shipperOrdersGetMyOrdersFail:true
       };
+
+
+
+
+
+      case SHIPPER_ORDERS_GET_MY_OFFER_DETAIL:
+        return {
+          ...state,
+          shipperOrdersGetMyOfferDetailLoading:true,
+          shipperOrdersGetMyOfferDetailResult:{},
+          shipperOrdersGetMyOfferDetailFail:false
+        };
+      case SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_SUCCESS:
+        return {
+          ...state,
+          shipperOrdersGetMyOfferDetailLoading:false,
+          shipperOrdersGetMyOfferDetailResult:action.payload.data,
+          shipperOrdersGetMyOfferDetailFail:false
+        };
+      case SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_FAIL:
+        return {
+          ...state,
+          shipperOrdersGetMyOfferDetailLoading:false,
+          shipperOrdersGetMyOfferDetailResult:{},
+          shipperOrdersGetMyOfferDetailFail:true
+        };
     default:
       return { ...state };
   }

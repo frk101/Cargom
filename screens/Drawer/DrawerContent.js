@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 import {
-  
+  Octicons,
   AntDesign,
   MaterialCommunityIcons,
   FontAwesome,
@@ -111,7 +111,7 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <FontAwesome5 name="tasks" color={color} size={size} />
+                <MaterialCommunityIcons name="package-variant" color={color} size={size} />
               )}
               label="Kargolarım"
               labelStyle={styles.labels}

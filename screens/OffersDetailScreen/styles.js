@@ -336,7 +336,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   mdl: {
-    height: height / 2,
+    
     borderRadius: 20,
     backgroundColor: "#ffffff",
   },

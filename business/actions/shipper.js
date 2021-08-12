@@ -24,7 +24,9 @@ import {
   SHIPPER_ORDERS_DELIVERY,
   SHIPPER_ORDERS_DELIVERY_URL,
   SHIPPER_ORDERS_GET_MY_OFFERS,
-  SHIPPER_ORDERS_GET_MY_OFFERS_URL
+  SHIPPER_ORDERS_GET_MY_OFFERS_URL,
+  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL,
+  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_URL
 } from "../types/shipper";
 
 export function driverCraete(userModel) {
@@ -190,6 +192,18 @@ export function shipperOrdersGetMyOffers() {
     payload: {
       request: {
         url: SHIPPER_ORDERS_GET_MY_OFFERS_URL,
+      },
+    },
+  };
+}
+
+
+export function shipperOrdersGetMyOfferDetail(offerId) {
+  return {
+    type: SHIPPER_ORDERS_GET_MY_OFFER_DETAIL,
+    payload: {
+      request: {
+        url: `${SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_URL}/${offerId}`,
       },
     },
   };

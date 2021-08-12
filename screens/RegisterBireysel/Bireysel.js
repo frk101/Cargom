@@ -14,16 +14,17 @@ import { useNavigation } from "@react-navigation/native";
 import { TextInputMask } from "react-native-masked-text";
 import COLORS from "../../constans/colors";
 import { Container, Content } from "native-base";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import FormErrorText from "../../components/FormErrorText";
 import { shipperRegisterBeginRequest } from "../../business/actions/shipper";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import RegisterScheme from "../../ValidationScheme/RegisterScheme";
+import { CheckBox } from "react-native-elements";
 import styles from "./styles";
+
 const Bireysel = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
-
+  const navigation = useNavigation();  
   const _handleRegister = (values) => {
     values.phone = values.phone
       .replace("(", "")
@@ -31,11 +32,12 @@ const Bireysel = () => {
       .replace("-", "")
       .replace(/\s/g, "")
       .trim();
-    values.shipperType = 1;
-    values.companyName = values.firstName + " " + values.lastName;
-    values.ipAddress = "127.0.0.1";
+      values.shipperType = 2;
+      
+      values.ipAddress = "127.0.0.2";
     dispatch(shipperRegisterBeginRequest(values)).then(
       ({ payload: { data } }) => {
+        console.log
         if (data.status) {
           navigation.navigate("OtpScreens", values);
         } else {
@@ -55,7 +57,7 @@ const Bireysel = () => {
       }
     );
   };
-
+  
   return (
     <Container>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -82,7 +84,7 @@ const Bireysel = () => {
         </View>
         <Content>
           <Formik
-            initialValues={{ firstName: "", lastName: "", phone: "" }}
+            initialValues={{ firstName: "", lastName: "", phone: "", isTaxPlayer: false,companyName:"",taxOffice:"",taxNumber:""}}
             onSubmit={(values) => _handleRegister(values)}
             validationSchema={RegisterScheme}
           >
@@ -90,6 +92,7 @@ const Bireysel = () => {
               handleChange,
               handleBlur,
               handleSubmit,
+              setFieldValue,
               values,
               errors,
               touched,
@@ -191,7 +194,112 @@ const Bireysel = () => {
                 {errors.phone && touched.phone ? (
                   <FormErrorText>* {errors.phone}</FormErrorText>
                 ) : null}
-
+             <View style={styles.checkedAction}>
+                <CheckBox
+                  title="Vergi Mükellefiyim"
+                  checkedColor={COLORS.primary}
+                  onPress={() =>
+                    setFieldValue("isTaxPlayer", !values.isTaxPlayer, true)
+                  }
+                  checked={values.isTaxPlayer}
+                 
+                />
+                </View>
+                 {!values.isTaxPlayer ? null : (
+               <>
+                   <Text
+                  style={[
+                    styles.text_footer,
+                    {
+                      color: COLORS.text,
+                      marginTop: 35,
+                    },
+                  ]}
+                >
+                  Şirket Unvanı
+                </Text>
+                <View style={styles.action}>
+                  <TextInput
+                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholderTextColor="#666666"
+                    keyboardType="email-address"
+                    style={[
+                      styles.textInput,
+                      {
+                        color: COLORS.text,
+                      },
+                    ]}
+                    onChangeText={handleChange("companyName")}
+                    onBlur={handleBlur("companyName")}
+                    value={values.companyName}
+                  />
+                </View>
+                {errors.companyName && touched.companyName ? (
+                  <FormErrorText>* {errors.companyName}</FormErrorText>
+                ) : null}
+                 <Text
+                  style={[
+                    styles.text_footer,
+                    {
+                      color: COLORS.text,
+                      marginTop: 35,
+                    },
+                  ]}
+                >
+                  Vergi Dairesi
+                </Text>
+                <View style={styles.action}>
+                  <TextInput
+                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholderTextColor="#666666"
+                    keyboardType="email-address"
+                    style={[
+                      styles.textInput,
+                      {
+                        color: COLORS.text,
+                      },
+                    ]}
+                    onChangeText={handleChange("taxOffice")}
+                    onBlur={handleBlur("taxOffice")}
+                    value={values.taxOffice}
+                  />
+                </View>
+                {errors.taxOffice && touched.taxOffice ? (
+                  <FormErrorText>* {errors.taxOffice}</FormErrorText>
+                ) : null}
+                        <Text
+                  style={[
+                    styles.text_footer,
+                    {
+                      color: COLORS.text,
+                      marginTop: 35,
+                    },
+                  ]}
+                >
+                  Vergi Numarası
+                </Text>
+                <View style={styles.action}>
+                  <TextInput
+                    placeholder="Şirket Unvanınızı Giriniz"
+                    placeholderTextColor="#666666"
+                    keyboardType='number-pad'
+                    style={[
+                      styles.textInput,
+                      {
+                        color: COLORS.text,
+                      },
+                    ]}
+                    onChangeText={handleChange("taxNumber")}
+                    onBlur={handleBlur("taxNumber")}
+                    value={values.taxNumber}
+                  />
+                </View>
+                {errors.taxNumber && touched.taxNumber ? (
+                  <FormErrorText>* {errors.taxNumber}</FormErrorText>
+                ) : null}
+              
+               </>
+               )}
                 <TouchableOpacity
                   onPress={handleSubmit}
                   style={styles.btnGonder}

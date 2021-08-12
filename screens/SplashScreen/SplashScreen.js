@@ -45,7 +45,7 @@ const SplashhScreen = () => {
           <TouchableOpacity
             style={styles.btnKayit}
             onPressIn={() => {
-              navigation.navigate("Kurumsal");
+              navigation.navigate("Bireysel");
             }}
           >
             <Text style={styles.txt}>Kayıt Ol</Text>

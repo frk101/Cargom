@@ -69,6 +69,7 @@ const MyTaskScreen = () => {
 };
 
 const RenderList = ({ item }) => {
+  
   const navigation = useNavigation();
   return (
     <View>
@@ -76,7 +77,7 @@ const RenderList = ({ item }) => {
         style={styles.listGrupContainer}
         onPress={() =>
           navigation.navigate("MyTaskShipperDetailScreen", {
-            orderDetail: item,
+            orderDetail: false,
             qrCodeScreen: false,
           })
         }
