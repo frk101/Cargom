@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import {
-  StyleSheet,
+  
   Text,
   View,
   SafeAreaView,
   Image,
   TouchableOpacity,
-  ScrollView,
+ 
   TextInput,
 } from "react-native";
 
@@ -15,7 +15,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 
 import COLORS from "../../constans/colors";
-import { Container, Content } from "native-base";
+import { Container, ScrollView as Content, } from "native-base";
 import { TextInputMask } from "react-native-masked-text";
 import { Formik } from "formik";
 import LoginScheme from "../../ValidationScheme/LoginScheme";
@@ -59,7 +59,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <Container>
+    
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
         <TouchableOpacity
           style={styles.back}
@@ -89,7 +89,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <Content>
+        <Content flex={1}  >
           <Formik
             initialValues={{
               email: __DEV__ ? "faruk@deneme.com" : "",
@@ -207,7 +207,7 @@ const LoginScreen = () => {
           </Formik>
         </Content>
       </SafeAreaView>
-    </Container>
+   
   );
 };
 

@@ -48,9 +48,17 @@ const index = () => {
     <Layout title="Araçlar" isBackIcon>
       <View style={{ flex: 1 }}>
         {vehiclesGetByShipperResult.data == "" ? (
-          <Text style={{ justifyContent: "center", alignItems: "center" }}>
-            Sürücünüz Bulunmamaktadır
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+            <MaterialCommunityIcons
+                  name="car-multiple"
+                  size={100}
+                  color={COLORS.lightGray}
+                />
+  <Text style={{ justifyContent: "center", alignItems: "center",color:COLORS.gray}}>
+            Kayıtlı Aracınız Bulunmamaktadır
           </Text>
+          </View>
+        
         ) : (
           <FlatList
             refreshControl={

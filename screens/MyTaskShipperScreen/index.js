@@ -21,7 +21,7 @@ import { ListItem } from "react-native-elements";
 import { shipperOrdersGetAllMyOrders } from "../../business/actions/shipper";
 import Layout from "../../components/Layout";
 import styles from "./styles";
-import { Content } from "native-base";
+import {ScrollView as Content } from "native-base";
 
 const myData = [
   {
@@ -93,7 +93,19 @@ const index = () => {
   // 
   return (
     <Layout title="Kargolarım" isBackIcon right={<LayoutRight1 />}>
-      <Content    refreshControl={
+
+<View style={{ flex: 1 }}>
+{dataList == "" ? (
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}> 
+           <MaterialCommunityIcons name="package-variant" color={COLORS.lightGray} size={100} />
+
+          <Text style={{ justifyContent: "center", alignItems: "center",color:COLORS.gray }}>
+          Kargonuz Bulunmamaktadır
+        </Text> 
+      
+        </View>     
+        ) : (
+<Content    refreshControl={
     <RefreshControl
       tintColor={COLORS.primary}
       refreshing={shipperOrdersGetAllMyOrdersLoading}
@@ -136,7 +148,10 @@ const index = () => {
         renderItem={({ item }) => <RenderList item={item} />}
         onEndReached={_getShipperTask}
       />
+      
       </Content>
+     )}
+</View>
      
     </Layout>
   );

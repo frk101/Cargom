@@ -13,4 +13,18 @@ export default Yup.object().shape({
     .min(15, "Boş geçilemez!")
     .max(50, "Hatalı giriş yaptınız!")
     .required("Boş geçilemez"),
+    isTaxPlayer: Yup.boolean(),
+   
+    companyName: Yup.string()
+    .min(1, "Boş geçilemez!")
+    .max(50, "Hatalı giriş yaptınız!"),
+    
+    taxOffice: Yup.string()
+    .min(15, "Boş geçilemez!")
+    .max(50, "Hatalı giriş yaptınız!"),
+    
+    taxNumber: Yup.string()
+    .min(15, "Boş geçilemez!")
+    .max(50, "Hatalı giriş yaptınız!"),
+  
 });

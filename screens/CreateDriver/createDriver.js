@@ -11,8 +11,8 @@ import {
   useRoute,
   useIsFocused,
 } from "@react-navigation/native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Content } from "native-base";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { ScrollView as Content } from "native-base";
 import { Formik, useFormikContext } from "formik";
 import { driverCraete } from "../../business/actions/shipper";
 import COLORS from "../../constans/colors";
@@ -392,7 +392,7 @@ const CreateDriver = () => {
                 </View>
               </TouchableOpacity>
 
-              <DateTimePickerModal
+              {/* <DateTimePickerModal
                 pickerContainerStyleIOS={{ backgroundColor: "#fff" }}
                 textColor="black"
                 isVisible={isDatePickerVisible}
@@ -404,7 +404,7 @@ const CreateDriver = () => {
                 locale="tr-TR"
                 cancelTextIOS="Vazgeç"
                 confirmTextIOS="Tamam"
-              />
+              /> */}
               {/* <TouchableOpacity onPress={() => showMode()}>
                 <View style={styles.actionss}>
                   <Text style={{ textAlign: "center" }}>{text}</Text>

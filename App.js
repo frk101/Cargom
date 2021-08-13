@@ -7,7 +7,7 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 import { Provider } from "react-redux";
 import { multiClientMiddleware } from "redux-axios-middleware";
-
+import { NativeBaseProvider } from 'native-base';
 import Navigator from "./navigation/Navigator";
 import { axiosClient } from "./constans/variables";
 import reducers from "./business/reducers";
@@ -21,12 +21,15 @@ const store = createStore(
 const App = () => {
   return (
     <NotifierWrapper>
+      <NativeBaseProvider>
       <PaperProvider>
         <Provider store={store}>
           <StatusBar hidden={true} />
           <Navigator />
         </Provider>
       </PaperProvider>
+      </NativeBaseProvider>
+      
     </NotifierWrapper>
   );
 };

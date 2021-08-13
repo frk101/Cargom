@@ -59,6 +59,16 @@ const MyTaskShipperDetailSecreen = () => {
     useSelector((x) => x.shipper);
   const { shipperLoginResult } = useSelector((x) => x.shipper);
 
+useEffect(() => {
+  if(route.params.otomatikModalAc){
+    setOpenDeliveryInput(!openDeliveryInput);
+      setDeliveryInputText("");
+  }
+  return () => {
+    
+  }
+}, [route.params.otomatikModalAc])
+
   useEffect(() => {
     _getShipperTaskDetail();
     return () => {};
@@ -109,9 +119,9 @@ const MyTaskShipperDetailSecreen = () => {
       setOpenDeliveryInput(!openDeliveryInput);
       setDeliveryInputText("");
     } else {
-      navigation.navigate("BarCodeScanner", { autoPickUp: true });
-      setOpenDeliveryInput(!openDeliveryInput);
-      setDeliveryInputText("");
+      navigation.navigate("BarCodeScanner", { autoPickUp: true,otomatikModalAc:true });
+      // setOpenDeliveryInput(!openDeliveryInput);
+      // setDeliveryInputText("");
     }
   };
 
@@ -542,8 +552,15 @@ const MyTaskShipperDetailSecreen = () => {
                 />
               </MapView>
               <TouchableOpacity
-            //  onPress={() => Linking.openURL(shipperOrdersGetByIdResult &&
-            //   shipperOrdersGetByIdResult.data.startLat)}
+             onPress={() => {
+               let url ='https://www.google.com/maps/dir/';
+url+=shipperOrdersGetByIdResult &&
+shipperOrdersGetByIdResult.data.startLat+',';
+url+=shipperOrdersGetByIdResult &&
+shipperOrdersGetByIdResult.data.startLng;
+
+               Linking.openURL(url)
+             }}
                 style={{
                   margin: 10,
                   backgroundColor: COLORS.text,

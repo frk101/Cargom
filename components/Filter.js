@@ -4,17 +4,19 @@ import { Appbar } from "react-native-paper";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import COLORS from "../constans/colors";
 import styles from "../screens/OffersScreen/styles";
-import { Content, Footer, FooterTab, Button } from "native-base";
+import { ScrollView as Content } from "native-base";
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
 import { addressSearchByKeword } from "../business/actions/general";
 import { ordersGetAllPendingOffers } from "../business/actions/driver";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import {AntDesign} from 'react-native-vector-icons'
-import { SearchBar } from 'react-native-elements';
+import { Searchbar } from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
 
 const Filter = ({ setOpenModal }) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [selectedOriginTown, setSelectedOriginTown] = useState(null);
   const [openOriginTown, setOpenOriginTown] = useState(false);
   const [originTownSearch, setOriginTownSearch] = useState("");
@@ -76,17 +78,18 @@ const Filter = ({ setOpenModal }) => {
         ({ payload: { data } }) => {
           if (data.length == undefined || data.length == 0) {
             
+           
             alert("Mevcut filtreleme yoktur !");
             Notifier.showNotification({
               title: "UYARI",
-              description: "sss",
+              description: "Mevcut filtreleme yoktur !",
               Component: NotifierComponents.Alert,
               componentProps: {
                 alertType: "error",
               },
             });
           } else {
-            setOpenModal(false);
+           navigation.goBack()
           }
         }
       );
@@ -210,7 +213,7 @@ const Filter = ({ setOpenModal }) => {
         </View>
 
       </Content>
-      <Footer>
+      {/* <Footer>
         <FooterTab style={{ backgroundColor: COLORS.primary }}>
           <Button full onPress={() => _handleSearchOffer()}>
             <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>
@@ -218,16 +221,17 @@ const Filter = ({ setOpenModal }) => {
             </Text>
           </Button>
         </FooterTab>
-      </Footer>
+      </Footer> */}
     </View>
   );
 };
 const HeadersModal = ({ setOpenModal }) => {
+  const navigation = useNavigation();
   return (
     <Appbar.Header style={{ backgroundColor: "#ffffff" }}>
       <Appbar.Action
         icon="close"
-        onPress={() => setOpenModal(false)}
+        onPress={() => navigation.goBack()}
         style={{ flex: 1 }}
       />
       <Appbar.Content

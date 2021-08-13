@@ -27,7 +27,7 @@ import {
     SimpleLineIcons,
   } from "react-native-vector-icons";
   import COLORS from "../../constans/colors";
-  import { Content } from "native-base";
+  import { ScrollView as Content } from "native-base";
   import { Divider } from "react-native-elements";
   import styles from "./styles";
   const { width, height } = Dimensions.get("window");

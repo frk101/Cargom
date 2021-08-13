@@ -18,7 +18,7 @@ import {
 import { Formik, useFormikContext } from "formik";
 import VehiclesScheme from "../../ValidationScheme/VehiclesScheme";
 import COLORS from "../../constans/colors";
-import { Content } from "native-base";
+import { ScrollView as Content } from "native-base";
 import { Menu } from "react-native-paper";
 import FormErrorText from "../../components/FormErrorText";
 import { Notifier, NotifierComponents } from "react-native-notifier";

@@ -16,10 +16,11 @@ import Layout from "../../components/Layout";
 import styles from "./styles";
 import { AntDesign, Ionicons } from "react-native-vector-icons";
 import { driverGetByShipper } from "../../business/actions/shipper";
-
+import { FontAwesome } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import moment from "moment";
-import { Content } from "native-base";                                 
+import { ScrollView as Content } from "native-base";                                 
+import { initialWindowMetrics } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("window");
 const DriverScreen = () => {
@@ -49,9 +50,18 @@ const DriverScreen = () => {
     <Layout isBackIcon title="Sürücüler">
       <View style={{ flex: 1 }}>
         {driverGetAllShipperResult.data == "" ? (
-          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}> <Text style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}> 
+          <FontAwesome
+                  name="drivers-license-o"
+                  size={100}
+                  color={COLORS.lightGray}
+                 
+                />
+          <Text style={{ justifyContent: "center", alignItems: "center",color:COLORS.gray }}>
           Sürücünüz Bulunmamaktadır
-        </Text></View>     
+        </Text> 
+      
+        </View>     
         ) : (
           <FlatList
             refreshControl={
@@ -90,7 +100,6 @@ const RenderList = ({ item }) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
   return (
     <View>
       <TouchableOpacity
@@ -239,6 +248,9 @@ const RenderList = ({ item }) => {
                   />
                   <Text style={styles.documents}>Dokümanlar</Text>
                 </View>
+                {item.documents.map(x=>{
+                  return<Text>{x.type.description}</Text>
+                })}
                 <View style={{ backgroundColor: "#fff", paddingBottom: 20 }}>
                   <View style={styles.docItemsUpload}>
                     <View style={styles.notUploaded}>

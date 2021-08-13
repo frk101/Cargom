@@ -66,6 +66,7 @@ const BracodeScanner = () => {
             qrCodeScreen: true,
             qrcode: qrCode,
             autoPickUp: route.params.autoPickUp,
+            otomatikModalAc:route.params.otomatikModalAc
           });
         } else {
           alert("Görev Bulunamadı");

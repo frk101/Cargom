@@ -40,7 +40,18 @@ const MyOffersScreeen = () => {
 
 return(
     <Layout title='Görevlerim' isBackIcon>
- <FlatList
+     <View style={{ flex: 1 }}>
+     {shipperOrdersGetMyOrdersResult.data == "" ? (
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}> 
+          <FontAwesome5 name="tasks" color={COLORS.lightGray} size={100} />
+
+          <Text style={{ justifyContent: "center", alignItems: "center",color:COLORS.gray }}>
+          Göreviniz Bulunmamaktadır
+        </Text> 
+      
+        </View>     
+        ) : (
+     <FlatList
         refreshControl={
           <RefreshControl
             tintColor={COLORS.primary}
@@ -53,6 +64,9 @@ return(
         data={shipperOrdersGetMyOrdersResult.data}
         renderItem={({ item }) => <RenderList item={item} />}
       />
+      )}
+     </View>
+
     </Layout>
 )
 }

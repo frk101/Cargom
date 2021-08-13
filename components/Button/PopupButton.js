@@ -8,7 +8,7 @@ import {
   Animated,
   Modal,
 } from "react-native";
-import { Footer, FooterTab, Button } from "native-base";
+// import { Footer, FooterTab, Button } from "native-base";
 import PropTypes from "prop-types";
 import COLORS from "../../constans/colors";
 import { useNavigation } from "@react-navigation/native";
@@ -53,7 +53,7 @@ const PopupButton = ({ register, gorev, driverList }) => {
                 <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
               </Text>
 
-              <Footer>
+              {/* <Footer>
                 <FooterTab style={{ backgroundColor: COLORS.primary }}>
                   <Button
                     full
@@ -72,7 +72,7 @@ const PopupButton = ({ register, gorev, driverList }) => {
                     </Text>
                   </Button>
                 </FooterTab>
-              </Footer>
+              </Footer> */}
             </ModalPoup>
           </View>
         </View>
@@ -112,7 +112,7 @@ const PopupButton = ({ register, gorev, driverList }) => {
                 <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
               </Text>
 
-              <Footer>
+              {/* <Footer>
                 <FooterTab style={{ backgroundColor: COLORS.primary }}>
                   <Button
                     full
@@ -134,7 +134,7 @@ const PopupButton = ({ register, gorev, driverList }) => {
                     </Text>
                   </Button>
                 </FooterTab>
-              </Footer>
+              </Footer> */}
             </ModalPoup>
           </View>
         </View>

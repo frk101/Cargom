@@ -41,7 +41,7 @@ import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import { Divider } from "react-native-elements";
 
 
-import { Content } from "native-base";
+import {ScrollView as Content , Select } from "native-base";
 import { ActivityIndicator } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -385,7 +385,7 @@ const AllCargoDetail = () => {
         </Content>
       </View>
 
-      <Modal isVisible={isModalVisible} >
+      <Modal isVisible={isModalVisible} coverScreen={false} >
         <View style={styles.mdl}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={toggleModal}>
@@ -409,8 +409,21 @@ const AllCargoDetail = () => {
             Sürücü
           </Text>
           <View style={styles.action}>
-         
-            <TextInput
+          
+          <Select
+        selectedValue={driverSearch}
+        minWidth={200}
+        accessibilityLabel="Select your favorite programming language"
+        placeholder={selectedDriver ? "" : "Sürücü Seçiniz"}
+        onValueChange={(itemValue) => _handleChooseDriver(itemValue)}
+        
+      >
+        {driverGetAllShipperResult.data.map((item,index)=>{
+          return (
+            <Select.Item label={item.driver.firstname} value={item} />)
+        })} 
+      </Select>
+            {/* <TextInput
               placeholder={selectedDriver ? "" : "Sürücü Seçiniz"}
               placeholderTextColor="#666666"
               returnKeyType="done"
@@ -422,7 +435,7 @@ const AllCargoDetail = () => {
               ]}
               value={driverSearch}
               onChangeText={(text) => _handleSearchDriver(text)}
-            />
+            /> */}
           </View>
           <FlatList
             keyExtractor={(item, index) => index.toString()}

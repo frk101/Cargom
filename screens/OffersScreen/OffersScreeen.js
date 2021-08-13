@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import COLORS from "../../constans/colors";
 import { ListItem } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Content, Footer, FooterTab, Button } from "native-base";
+// import { Container, Content, Footer, FooterTab, Button } from "native-base";
 
 import {
   FontAwesome5,
@@ -82,9 +82,9 @@ const OffersScreeen = () => {
         )} */}
       {/* </Content> */}
 
-      <Modal visible={openModal} animationType="slide">
+      {/* <Modal visible={openModal} animationType="slide">
         <Filter setOpenModal={setOpenModal} />
-      </Modal>
+      </Modal> */}
     </Layout>
   );
 };
@@ -163,7 +163,7 @@ const LayoutRight1 = ({ setOpenModal }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => setOpenModal(true)}>
+    <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
       <FontAwesome name="filter" size={20} />
     </TouchableOpacity>
   );

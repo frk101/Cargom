@@ -25,7 +25,7 @@ import {
   vehiclesGetByShipper,
 } from "../../business/actions/shipper";
 import { useSelector, useDispatch } from "react-redux";
-import { Content } from "native-base";
+import { ScrollView as Content } from "native-base";
 import Layout from "../../components/Layout";
 import styles from "./styles";
 import { Notifier, NotifierComponents } from "react-native-notifier";

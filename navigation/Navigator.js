@@ -34,6 +34,7 @@ import PaymentScreen from '../screens/PaymentsScreen'
 import BarCodeScanner from "../screens/BracodeScanner";
 import DriverLogin from "../screens/LoginDriver";
 import QrCodeScreen from "../screens/QrCode";
+import Filter from '../components/Filter'
 
 const LoginStack = createStackNavigator();
 
@@ -64,6 +65,7 @@ const HomeNavigator = () => {
       <HomeStack.Screen name="DriverScreen" component={DriverScreen} />
       <HomeStack.Screen name="AllCargoScreen" component={AllCargoScreen} />
       <HomeStack.Screen name="AllCargoDetail" component={AllCargoDetail} />
+      <HomeStack.Screen name="Filter" component={Filter} />
 
       <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <HomeStack.Screen name="MyOffersScreeen" component={MyOffersScreeen} />

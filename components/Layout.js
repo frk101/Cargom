@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Container, Header, Left, Right, Body, Title } from "native-base";
+import { Container } from "native-base";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import {
   StyleSheet,
@@ -11,9 +11,10 @@ import {
 } from "react-native";
 
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-
+import { useSelector, useDispatch } from "react-redux";
 import Colors from "../constans/colors";
 import { Platform } from "react-native";
+import { Box, ScrollView } from "native-base";
 
 const Layout = ({
   children,
@@ -28,37 +29,45 @@ const Layout = ({
   closeModal,
 }) => {
   const navigation = useNavigation();
+  const { shipperLoginResult } = useSelector((x) => x.shipper);
 
   return (
-    <>
-      <Container style={containerStyle}>
+    <View>
+      <View style={[{height:'100%'},containerStyle]}>
         <SafeAreaView style={[styles.headerStyle]}>
-          <View style={{ flex: 1, alignItems: "center" }}>
-            {React.isValidElement(left) ? (
-              left
-            ) : isBackIcon ? (
-              <TouchableOpacity
-                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-                hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
-              >
-                <MaterialIcons
-                  name="menu"
-                  style={{ paddingHorizontal: 10, color: "black" }}
-                  size={27}
-                  color={Colors.themeColor}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <AntDesign
-                  name="left"
-                  style={{ paddingHorizontal: 10, color: "black" }}
-                  size={24}
-                  color={Colors.themeColor}
-                />
-              </TouchableOpacity>
-            )}
-          </View>
+          {shipperLoginResult.data && shipperLoginResult.data.shipper ? (
+            <View style={{ flex: 1, alignItems: "center" }}>
+              {React.isValidElement(left) ? (
+                left
+              ) : isBackIcon ? (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.dispatch(DrawerActions.openDrawer())
+                  }
+                  hitSlop={{ bottom: 10, left: 10, right: 10, top: 10 }}
+                >
+                  <MaterialIcons
+                    name="menu"
+                    style={{ paddingHorizontal: 10, color: "black" }}
+                    size={27}
+                    color={Colors.themeColor}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <AntDesign
+                    name="left"
+                    style={{ paddingHorizontal: 10, color: "black" }}
+                    size={24}
+                    color={Colors.themeColor}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+          ) : (
+            <View style={{ flex: 1, alignItems: "center" }}></View>
+          )}
+
           <View style={{ flex: 4, alignItems: "center" }}>
             {body && React.isValidElement(body) ? (
               body
@@ -71,8 +80,8 @@ const Layout = ({
           </View>
         </SafeAreaView>
         {children}
-      </Container>
-    </>
+      </View>
+    </View>
   );
 };
 

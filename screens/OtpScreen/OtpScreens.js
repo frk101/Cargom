@@ -11,7 +11,7 @@ import {
   Modal,
   Dimensions,
 } from "react-native";
-import { Container, Content, Footer, FooterTab, Button } from "native-base";
+// import { Container, Content, Footer, FooterTab, Button } from "native-base";
 import COLORS from "../../constans/colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -252,7 +252,7 @@ const OtpScreens = () => {
                   </Text>
                 </Text>
 
-                <Footer>
+                {/* <Footer>
                   <FooterTab style={{ backgroundColor: COLORS.primary }}>
                     <Button full onPress={_handleSuccessModalButton}>
                       <Text
@@ -266,7 +266,7 @@ const OtpScreens = () => {
                       </Text>
                     </Button>
                   </FooterTab>
-                </Footer>
+                </Footer> */}
               </ModalPoup>
             </View>
           </View>

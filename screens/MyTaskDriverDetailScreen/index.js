@@ -13,7 +13,7 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { driverOrdersGetById } from "../../business/actions/driver";
-import { Container, Content } from "native-base";
+import { Container, ScrollView as Content } from "native-base";
 import {
   MaterialCommunityIcons,
   Feather,

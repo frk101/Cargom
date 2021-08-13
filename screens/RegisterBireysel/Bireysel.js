@@ -13,7 +13,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { TextInputMask } from "react-native-masked-text";
 import COLORS from "../../constans/colors";
-import { Container, Content } from "native-base";
+import { Container,ScrollView as Content } from "native-base";
 import { useDispatch ,useSelector} from "react-redux";
 import FormErrorText from "../../components/FormErrorText";
 import { shipperRegisterBeginRequest } from "../../business/actions/shipper";
@@ -36,12 +36,16 @@ const Bireysel = () => {
       .replace(/\s/g, "")
       .trim();
       values.shipperType = 1;
-      values.ipAddress = "127.0.0.1";
+      values.ipAddress = "127.0.0.1"
+      if(values.isTaxPlayer &&values.taxNumber && values.taxNumber.length>0)
       values.taxNumber=parseFloat(values.taxNumber)
+      if(isNaN(values.taxNumber) || values.taxNumber.length==0)
+      values.taxNumber=0
+
     dispatch(shipperRegisterBeginRequest(values)).then(
-      ({ payload: { data } }) => {
-        
-        if (data.data.status) {
+      ({payload: {data}}) => {
+        console.log(data)
+        if (data.status) {
           navigation.navigate("OtpScreens", values);
         } else {
           let message = "Kayıt işlemi sırasında bir hata oluştu.";
