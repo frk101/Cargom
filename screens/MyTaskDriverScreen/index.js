@@ -18,7 +18,6 @@ const MyTaskScreen = () => {
   const [dataList, setDataList] = useState([]);
   const { shipperLoginResult } = useSelector((x) => x.shipper);
 
-  // console.log(shipperLoginResult);
   useEffect(() => {
     if (!isFocus) {
       pageNumber.current = -1;
@@ -69,7 +68,6 @@ const MyTaskScreen = () => {
 };
 
 const RenderList = ({ item }) => {
-  
   const navigation = useNavigation();
   return (
     <View>
