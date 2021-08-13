@@ -40,7 +40,10 @@ import {
   SHIPPER_ORDERS_GET_MY_OFFERS_FAIL,
   SHIPPER_ORDERS_GET_MY_OFFER_DETAIL,
   SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_SUCCESS,
-  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_FAIL
+  SHIPPER_ORDERS_GET_MY_OFFER_DETAIL_FAIL,
+  SHIPPER_MY_INVOICES_GET_BY_SHIPPER_ID,
+  SHIPPER_MY_INVOICES_GET_BY_SHIPPER_ID_SUCCESS,
+  SHIPPER_MY_INVOICES_GET_BY_SHIPPER_ID_FAIL,
 } from "../types/shipper";
 
 const INITIAL_STATE = {
@@ -83,8 +86,9 @@ const INITIAL_STATE = {
   shipperOrdersGetMyOrdersLoading:false,
   shipperOrdersGetMyOrdersResult:{},
   shipperOrdersGetMyOrdersFail:false,
-
-
+shipperMyInvoicesGetByShipperIdLoading:false,
+shipperMyInvoicesGetByShipperIdResult:{},
+shipperMyInvoicesGetByShipperIdFail:false,
   shipperOrdersGetMyOfferDetailLoading:false,
   shipperOrdersGetMyOfferDetailResult:{},
   shipperOrdersGetMyOfferDetailFail:false
@@ -408,6 +412,31 @@ export default (state = INITIAL_STATE, action) => {
           shipperOrdersGetMyOfferDetailLoading:false,
           shipperOrdersGetMyOfferDetailResult:{},
           shipperOrdersGetMyOfferDetailFail:true
+        };
+
+
+
+
+        case SHIPPER_MY_INVOICES_GET_BY_SHIPPER_ID:
+        return {
+          ...state,
+          shipperMyInvoicesGetByShipperIdLoading:true,
+          shipperMyInvoicesGetByShipperIdResult:{},
+          shipperMyInvoicesGetByShipperIdFail:false,
+        };
+      case SHIPPER_MY_INVOICES_GET_BY_SHIPPER_ID_SUCCESS:
+        return {
+          ...state,
+          shipperMyInvoicesGetByShipperIdLoading:false,
+shipperMyInvoicesGetByShipperIdResult:action.payload.data,
+shipperMyInvoicesGetByShipperIdFail:false,
+        };
+      case SHIPPER_MY_INVOICES_GET_BY_SHIPPER_ID_FAIL:
+        return {
+          ...state,
+          shipperMyInvoicesGetByShipperIdLoading:false,
+          shipperMyInvoicesGetByShipperIdResult:{},
+          shipperMyInvoicesGetByShipperIdFail:true,
         };
     default:
       return { ...state };

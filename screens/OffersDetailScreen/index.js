@@ -332,7 +332,7 @@ const AllCargoDetail = () => {
               >
                 Sürücü
               </Text>
-              <View style={styles.action}>
+              <View style={{marginHorizontal:10}}>
                 <Select
                   selectedValue={selectedDriverText}
                   minWidth={200}
@@ -364,8 +364,8 @@ const AllCargoDetail = () => {
               >
                 Araç
               </Text>
-              <View style={styles.action}>
-                <Select
+              <View style={{marginHorizontal:10}}>
+              <Select
                   selectedValue={selectedVehicleText}
                   minWidth={200}
                   accessibilityLabel={selectedVehicleText ? selectedVehicleText : "Araç Seçiniz"}
@@ -375,25 +375,15 @@ const AllCargoDetail = () => {
                   }}
                 >
                   {vehiclesGetByShipperResult.data &&
-                    vehiclesGetByShipperResult.data.map((item, index) => {
+                    vehiclesGetByShipperResult.data.filter(x=>x.vehicle.isApproved).map((item, index) => {
                       return <Select.Item label={item.model.modelName + " " + item.type.typeName} value={item} />;
                     })}
                 </Select>
-
-                {/* <TextInput
-                  placeholder={selectedVehicle ? "" : "Araç Seçiniz"}
-                  placeholderTextColor="#666666"
-                  returnKeyType="done"
-                  style={[
-                    styles.textInput,
-                    {
-                      color: COLORS.text,
-                    },
-                  ]}
-                  value={vehicleSearch}
-                  onChangeText={(text) => _handleSearchVehicle(text)}
-                /> */}
               </View>
+               
+
+                
+             
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={openVehicle && vehicleList}

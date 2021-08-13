@@ -45,7 +45,7 @@ const Bireysel = () => {
   };
 
   return (
-    <Container>
+    
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
           <View style={styles.backBtn}>
@@ -260,7 +260,7 @@ const Bireysel = () => {
           </Formik>
         </Content>
       </SafeAreaView>
-    </Container>
+    
   );
 };
 

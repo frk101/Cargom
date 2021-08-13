@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import COLORS from "../../constans/colors";
 import { TextInputMask } from "react-native-masked-text";
-import { Container, Content } from "native-base";
+import { Container,ScrollView as Content } from "native-base";
 import { Feather, MaterialCommunityIcons } from "react-native-vector-icons";
 import PopupButton from "../../components/Button/PopupButton";
 import styles from "./styles";
@@ -21,7 +21,7 @@ const ProfileEditScreen = () => {
   const navigation = useNavigation();
   const { shipperLoginResult } = useSelector((x) => x.shipper);
   return (
-    <Container>
+    <>
       <SafeAreaView
         style={{ flex: 1, backgroundColor: "#fff", marginHorizontal: 20 }}
       >
@@ -163,7 +163,7 @@ const ProfileEditScreen = () => {
           <PopupButton />
         </Content>
       </SafeAreaView>
-    </Container>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import COLORS from "../../constans/colors";
-import { Container, Content } from "native-base";
+import { ScrollView as Content } from "native-base";
 
 import { MaterialCommunityIcons, AntDesign } from "react-native-vector-icons";
 import styles from "./styles";
@@ -19,7 +19,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const { shipperLoginResult } = useSelector((x) => x.shipper);
   return (
-    <Container>
+    <>
       <SafeAreaView
         style={{ flex: 1, backgroundColor: "#fff", marginHorizontal: 20 }}
       >
@@ -110,7 +110,7 @@ const ProfileScreen = () => {
           </View>
         </Content>
       </SafeAreaView>
-    </Container>
+    </>
   );
 };
 

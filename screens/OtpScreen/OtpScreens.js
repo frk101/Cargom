@@ -11,7 +11,7 @@ import {
   Modal,
   Dimensions,
 } from "react-native";
-// import { Container, Content, Footer, FooterTab, Button } from "native-base";
+ import { Container,ScrollView as Content, Footer, FooterTab, Button } from "native-base";
 import COLORS from "../../constans/colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -147,7 +147,7 @@ const OtpScreens = () => {
   };
 
   return (
-    <Container>
+    
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
         <TouchableOpacity
           style={styles.back}
@@ -284,7 +284,7 @@ const OtpScreens = () => {
           </TouchableOpacity>
         </Content>
       </SafeAreaView>
-    </Container>
+  
   );
 };
 const PhoneCodeInput = ({ onChange, reference, onKeyPress }) => {

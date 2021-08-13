@@ -112,6 +112,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLORS.lightGray,
+    borderRadius:10,
 
     alignItems: "center",
   },

@@ -32,7 +32,7 @@ const Layout = ({
   const { shipperLoginResult } = useSelector((x) => x.shipper);
 
   return (
-    <View>
+    <View style={{backgroundColor:"#fff"}}>
       <View style={[{height:'100%'},containerStyle]}>
         <SafeAreaView style={[styles.headerStyle]}>
           {shipperLoginResult.data && shipperLoginResult.data.shipper ? (
@@ -65,7 +65,9 @@ const Layout = ({
               )}
             </View>
           ) : (
-            <View style={{ flex: 1, alignItems: "center" }}></View>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              
+            </View>
           )}
 
           <View style={{ flex: 4, alignItems: "center" }}>

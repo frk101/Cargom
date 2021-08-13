@@ -20,7 +20,7 @@ import {
   shipperOrdersDelivery,
 } from "../../business/actions/shipper";
 import * as Linking from 'expo-linking';
-import { Container, Content } from "native-base";
+import { Container, ScrollView as Content } from "native-base";
 import {
   MaterialCommunityIcons,
   Feather,
@@ -87,12 +87,6 @@ useEffect(() => {
         {
           text: "Teslim al",
           onPress: () => {
-            // let shipperId = 0;
-            // if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.shipper && shipperLoginResult.data.shipper) {
-            //   shipperId = shipperLoginResult.data.shipper.id;
-            // } else if (shipperLoginResult && shipperLoginResult.data && shipperLoginResult.data.driver && shipperLoginResult.data.driver) {
-            //   shipperId = shipperLoginResult.data.driver.id;
-            // }
             dispatch(
               shipperOrdersPıckup({
                 OrderID: route.params.orderDetail.orderID,
@@ -102,7 +96,7 @@ useEffect(() => {
                 DriverID: shipperOrdersGetByIdResult.data.driverID,
               })
             ).then(({ payload: { data } }) => {
-              if (data.status) {
+              if (data.status) {              
                 navigation.navigate("MyTaskScreen");
               }
             });
@@ -110,14 +104,15 @@ useEffect(() => {
         },
       ]);
     } else {
-      navigation.navigate("BarCodeScanner", { autoPickUp: true });
+      navigation.navigate("BarCodeScanner", { autoPickUp: true ,otomatikModalAc:false});
     }
   };
-
+  
   const _handleDeliveryInputToggle = async () => {
     if (route.params.qrcode) {
       setOpenDeliveryInput(!openDeliveryInput);
       setDeliveryInputText("");
+      
     } else {
       navigation.navigate("BarCodeScanner", { autoPickUp: true,otomatikModalAc:true });
       // setOpenDeliveryInput(!openDeliveryInput);
@@ -148,17 +143,19 @@ useEffect(() => {
           OrderID: route.params.orderDetail.orderID,
           ShipperID: shipperId,
           qrcode: route.params.qrcode,
-          //DriverId bu sayfada yok "/Shipper/Orders/GetByID" bu endpointten driverId de gelmeli
+        
           DriverID: shipperOrdersGetByIdResult.data.driverID,
           deliveryCode: parseInt(deliveryInputText),
         })
       ).then(({ payload: { data } }) => {
         if (data.status) {
+          setOpenDeliveryInput(false)
           navigation.navigate("MyTaskScreen");
+        
         }
       });
     } else {
-      navigation.navigate("BarCodeScanner", { autoPickUp: true });
+      navigation.navigate("BarCodeScanner", { autoPickUp: true,otomatikModalAc:false});
     }
   };
 
@@ -181,10 +178,17 @@ useEffect(() => {
       {shipperOrdersGetByIdResult.data == undefined ? (
         <ActivityIndicator size="large" color={COLORS.primary} />
       ) : (
-        <Container>
+        <>
           <Content
+           refreshControl={
+            <RefreshControl
+              tintColor={COLORS.primary}
+              refreshing={shipperOrdersGetByIdLoading}
+              onRefresh={_getShipperTaskDetail}
+            />
+          }
             style={{ backgroundColor: "#F1F2F4" }}
-            contentContainerStyle={{ paddingBottom: 70 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
           >
             <View style={styles.listPrice}>
               {shipperLoginResult.data &&
@@ -227,14 +231,14 @@ useEffect(() => {
                               padding: 10,
                               borderRadius: 5,
                             }}
-                            placeholder="kodu gir"
+                            placeholder="Teslimat kodu giriniz"
                             placeholderTextColor="black"
                             onChangeText={(e) => setDeliveryInputText(e)}
                           />
                           <TouchableOpacity
                             style={styles.btnArac}
-                            onPress={_handleDelivery}
-                          >
+                            onPress={_handleDelivery }
+                          > 
                             <MaterialCommunityIcons
                               name="truck-check"
                               size={20}
@@ -577,7 +581,7 @@ shipperOrdersGetByIdResult.data.startLng;
               </TouchableOpacity>
             </View>
           </Modalize>
-        </Container>
+        </>
       )}
     </Layout>
   );

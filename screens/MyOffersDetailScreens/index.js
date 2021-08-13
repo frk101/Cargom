@@ -185,8 +185,8 @@ const index = () => {
               {shipperOrdersGetMyOfferDetailResult &&
                 shipperOrdersGetMyOfferDetailResult.data &&
                 shipperOrdersGetMyOfferDetailResult.data.group &&
-                shipperOrdersGetMyOfferDetailResult.data.group.distance /
-                  1000}{" "}
+                (shipperOrdersGetMyOfferDetailResult.data.group.distance /
+                  1000).toFixed(1)}{" "}
               km
             </Text>
           </View>

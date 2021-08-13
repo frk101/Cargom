@@ -167,6 +167,7 @@ const RenderList = ({ item }) => {
           navigation.navigate("MyTaskShipperDetailScreen", {
             orderDetail: item,
             qrCodeScreen: false,
+            otomatikModalAc:false
           })
         }
       >
@@ -308,6 +309,7 @@ const LayoutRight1 = () => {
         navigation.navigate("BarCodeScanner", {
           autoPickUp: false,
           qrCodeScreen: false,
+          otomatikModalAc:false
         })
       }
     >

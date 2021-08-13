@@ -96,6 +96,7 @@ const DriverScreen = () => {
 };
 
 const RenderList = ({ item }) => {
+  console.log(item)
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -112,7 +113,7 @@ const RenderList = ({ item }) => {
             <Image
               style={{ width: 40, height: 40, borderRadius: 40 }}
               source={{
-                uri: "https://my.inetrum.com/Home/GetImage?Text=T",
+                uri: item.driver.photoUrl,
               }}
             />
             <Text style={{ marginLeft: 10, color: COLORS.text }}>
@@ -195,7 +196,7 @@ const RenderList = ({ item }) => {
                 <Image
                   style={styles.img}
                   source={{
-                    uri: "https://my.inetrum.com/Home/GetImage?Text=T",
+                    uri: item.driver.photoUrl,
                   }}
                 />
               </View>
@@ -248,11 +249,23 @@ const RenderList = ({ item }) => {
                   />
                   <Text style={styles.documents}>Dokümanlar</Text>
                 </View>
-                {item.documents.map(x=>{
-                  return<Text>{x.type.description}</Text>
-                })}
+              
                 <View style={{ backgroundColor: "#fff", paddingBottom: 20 }}>
-                  <View style={styles.docItemsUpload}>
+                {item.documents.map(x=>{
+                  return  (
+                  <View style={styles.docItemsUpload}> 
+                  
+ <Text>{x.type.description}</Text>
+ <AntDesign
+                        name="clouduploado"
+                        size={24}
+                        color={COLORS.gray}
+                      />
+                  </View>
+                  
+                 
+                  )})}
+                  {/* <View style={styles.docItemsUpload}>
                     <View style={styles.notUploaded}>
                       <AntDesign
                         name="clouduploado"
@@ -265,7 +278,7 @@ const RenderList = ({ item }) => {
                   <View style={styles.docItems}>
                     <AntDesign name="file1" size={24} color={COLORS.primary} />
                     <Text style={styles.docText}>Fotoğraf</Text>
-                  </View>
+                  </View> */}
                 </View>
               </View>
             </Content>

@@ -20,7 +20,7 @@ import {
   MaterialCommunityIcons,
 } from "react-native-vector-icons";
 import Modal from "react-native-modal";
-import { Content } from "native-base";
+import { ScrollView as Content } from "native-base";
 
 const index = () => {
   const dispatch = useDispatch();
@@ -237,25 +237,23 @@ const RenderList = ({ item }) => {
                 </View>
                 <View tyle={styles.container}>
                   <View style={{ backgroundColor: "#fff", paddingBottom: 20 }}>
-                    <View style={styles.docItemsUpload}>
-                      <View style={styles.notUploaded}>
-                        <AntDesign
-                          name="clouduploado"
-                          size={24}
-                          color={COLORS.gray}
-                        />
-                        <Text style={styles.docText}>Ehliyet</Text>
-                      </View>
-                    </View>
-                    <View style={styles.docItems}>
-                      <AntDesign
-                        name="file1"
+                   
+                    {item.documents.map(x=>{
+                  return  (
+                  <View style={styles.docItemsUpload}> 
+                  
+ <Text>{x.type.description}</Text>
+ <AntDesign
+                        name="clouduploado"
                         size={24}
-                        color={COLORS.primary}
+                        color={COLORS.gray}
                       />
-                      <Text style={styles.docText}>Fotoğraf</Text>
-                     
-                    </View>
+                  </View>
+                  
+                 
+                  )})}
+                   
+                 
                   </View>
                 </View>
               </View>

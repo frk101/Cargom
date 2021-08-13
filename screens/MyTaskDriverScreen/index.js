@@ -49,6 +49,7 @@ const MyTaskScreen = () => {
             navigation.navigate("BarCodeScanner", {
               autoPickUp: false,
               qrCodeScreen: false,
+              otomatikModalAc:false
             })
           }
         >

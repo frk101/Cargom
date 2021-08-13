@@ -20,7 +20,7 @@ import { TextInputMask } from "react-native-masked-text";
 import { Formik } from "formik";
 import LoginScheme from "../../ValidationScheme/LoginScheme";
 import { shipperLogin } from "../../business/actions/shipper";
-
+import {MaterialCommunityIcons} from "react-native-vector-icons"
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import FormErrorText from "../../components/FormErrorText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -83,7 +83,7 @@ const LoginScreen = () => {
             onPress={() => navigation.navigate("RegisterScreen")}
           >
             <Text style={styles.headerSubTitle}>
-              Henüz Hesabınız Yok mu ?
+              Henüz Hesabınız Yok mu ? {" "}
               <Text style={{ color: COLORS.primary }}>Kayıt Ol</Text>
             </Text>
           </TouchableOpacity>
@@ -120,9 +120,7 @@ const LoginScreen = () => {
                 </Text>
                 <View style={styles.action}>
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: COLORS.primary, fontWeight: "bold" }}>
-                      +90
-                    </Text>
+                  <MaterialCommunityIcons name="account-circle" size={20} color={COLORS.gray}/>
                   </View>
                   <TextInput
                     placeholder="Telefon Numaranızı Giriniz"
