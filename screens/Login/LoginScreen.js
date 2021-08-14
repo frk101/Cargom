@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
-  
+
   Text,
   View,
   SafeAreaView,
   Image,
   TouchableOpacity,
- 
+  Alert,
   TextInput,
 } from "react-native";
 
@@ -19,48 +19,91 @@ import { Container, ScrollView as Content, } from "native-base";
 import { TextInputMask } from "react-native-masked-text";
 import { Formik } from "formik";
 import LoginScheme from "../../ValidationScheme/LoginScheme";
-import { shipperLogin } from "../../business/actions/shipper";
+import { shipperLogin,shipperLogin2 } from "../../business/actions/shipper";
 import {MaterialCommunityIcons} from "react-native-vector-icons"
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import FormErrorText from "../../components/FormErrorText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles";
 import { Ionicons } from "react-native-vector-icons";
+import { DatePickerIOSBase } from "react-native";
+
+
 
 const LoginScreen = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { shipperLoginResult } = useSelector((x) => x.shipper);
-
-
+  const { shipperLoginResult,shipperLoginFail } = useSelector((x) => x.shipper);
+ 
+  
 
   const _handleLogin = (values) => {
-    dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
-      console.log(values)
-      if (data.status) {
-        try {
-          await AsyncStorage.setItem("@token", data.data.token);
-        } catch (e) {
-          // saving error
-        }
-        navigation.navigate("MainScreen");
-      } else {
-        let message = "Giriş işlemi sırasında bir hata oluştu.";
-        if (data.message) {
-          message += data.message;
-        }
-        Notifier.showNotification({
-          title: "UYARI",
-          description: message,
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: "error",
-          },
-        });
-      }
-    });
+    dispatch(shipperLogin(values)).then((x)=> alert(x.error))}
+
+
+      const _handleLogin2 = (values) => {
+        dispatch(shipperLogin2(values)).then((x)=> alert(x.error))
+
+       
+
+    // dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
+    //   if (data.status) {
+    //     try {
+    //       await AsyncStorage.setItem("@token", data.data.token);
+    //     } catch (e) {
+    //       // saving error
+    //     }
+    //     navigation.navigate("MainScreen");
+    //   } else {
+    //     let message = "Giriş işlemi sırasında bir hata oluştu.";
+    //     if (data.message) {
+    //       message += data.message;
+    //     }
+    //     Notifier.showNotification({
+    //       title: "UYARI",
+    //       description: message,
+    //       Component: NotifierComponents.Alert,
+    //       componentProps: {
+    //         alertType: "error",
+    //       },
+    //     });
+    //   }
+    // });
   };
+  
+  
+  // const _handleLogin = (values) => {
+  // try {
+  //   dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
+  //       if (data.status) {
+  //         try {
+  //           await AsyncStorage.setItem("@token", data.data.token);
+  //         } catch (e) {
+  //           // saving error
+  //         }
+  //         navigation.navigate("MainScreen");
+  //       } else {
+  //         let message = "Giriş işlemi sırasında bir hata oluştu.";
+  //         if (data.message) {
+  //           message += data.message;
+  //         }
+  //         Notifier.showNotification({
+  //           title: "UYARI",
+  //           description: message,
+  //           Component: NotifierComponents.Alert,
+  //           componentProps: {
+  //             alertType: "error",
+  //           },
+  //         });
+  //       }
+      
+      
+  //   });
+  // } catch (error) {
+  //   console.log("ssss",error)
+  // }
+  // };
 
   return (
     
@@ -96,10 +139,11 @@ const LoginScreen = () => {
         <Content flex={1}  >
           <Formik
             initialValues={{
-              email:"",
-              password:"",
+              email:  "",
+              password: "",
             }}
             onSubmit={(values) => _handleLogin(values)}
+            onSubmit={(values) => _handleLogin2(values)}
             validationSchema={LoginScheme}
           >
             {({
@@ -204,9 +248,18 @@ const LoginScreen = () => {
                 >
                   <Text style={styles.btnText}>Giriş Yap</Text>
                 </TouchableOpacity>
+
+
+                <TouchableOpacity
+                  onPress={handleSubmit}
+                  style={styles.btnGonder}
+                >
+                  <Text style={styles.btnText}>Giriş Yap</Text>
+                </TouchableOpacity>
               </>
             )}
           </Formik>
+          <Text></Text>
         </Content>
       </SafeAreaView>
    

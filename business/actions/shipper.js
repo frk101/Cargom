@@ -114,7 +114,18 @@ export function shipperLogin(userModel) {
     },
   };
 }
-
+export function shipperLogin2(userModel) {
+  return {
+    type: SHIPPERS_LOGIN,
+    payload: {
+      request: {
+        method: "POST",
+        url: "https://mapi.shipgeldi.com/Login",
+        data: userModel,
+      },
+    },
+  };
+}
 export function vehiclesGetByShipper() {
   return {
     type: VEHICLES_GET_BY_SHIPPER_ID,
