@@ -37,7 +37,7 @@ const LoginScreen = () => {
 
   const _handleLogin = (values) => {
     dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
-      
+      console.log(values)
       if (data.status) {
         try {
           await AsyncStorage.setItem("@token", data.data.token);
@@ -96,8 +96,8 @@ const LoginScreen = () => {
         <Content flex={1}  >
           <Formik
             initialValues={{
-              email: __DEV__ ? "faruk@deneme.com" : "",
-              password: __DEV__ ? "150169223" : "",
+              email:"",
+              password:"",
             }}
             onSubmit={(values) => _handleLogin(values)}
             validationSchema={LoginScheme}

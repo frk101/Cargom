@@ -3,9 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const isTest = __DEV__;
 
-export const apiUrl = isTest
-  ? "http://mobileapi.shipgeldi.com"
-  : "http://mobileapi.shipgeldi.com";
+export const apiUrl =
+  "https://mobileapi.shipgeldi.com";
 
 export const axiosClient = {
   ["default"]: {

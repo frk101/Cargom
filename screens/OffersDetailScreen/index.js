@@ -241,7 +241,7 @@ const AllCargoDetail = () => {
                 <Text style={styles.offer}>Teklifi Kabul Et</Text>
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity onPress={() => navigation.navigate("ProfileEditScreen")} style={styles.openModal}>
+              <TouchableOpacity onPress={() => navigation.navigate("ProfileScreen")} style={styles.openModal}>
                 <Text style={styles.btnText}>Teklifi Kabul Et</Text>
               </TouchableOpacity>
             )}
