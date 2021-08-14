@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cargom",
-    "slug": "cargom",
+    "name": "Ship Geldi",
+    "slug": "ShipGeldi",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,13 +17,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "shipgeldi.shipper.mobile",
+      "buildNumber": "1.0.0"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "package": "shipgeldi.shipper.mobile",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
