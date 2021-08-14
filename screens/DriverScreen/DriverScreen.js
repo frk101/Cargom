@@ -96,7 +96,7 @@ const DriverScreen = () => {
 };
 
 const RenderList = ({ item }) => {
-  console.log(item)
+  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -211,6 +211,12 @@ const RenderList = ({ item }) => {
                 </View>
                 <View style={styles.listes}>
                   <Text style={styles.baslik}>
+                    Telefon :{" "}
+                    <Text style={styles.title}>{item.driver.phoneNumber}</Text>
+                  </Text>
+                </View>
+                <View style={styles.listes}>
+                  <Text style={styles.baslik}>
                     E-posta :{" "}
                     <Text style={styles.title}>
                       {" "}
@@ -235,12 +241,7 @@ const RenderList = ({ item }) => {
                     </Text>
                   </Text>
                 </View>
-                <View style={styles.listes}>
-                  <Text style={styles.baslik}>
-                    Telefon :{" "}
-                    <Text style={styles.title}>{item.driver.phoneNumber}</Text>
-                  </Text>
-                </View>
+            
                 <View style={styles.docView}>
                   <Ionicons
                     name="ios-document-text-sharp"
@@ -252,33 +253,37 @@ const RenderList = ({ item }) => {
               
                 <View style={{ backgroundColor: "#fff", paddingBottom: 20 }}>
                 {item.documents.map(x=>{
+                  
                   return  (
                   <View style={styles.docItemsUpload}> 
                   
  <Text>{x.type.description}</Text>
- <AntDesign
+ {x.document == null ?  <TouchableOpacity onPress={() => {
+  toggleModal();
+    }}
+    onPressIn={() => {
+      navigation.navigate("WebView", {
+        title: "Sürücü Detay",  url:"?"
+       
+      })
+    }}>
+  <AntDesign
                         name="clouduploado"
                         size={24}
                         color={COLORS.gray}
                       />
+ </TouchableOpacity> :   <AntDesign
+                      name="checkcircle"
+                      color=  "#23BF08"  
+                      size={25}
+                      style={{ margin: 5 }}
+                    />}
+                       
                   </View>
                   
                  
                   )})}
-                  {/* <View style={styles.docItemsUpload}>
-                    <View style={styles.notUploaded}>
-                      <AntDesign
-                        name="clouduploado"
-                        size={24}
-                        color={COLORS.gray}
-                      />
-                      <Text style={styles.docText}>Ehliyet</Text>
-                    </View>
-                  </View>
-                  <View style={styles.docItems}>
-                    <AntDesign name="file1" size={24} color={COLORS.primary} />
-                    <Text style={styles.docText}>Fotoğraf</Text>
-                  </View> */}
+         
                 </View>
               </View>
             </Content>

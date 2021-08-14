@@ -20,11 +20,11 @@ export default Yup.object().shape({
     .max(50, "Hatalı giriş yaptınız!"),
     
     taxOffice: Yup.string()
-    .min(15, "Boş geçilemez!")
+    .min(6, "Boş geçilemez!")
     .max(50, "Hatalı giriş yaptınız!"),
     
     taxNumber: Yup.string()
-    .min(15, "Boş geçilemez!")
+    .min(10, "Boş geçilemez!")
     .max(50, "Hatalı giriş yaptınız!"),
   
 });

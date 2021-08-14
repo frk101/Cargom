@@ -79,10 +79,10 @@ const Filter = ({ setOpenModal }) => {
           if (data.length == undefined || data.length == 0) {
             
            
-            alert("Mevcut filtreleme yoktur !");
+         
             Notifier.showNotification({
               title: "UYARI",
-              description: "Mevcut filtreleme yoktur !",
+              description: "Filtrelemelerinize uygun teklif bulumadı !",
               Component: NotifierComponents.Alert,
               componentProps: {
                 alertType: "error",
@@ -211,8 +211,13 @@ const Filter = ({ setOpenModal }) => {
           />
 
         </View>
-
+   <TouchableOpacity style={styles.actionBtn} onPress={() => _handleSearchOffer()}>
+   <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>
+              UYGULA
+            </Text>
+   </TouchableOpacity>
       </Content>
+
       {/* <Footer>
         <FooterTab style={{ backgroundColor: COLORS.primary }}>
           <Button full onPress={() => _handleSearchOffer()}>

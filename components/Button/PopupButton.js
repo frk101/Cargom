@@ -52,27 +52,12 @@ const PopupButton = ({ register, gorev, driverList }) => {
                 Görev Alma Başarılı{"\n"}
                 <Text style={{ fontSize: 15, fontWeight: "500" }}>{"\n"}</Text>
               </Text>
-
-              {/* <Footer>
-                <FooterTab style={{ backgroundColor: COLORS.primary }}>
-                  <Button
-                    full
-                    onPress={() => {
-                      setVisible(false);
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 16,
-                        fontWeight: "700",
-                      }}
-                    >
-                      TAMAM
-                    </Text>
-                  </Button>
-                </FooterTab>
-              </Footer> */}
+              <TouchableOpacity style={styles.actionBtn} style={{ backgroundColor: COLORS.primary }}>
+   <Text style={{ color: "white", fontSize: 16, fontWeight: "700" }}>
+   TAMAM
+            </Text>
+   </TouchableOpacity>
+             
             </ModalPoup>
           </View>
         </View>
@@ -241,5 +226,15 @@ const styles = StyleSheet.create({
     marginTop: 50,
     padding: 20,
     borderRadius: 40,
+  },actionBtn: {
+    flexDirection: "row",
+    marginTop: 5,
+backgroundColor:COLORS.primary,
+    
+    padding: 16,
+   justifyContent:"center",
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
   },
 });

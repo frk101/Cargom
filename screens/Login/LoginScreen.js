@@ -32,8 +32,12 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { shipperLoginResult } = useSelector((x) => x.shipper);
+
+
+
   const _handleLogin = (values) => {
     dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
+      
       if (data.status) {
         try {
           await AsyncStorage.setItem("@token", data.data.token);

@@ -173,12 +173,13 @@ const AllCargoDetail = () => {
   //     ordersGetPendingOfferDetailResult.data
 
   // );
+  
   return (
     <>
-      {ordersGetPendingOfferDetailLoading ? (
+      {ordersGetPendingOfferDetailLoading.data ? (
         <ActivityIndicator />
       ) : (
-        <View style={styles.container}>
+        <View style={styles.container} >
           <View style={{ height: height * 0.4 }}>
             <MapView
               provider={PROVIDER_GOOGLE}

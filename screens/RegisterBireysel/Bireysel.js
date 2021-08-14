@@ -19,13 +19,15 @@ const Bireysel = () => {
 
   const _handleRegister = (values) => {
     values.phone = values.phone.replace("(", "").replace(")", "").replace("-", "").replace(/\s/g, "").trim();
-    values.shipperType = 1;
     values.ipAddress = "127.0.0.1";
     if (values.isTaxPlayer && values.taxNumber && values.taxNumber.length > 0) values.taxNumber = parseFloat(values.taxNumber);
     if (isNaN(values.taxNumber) || values.taxNumber.length == 0) values.taxNumber = 0;
-
+    
+    
     dispatch(shipperRegisterBeginRequest(values)).then(({ payload: { data } }) => {
+
       if (data.status) {
+       
         navigation.navigate("OtpScreens", values);
       } else {
         let message = "Kayıt işlemi sırasında bir hata oluştu.";

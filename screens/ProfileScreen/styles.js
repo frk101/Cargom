@@ -6,6 +6,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginTop: 40,
+    marginHorizontal: 20,
   },
 
   backBtn: {
@@ -13,6 +14,7 @@ export default StyleSheet.create({
     height: 48,
     justifyContent: "center",
     alignItems: "center",
+    
   },
   opacitys: {
     alignItems: "center",
@@ -21,9 +23,10 @@ export default StyleSheet.create({
     paddingVertical: 10,
     shadowColor: "#000",
     borderRadius: 5,
+    marginHorizontal: 20,
   },
   nameWrapper: {
-    marginLeft: 10,
+    marginLeft: 10,justifyContent:"center"
   },
   name: {
     fontWeight: "bold",
@@ -33,7 +36,8 @@ export default StyleSheet.create({
     color: COLORS.gray,
   },
   docsWrapper: {
-    marginTop: 16,
+    marginTop: 40,
+    marginHorizontal: 20,
   },
   title: {
     fontWeight: "bold",
@@ -72,5 +76,62 @@ export default StyleSheet.create({
   error: {
     color: "red",
     fontSize: 12,
+  },
+  durumContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    marginTop: 5,
+  },
+  durumColor: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: 20,
+    paddingHorizontal:5,
+    // padding: 10,
+    marginBottom: 5,
+    borderRadius: 4,
+  }, durum: {
+    color: "#fff",
+
+    textAlign: "center",
+  },modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 60,
+    marginHorizontal: 30,
+  },
+  modaltxtContainer: {
+    flex: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modaltxt: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalRds: {
+    flex: 1,
+    backgroundColor: "#F1F2F4",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },  listes: {
+    backgroundColor: "#F1F2F4",
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+  },
+  baslik: {
+    color: COLORS.text,
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  title: {
+    color: COLORS.text,
+    fontWeight: "400",
+    fontSize: 15,
   },
 });

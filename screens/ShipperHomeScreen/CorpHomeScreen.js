@@ -64,6 +64,11 @@ const CorpHomeScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const { shipperLoginResult } =
+    useSelector((x) => x.shipper);
+
+    console.log(shipperLoginResult)
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={styles.menu}>

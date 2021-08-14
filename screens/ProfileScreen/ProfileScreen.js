@@ -18,22 +18,25 @@ import styles from "./styles";
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { shipperLoginResult } = useSelector((x) => x.shipper);
+ 
   return (
     <>
+    
       <SafeAreaView
-        style={{ flex: 1, backgroundColor: "#fff", marginHorizontal: 20 }}
+      
+        style={{ flex: 1, backgroundColor: "#fff",}}
       >
-        <View style={styles.topNavBar}>
+        <View style={styles.topNavBar} >
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.backBtn}>
               <Image
                 source={require("../../assets/backicon.png")}
-                style={{ width: 30, height: 30 }}
+                style={{ width: 30, height: 30,marginHorizontal: 20, }}
                 resizeMode="contain"
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate("ProfileEditScreen")}
           >
             <MaterialCommunityIcons
@@ -41,9 +44,9 @@ const ProfileScreen = () => {
               size={32}
               color={COLORS.gray}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 20 ,marginHorizontal: 20,}}>
           <Text
             style={{ fontSize: 30, fontWeight: "bold", color: COLORS.text }}
           >
@@ -51,11 +54,13 @@ const ProfileScreen = () => {
           </Text>
         </View>
         <View style={styles.opacitys}>
-          <MaterialCommunityIcons
-            name="account-circle"
-            size={48}
-            color={COLORS.gray}
-          />
+        <Image 
+        style={{width:50,height:50,borderRadius:50}}
+        source={{
+          
+          uri: shipperLoginResult&&shipperLoginResult.data&&shipperLoginResult.data.shipper&&shipperLoginResult.data.shipper.logoUrl,
+        }}/>
+
           <View style={styles.nameWrapper}>
             <Text style={styles.name}>
               {shipperLoginResult &&
@@ -63,50 +68,131 @@ const ProfileScreen = () => {
                 shipperLoginResult.data.shipper &&
                 shipperLoginResult.data.shipper.companyName}
             </Text>
+            
+          <View style={styles.durumContainer}>
+            <View
+              style={[
+                styles.durumColor,
+                {
+                  backgroundColor:
+                  shipperLoginResult &&
+                    shipperLoginResult.data &&
+                    shipperLoginResult.data.shipper &&
+                    shipperLoginResult.data.shipper.status === 10
+                      ? "#0866C6"
+                      : shipperLoginResult &&
+                      shipperLoginResult.data &&
+                      shipperLoginResult.data.shipper &&
+                      shipperLoginResult.data.shipper.status === 20
+                      ? "#F49917"
+                      : shipperLoginResult &&
+                      shipperLoginResult.data &&
+                      shipperLoginResult.data.shipper &&
+                      shipperLoginResult.data.shipper.status === 40
+                      ? "#DC3545"
+                      : null,
+
+                 
+                },
+              ]}
+            >
+              <Text style={styles.durum}>
+                {shipperLoginResult &&
+                    shipperLoginResult.data &&
+                    shipperLoginResult.data.shipper &&
+                    shipperLoginResult.data.shipper.status === 10
+                  ? "Profilinzi Tamamlayın"
+                  : shipperLoginResult &&
+                  shipperLoginResult.data &&
+                  shipperLoginResult.data.shipper &&
+                  shipperLoginResult.data.shipper.status === 20
+                  ? "İnceleniyor"
+                  : shipperLoginResult &&
+                  shipperLoginResult.data &&
+                  shipperLoginResult.data.shipper &&
+                  shipperLoginResult.data.shipper.status === 40
+                  ? "Askıya Alındı"
+                  : ""}
+              </Text>
+            </View>
+          
           </View>
+          </View>
+
         </View>
         <Content>
           <View style={styles.docsWrapper}>
-            <Text style={styles.title}>Dokümanlar</Text>
-
-            {/* <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ height: "100%" }}
-          > 
-            <View style={styles.docItems}>
-              <AntDesign name="clouduploado" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              <Feather name="x-circle" size={24} color={COLORS.gray} />
-            </View>
-*/}
-            <View style={styles.docItemsUpload}>
-              <View style={styles.notUploaded}>
-                <AntDesign name="clouduploado" size={24} color={COLORS.gray} />
-                <Text style={styles.docText}>Sürücü Belgesi </Text>
-              </View>
-              {/* <Feather name="upload" size={24} color={COLORS.gray} /> */}
-            </View>
-            <View style={styles.docItems}>
-              <AntDesign name="file1" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/*  */}
-            </View>
-            <View style={styles.docItems}>
-              <AntDesign name="hourglass" size={24} color={COLORS.primary} />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-
-            <View style={[styles.docItems, { borderColor: "red" }]}>
-              <AntDesign name="closecircleo" size={24} color="red" />
-              <Text style={styles.docText}>Sürücü Belgesi</Text>
-              {/* <Feather name="x-circle" size={24} color={COLORS.gray} /> */}
-            </View>
-            <Text style={styles.error}>
-              Döküman resmi kurumlarca doğrulanamadı.s
-            </Text>
-
-            {/* </ScrollView> */}
+          
+            <View style={styles.listes}>
+                  <Text style={styles.baslik}>
+                    Ad Soyad :{" "}
+                    <Text style={styles.title}>
+                    {shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.contactPerson}
+                    </Text>
+                  </Text>
+                </View>
+                <View style={styles.listes}>
+                  <Text style={styles.baslik}>
+                    E-posta :{" "}
+                    <Text style={styles.title}>
+                    {shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.email}
+                    </Text>
+                  </Text>
+                </View>
+                <View style={styles.listes}>
+                  <Text style={styles.baslik}>
+                    Telefon :{" "}
+                    <Text style={styles.title}>
+                    {shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.phoneNumber}
+                    </Text>
+                  </Text>
+                </View>
+                <View style={styles.listes}>
+                  <Text style={styles.baslik}>
+                    Vergi dairesi :{" "}
+                    <Text style={styles.title}>
+                    {shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.taxOffice}
+                    </Text>
+                  </Text>
+                </View>
+                <View style={styles.listes}>
+                  <Text style={styles.baslik}>
+                    Vergi numarası :{" "}
+                    <Text style={styles.title}>
+                    {shipperLoginResult &&
+                shipperLoginResult.data &&
+                shipperLoginResult.data.shipper &&
+                shipperLoginResult.data.shipper.number}
+                    </Text>
+                  </Text>
+                </View>
+               <TouchableOpacity style={{justifyContent:"center",alignItems:"center",marginVertical:40,backgroundColor:COLORS.primary,padding: 20,borderRadius:10}} 
+               onPress={()=>navigation.navigate("WebView",{
+                title: "Profili Güncelle",
+                url:"?"
+              })}>
+                 <Text style={{ fontSize:16,fontWeight:"bold",color:"#fff"  }}>
+                   {shipperLoginResult &&
+                    shipperLoginResult.data &&
+                    shipperLoginResult.data.shipper &&
+                    shipperLoginResult.data.shipper.status === 10
+                  ? "Profilinzi Tamamlayın"
+                  : 
+                   "Profili Güncelle"
+                 }</Text>
+               </TouchableOpacity>
           </View>
         </Content>
       </SafeAreaView>

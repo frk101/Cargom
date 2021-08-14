@@ -38,19 +38,23 @@ import COLORS from "../../constans/colors";
 import styles from "./styles";
 import Modal from "react-native-modal";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
+import * as Location from 'expo-location';
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 const MyTaskShipperDetailSecreen = () => {
   const dispatch = useDispatch();
   const route = useRoute();
-
+  
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
   const [openDeliveryInput, setOpenDeliveryInput] = useState(false);
   const [deliveryInputText, setDeliveryInputText] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
+  
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -65,7 +69,6 @@ useEffect(() => {
       setDeliveryInputText("");
   }
   return () => {
-    
   }
 }, [route.params.otomatikModalAc])
 
@@ -77,6 +80,8 @@ useEffect(() => {
   const _getShipperTaskDetail = async () => {
     dispatch(shipperOrdersgetById(route.params.orderDetail.orderID));
   };
+ 
+
   const _handlePickUp = async () => {
     if (route.params.qrCodeScreen) {
       Alert.alert("UYARI", "Teslim almak istediğinize emin misiniz?", [
@@ -173,6 +178,7 @@ useEffect(() => {
         { text: "Evet", onPress: () => console.log("OK Pressed") }
       ]
     );
+   
   return (
     <Layout title="Görev Detay">
       {shipperOrdersGetByIdResult.data == undefined ? (
@@ -190,6 +196,7 @@ useEffect(() => {
             style={{ backgroundColor: "#F1F2F4" }}
             contentContainerStyle={{ paddingBottom: 100 }}
           >
+            
             <View style={styles.listPrice}>
               {shipperLoginResult.data &&
               shipperLoginResult.data.userType == 1 ? (
@@ -469,6 +476,7 @@ useEffect(() => {
                   right: 0.5,
                   bottom: height * 0.3,
                 }}
+               
                 provider={PROVIDER_GOOGLE}
                 style={StyleSheet.absoluteFillObject}
                 initialRegion={{
@@ -559,6 +567,30 @@ useEffect(() => {
              onPress={() => {
                let url ='https://www.google.com/maps/dir/';
 url+=shipperOrdersGetByIdResult &&
+shipperOrdersGetByIdResult.data.endLat+',';
+url+=shipperOrdersGetByIdResult &&
+shipperOrdersGetByIdResult.data.endLng;
+
+               Linking.openURL(url)
+             }}
+                style={{
+                  margin: 10,
+                  backgroundColor: COLORS.text,
+                  width: 100,
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ color: "#fff", textAlign: "center" }}>
+                  Yol Tarifi {"\n"} (Alıcı)
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+             onPress={() => {
+               let url ='https://www.google.com/maps/dir/';
+url+=shipperOrdersGetByIdResult &&
 shipperOrdersGetByIdResult.data.startLat+',';
 url+=shipperOrdersGetByIdResult &&
 shipperOrdersGetByIdResult.data.startLng;
@@ -576,7 +608,7 @@ shipperOrdersGetByIdResult.data.startLng;
                 }}
               >
                 <Text style={{ color: "#fff", textAlign: "center" }}>
-                  Yol Tarifi Al
+                  Yol Tarifi (Gönderici)
                 </Text>
               </TouchableOpacity>
             </View>

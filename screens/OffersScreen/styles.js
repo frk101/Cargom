@@ -117,6 +117,17 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
+  actionBtn: {
+    flexDirection: "row",
+    marginTop: 5,
+backgroundColor:COLORS.primary,
+    
+    padding: 16,
+   justifyContent:"center",
+    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
   actionSearch: {
     
     marginTop: 5,

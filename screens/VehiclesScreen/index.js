@@ -93,7 +93,7 @@ const index = () => {
 };
 
 const RenderList = ({ item }) => {
-  
+  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -243,11 +243,27 @@ const RenderList = ({ item }) => {
                   <View style={styles.docItemsUpload}> 
                   
  <Text>{x.type.description}</Text>
- <AntDesign
+ {x.document == null ?  <TouchableOpacity   
+ onPress={() => {
+  toggleModal();
+    }}
+    onPressIn={() => {
+      navigation.navigate("WebView", {
+        title: "Araç Detay",
+        url:"?"
+      })
+    }}>
+  <AntDesign
                         name="clouduploado"
                         size={24}
                         color={COLORS.gray}
                       />
+ </TouchableOpacity> :   <AntDesign
+                      name="checkcircle"
+                      color=  "#23BF08"  
+                      size={25}
+                      style={{ margin: 5 }}
+                    />}
                   </View>
                   
                  

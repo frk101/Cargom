@@ -24,7 +24,7 @@ const OtpScreens = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [visible, setVisible] = useState(false);
-
+  
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
@@ -121,7 +121,9 @@ const OtpScreens = () => {
         input5TextRef.current +
         input6TextRef.current
     );
+   
     dispatch(shipperRegisterComplate(model)).then(({ payload: { data } }) => {
+     
       if (data.status) {
         setVisible(true);
       } else {
@@ -251,7 +253,18 @@ const OtpScreens = () => {
                     {"\n"}
                   </Text>
                 </Text>
-
+<TouchableOpacity style={{ backgroundColor: COLORS.primary,justifyContent:"center",alignItems:  "center" ,padding:15,borderRadius:5}} onPress={_handleSuccessModalButton}>
+<Text
+                        style={{
+                          color: "white",
+                          fontSize: 16,
+                          fontWeight: "700",
+                          textAlign:"center"
+                        }}
+                      >
+                        TAMAM
+                      </Text>
+</TouchableOpacity>
                 {/* <Footer>
                   <FooterTab style={{ backgroundColor: COLORS.primary }}>
                     <Button full onPress={_handleSuccessModalButton}>
