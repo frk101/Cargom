@@ -37,73 +37,43 @@ const LoginScreen = () => {
   const { shipperLoginResult,shipperLoginFail } = useSelector((x) => x.shipper);
  
   
-
   const _handleLogin = (values) => {
-    dispatch(shipperLogin(values)).then((x)=> alert(x.error))}
+    dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
+     
+      if (data.status) {
+        try {
+          await AsyncStorage.setItem("@token", data.data.token);
+        } catch (e) {
+          // saving error
+        }
+        navigation.navigate("MainScreen");
+      } else {
+        let message = "Giriş işlemi sırasında bir hata oluştu.";
+        if (data.message) {
+          message += data.message;
+        }
+        Notifier.showNotification({
+          title: "UYARI",
+          description: message,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: "error",
+          },
+        });
+      }
+    });
+  };
+  
 
 
-      const _handleLogin2 = (values) => {
-        dispatch(shipperLogin2(values)).then((x)=> alert(x.error))
+      // const _handleLogin2 = (values) => {
+      //   dispatch(shipperLogin2(values)).then((x)=> alert(x.error))
 
        
 
-    // dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
-    //   if (data.status) {
-    //     try {
-    //       await AsyncStorage.setItem("@token", data.data.token);
-    //     } catch (e) {
-    //       // saving error
-    //     }
-    //     navigation.navigate("MainScreen");
-    //   } else {
-    //     let message = "Giriş işlemi sırasında bir hata oluştu.";
-    //     if (data.message) {
-    //       message += data.message;
-    //     }
-    //     Notifier.showNotification({
-    //       title: "UYARI",
-    //       description: message,
-    //       Component: NotifierComponents.Alert,
-    //       componentProps: {
-    //         alertType: "error",
-    //       },
-    //     });
-    //   }
-    // });
-  };
   
   
-  // const _handleLogin = (values) => {
-  // try {
-  //   dispatch(shipperLogin(values)).then(async ({ payload: { data } }) => {
-  //       if (data.status) {
-  //         try {
-  //           await AsyncStorage.setItem("@token", data.data.token);
-  //         } catch (e) {
-  //           // saving error
-  //         }
-  //         navigation.navigate("MainScreen");
-  //       } else {
-  //         let message = "Giriş işlemi sırasında bir hata oluştu.";
-  //         if (data.message) {
-  //           message += data.message;
-  //         }
-  //         Notifier.showNotification({
-  //           title: "UYARI",
-  //           description: message,
-  //           Component: NotifierComponents.Alert,
-  //           componentProps: {
-  //             alertType: "error",
-  //           },
-  //         });
-  //       }
-      
-      
-  //   });
-  // } catch (error) {
-  //   console.log("ssss",error)
-  // }
-  // };
+
 
   return (
     
@@ -143,7 +113,6 @@ const LoginScreen = () => {
               password: "",
             }}
             onSubmit={(values) => _handleLogin(values)}
-            onSubmit={(values) => _handleLogin2(values)}
             validationSchema={LoginScheme}
           >
             {({
@@ -242,14 +211,6 @@ const LoginScreen = () => {
                 {errors.password && touched.password ? (
                   <FormErrorText>* {errors.password}</FormErrorText>
                 ) : null}
-                <TouchableOpacity
-                  onPress={handleSubmit}
-                  style={styles.btnGonder}
-                >
-                  <Text style={styles.btnText}>Giriş Yap</Text>
-                </TouchableOpacity>
-
-
                 <TouchableOpacity
                   onPress={handleSubmit}
                   style={styles.btnGonder}
