@@ -132,7 +132,7 @@ const MyTaskDriverDetailScreen = () => {
                   right: 0.5,
                   bottom: height * 0.3,
                 }}
-                provider={PROVIDER_GOOGLE}
+                provider="google"
                 style={StyleSheet.absoluteFillObject}
                 initialRegion={{
                   latitude: parseFloat(

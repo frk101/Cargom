@@ -24,7 +24,7 @@ const AllCargoDetail = ({ route }) => {
     <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <View style={{ width: width, height: height / 2 }}>
         <MapView
-          provider={PROVIDER_GOOGLE}
+          provider="google"
           style={StyleSheet.absoluteFillObject}
           initialRegion={{
             latitude: 37.0038013,

@@ -182,7 +182,7 @@ const AllCargoDetail = () => {
         <View style={styles.container} >
           <View style={{ height: height * 0.4 }}>
             <MapView
-              provider={PROVIDER_GOOGLE}
+              provider="google"
               style={StyleSheet.absoluteFillObject}
               initialRegion={{
                 latitude: 41.0054958,

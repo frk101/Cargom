@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  ActivityIndicator
 } from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -34,7 +35,7 @@ const LoginScreen = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { shipperLoginResult,shipperLoginFail } = useSelector((x) => x.shipper);
+  const { shipperLoginResult,shipperLoginLoading } = useSelector((x) => x.shipper);
  
   
   const _handleLogin = (values) => {
@@ -215,7 +216,11 @@ const LoginScreen = () => {
                   onPress={handleSubmit}
                   style={styles.btnGonder}
                 >
+                  {shipperLoginLoading ? (
+                  <ActivityIndicator  color="#fff"/>
+                ) : (
                   <Text style={styles.btnText}>Giriş Yap</Text>
+                )}
                 </TouchableOpacity>
               </>
             )}

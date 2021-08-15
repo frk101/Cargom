@@ -2,7 +2,7 @@
   "expo": {
     "name": "Ship Geldi",
     "slug": "ShipGeldi",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,11 +19,20 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "shipgeldi.shipper.mobile",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.2",
+      "config": {
+        "googleMapsApiKey":"AIzaSyC6qf3fksKgRubaiBDVJakH8Sf_449vGAc"
+      }
     },
+
     "android": {
       "package": "shipgeldi.shipper.mobile",
-      "versionCode": 2
+      "versionCode": 3,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC6qf3fksKgRubaiBDVJakH8Sf_449vGAc"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
