@@ -149,18 +149,7 @@ const LoginScreen = () => {
                     value={values.email}
                   />
 
-                  {/* <TextInputMask
-              placeholder="Telefon Numaranızı Giriniz"
-              style={styles.textInput}
-              type={"cel-phone"}
-              options={{
-                maskType: "BRL",
-                withDDD: true,
-                dddMask: "(999) 999 99-99 ",
-              }}
-              value={cell}
-              onChangeText={(text) => setCell(text)}
-            /> */}
+                 
                 </View>
                 {errors.email && touched.email ? (
                   <FormErrorText>* {errors.email}</FormErrorText>
